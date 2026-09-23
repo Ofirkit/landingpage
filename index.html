@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UXUIKIT | עיצוב ובניית אתרים ב-Framer לסטארטאפים</title>
-  <meta name="description" content="אתר לסטארטאפ שנראה טוב כמו המוצר שלכם — מעוצב ונבנה ב-Framer, בלי לגעת בזמן של הפיתוח, וצוות השיווק מעדכן אותו לבד. שיחת אבחון חינם." />
+  <meta name="description" content="עיצוב ובניית אתרים ב-Framer לסטארטאפים: אתר ברור ומרשים, מוכן לגיוס או להשקה, שאתם מעדכנים לבד. שיחת אבחון חינם." />
   <meta name="theme-color" content="#0b0b24" />
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="he_IL" />
-  <meta property="og:title" content="UXUIKIT | אתר שנראה טוב כמו המוצר שלכם" />
-  <meta property="og:description" content="עיצוב ובניית אתרים ב-Framer לסטארטאפים. בלי זמן פיתוח, עם אתר שהשיווק מעדכן לבד." />
+  <meta property="og:title" content="UXUIKIT | אתר שמציג את הסטארטאפ שלכם במיטבו" />
+  <meta property="og:description" content="עיצוב ובניית אתרים ב-Framer לסטארטאפים, שאתם מעדכנים לבד." />
   <meta property="og:image" content="assets/ofir.webp" />
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -35,7 +35,7 @@
 
       <nav class="main-nav" id="main-nav" aria-label="ניווט ראשי">
         <ul>
-          <li><a href="#work">עבודות</a></li>
+          <li><a href="#testimonials">המלצות</a></li>
           <li><a href="#process">איך זה עובד</a></li>
           <li><a href="#packages">חבילות</a></li>
           <li><a href="#faq">שאלות</a></li>
@@ -59,20 +59,47 @@
           <span class="status-dot" aria-hidden="true"></span>
           מקבל עד 3 פרויקטים בחודש
         </span>
-        <h1 class="reveal">אתר שנראה טוב כמו המוצר שלכם</h1>
+        <h1 class="reveal">אתר שמציג את הסטארטאפ שלכם במיטבו</h1>
         <p class="lead reveal">
-          אני מעצב ובונה אתרים ב-Framer לסטארטאפים. בלי לגעת בזמן של הפיתוח, מוכן לגיוס או להשקה, וצוות השיווק מעדכן אותו לבד.
+          אני מעצב ובונה אתרים ב-Framer לסטארטאפים: ברורים, מרשימים ומוכנים לגיוס או להשקה. ואחרי ההשקה, אתם מעדכנים אותם לבד.
         </p>
         <div class="hero-ctas reveal">
           <a href="#contact" class="btn btn-primary btn-lg">לשיחת אבחון חינם</a>
-          <a href="#work" class="btn btn-ghost btn-lg">לעבודות שלי</a>
+          <a href="#packages" class="btn btn-ghost btn-lg">חבילות ומחירים</a>
         </div>
         <p class="cta-note reveal">20 דקות, בלי התחייבות. תצאו עם 3 שיפורים קונקרטיים לאתר, גם אם לא נעבוד יחד.</p>
+      </div>
 
+      <!-- ===== Work gallery =====
+           Each .shot is one project image. Replace the placeholder <div class="shot ...">
+           with: <figure class="shot"><img src="assets/work/NAME.webp" alt="PROJECT NAME" /></figure>
+           Width comes from the image ratio (fixed row height); the rows loop automatically. -->
+      <div class="gallery reveal" id="work" aria-label="עבודות נבחרות">
+        <div class="gallery-row">
+          <div class="gallery-track">
+            <div class="shot shot-wide ph-1"><span>עבודה 1</span></div>
+            <div class="shot shot-narrow ph-2"><span>עבודה 2</span></div>
+            <div class="shot shot-wide ph-3"><span>עבודה 3</span></div>
+            <div class="shot shot-mid ph-4"><span>עבודה 4</span></div>
+            <div class="shot shot-wide ph-5"><span>עבודה 5</span></div>
+          </div>
+        </div>
+        <div class="gallery-row gallery-row-reverse">
+          <div class="gallery-track">
+            <div class="shot shot-mid ph-6"><span>עבודה 6</span></div>
+            <div class="shot shot-wide ph-7"><span>עבודה 7</span></div>
+            <div class="shot shot-narrow ph-8"><span>עבודה 8</span></div>
+            <div class="shot shot-wide ph-9"><span>עבודה 9</span></div>
+            <div class="shot shot-mid ph-10"><span>עבודה 10</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
         <ul class="hero-highlights reveal" aria-label="בקצרה">
-          <li><strong>8+ שנים</strong><span>בעיצוב מוצר ו-UI/UX</span></li>
-          <li><strong>מעצב + מפתח</strong><span>מה שמעוצב הוא מה שעולה לאוויר</span></li>
-          <li><strong>0 שעות</strong><span>של הצוות הטכני שלכם</span></li>
+          <li><strong>10+ שנים</strong><span>בעיצוב ובפיתוח מוצרים דיגיטליים</span></li>
+          <li><strong>עיצוב ובנייה</strong><span>אצל אותו אדם, בלי מתווכים</span></li>
+          <li><strong>עצמאות מלאה</strong><span>מעדכנים את האתר לבד, בלי מפתחים</span></li>
         </ul>
       </div>
     </section>
@@ -82,21 +109,21 @@
       <div class="container">
         <header class="section-head reveal">
           <span class="tag">נשמע מוכר?</span>
-          <h2>המוצר שלכם התקדם. האתר נשאר מאחור.</h2>
+          <h2>כשהאתר לא עושה את העבודה</h2>
         </header>
 
         <ul class="pains-grid">
           <li class="pain card reveal">
             <span class="pain-mark" aria-hidden="true">×</span>
-            <p>האתר נבנה לפני שנתיים, ומאז המוצר, המיצוב והקהל השתנו. הוא כבר לא מייצג אתכם.</p>
+            <p>האתר נבנה בשלב אחר של החברה, והוא כבר לא מייצג את מי שאתם היום.</p>
           </li>
           <li class="pain card reveal">
             <span class="pain-mark" aria-hidden="true">×</span>
-            <p>כל שינוי כותרת מחכה לספרינט של הפיתוח, והמפתחים מעדיפים (בצדק) לעבוד על המוצר.</p>
+            <p>כל שינוי כותרת מחכה למפתח, ובינתיים ההזדמנות עוברת.</p>
           </li>
           <li class="pain card reveal">
             <span class="pain-mark" aria-hidden="true">×</span>
-            <p>גיוס, השקה או כנס מתקרבים, ואתם לא בטוחים שהאתר מוכן שיראו אותו.</p>
+            <p>גיוס או השקה מתקרבים, ועדיין אין לכם אתר שנעים לשלוח.</p>
           </li>
           <li class="pain card reveal">
             <span class="pain-mark" aria-hidden="true">×</span>
@@ -115,7 +142,7 @@
       <div class="container">
         <header class="section-head reveal">
           <span class="tag">מה מקבלים</span>
-          <h2>אתר שעובד בשבילכם, לא עוד פרויקט שתקוע אצל הפיתוח</h2>
+          <h2>אתר שעובד בשבילכם מהיום הראשון</h2>
           <p class="section-sub">עיצוב, מסרים ובנייה ב-Framer, ממקור אחד ועד העלייה לאוויר.</p>
         </header>
 
@@ -131,8 +158,8 @@
             <span class="feature-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M3 9h18M9 9v11" /></svg>
             </span>
-            <h3>נראה כמו המוצר, לא כמו תבנית</h3>
-            <p>כמעצב מוצר, אני מעצב גם ויזואלים של המוצר עצמו. בלי תמונות סטוק ובלי מסכים גנריים.</p>
+            <h3>מעוצב בשבילכם, לא תבנית</h3>
+            <p>כמעצב מוצר, אני יודע להציג בצורה משכנעת גם מוצר בשלב מוקדם, או כזה שעוד לא נראה מושלם. בלי סטוק ובלי מסכים גנריים.</p>
           </li>
           <li class="feature card reveal">
             <span class="feature-icon" aria-hidden="true">
@@ -145,8 +172,8 @@
             <span class="feature-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v5l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3" /></svg>
             </span>
-            <h3>אפס זמן פיתוח</h3>
-            <p>הצוות הטכני שלכם ממשיך לעבוד על המוצר. אני מטפל בהכל, כולל חיבור הדומיין.</p>
+            <h3>בלי לגייס מפתחים לאתר</h3>
+            <p>אני מטפל בהכל, מהעיצוב ועד חיבור הדומיין. אם יש לכם מפתחים, הם ממשיכים לעבוד על המוצר.</p>
           </li>
           <li class="feature card reveal">
             <span class="feature-icon" aria-hidden="true">
@@ -166,49 +193,6 @@
       </div>
     </section>
 
-    <!-- ===== Selected work =====
-         TODO: replace the 3 placeholder cards with real projects
-         (image in assets/, project name, one-line challenge, result). -->
-    <section class="section work" id="work">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="tag">עבודות נבחרות</span>
-          <h2>אתרים שבניתי לסטארטאפים</h2>
-          <p class="section-sub">האתגר, מה עשינו, ומה זה שינה.</p>
-        </header>
-
-        <div class="work-grid">
-          <article class="work-card card reveal">
-            <div class="work-thumb" aria-hidden="true"><span>תמונת פרויקט</span></div>
-            <div class="work-body">
-              <span class="work-meta">[תחום · סוג האתר]</span>
-              <h3>[שם הפרויקט]</h3>
-              <p><strong>האתגר:</strong> [משפט אחד על המצב לפני]</p>
-              <p><strong>התוצאה:</strong> [משפט אחד על מה שהשתנה, רצוי עם מספר]</p>
-            </div>
-          </article>
-          <article class="work-card card reveal">
-            <div class="work-thumb" aria-hidden="true"><span>תמונת פרויקט</span></div>
-            <div class="work-body">
-              <span class="work-meta">[תחום · סוג האתר]</span>
-              <h3>[שם הפרויקט]</h3>
-              <p><strong>האתגר:</strong> [משפט אחד על המצב לפני]</p>
-              <p><strong>התוצאה:</strong> [משפט אחד על מה שהשתנה, רצוי עם מספר]</p>
-            </div>
-          </article>
-          <article class="work-card card reveal">
-            <div class="work-thumb" aria-hidden="true"><span>תמונת פרויקט</span></div>
-            <div class="work-body">
-              <span class="work-meta">[תחום · סוג האתר]</span>
-              <h3>[שם הפרויקט]</h3>
-              <p><strong>האתגר:</strong> [משפט אחד על המצב לפני]</p>
-              <p><strong>התוצאה:</strong> [משפט אחד על מה שהשתנה, רצוי עם מספר]</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== Why me ===== -->
     <section class="section about" id="about">
       <div class="container">
@@ -222,11 +206,11 @@
                alt="אופיר, המעצב מאחורי UXUIKIT, יושב בכורסה עם מחשב נייד" />
           <div class="about-text">
             <p class="about-intro">
-              היי, אני אופיר. כבר יותר משמונה שנים אני מעצב מוצרים דיגיטליים, ולפני כן עבדתי כמפתח פרונט-אנד. היום אני משלב את שני העולמות כדי לבנות לסטארטאפים אתרים שמסבירים את המוצר, נראים מצוין ועולים לאוויר מהר.
+              היי, אני אופיר. כבר יותר מעשר שנים אני מעצב ומפתח מוצרים דיגיטליים: התחלתי כמפתח פרונט-אנד והמשכתי לעיצוב מוצר. היום אני משלב את שני העולמות כדי לבנות לסטארטאפים אתרים ברורים, מרשימים ומהירים.
             </p>
             <ul class="check-list">
-              <li><strong>מבין מוצר, לא רק עיצוב.</strong> אני יודע להפוך מוצר מורכב למסר שמשקיע או לקוח מבינים מיד.</li>
-              <li><strong>בלי פערים בין עיצוב לפיתוח.</strong> מי שמעצב הוא מי שבונה, אז מה שאישרתם הוא בדיוק מה שעולה לאוויר.</li>
+              <li><strong>מבין מוצר, לא רק עיצוב.</strong> אני יודע להפוך רעיון או מוצר מורכב למסר שמשקיע או לקוח מבינים מיד.</li>
+              <li><strong>האתר נראה בדיוק כמו העיצוב.</strong> אותו אדם מעצב ובונה, אז אין "זה לא יצא כמו בעיצוב".</li>
               <li><strong>איש קשר אחד מההתחלה ועד הסוף.</strong> בלי מנהלי פרויקטים ובלי "אעביר את זה לצוות".</li>
               <li><strong>בקצב של סטארטאפ.</strong> מקבל עד 3 פרויקטים בחודש, כדי שכל אחד יקבל תשומת לב מלאה.</li>
             </ul>
@@ -246,18 +230,48 @@
           <h2>מה אומרים על העבודה איתי</h2>
         </header>
 
-        <figure class="card quote-card reveal">
-          <blockquote>
-            <p>
-              לעבוד עם אופיר לאורך השנים היה תמיד תענוג גדול. העיצובים שהוא יוצר תמיד מתאימים בדיוק לפיצ'רים שהמשתמשים צריכים. יש לו כישרון ליצור חוויית משתמש מהנה ולפשט את הפונקציונליות של הפלטפורמה. אופיר מבין מגבלות טכניות ותמיד יצירתי בדרך שבה הוא מתמודד איתן.
-            </p>
-          </blockquote>
-          <figcaption>
-            <img src="assets/shai-keren.webp" width="86" height="86" alt="" />
-            <strong>שי קרן</strong>
-            <span dir="ltr">Product Design Lead, Silverfort</span>
-          </figcaption>
-        </figure>
+        <div class="quotes-grid">
+          <figure class="card quote-card reveal">
+            <blockquote>
+              <p>
+                הייתה לי חוויה מצוינת בעבודה עם אופיר על אתר תיק העבודות שלי. הוא מקצועי, אמין, והביא רעיונות יצירתיים ששיפרו מאוד את התוצאה הסופית. אופיר הבין את החזון שלי מהר, והאתר שקיבלתי עלה על הציפיות. הוא גם תמיד היה זמין לתיקונים ולשאלות. מומלץ בחום!
+              </p>
+            </blockquote>
+            <figcaption>
+              <!-- TODO: name, role and photo -->
+              <span class="avatar" aria-hidden="true">?</span>
+              <strong>[שם הלקוח/ה]</strong>
+              <span>[תפקיד], אתר תיק עבודות</span>
+            </figcaption>
+          </figure>
+
+          <figure class="card quote-card reveal">
+            <blockquote>
+              <p>
+                במשך כשנתיים נהניתי לעבוד עם אופיר כמעצב המוצר שלנו ב-Lychee. העיצובים שלו הרשימו אותי כל פעם מחדש, בשילוב מושלם של אסתטיקה ומקצועיות. הוא תמיד חקר לעומק לפני שהתחיל לעצב, והתקשורת איתו הייתה פשוטה ויעילה, כך שהחזון שלנו תורגם לעיצוב בדיוק. מעצב מוכשר ואמין, מומלץ בחום לכל צוות.
+              </p>
+            </blockquote>
+            <figcaption>
+              <!-- TODO: name, role and photo -->
+              <span class="avatar" aria-hidden="true">?</span>
+              <strong>[שם הממליץ/ה]</strong>
+              <span>[תפקיד], Lychee</span>
+            </figcaption>
+          </figure>
+
+          <figure class="card quote-card reveal">
+            <blockquote>
+              <p>
+                לעבוד עם אופיר לאורך השנים היה תמיד תענוג גדול. העיצובים שהוא יוצר תמיד מתאימים בדיוק לפיצ'רים שהמשתמשים צריכים. יש לו כישרון ליצור חוויית משתמש מהנה ולפשט את הפונקציונליות של הפלטפורמה. אופיר מבין מגבלות טכניות ותמיד יצירתי בדרך שבה הוא מתמודד איתן.
+              </p>
+            </blockquote>
+            <figcaption>
+              <img src="assets/shai-keren.webp" width="86" height="86" alt="" />
+              <strong>שי קרן</strong>
+              <span dir="ltr">Product Design Lead, Silverfort</span>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -278,13 +292,13 @@
           </li>
           <li class="step reveal">
             <span class="step-num">02</span>
-            <h3>מסרים ועיצוב</h3>
-            <p>מבנה, מסרים ועיצוב ב-Figma. אתם מאשרים כל עמוד לפני שמתחילים לבנות.</p>
+            <h3>מסרים ועמוד הבית</h3>
+            <p>מגדירים מבנה ומסרים, ואני מעצב את עמוד הבית ישירות ב-Framer. אתם רואים אתר אמיתי, לא תמונה, ומאשרים כיוון.</p>
           </li>
           <li class="step reveal">
             <span class="step-num">03</span>
-            <h3>בנייה ב-Framer</h3>
-            <p>אנימציות, CMS, התאמה לכל מסך והגדרות SEO. אתם רואים את האתר מתקדם בלינק חי.</p>
+            <h3>שאר האתר</h3>
+            <p>שאר העמודים, אנימציות, CMS, התאמה לכל מסך ו-SEO. אתם עוקבים אחרי ההתקדמות בלינק חי.</p>
           </li>
           <li class="step reveal">
             <span class="step-num">04</span>
@@ -329,7 +343,7 @@
             <p class="package-time">כ-4–6 שבועות</p>
             <ul class="package-list">
               <li>עד 6 עמודים (בית, מוצר, אודות, מחירים ועוד)</li>
-              <li>מסרים, מבנה ועיצוב ויזואלים של המוצר</li>
+              <li>מסרים, מבנה והצגה ויזואלית של המוצר</li>
               <li>CMS לבלוג, משרות או עדכונים</li>
               <li>אנימציות ומיקרו-אינטראקציות</li>
               <li>הדרכה לצוות השיווק</li>
@@ -355,23 +369,6 @@
       </div>
     </section>
 
-    <!-- ===== Risk reversal ===== -->
-    <section class="section guarantee" id="guarantee">
-      <div class="container container-narrow">
-        <div class="card guarantee-card reveal">
-          <span class="guarantee-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z" /><path d="M8.5 12l2.5 2.5 4.5-5" /></svg>
-          </span>
-          <div>
-            <h2>לא אהבתם את העיצוב? עוצרים.</h2>
-            <p>
-              התשלום מחולק לשלבים. אם אחרי שלב העיצוב תחליטו לא להמשיך לבנייה, משלמים רק על מה שנעשה עד אז, וכל קבצי העיצוב נשארים אצלכם. בלי שאלות ובלי קנסות.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== Fit ===== -->
     <section class="section fit" id="fit">
       <div class="container">
@@ -384,7 +381,7 @@
           <div class="fit-col fit-yes card reveal">
             <h3>מתאים לכם אם</h3>
             <ul>
-              <li>אתם סטארטאפ עם מוצר, בדרך כלל בשלב Seed עד Series A</li>
+              <li>אתם סטארטאפ, מ-Pre-seed ועד Series A</li>
               <li>האתר הנוכחי כבר לא משקף את המוצר או את השלב שלכם</li>
               <li>יש לכם יעד קרוב: גיוס, השקה, כנס או מיתוג מחדש</li>
               <li>אתם רוצים שהשיווק יעדכן את האתר בלי לחכות לפיתוח</li>
@@ -429,7 +426,11 @@
           </details>
           <details class="faq-item reveal">
             <summary>מה אם לא נאהב את העיצוב?</summary>
-            <p>קודם כל, אנחנו מאשרים כיוון ומבנה לפני שנכנסים לפרטים, אז הפתעות גדולות הן נדירות. ואם בכל זאת לא תרצו להמשיך אחרי שלב העיצוב, עוצרים שם ומשלמים רק על מה שנעשה.</p>
+            <p>בגלל זה מתחילים מעמוד הבית. מאשרים יחד את הכיוון, עם סבבי תיקונים מוגדרים, לפני שממשיכים לשאר האתר. כך אין הפתעות בסוף.</p>
+          </details>
+          <details class="faq-item reveal">
+            <summary>עוד אין לנו מוצר מוכן. זה מתאים?</summary>
+            <p>כן. הרבה סטארטאפים צריכים אתר עוד לפני שהמוצר מוכן, למשל לגיוס, לרשימת המתנה או ללקוחות ראשונים. במקרה כזה נתמקד בחזון, בבעיה שאתם פותרים ובוויזואליה שמעבירה את הרעיון.</p>
           </details>
           <details class="faq-item reveal">
             <summary>יש לנו כבר מיתוג. תעבוד איתו?</summary>

@@ -11,6 +11,15 @@ Object.entries(LINKS).forEach(([key, url]) => {
   document.querySelectorAll(`[data-link="${key}"]`).forEach((el) => (el.href = url));
 });
 
+// Work gallery: duplicate each track once so the marquee loops seamlessly
+document.querySelectorAll(".gallery-track").forEach((track) => {
+  [...track.children].forEach((item) => {
+    const clone = item.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+  });
+});
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
