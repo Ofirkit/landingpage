@@ -11,7 +11,13 @@ A static landing page based on the design of [uxuikit.com](https://uxuikit.com/)
 
 ## Before publishing
 
-Set the real contact links at the top of `script.js`:
+Placeholders are marked with `TODO` comments in `index.html`:
+
+- [ ] **Selected work** (`#work`): 3 projects, each with an image in `assets/`, name, challenge and result
+- [ ] **Testimonials** (`#testimonials`): add more `<figure>` blocks, ideally about websites or Framer
+- [ ] **Packages** (`#packages`): "starting from" prices (`₪X,XXX`) and confirmed timelines
+- [ ] **Guarantee** (`#guarantee`): keep or delete the "exit after design" section
+- [ ] **Contact links**: set the real URLs at the top of `script.js`:
 
 ```js
 const LINKS = {

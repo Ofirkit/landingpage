@@ -50,4 +50,16 @@ if ("IntersectionObserver" in window) {
   revealEls.forEach((el) => el.classList.add("is-visible"));
 }
 
+// Mobile sticky CTA: show after the hero, hide while the contact section is on screen
+const mobileCta = document.querySelector(".mobile-cta");
+const hero = document.querySelector(".hero");
+const contact = document.getElementById("contact");
+if (mobileCta && "IntersectionObserver" in window) {
+  let heroVisible = true;
+  let contactVisible = false;
+  const update = () => mobileCta.classList.toggle("is-visible", !heroVisible && !contactVisible);
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; update(); }).observe(hero);
+  new IntersectionObserver(([e]) => { contactVisible = e.isIntersecting; update(); }).observe(contact);
+}
+
 document.getElementById("year").textContent = new Date().getFullYear();
