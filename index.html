@@ -73,21 +73,21 @@
       <!-- ===== Work gallery =====
            Each .shot is one project image. Replace the placeholder <div class="shot ...">
            with: <figure class="shot"><img src="assets/work/NAME.webp" alt="PROJECT NAME" /></figure>
-           Width comes from the image ratio (fixed row height); the rows loop automatically. -->
+           Rows are 450px tall on desktop; width follows the image ratio. The rows loop automatically. -->
       <div class="gallery reveal" id="work" aria-label="עבודות נבחרות">
         <div class="gallery-row">
           <div class="gallery-track">
-            <div class="shot shot-wide ph-1"><span>עבודה 1</span></div>
-            <div class="shot shot-narrow ph-2"><span>עבודה 2</span></div>
-            <div class="shot shot-wide ph-3"><span>עבודה 3</span></div>
-            <div class="shot shot-mid ph-4"><span>עבודה 4</span></div>
-            <div class="shot shot-wide ph-5"><span>עבודה 5</span></div>
+            <div class="shot shot-narrow ph-1"><span>עבודה 1</span></div>
+            <div class="shot shot-wide ph-2"><span>עבודה 2</span></div>
+            <div class="shot shot-mid ph-3"><span>עבודה 3</span></div>
+            <div class="shot shot-wide ph-4"><span>עבודה 4</span></div>
+            <div class="shot shot-mid ph-5"><span>עבודה 5</span></div>
           </div>
         </div>
         <div class="gallery-row gallery-row-reverse">
           <div class="gallery-track">
-            <div class="shot shot-mid ph-6"><span>עבודה 6</span></div>
-            <div class="shot shot-wide ph-7"><span>עבודה 7</span></div>
+            <div class="shot shot-square ph-6"><span>עבודה 6</span></div>
+            <div class="shot shot-square ph-7"><span>עבודה 7</span></div>
             <div class="shot shot-narrow ph-8"><span>עבודה 8</span></div>
             <div class="shot shot-wide ph-9"><span>עבודה 9</span></div>
             <div class="shot shot-mid ph-10"><span>עבודה 10</span></div>
@@ -98,7 +98,7 @@
       <div class="container">
         <ul class="hero-highlights reveal" aria-label="בקצרה">
           <li><strong>10+ שנים</strong><span>בעיצוב ובפיתוח מוצרים דיגיטליים</span></li>
-          <li><strong>עיצוב ובנייה</strong><span>אצל אותו אדם, בלי מתווכים</span></li>
+          <li><strong>מההתחלה ועד הסוף</strong><span>אני מעצב ובונה את האתר בעצמי</span></li>
           <li><strong>עצמאות מלאה</strong><span>מעדכנים את האתר לבד, בלי מפתחים</span></li>
         </ul>
       </div>
@@ -213,7 +213,18 @@
               <li><strong>האתר נראה בדיוק כמו העיצוב.</strong> אותו אדם מעצב ובונה, אז אין "זה לא יצא כמו בעיצוב".</li>
               <li><strong>איש קשר אחד מההתחלה ועד הסוף.</strong> בלי מנהלי פרויקטים ובלי "אעביר את זה לצוות".</li>
               <li><strong>בקצב של סטארטאפ.</strong> מקבל עד 3 פרויקטים בחודש, כדי שכל אחד יקבל תשומת לב מלאה.</li>
+              <li><strong>מלמד את הכלים שאני עובד איתם.</strong> ביוטיוב אני מלמד עיצוב ב-Figma ובניית אתרים ב-Framer.</li>
             </ul>
+            <div class="yt-links">
+              <a class="yt-link" data-link="youtubeUxuikit" href="#" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.6 12a31 31 0 00.4 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.4-4.8 31 31 0 00-.4-4.8z"/><path d="M9.8 15.1l5.8-3.1-5.8-3.1z" fill="#fff"/></svg>
+                <span>UXUIKIT</span>
+              </a>
+              <a class="yt-link" data-link="youtubeOphir" href="#" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.6 12a31 31 0 00.4 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.4-4.8 31 31 0 00-.4-4.8z"/><path d="M9.8 15.1l5.8-3.1-5.8-3.1z" fill="#fff"/></svg>
+                <span>Ophir Creates</span>
+              </a>
+            </div>
             <a href="#contact" class="btn btn-primary">לשיחת אבחון חינם</a>
           </div>
         </div>
@@ -221,8 +232,7 @@
     </section>
 
     <!-- ===== Testimonials =====
-         TODO: add more testimonials (ideally about websites / Framer)
-         by duplicating the <figure> below. -->
+         TODO: replace the initials avatars with photos (assets/NAME.webp) -->
     <section class="section testimonials" id="testimonials">
       <div class="container">
         <header class="section-head reveal">
@@ -234,28 +244,26 @@
           <figure class="card quote-card reveal">
             <blockquote>
               <p>
-                הייתה לי חוויה מצוינת בעבודה עם אופיר על אתר תיק העבודות שלי. הוא מקצועי, אמין, והביא רעיונות יצירתיים ששיפרו מאוד את התוצאה הסופית. אופיר הבין את החזון שלי מהר, והאתר שקיבלתי עלה על הציפיות. הוא גם תמיד היה זמין לתיקונים ולשאלות. מומלץ בחום!
+                הייתה לי חוויה מצוינת בעבודה עם אופיר על אתר תיק העבודות שלי. הוא מקצועי, אמין, והביא רעיונות יצירתיים ששיפרו מאוד את התוצאה הסופית. אופיר הבין את החזון שלי מהר, והאתר שקיבלתי עלה על הציפיות. הוא גם תמיד היה זמין לתיקונים ולשאלות. ממליצה בחום לעבוד איתו!
               </p>
             </blockquote>
             <figcaption>
-              <!-- TODO: name, role and photo -->
-              <span class="avatar" aria-hidden="true">?</span>
-              <strong>[שם הלקוח/ה]</strong>
-              <span>[תפקיד], אתר תיק עבודות</span>
+              <span class="avatar" aria-hidden="true">ש</span>
+              <strong>שני גלעד</strong>
+              <span>מעצבת מוצר, לקוחה (אתר תיק עבודות)</span>
             </figcaption>
           </figure>
 
           <figure class="card quote-card reveal">
             <blockquote>
               <p>
-                במשך כשנתיים נהניתי לעבוד עם אופיר כמעצב המוצר שלנו ב-Lychee. העיצובים שלו הרשימו אותי כל פעם מחדש, בשילוב מושלם של אסתטיקה ומקצועיות. הוא תמיד חקר לעומק לפני שהתחיל לעצב, והתקשורת איתו הייתה פשוטה ויעילה, כך שהחזון שלנו תורגם לעיצוב בדיוק. מעצב מוכשר ואמין, מומלץ בחום לכל צוות.
+                במשך כשנתיים נהניתי לעבוד עם אופיר כמעצב המוצר שלנו ב-Lychee. העיצובים שלו הרשימו אותי כל פעם מחדש, בשילוב מושלם של אסתטיקה ומקצועיות. הוא תמיד חקר לעומק לפני שהתחיל לעצב, והתקשורת איתו הייתה פשוטה ויעילה, כך שהחזון שלנו תורגם לעיצוב בדיוק. מעצב מוכשר ואמין, ואני ממליץ עליו בחום לכל צוות.
               </p>
             </blockquote>
             <figcaption>
-              <!-- TODO: name, role and photo -->
-              <span class="avatar" aria-hidden="true">?</span>
-              <strong>[שם הממליץ/ה]</strong>
-              <span>[תפקיד], Lychee</span>
+              <span class="avatar" aria-hidden="true">ר</span>
+              <strong>רן אלטר</strong>
+              <span>לשעבר CPO ושותף מייסד, Lychee</span>
             </figcaption>
           </figure>
 

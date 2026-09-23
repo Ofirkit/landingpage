@@ -14,7 +14,8 @@ A static landing page based on the design of [uxuikit.com](https://uxuikit.com/)
 Placeholders are marked with `TODO` comments in `index.html`:
 
 - [ ] **Work gallery** (hero, `#work`): replace the 10 placeholder tiles with screenshots in `assets/work/` (see the comment above the gallery)
-- [ ] **Testimonials** (`#testimonials`): names, roles and photos for the portfolio-site and Lychee quotes
+- [ ] **Testimonials** (`#testimonials`): photos for Shani Gilad and Ran Alter (currently initials)
+- [ ] **YouTube links**: set `youtubeUxuikit` and `youtubeOphir` in `script.js`
 - [ ] **Packages** (`#packages`): "starting from" prices (`₪X,XXX`) and confirmed timelines
 - [ ] **Contact links**: set the real URLs at the top of `script.js`:
 

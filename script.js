@@ -3,6 +3,8 @@
 const LINKS = {
   booking: "",
   whatsapp: "",
+  youtubeUxuikit: "",
+  youtubeOphir: "",
 };
 
 
