@@ -1,23 +1,10 @@
-// Contact links — replace with your real booking / WhatsApp URLs.
-// Example: booking: "https://cal.com/your-name", whatsapp: "https://wa.me/9725XXXXXXXX"
-const LINKS = {
-  booking: "",
-  whatsapp: "",
-  youtubeUxuikit: "",
-  youtubeOphir: "",
-};
-
-
-Object.entries(LINKS).forEach(([key, url]) => {
-  if (!url) return;
-  document.querySelectorAll(`[data-link="${key}"]`).forEach((el) => (el.href = url));
-});
-
 // Work gallery: duplicate each track once so the marquee loops seamlessly
 document.querySelectorAll(".gallery-track").forEach((track) => {
   [...track.children].forEach((item) => {
     const clone = item.cloneNode(true);
     clone.setAttribute("aria-hidden", "true");
+    clone.removeAttribute("role");
+    clone.removeAttribute("aria-label");
     track.appendChild(clone);
   });
 });
@@ -54,23 +41,11 @@ if ("IntersectionObserver" in window) {
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
   );
   revealEls.forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 3) * 80}ms`;
+    el.style.transitionDelay = `${(i % 3) * 60}ms`;
     io.observe(el);
   });
 } else {
   revealEls.forEach((el) => el.classList.add("is-visible"));
-}
-
-// Mobile sticky CTA: show after the hero, hide while the contact section is on screen
-const mobileCta = document.querySelector(".mobile-cta");
-const hero = document.querySelector(".hero");
-const contact = document.getElementById("contact");
-if (mobileCta && "IntersectionObserver" in window) {
-  let heroVisible = true;
-  let contactVisible = false;
-  const update = () => mobileCta.classList.toggle("is-visible", !heroVisible && !contactVisible);
-  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; update(); }).observe(hero);
-  new IntersectionObserver(([e]) => { contactVisible = e.isIntersecting; update(); }).observe(contact);
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();

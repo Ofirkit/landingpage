@@ -6,25 +6,21 @@ A static landing page based on the design of [uxuikit.com](https://uxuikit.com/)
 
 - `index.html`: page content (Hebrew, `dir="rtl"`)
 - `styles.css`: design tokens (colors, radii, font) at the top in `:root`, then the styles for each section
-- `script.js`: contact links, sticky header, mobile menu, reveal-on-scroll
+- `script.js`: gallery loop, sticky header, mobile menu, reveal-on-scroll
 - `assets/`: portrait, testimonial avatar, favicon
 
 ## Before publishing
 
-Placeholders are marked with `TODO` comments in `index.html`:
+All placeholders are in square brackets in `index.html`. Search for `[` to find them:
 
-- [ ] **Work gallery** (hero, `#work`): replace the 10 placeholder tiles with screenshots in `assets/work/` (see the comment above the gallery)
-- [ ] **Testimonials** (`#testimonials`): photos for Shani Gilad and Ran Alter (currently initials)
-- [ ] **YouTube links**: set `youtubeUxuikit` and `youtubeOphir` in `script.js`
-- [ ] **Packages** (`#packages`): "starting from" prices (`₪X,XXX`) and confirmed timelines
-- [ ] **Contact links**: set the real URLs at the top of `script.js`:
-
-```js
-const LINKS = {
-  booking: "https://cal.com/your-name",
-  whatsapp: "https://wa.me/9725XXXXXXXX",
-};
-```
+- [ ] `[קישור ליומן]` (4×): booking link, used by every "לקביעת שיחה" button
+- [ ] `[מייל]`: email address in the final CTA (`mailto:`)
+- [ ] `[חודש]`: availability month in the hero
+- [ ] `[קישור]` (2×): YouTube channels UXUIKIT and Ophir Creates
+- [ ] `[שם הפרויקט]`: 10 gallery tiles; swap each for a real screenshot (see the comment above the gallery)
+- [ ] `[תמונה]` (2×): photos of Shani Gilad and Ran Alter
+- [ ] `[מחיר]` (3×) and `[זמן]` (3×): package prices and timelines
+- [ ] `[מספר]` (3×): number of pages in the full-site package; revision rounds in the FAQ
 
 ## Local preview
 
