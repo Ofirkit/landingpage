@@ -3,6 +3,7 @@
    ========================================================== */
 :root {
   --bg: #030308;
+  --hero-bg: #181818;
   --navy: #0d1a46;
   --indigo: #17184b;
   --violet: #20154e;
@@ -33,7 +34,7 @@
   /* Width of the side column in section heads; content below lines up with the heading */
   --indent: calc((100% - var(--col-gap)) / 4 + var(--col-gap));
 
-  --font: "Heebo", "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font: "Noto Sans Hebrew", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -96,7 +97,7 @@ figure, blockquote { margin: 0; }
    ========================================================== */
 .eyebrow {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-dim);
   font-variant-numeric: tabular-nums;
 }
@@ -109,18 +110,18 @@ figure, blockquote { margin: 0; }
   padding: 14px 28px;
   font: inherit;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
   white-space: nowrap;
   border: 1px solid transparent;
-  border-radius: var(--radius);
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease);
 }
-.btn-sm { padding: 10px 18px; font-size: 16px; border-radius: 12px; }
-.btn-lg { padding: 18px 36px; font-size: 19px; border-radius: 16px; }
-.btn-primary { color: #fff; background: var(--accent); }
-.btn-primary:hover { background: var(--accent-hover); }
+.btn-sm { padding: 10px 18px; font-size: 16px; }
+.btn-lg { padding: 16px 32px; font-size: 19px; }
+.btn-primary { color: #0b0b0f; background: #fff; }
+.btn-primary:hover { background: #e2e2e8; }
 
 .section { position: relative; padding-block: var(--section-y); }
 
@@ -187,7 +188,7 @@ figure, blockquote { margin: 0; }
   display: block;
   padding: 8px 16px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
   border-radius: var(--radius-pill);
   transition: background-color 0.2s;
@@ -224,42 +225,42 @@ figure, blockquote { margin: 0; }
    ========================================================== */
 .hero {
   position: relative;
-  padding-block: clamp(150px, 16vw, 210px) clamp(72px, 9vw, 120px);
-  /* RTL mirror of the original: violet on the right, navy on the left */
-  background:
-    linear-gradient(180deg, transparent 55%, var(--bg) 100%),
-    linear-gradient(270deg, var(--violet) 0%, var(--indigo) 50%, var(--navy) 100%);
+  padding-block: clamp(150px, 15vw, 200px) clamp(72px, 9vw, 120px);
+  /* Flat dark hero that fades softly into the page background */
+  background: linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg) 62%, var(--bg) 100%);
   overflow: hidden;
 }
 
-.hero-inner { display: flex; flex-direction: column; align-items: flex-start; }
-.hero .eyebrow { font-size: 18px; color: var(--text-muted); margin-bottom: 28px; }
+.hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero h1 {
-  font-size: clamp(50px, 8.6vw, 128px);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  max-width: 100%;
+  font-size: clamp(34px, 4.9vw, 72px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
+.hero h1 .line { display: block; white-space: nowrap; }
+.hero .btn { margin-top: clamp(32px, 3.5vw, 44px); }
 
-.hero-foot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 40px;
-  width: 100%;
-  margin-top: clamp(40px, 5vw, 64px);
-}
-.lead { max-width: 560px; font-size: clamp(19px, 1.7vw, 22px); color: var(--text-muted); }
-.hero-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; flex: none; }
-
-.availability { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; color: var(--text-muted); }
+.availability { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 16px; color: var(--text-muted); }
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   flex: none;
   background: var(--success);
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(60, 231, 108, 0.15);
 }
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px clamp(28px, 4vw, 48px);
+  margin-top: clamp(72px, 9vw, 128px);
+  direction: ltr;
+}
+.tools li { font-size: clamp(18px, 1.6vw, 22px); font-weight: 700; color: #fff; opacity: 0.9; }
+.tools img { display: block; height: 28px; width: auto; }
 
 /* ==========================================================
    Work gallery (hero marquee)
@@ -268,16 +269,14 @@ figure, blockquote { margin: 0; }
   --row-h: min(450px, 58vw);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
   margin-top: clamp(64px, 8vw, 104px);
   direction: ltr;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
 .gallery-row { overflow: hidden; height: var(--row-h); }
 .gallery-track {
   display: flex;
-  gap: 10px;
+  gap: 16px;
   width: max-content;
   height: 100%;
   animation: marquee 90s linear infinite;
@@ -285,7 +284,7 @@ figure, blockquote { margin: 0; }
 .gallery-row-reverse .gallery-track { animation-direction: reverse; animation-duration: 100s; }
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(calc(-50% - 5px)); }
+  to { transform: translateX(calc(-50% - 8px)); }
 }
 
 .shot {
@@ -310,7 +309,7 @@ figure, blockquote { margin: 0; }
   inset: auto 14px 12px auto;
   padding: 4px 10px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: #fff;
   direction: rtl;
   background: rgba(0, 0, 0, 0.45);
@@ -370,7 +369,7 @@ figure, blockquote { margin: 0; }
   gap: 8px;
   padding: 8px 14px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   direction: ltr;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
@@ -412,7 +411,7 @@ figure, blockquote { margin: 0; }
   color: var(--text-dim);
   border: 1px dashed var(--border-strong);
 }
-.quote figcaption strong { font-size: 17px; font-weight: 600; }
+.quote figcaption strong { font-size: 17px; font-weight: 700; }
 .quote figcaption span:not(.avatar) { font-size: 15px; color: var(--text-dim); }
 
 /* ==========================================================
@@ -481,7 +480,7 @@ figure, blockquote { margin: 0; }
   gap: var(--col-gap);
   padding-inline-start: var(--indent);
 }
-.fit-col h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.fit-col h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
 .fit-list li {
   position: relative;
   padding: 16px 0;
@@ -512,7 +511,7 @@ figure, blockquote { margin: 0; }
   gap: 24px;
   padding-block: 24px;
   font-size: clamp(18px, 1.6vw, 21px);
-  font-weight: 600;
+  font-weight: 700;
   list-style: none;
   cursor: pointer;
 }
@@ -521,7 +520,7 @@ figure, blockquote { margin: 0; }
   content: "+";
   flex: none;
   font-size: 26px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1;
   color: var(--text-muted);
   transition: transform 0.3s var(--ease);
@@ -621,7 +620,6 @@ figure, blockquote { margin: 0; }
   .main-nav a { padding: 14px 18px; font-size: 18px; border-radius: 12px; }
 
   .section-head { grid-template-columns: 1fr; row-gap: 12px; }
-  .hero-foot { flex-direction: column; align-items: flex-start; }
   .principles { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; gap: 48px; max-width: 680px; }
@@ -634,7 +632,10 @@ figure, blockquote { margin: 0; }
   body { font-size: 17px; }
   .logo svg { width: 30px; }
   .principles, .packages-grid { grid-template-columns: 1fr; }
-  .hero-actions, .hero-actions .btn { width: 100%; }
+  .hero .btn { width: 100%; }
+  .hero h1 .line { display: inline; white-space: normal; }
+  .tools { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; justify-items: center; gap: 14px 40px; }
+  .tools li { font-size: 17px; }
   .cta-actions { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
