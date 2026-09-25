@@ -259,8 +259,7 @@ figure, blockquote { margin: 0; }
   margin-top: clamp(72px, 9vw, 128px);
   direction: ltr;
 }
-.tools li { font-size: clamp(18px, 1.6vw, 22px); font-weight: 700; color: #fff; opacity: 0.9; }
-.tools img { display: block; height: 28px; width: auto; }
+.tools img { display: block; height: 26px; width: auto; opacity: 0.9; }
 
 /* ==========================================================
    Work gallery (hero marquee)
@@ -634,8 +633,8 @@ figure, blockquote { margin: 0; }
   .principles, .packages-grid { grid-template-columns: 1fr; }
   .hero .btn { width: 100%; }
   .hero h1 .line { display: inline; white-space: normal; }
-  .tools { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; justify-items: center; gap: 14px 40px; }
-  .tools li { font-size: 17px; }
+  .tools { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; justify-items: center; align-items: center; gap: 22px 40px; }
+  .tools img { height: 20px; }
   .cta-actions { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
