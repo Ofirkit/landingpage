@@ -241,8 +241,8 @@ figure, blockquote { margin: 0; }
 .hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero h1 {
   max-width: 100%;
-  font-size: clamp(38px, 5.2vw, 76px);
-  line-height: 1.15;
+  font-size: clamp(38px, 5.2vw, 64px);
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 .hero .br-desk { display: none; }
@@ -259,7 +259,7 @@ figure, blockquote { margin: 0; }
     max-width: 1480px;
     text-align: start;
   }
-  .hero h1 { font-size: clamp(64px, 5.8vw, 100px); line-height: 1.15; white-space: nowrap; }
+  .hero h1 { font-size: 64px; line-height: 1.1; white-space: nowrap; }
   .hero .br-desk { display: inline; }
   .hero .br-mob { display: none; }
   .hero-side { align-items: flex-start; }
@@ -297,7 +297,7 @@ figure, blockquote { margin: 0; }
   display: inline-block;
   /* A clipping window exactly one line tall, aligned with the rest of the line */
   vertical-align: bottom;
-  height: 1.15em;
+  height: 1.1em; /* must match the headline line-height */
   white-space: nowrap;
   overflow: hidden;
   /* Resize to the new word only after the old one has left */
