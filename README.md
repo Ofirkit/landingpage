@@ -6,7 +6,8 @@ A static landing page based on the design of [uxuikit.com](https://uxuikit.com/)
 
 - `index.html`: page content (Hebrew, `dir="rtl"`)
 - `styles.css`: design tokens (colors, radii, font) at the top in `:root`, then the styles for each section
-- `script.js`: gallery loop, sticky header, mobile menu, reveal-on-scroll
+- `script.js`: smooth scrolling (Lenis), headline word rotation, gallery loop, sticky header, mobile menu, reveal-on-scroll
+- `assets/vendor/`: Lenis 1.3.26 (MIT, smooth scrolling), bundled locally
 - `assets/`: portrait, testimonial avatar, favicon
 
 ## Before publishing

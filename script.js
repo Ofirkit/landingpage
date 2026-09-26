@@ -9,9 +9,19 @@ document.querySelectorAll(".gallery-track").forEach((track) => {
   });
 });
 
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Smooth (inertia) scrolling with Lenis; skipped for reduced motion
+if (window.Lenis && !reduceMotion) {
+  window.lenis = new Lenis({
+    lerp: 0.1,                 // lower = smoother / longer glide
+    autoRaf: true,
+    anchors: true,             // in-page links glide too (offset comes from scroll-padding-top in CSS)
+  });
+}
+
 // Headline: rotate the last word, letter by letter
 const rotator = document.querySelector(".rotator");
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (rotator && !reduceMotion) {
   const HOLD = 3600; // time each word stays on screen (ms)
   const words = rotator.dataset.words.split(",").map((w) => w.trim()).filter(Boolean);

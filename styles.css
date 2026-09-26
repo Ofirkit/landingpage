@@ -45,7 +45,9 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+html { scroll-padding-top: 96px; }
+/* Native smooth anchor scrolling only as a fallback; Lenis handles scrolling when it's active */
+html:not(.lenis) { scroll-behavior: smooth; }
 
 body {
   margin: 0;
