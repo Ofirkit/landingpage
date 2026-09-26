@@ -9,6 +9,39 @@ document.querySelectorAll(".gallery-track").forEach((track) => {
   });
 });
 
+// Headline: rotate the last word
+const rotator = document.querySelector(".rotator");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (rotator && !reduceMotion) {
+  const words = rotator.dataset.words.split(",").map((w) => w.trim()).filter(Boolean);
+  rotator.textContent = "";
+  const spans = words.map((word, i) => {
+    const span = document.createElement("span");
+    span.className = "rotator-word" + (i === 0 ? " is-current" : "");
+    span.textContent = word;
+    rotator.appendChild(span);
+    return span;
+  });
+  let index = 0;
+  const fit = () => { rotator.style.width = `${spans[index].offsetWidth}px`; };
+  fit();
+  document.fonts?.ready.then(fit);
+  window.addEventListener("resize", fit);
+
+  setInterval(() => {
+    if (document.hidden) return;
+    const prev = spans[index];
+    index = (index + 1) % spans.length;
+    const next = spans[index];
+    prev.classList.remove("is-current");
+    prev.classList.add("is-leaving");
+    next.classList.remove("is-leaving");
+    next.classList.add("is-current");
+    fit();
+    setTimeout(() => prev.classList.remove("is-leaving"), 600);
+  }, 2800);
+}
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);

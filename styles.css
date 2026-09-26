@@ -3,7 +3,7 @@
    ========================================================== */
 :root {
   --bg: #030308;
-  --hero-bg: #181818;
+  --hero-bg: #111111;
   --navy: #0d1a46;
   --indigo: #17184b;
   --violet: #20154e;
@@ -116,12 +116,19 @@ figure, blockquote { margin: 0; }
   border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease);
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 .btn-sm { padding: 10px 18px; font-size: 16px; }
 .btn-lg { padding: 16px 32px; font-size: 19px; }
-.btn-primary { color: #0b0b0f; background: #fff; }
-.btn-primary:hover { background: #e2e2e8; }
+.btn-primary {
+  color: #0b0b0f;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4), 0 0 18px rgba(255, 255, 255, 0.35), 0 0 42px rgba(255, 255, 255, 0.12);
+}
+.btn-primary:hover {
+  background: #f1f1f4;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55), 0 0 24px rgba(255, 255, 255, 0.5), 0 0 56px rgba(255, 255, 255, 0.18);
+}
 
 .section { position: relative; padding-block: var(--section-y); }
 
@@ -234,32 +241,66 @@ figure, blockquote { margin: 0; }
 .hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero h1 {
   max-width: 100%;
-  font-size: clamp(34px, 4.9vw, 72px);
+  font-size: clamp(38px, 5.2vw, 76px);
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
 .hero h1 .line { display: block; white-space: nowrap; }
-.hero .btn { margin-top: clamp(32px, 3.5vw, 44px); }
-
-.availability { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 16px; color: var(--text-muted); }
-.status-dot {
-  width: 7px;
-  height: 7px;
-  flex: none;
-  background: var(--success);
-  border-radius: 50%;
+.lead {
+  max-width: 740px;
+  margin-top: clamp(20px, 2vw, 28px);
+  font-size: clamp(19px, 1.7vw, 24px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
 }
+.hero .btn { margin-top: clamp(32px, 3.2vw, 44px); }
 
-.tools {
+.hero-meta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 16px clamp(28px, 4vw, 48px);
-  margin-top: clamp(72px, 9vw, 128px);
-  direction: ltr;
+  gap: 8px 28px;
+  margin-top: 22px;
+  font-size: 16px;
+  color: var(--text-muted);
 }
-.tools img { display: block; height: 26px; width: auto; opacity: 0.9; }
+.hero-meta li { display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 7px; height: 7px; flex: none; border-radius: 50%; }
+.dot-green { background: #75f68f; box-shadow: 0 0 8px rgba(117, 246, 143, 0.6); }
+.dot-blue { background: #69b7fa; box-shadow: 0 0 8px rgba(105, 183, 250, 0.6); }
+
+/* Rotating last word of the headline */
+.rotator {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  transition: width 0.55s var(--ease);
+}
+.rotator-word {
+  position: absolute;
+  top: 0;
+  right: 0;
+  white-space: nowrap;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(0.45em);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease), filter 0.55s var(--ease);
+}
+.rotator-word.is-current { position: relative; opacity: 1; filter: none; transform: none; }
+.rotator-word.is-leaving { opacity: 0; filter: blur(8px); transform: translateY(-0.45em); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ==========================================================
    Work gallery (hero marquee)
@@ -632,9 +673,7 @@ figure, blockquote { margin: 0; }
   .logo svg { width: 30px; }
   .principles, .packages-grid { grid-template-columns: 1fr; }
   .hero .btn { width: 100%; }
-  .hero h1 .line { display: inline; white-space: normal; }
-  .tools { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; justify-items: center; align-items: center; gap: 22px 40px; }
-  .tools img { height: 20px; }
+  .hero-meta { gap: 8px 18px; font-size: 15px; }
   .cta-actions { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner { flex-direction: column; text-align: center; }
 }

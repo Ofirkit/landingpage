@@ -35,7 +35,6 @@
 
       <nav class="main-nav" id="main-nav" aria-label="ניווט ראשי">
         <ul>
-          <li><a href="#work">עבודות</a></li>
           <li><a href="#how">איך אני עובד</a></li>
           <li><a href="#testimonials">המלצות</a></li>
           <li><a href="#packages">חבילות</a></li>
@@ -56,15 +55,16 @@
     <!-- ===== Hero ===== -->
     <section class="hero">
       <div class="container hero-inner">
-        <h1 class="reveal"><span class="line">אני מעצב ומפתח לכם את האתר</span> <span class="line">כדי שתוכלו להתמקד במוצר.</span></h1>
+        <!-- The last word rotates; edit the list in data-words (first word is the default). -->
+        <h1 class="reveal">
+          <span class="line">אתרים שתהיו גאים</span>
+          <span class="line">לשלוח <span class="rotator" data-words="למשקיעים,ללקוחות,לשותפים,למועמדים,לעיתונאים" aria-hidden="true"><span class="rotator-word is-current">למשקיעים</span></span><span class="sr-only">למשקיעים, ללקוחות ולשותפים</span></span>
+        </h1>
+        <p class="lead reveal">אני מעצב ובונה אתרים לסטארטאפים שהופכים את המוצר והסיפור שלכם לחוויה ברורה, מובחנת ומשכנעת.</p>
         <a href="[קישור ליומן]" class="btn btn-primary btn-lg reveal" target="_blank" rel="noopener">לקביעת שיחה</a>
-        <p class="availability reveal"><span class="status-dot" aria-hidden="true"></span>מקבל פרויקטים חדשים</p>
-
-        <ul class="tools reveal" aria-label="הכלים שאני עובד איתם">
-          <li><img src="assets/logos/figma.svg" alt="Figma" width="75" height="28" /></li>
-          <li><img src="assets/logos/claude-code.svg" alt="Claude Code" width="204" height="28" /></li>
-          <li><img src="assets/logos/webflow.svg" alt="Webflow" width="167" height="28" /></li>
-          <li><img src="assets/logos/framer.svg" alt="Framer" width="104" height="28" /></li>
+        <ul class="hero-meta reveal">
+          <li><span class="dot dot-green" aria-hidden="true"></span>מקבל פרויקטים חדשים</li>
+          <li><span class="dot dot-blue" aria-hidden="true"></span>מעל 10 שנות ניסיון</li>
         </ul>
       </div>
 
