@@ -9,18 +9,25 @@ document.querySelectorAll(".gallery-track").forEach((track) => {
   });
 });
 
-// Headline: rotate the last word
+// Headline: rotate the last word, letter by letter
 const rotator = document.querySelector(".rotator");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (rotator && !reduceMotion) {
+  const HOLD = 3600; // time each word stays on screen (ms)
   const words = rotator.dataset.words.split(",").map((w) => w.trim()).filter(Boolean);
   rotator.textContent = "";
   const spans = words.map((word, i) => {
-    const span = document.createElement("span");
-    span.className = "rotator-word" + (i === 0 ? " is-current" : "");
-    span.textContent = word;
-    rotator.appendChild(span);
-    return span;
+    const wordEl = document.createElement("span");
+    wordEl.className = "rotator-word" + (i === 0 ? " is-current" : "");
+    [...word].forEach((ch, n) => {
+      const c = document.createElement("span");
+      c.className = "char";
+      c.style.setProperty("--i", n);
+      c.textContent = ch;
+      wordEl.appendChild(c);
+    });
+    rotator.appendChild(wordEl);
+    return wordEl;
   });
   let index = 0;
   const fit = () => { rotator.style.width = `${spans[index].offsetWidth}px`; };
@@ -28,18 +35,24 @@ if (rotator && !reduceMotion) {
   document.fonts?.ready.then(fit);
   window.addEventListener("resize", fit);
 
-  setInterval(() => {
-    if (document.hidden) return;
-    const prev = spans[index];
-    index = (index + 1) % spans.length;
-    const next = spans[index];
-    prev.classList.remove("is-current");
-    prev.classList.add("is-leaving");
-    next.classList.remove("is-leaving");
-    next.classList.add("is-current");
-    fit();
-    setTimeout(() => prev.classList.remove("is-leaving"), 600);
-  }, 2800);
+  if (spans.length > 1) {
+    setInterval(() => {
+      if (document.hidden) return;
+      const prev = spans[index];
+      index = (index + 1) % spans.length;
+      const next = spans[index];
+      prev.classList.replace("is-current", "is-leaving");
+      next.classList.add("is-current");
+      fit();
+      // After the exit finishes, snap the old word back below without animating
+      setTimeout(() => {
+        prev.classList.add("no-anim");
+        prev.classList.remove("is-leaving");
+        void prev.offsetWidth;
+        prev.classList.remove("no-anim");
+      }, 1400);
+    }, HOLD);
+  }
 }
 
 // Sticky header background
