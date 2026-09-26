@@ -650,6 +650,42 @@ figure, blockquote { margin: 0; }
 .footer-link:hover { color: var(--text); }
 
 /* ==========================================================
+   Bottom blur: fixed, progressive (light at the top edge, strong at the bottom)
+   ========================================================== */
+.bottom-blur {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 40;
+  height: clamp(90px, 14vh, 150px);
+  pointer-events: none;
+}
+.bottom-blur i,
+.bottom-blur::after {
+  position: absolute;
+  inset: 0;
+}
+.bottom-blur i { display: block; }
+/* Each layer blurs a band of the strip; bands overlap so the blur ramps up smoothly */
+.bottom-blur i:nth-child(1) { --b: 0.5px; --m: transparent 0%, #000 12.5%, #000 25%, transparent 37.5%; }
+.bottom-blur i:nth-child(2) { --b: 1px;   --m: transparent 12.5%, #000 25%, #000 37.5%, transparent 50%; }
+.bottom-blur i:nth-child(3) { --b: 2px;   --m: transparent 25%, #000 37.5%, #000 50%, transparent 62.5%; }
+.bottom-blur i:nth-child(4) { --b: 4px;   --m: transparent 37.5%, #000 50%, #000 62.5%, transparent 75%; }
+.bottom-blur i:nth-child(5) { --b: 8px;   --m: transparent 50%, #000 62.5%, #000 75%, transparent 87.5%; }
+.bottom-blur i:nth-child(6) { --b: 16px;  --m: transparent 62.5%, #000 75%, #000 87.5%, transparent 100%; }
+.bottom-blur i:nth-child(7) { --b: 32px;  --m: transparent 75%, #000 87.5%, #000 100%; }
+.bottom-blur i {
+  -webkit-backdrop-filter: blur(var(--b));
+  backdrop-filter: blur(var(--b));
+  -webkit-mask-image: linear-gradient(to bottom, var(--m));
+  mask-image: linear-gradient(to bottom, var(--m));
+}
+/* A soft tint toward the page color adds depth */
+.bottom-blur::after {
+  content: "";
+  background: linear-gradient(to bottom, transparent, rgba(3, 3, 8, 0.35));
+}
+
+/* ==========================================================
    Reveal on scroll (subtle)
    ========================================================== */
 .js .reveal {
