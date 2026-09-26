@@ -292,7 +292,15 @@ figure, blockquote { margin: 0; }
   will-change: transform;
 }
 .rotator-word.is-current .char { opacity: 1; transform: translateY(0); }
-.rotator-word.is-leaving .char { opacity: 0; transform: translateY(-105%); }
+/* The outgoing word fades out quickly and all at once, so no half-hidden letters are left behind */
+.rotator-word.is-leaving .char {
+  opacity: 0;
+  transform: translateY(-25%);
+  transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+  transition-delay: 0s;
+}
+/* Incoming letters start once the old word is gone */
+.rotator-word.is-current .char { transition-delay: calc(180ms + var(--i, 0) * 45ms); }
 .rotator-word.no-anim .char { transition: none; }
 
 .sr-only {
