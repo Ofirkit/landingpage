@@ -34,7 +34,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 - **Palette:** based on uxuikit.com. The hero is flat `#111111` and fades into the page (`#030308`). Lower sections are near-black with subtle navy and violet radial glows. All tokens are in `:root` in `styles.css`.
 - **Buttons:** every primary CTA is **white with dark text, 6px radius and a soft white glow**, used consistently everywhere. The old purple accent (`--accent`) now only appears in focus rings and details.
 - **Font:** Noto Sans Hebrew. Headings are 700 and everything else 400; no other weights.
-- **Hero headline:** 64px with line-height 1.1. On desktop and phones (≤600px) it breaks into 3 lines (`.br-desk`: "אתרים שתהיו / גאים לשלוח / [rotating word]"); on tablets (601–1023px) into 2 (`.br-mob`).
+- **Hero headline:** 70.4px on desktop (the earlier 64px + 10%; `clamp(42px, 5.72vw, 70.4px)` below 1024px) with line-height 1.1. On desktop and phones (≤600px) it breaks into 3 lines (`.br-desk`: "אתרים שתהיו / גאים לשלוח / [rotating word]"); on tablets (601–1023px) into 2 (`.br-mob`).
 - **Breakpoints:**
   - ≥1024px: two-column hero, with the headline on the right and the supporting copy and CTA on the left.
   - ≤960px: hamburger nav, stacked sections.

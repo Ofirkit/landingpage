@@ -246,7 +246,7 @@ figure, blockquote { margin: 0; }
 .hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero h1 {
   max-width: 100%;
-  font-size: clamp(38px, 5.2vw, 64px);
+  font-size: clamp(42px, 5.72vw, 70.4px); /* +10% over 38/5.2vw/64 */
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -264,7 +264,7 @@ figure, blockquote { margin: 0; }
     max-width: 1480px;
     text-align: start;
   }
-  .hero h1 { font-size: 64px; line-height: 1.1; white-space: nowrap; }
+  .hero h1 { font-size: 70.4px; line-height: 1.1; white-space: nowrap; } /* 64px +10% */
   .hero .br-desk { display: inline; }
   .hero .br-mob { display: none; }
   .hero-side { align-items: flex-start; }
