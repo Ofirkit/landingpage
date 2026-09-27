@@ -398,21 +398,33 @@ figure, blockquote { margin: 0; }
 /* ==========================================================
    About
    ========================================================== */
-.about {
-  background: radial-gradient(closest-side, rgba(23, 24, 75, 0.7), transparent) 0% 50% / 70% 90% no-repeat;
-}
 .about-grid {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  align-items: center;
-  gap: clamp(32px, 6vw, 96px);
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: clamp(32px, 8vw, 180px);
 }
-.about-photo { width: 100%; max-width: 480px; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; border-radius: var(--radius-lg); }
-.about-text { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
-.about-text h2 { font-size: clamp(38px, 5.4vw, 76px); line-height: 1.04; letter-spacing: -0.02em; }
-.about-text p { max-width: 580px; font-size: clamp(19px, 1.7vw, 22px); color: var(--text-muted); }
+.about-photo {
+  width: clamp(180px, 17vw, 260px);
+  aspect-ratio: 20 / 21;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 8px;
+}
+.about-text { display: flex; flex-direction: column; align-items: flex-start; gap: clamp(48px, 7vw, 120px); max-width: 900px; }
 
-.yt { display: flex; flex-direction: column; gap: 12px; }
+/* Scroll-filled statement: words start gray and turn white in reading order */
+.fill-text {
+  font-size: clamp(28px, 3.2vw, 46px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.fill-text .w { color: rgba(255, 255, 255, 0.26); transition: color 0.3s ease; }
+.fill-text .w.is-lit { color: var(--text); }
+
+.yt { display: flex; flex-direction: column; gap: 12px; margin-top: clamp(-80px, -4vw, -20px); }
 .yt-label { font-size: 15px; color: var(--text-dim); }
 .yt-links { display: flex; flex-wrap: wrap; gap: 10px; }
 .yt-link {
@@ -710,6 +722,7 @@ figure, blockquote { margin: 0; }
   .section-head { grid-template-columns: 1fr; row-gap: 12px; }
   .principles { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
+  .about-photo { width: 160px; }
   .quotes { grid-template-columns: 1fr; gap: 48px; max-width: 680px; }
   .step { grid-template-columns: 56px 1fr; row-gap: 8px; }
   .step p { grid-column: 2; }

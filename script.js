@@ -80,6 +80,44 @@ if (rotator && !reduceMotion) {
   }
 }
 
+// About: fill text on scroll. Words go from gray to white as the block moves up the screen.
+const fillBlocks = document.querySelectorAll(".fill-text");
+if (fillBlocks.length) {
+  const words = [];
+  fillBlocks.forEach((p) => {
+    const parts = p.textContent.trim().split(/(\s+)/);
+    p.textContent = "";
+    parts.forEach((part) => {
+      if (/^\s+$/.test(part)) { p.appendChild(document.createTextNode(" ")); return; }
+      const w = document.createElement("span");
+      w.className = "w";
+      w.textContent = part;
+      p.appendChild(w);
+      words.push(w);
+    });
+  });
+  if (reduceMotion) {
+    words.forEach((w) => w.classList.add("is-lit"));
+  } else {
+    const container = fillBlocks[0].parentElement;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = container.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 0 when the text's top reaches 85% of the screen, 1 when its bottom reaches 45%
+      const start = vh * 0.85, end = vh * 0.45;
+      const progress = Math.min(1, Math.max(0, (start - r.top) / (start - end + r.height)));
+      const lit = Math.round(progress * words.length);
+      words.forEach((w, i) => w.classList.toggle("is-lit", i < lit));
+    };
+    const onFillScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener("scroll", onFillScroll, { passive: true });
+    window.addEventListener("resize", onFillScroll);
+    update();
+  }
+}
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
