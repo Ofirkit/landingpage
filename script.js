@@ -120,7 +120,16 @@ if (fillBlocks.length) {
 
 // Sticky header background
 const header = document.querySelector(".site-header");
-const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+// Bottom blur: drop its dark tint while the white packages panel sits under it
+const blur = document.querySelector(".bottom-blur");
+const lightPanel = document.getElementById("packages");
+const onScroll = () => {
+  header.classList.toggle("is-scrolled", window.scrollY > 24);
+  if (blur && lightPanel) {
+    const r = lightPanel.getBoundingClientRect();
+    blur.classList.toggle("on-light", r.top < window.innerHeight && r.bottom > window.innerHeight - 40);
+  }
+};
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 

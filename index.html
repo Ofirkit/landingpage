@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260927n" />
+  <link rel="stylesheet" href="styles.css?v=20260927o" />
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -217,7 +217,10 @@
       <div class="container">
         <header class="section-head reveal">
           <p class="eyebrow">03</p>
-          <h2>תהליך</h2>
+          <div>
+            <h2>תהליך</h2>
+            <p class="section-sub">קודם מבינים איפה אתם עומדים ← ואז בונים את הדרך הברורה ביותר לאן שאתם הולכים.</p>
+          </div>
         </header>
 
         <ol class="steps">
@@ -248,68 +251,78 @@
     <!-- ===== Packages ===== -->
     <section class="section packages" id="packages">
       <div class="container">
-        <header class="section-head reveal">
+        <header class="packages-head reveal">
           <p class="eyebrow">04</p>
-          <div>
-            <h2>חבילות</h2>
-            <p class="section-sub">המחיר הסופי נקבע לפי ההיקף. אחרי השיחה תקבלו הצעה מסודרת.</p>
-          </div>
+          <h2>חבילות</h2>
+          <p class="packages-sub">האתר שלכם הוא לא קישוט יקר. הוא החוד החד ביותר של הנוכחות הדיגיטלית שלכם.</p>
         </header>
 
-        <div class="packages-grid">
-          <article class="package reveal">
+        <div class="plans">
+          <article class="plan reveal">
             <h3>דף נחיתה</h3>
-            <p class="package-for">להשקה, לגיוס או לקמפיין</p>
-            <p class="package-price">החל מ-[מחיר]</p>
-            <p class="package-time">זמן עבודה: [זמן]</p>
-            <ul class="package-list">
-              <li>עמוד אחד ממוקד</li>
-              <li>מבנה עמוד והיררכיה</li>
-              <li>עיצוב ב-Figma ובנייה ב-Framer, ב-Webflow או בקוד</li>
-              <li>טופס לידים וחיבור לאנליטיקס</li>
-              <li>התאמה מלאה למובייל ו-SEO בסיסי</li>
+            <p class="plan-for">להשקה, לגיוס או לקמפיין</p>
+            <ul class="plan-list">
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>עמוד אחד ממוקד</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>מבנה עמוד והיררכיה</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>עיצוב ב-Figma ובנייה ב-Framer, ב-Webflow או בקוד</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>טופס לידים וחיבור לאנליטיקס</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>התאמה מלאה למובייל ו-SEO בסיסי</li>
             </ul>
+            <div class="plan-price">
+              <p><span class="plan-from">החל מ</span> <strong>[מחיר]</strong></p>
+              <span class="plan-time">זמן עבודה: [זמן]</span>
+            </div>
+            <a href="[קישור ליומן]" class="btn btn-primary plan-btn" target="_blank" rel="noopener">לשיחת היכרות</a>
+            <p class="plan-note">שיחת היכרות של 20 דקות</p>
           </article>
-
-          <article class="package reveal">
+          <article class="plan plan-featured reveal">
             <h3>אתר שיווקי מלא</h3>
-            <p class="package-for">לעסק שצריך בית אמיתי ברשת</p>
-            <p class="package-price">החל מ-[מחיר]</p>
-            <p class="package-time">זמן עבודה: [זמן]</p>
-            <ul class="package-list">
-              <li>[מספר] עמודים (בית, מוצר, אודות ועוד)</li>
-              <li>מבנה, היררכיה והצגה ויזואלית של המוצר</li>
-              <li>CMS לבלוג, משרות או עדכונים</li>
-              <li>אנימציות ומיקרו-אינטראקציות</li>
-              <li>הדרכה לצוות</li>
+            <p class="plan-for">לעסק שצריך בית אמיתי ברשת</p>
+            <ul class="plan-list">
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>[מספר] עמודים (בית, מוצר, אודות ועוד)</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>מבנה, היררכיה והצגה ויזואלית של המוצר</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>CMS לבלוג, משרות או עדכונים</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>אנימציות ומיקרו-אינטראקציות</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>הדרכה לצוות</li>
             </ul>
+            <div class="plan-price">
+              <p><span class="plan-from">החל מ</span> <strong>[מחיר]</strong></p>
+              <span class="plan-time">זמן עבודה: [זמן]</span>
+            </div>
+            <a href="[קישור ליומן]" class="btn btn-primary plan-btn" target="_blank" rel="noopener">לשיחת היכרות</a>
+            <p class="plan-note">שיחת היכרות של 20 דקות</p>
           </article>
-
-          <article class="package reveal">
+          <article class="plan reveal">
             <h3>מ-Figma לאתר חי</h3>
-            <p class="package-for">כבר יש לכם עיצוב, חסר מי שיבנה</p>
-            <p class="package-price">החל מ-[מחיר]</p>
-            <p class="package-time">זמן עבודה: [זמן]</p>
-            <ul class="package-list">
-              <li>בנייה ב-Framer, ב-Webflow או בקוד, בדיוק לפי העיצוב</li>
-              <li>השלמת מצבי מובייל וטאבלט</li>
-              <li>אנימציות ו-CMS לפי הצורך</li>
-              <li>הערות UX לשיפור בדרך</li>
-              <li>חיבור דומיין והשקה</li>
+            <p class="plan-for">כבר יש לכם עיצוב, חסר מי שיבנה</p>
+            <ul class="plan-list">
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>בנייה ב-Framer, ב-Webflow או בקוד, בדיוק לפי העיצוב</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>השלמת מצבי מובייל וטאבלט</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>אנימציות ו-CMS לפי הצורך</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>הערות UX לשיפור בדרך</li>
+              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>חיבור דומיין והשקה</li>
             </ul>
+            <div class="plan-price">
+              <p><span class="plan-from">החל מ</span> <strong>[מחיר]</strong></p>
+              <span class="plan-time">זמן עבודה: [זמן]</span>
+            </div>
+            <a href="[קישור ליומן]" class="btn btn-primary plan-btn" target="_blank" rel="noopener">לשיחת היכרות</a>
+            <p class="plan-note">שיחת היכרות של 20 דקות</p>
           </article>
+        </div>
 
-          <article class="package package-alt reveal">
+        <article class="plan plan-wide reveal">
+          <div>
             <h3>תחזוקה חודשית</h3>
-            <p class="package-for">לעדכונים, עמודים חדשים ושינויים אחרי ההשקה.</p>
-            <p class="package-price">600 ₪ <span>לשעתיים בחודש</span></p>
-            <p class="package-price package-price-2">1,200 ₪ <span>ל-4 שעות בחודש</span></p>
-          </article>
-        </div>
+            <p class="plan-for">לעדכונים, עמודים חדשים ושינויים אחרי ההשקה.</p>
+          </div>
+          <div class="plan-wide-prices">
+            <p><strong>600 ₪</strong> <span>לשעתיים בחודש</span></p>
+            <p><strong>1,200 ₪</strong> <span>ל-4 שעות בחודש</span></p>
+          </div>
+        </article>
 
-        <div class="packages-cta reveal">
-          <a href="[קישור ליומן]" class="btn btn-primary" target="_blank" rel="noopener">לשיחת היכרות</a>
-        </div>
+        <p class="packages-note reveal">המחיר הסופי נקבע לפי ההיקף. אחרי השיחה תקבלו הצעה מסודרת.</p>
       </div>
     </section>
 
@@ -432,6 +445,6 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script src="script.js?v=20260927n" defer></script>
+  <script src="script.js?v=20260927o" defer></script>
 </body>
 </html>

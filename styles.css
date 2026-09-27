@@ -500,42 +500,108 @@ figure, blockquote { margin: 0; }
 /* ==========================================================
    Packages
    ========================================================== */
-.packages-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.package {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 32px 28px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+/* Light panel after the pricing reference: light cards, one black featured card,
+   pill buttons (black on light, white on black) and blue checks */
+.packages {
+  --p-ink: #0a0a0a;
+  --p-muted: #7c7c84;
+  --p-card: #f7f7f8;
+  --p-line: #ececef;
+  --p-check: #3478f6;
+  color: var(--p-ink);
+  background: #fff;
+  isolation: isolate;
 }
-.package h3 { font-size: 23px; letter-spacing: -0.01em; }
-.package-for { font-size: 16px; color: var(--text-dim); min-height: 3.3em; }
-.package-price { margin-top: 18px; font-size: 26px; font-weight: 700; line-height: 1.2; }
-.package-price span { font-size: 15px; font-weight: 400; color: var(--text-muted); }
-.package-alt .package-price span { display: block; }
-.package-price-2 { margin-top: 6px; }
-.package-time { font-size: 15px; color: var(--text-muted); }
-.package-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 22px;
-  padding-top: 22px;
-  border-top: 1px solid var(--border);
-}
-.package-list li { position: relative; padding-inline-start: 20px; font-size: 16px; color: var(--text-muted); }
-.package-list li::before {
+.packages::before { /* faint grid behind the heading, fading out */
   content: "";
   position: absolute;
-  inset-inline-start: 0;
-  top: 0.8em;
-  width: 8px;
-  height: 1px;
-  background: var(--text-dim);
+  inset: 0 0 auto;
+  height: 520px;
+  z-index: -1;
+  background:
+    linear-gradient(to right, #f1f1f3 1px, transparent 1px) 0 0 / 72px 72px,
+    linear-gradient(to bottom, #f1f1f3 1px, transparent 1px) 0 0 / 72px 72px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent);
+  mask-image: linear-gradient(to bottom, #000, transparent);
 }
-.package-alt { background: var(--surface); }
-.packages-cta { margin-top: 40px; }
+.packages-head { max-width: 640px; margin: 0 auto clamp(48px, 6vw, 80px); text-align: center; }
+.packages-head .eyebrow { color: var(--p-muted); }
+.packages-head h2 {
+  margin-top: 8px;
+  font-size: clamp(38px, 5.4vw, 76px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+.packages-sub { margin-top: 18px; font-size: 19px; color: var(--p-muted); text-wrap: balance; }
+
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+.plan {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.4vw, 32px);
+  background: var(--p-card);
+  border-radius: 20px;
+}
+.plan h3 { font-size: 23px; letter-spacing: -0.01em; }
+.plan-for { margin-top: 12px; font-size: 16px; color: var(--p-muted); }
+.plan-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; margin-bottom: 40px; }
+.plan-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
+.check {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 0.2em;
+  fill: none;
+  stroke: var(--p-check);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+.plan-price p { display: flex; align-items: baseline; gap: 8px; }
+.plan-from { font-size: 15px; color: var(--p-muted); }
+.plan-price strong { font-size: clamp(32px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em; }
+.plan-time { font-size: 14px; color: var(--p-muted); white-space: nowrap; }
+.btn.plan-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding-block: 16px;
+  color: #fff;
+  background: var(--p-ink);
+  border-radius: var(--radius-pill);
+  box-shadow: none;
+}
+.btn.plan-btn:hover { background: #2a2a2e; box-shadow: none; }
+.plan-note { margin-top: 12px; font-size: 13px; color: var(--p-muted); text-align: center; }
+
+.plan-featured { color: #fff; background: #000; }
+.plan-featured .plan-for,
+.plan-featured .plan-from,
+.plan-featured .plan-time,
+.plan-featured .plan-note { color: #a1a1aa; }
+.plan-featured .btn.plan-btn { color: var(--p-ink); background: #fff; }
+.plan-featured .btn.plan-btn:hover { background: #e9e9ec; }
+
+.plan-wide {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 48px;
+  margin-top: 20px;
+}
+.plan-wide .plan-for { margin-top: 6px; }
+.plan-wide-prices { display: flex; flex-wrap: wrap; gap: 12px 40px; }
+.plan-wide-prices p { display: flex; align-items: baseline; gap: 8px; }
+.plan-wide-prices strong { font-size: 28px; letter-spacing: -0.01em; }
+.plan-wide-prices span { font-size: 15px; color: var(--p-muted); }
+.packages-note { margin-top: 32px; font-size: 15px; color: var(--p-muted); text-align: center; }
 
 /* ==========================================================
    Fit
@@ -671,7 +737,9 @@ figure, blockquote { margin: 0; }
 .bottom-blur::after {
   content: "";
   background: linear-gradient(to bottom, transparent, rgba(3, 3, 8, 0.35));
+  transition: opacity 0.3s;
 }
+.bottom-blur.on-light::after { opacity: 0; } /* no dark tint over the white packages panel */
 
 /* ==========================================================
    Reveal on scroll (subtle)
@@ -693,9 +761,9 @@ figure, blockquote { margin: 0; }
 /* ==========================================================
    Responsive
    ========================================================== */
-@media (max-width: 1100px) {
-  .packages-grid { grid-template-columns: repeat(2, 1fr); }
-  .package-for { min-height: 0; }
+@media (max-width: 960px) {
+  .plans { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+  .plan-wide { max-width: 560px; margin-inline: auto; }
 }
 
 @media (max-width: 960px) {
@@ -736,7 +804,7 @@ figure, blockquote { margin: 0; }
 @media (max-width: 600px) {
   body { font-size: 17px; }
   .logo svg { width: 26px; }
-  .principles, .packages-grid { grid-template-columns: 1fr; }
+  .principles { grid-template-columns: 1fr; }
   .about-photo { width: 100%; height: auto; aspect-ratio: 1000 / 1333; } /* phones: full width, the photo's own proportions */
   /* Tighter hero so the first gallery row peeks above the fold on phones */
   .hero { padding-top: 100px; }
