@@ -33,7 +33,20 @@
   --col-gap: clamp(24px, 3vw, 48px);
   /* Width of the side column in section heads; content below lines up with the heading */
 
-  --font: "Noto Sans Hebrew", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font: "IBM Plex Sans Hebrew", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* Type scale: every font size on the page comes from this list (about 12% below the old sizes) */
+  --fs-display-max: 62px;                         /* hero headline, desktop */
+  --fs-display: clamp(38px, 5vw, 62px);           /* hero headline, below 1024px */
+  --fs-h2: clamp(34px, 4.6vw, 66px);              /* section headings, final CTA */
+  --fs-xl: clamp(26px, 3.2vw, 44px);              /* big statement text: About, Statement */
+  --fs-h3: clamp(24px, 2.4vw, 32px);              /* process step titles, prices */
+  --fs-h4: clamp(18px, 1.5vw, 20px);              /* card, principle, fit and FAQ titles */
+  --fs-lead: clamp(17px, 1.5vw, 21px);            /* hero subheading */
+  --fs-body-lg: 17px;                             /* section intros, quotes, large buttons */
+  --fs-body: 16px;                                /* body text, buttons */
+  --fs-sm: 14px;                                  /* labels, meta, nav */
+  --fs-xs: 13px;                                  /* fine print */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -51,7 +64,7 @@ html:not(.lenis) { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font);
-  font-size: 18px;
+  font-size: var(--fs-body);
   line-height: 1.65;
   color: var(--text);
   background: var(--bg);
@@ -103,7 +116,7 @@ figure, blockquote { margin: 0; }
   gap: 8px;
   padding: 14px 28px;
   font: inherit;
-  font-size: 17px;
+  font-size: var(--fs-body);
   font-weight: 700;
   line-height: 1.2;
   white-space: nowrap;
@@ -112,8 +125,8 @@ figure, blockquote { margin: 0; }
   cursor: pointer;
   transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
-.btn-sm { padding: 8px 16px; font-size: 14px; }
-.btn-lg { padding: 16px 32px; font-size: 19px; }
+.btn-sm { padding: 8px 16px; font-size: var(--fs-sm); }
+.btn-lg { padding: 16px 32px; font-size: var(--fs-body-lg); }
 .btn-primary {
   color: #0b0b0f;
   background: #fff;
@@ -133,11 +146,11 @@ figure, blockquote { margin: 0; }
   border-top: 1px solid var(--border);
 }
 .section-head h2 {
-  font-size: clamp(38px, 5.4vw, 76px);
+  font-size: var(--fs-h2);
   line-height: 1.04;
   letter-spacing: -0.02em;
 }
-.section-sub { margin-top: 20px; max-width: 560px; font-size: 19px; color: var(--text-muted); }
+.section-sub { margin-top: 20px; max-width: 560px; font-size: var(--fs-body-lg); color: var(--text-muted); }
 
 
 /* ==========================================================
@@ -175,7 +188,7 @@ figure, blockquote { margin: 0; }
 .main-nav a {
   display: block;
   padding-block: 6px;
-  font-size: 14px;
+  font-size: var(--fs-sm);
   line-height: 1.2; /* 16.8px: one line = one roll step */
   font-weight: 400;
   white-space: nowrap;
@@ -235,7 +248,7 @@ figure, blockquote { margin: 0; }
 .hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero h1 {
   max-width: 100%;
-  font-size: clamp(42px, 5.72vw, 70.4px); /* +10% over 38/5.2vw/64 */
+  font-size: var(--fs-display);
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -253,7 +266,7 @@ figure, blockquote { margin: 0; }
     max-width: 1480px;
     text-align: start;
   }
-  .hero h1 { font-size: 70.4px; line-height: 1.1; white-space: nowrap; } /* 64px +10% */
+  .hero h1 { font-size: var(--fs-display-max); line-height: 1.1; white-space: nowrap; }
   .hero .br-desk { display: inline; }
   .hero .br-mob { display: none; }
   .hero-side { align-items: flex-start; }
@@ -263,7 +276,7 @@ figure, blockquote { margin: 0; }
 .lead {
   max-width: 740px;
   margin-top: clamp(20px, 2vw, 28px);
-  font-size: clamp(19px, 1.7vw, 24px);
+  font-size: var(--fs-lead);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.88);
 }
@@ -275,7 +288,7 @@ figure, blockquote { margin: 0; }
   justify-content: center;
   gap: 8px 28px;
   margin-top: 22px;
-  font-size: 16px;
+  font-size: var(--fs-sm);
   color: var(--text-muted);
 }
 .hero-meta li { display: inline-flex; align-items: center; gap: 8px; }
@@ -380,8 +393,8 @@ figure, blockquote { margin: 0; }
   gap: clamp(40px, 5vw, 72px) var(--col-gap);
 }
 .principles li { padding-top: 20px; border-top: 1px solid var(--border); }
-.principles h3 { font-size: clamp(22px, 2vw, 26px); letter-spacing: -0.01em; margin-bottom: 10px; }
-.principles p { font-size: 17px; color: var(--text-muted); }
+.principles h3 { font-size: var(--fs-h4); letter-spacing: -0.01em; margin-bottom: 10px; }
+.principles p { font-size: var(--fs-body); color: var(--text-muted); }
 
 /* ==========================================================
    About
@@ -403,7 +416,7 @@ figure, blockquote { margin: 0; }
 
 /* Scroll-filled statement: words start gray and turn white in reading order */
 .fill-text {
-  font-size: clamp(28px, 3.2vw, 46px);
+  font-size: var(--fs-xl);
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
@@ -413,14 +426,14 @@ figure, blockquote { margin: 0; }
 .fill-text .w.is-lit { color: var(--text); }
 
 .yt { display: flex; flex-direction: column; gap: 12px; margin-top: clamp(-80px, -4vw, -20px); }
-.yt-label { font-size: 15px; color: var(--text-dim); }
+.yt-label { font-size: var(--fs-sm); color: var(--text-dim); }
 .yt-links { display: flex; flex-wrap: wrap; gap: 10px; }
 .yt-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  font-size: 15px;
+  font-size: var(--fs-sm);
   font-weight: 700;
   direction: ltr;
   border: 1px solid var(--border);
@@ -442,7 +455,7 @@ figure, blockquote { margin: 0; }
   padding-top: 28px;
   border-top: 1px solid var(--border);
 }
-.quote p { font-size: 18px; line-height: 1.75; }
+.quote p { font-size: var(--fs-body-lg); line-height: 1.75; }
 .quote figcaption {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -463,15 +476,15 @@ figure, blockquote { margin: 0; }
   color: var(--text-dim);
   border: 1px dashed var(--border-strong);
 }
-.quote figcaption strong { font-size: 17px; font-weight: 700; }
-.quote figcaption span:not(.avatar) { font-size: 15px; color: var(--text-dim); }
+.quote figcaption strong { font-size: var(--fs-body); font-weight: 700; }
+.quote figcaption span:not(.avatar) { font-size: var(--fs-sm); color: var(--text-dim); }
 
 /* ==========================================================
    Statement: one big line between Testimonials and Process
    ========================================================== */
 .statement { padding-block: calc(var(--section-y) * 0.6) 0; }
 .statement-text {
-  font-size: clamp(30px, 3.8vw, 54px);
+  font-size: var(--fs-xl);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -503,9 +516,9 @@ figure, blockquote { margin: 0; }
   cursor: pointer;
   transition: color 0.35s var(--ease);
 }
-.step-num { font-size: 15px; font-variant-numeric: tabular-nums; }
-.step-title { font-size: clamp(24px, 2.6vw, 36px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-.step-meta { font-size: 14px; white-space: nowrap; }
+.step-num { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.step-title { font-size: var(--fs-h3); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+.step-meta { font-size: var(--fs-sm); white-space: nowrap; }
 .step.is-open .step-head,
 .step-head:hover { color: var(--text); }
 
@@ -521,7 +534,7 @@ figure, blockquote { margin: 0; }
   margin: -8px 0 0;
   margin-inline-start: calc(56px + var(--col-gap));
   padding-bottom: 30px;
-  font-size: 17px;
+  font-size: var(--fs-body);
   color: var(--text-muted);
 }
 .js .step:not(.is-open) .step-panel { grid-template-rows: 0fr; opacity: 0; }
@@ -547,7 +560,7 @@ figure, blockquote { margin: 0; }
 }
 .packages-head { max-width: 640px; margin: 0 auto clamp(48px, 6vw, 80px); text-align: center; }
 .packages-head h2 {
-  font-size: clamp(38px, 5.4vw, 76px);
+  font-size: var(--fs-h2);
   line-height: 1.04;
   letter-spacing: -0.02em;
 }
@@ -561,10 +574,10 @@ figure, blockquote { margin: 0; }
   border: 1px solid var(--border);
   border-radius: 20px;
 }
-.plan h3 { font-size: 23px; letter-spacing: -0.01em; }
-.plan-for { margin-top: 12px; font-size: 16px; color: var(--text-muted); }
+.plan h3 { font-size: var(--fs-h4); letter-spacing: -0.01em; }
+.plan-for { margin-top: 12px; font-size: var(--fs-body); color: var(--text-muted); }
 .plan-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; margin-bottom: 40px; }
-.plan-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
+.plan-list li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-body); line-height: 1.45; }
 .check {
   flex: none;
   width: 16px;
@@ -584,10 +597,10 @@ figure, blockquote { margin: 0; }
   margin-top: auto;
 }
 .plan-price p { display: flex; align-items: baseline; gap: 8px; }
-.plan-from { font-size: 15px; color: var(--text-muted); }
-.plan-price strong { font-size: clamp(32px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em; }
+.plan-from { font-size: var(--fs-sm); color: var(--text-muted); }
+.plan-price strong { font-size: var(--fs-h3); line-height: 1.1; letter-spacing: -0.02em; }
 .btn.plan-btn { width: 100%; margin-top: 24px; padding-block: 16px; border-radius: var(--radius-pill); }
-.plan-note { margin-top: 12px; font-size: 13px; color: var(--text-muted); text-align: center; }
+.plan-note { margin-top: 12px; font-size: var(--fs-xs); color: var(--text-muted); text-align: center; }
 
 .plan-featured {
   background:
@@ -607,9 +620,9 @@ figure, blockquote { margin: 0; }
 .plan-wide .plan-for { margin-top: 6px; }
 .plan-wide-prices { display: flex; flex-wrap: wrap; gap: 12px 40px; }
 .plan-wide-prices p { display: flex; align-items: baseline; gap: 8px; }
-.plan-wide-prices strong { font-size: 28px; letter-spacing: -0.01em; }
-.plan-wide-prices span { font-size: 15px; color: var(--text-muted); }
-.packages-note { margin-top: 32px; font-size: 15px; color: var(--text-muted); text-align: center; }
+.plan-wide-prices strong { font-size: var(--fs-h3); letter-spacing: -0.01em; }
+.plan-wide-prices span { font-size: var(--fs-sm); color: var(--text-muted); }
+.packages-note { margin-top: 32px; font-size: var(--fs-sm); color: var(--text-muted); text-align: center; }
 
 /* ==========================================================
    Fit
@@ -619,12 +632,12 @@ figure, blockquote { margin: 0; }
   grid-template-columns: 1fr 1fr;
   gap: var(--col-gap);
 }
-.fit-col h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.fit-col h3 { font-size: var(--fs-h4); font-weight: 700; margin-bottom: 12px; }
 .fit-list li {
   position: relative;
   padding: 16px 0;
   padding-inline-start: 32px;
-  font-size: 17px;
+  font-size: var(--fs-body);
   color: var(--text-muted);
   border-top: 1px solid var(--border);
 }
@@ -635,7 +648,7 @@ figure, blockquote { margin: 0; }
   font-weight: 700;
 }
 .fit-yes li::before { content: "✓"; color: var(--success); }
-.fit-no li::before { content: "✕"; color: var(--danger); font-size: 15px; }
+.fit-no li::before { content: "✕"; color: var(--danger); font-size: var(--fs-sm); }
 
 /* ==========================================================
    FAQ
@@ -648,7 +661,7 @@ figure, blockquote { margin: 0; }
   justify-content: space-between;
   gap: 24px;
   padding-block: 24px;
-  font-size: clamp(18px, 1.6vw, 21px);
+  font-size: var(--fs-h4);
   font-weight: 700;
   list-style: none;
   cursor: pointer;
@@ -657,14 +670,14 @@ figure, blockquote { margin: 0; }
 .faq-item summary::after {
   content: "+";
   flex: none;
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 400;
   line-height: 1;
   color: var(--text-muted);
   transition: transform 0.3s var(--ease);
 }
 .faq-item[open] summary::after { transform: rotate(45deg); }
-.faq-item p { max-width: 720px; padding-bottom: 26px; font-size: 17px; color: var(--text-muted); }
+.faq-item p { max-width: 720px; padding-bottom: 26px; font-size: var(--fs-body); color: var(--text-muted); }
 
 /* ==========================================================
    Final CTA
@@ -678,13 +691,13 @@ figure, blockquote { margin: 0; }
 }
 .cta-panel h2 {
   max-width: 22ch;
-  font-size: clamp(36px, 5.6vw, 80px);
+  font-size: var(--fs-h2);
   line-height: 1.04;
   letter-spacing: -0.02em;
 }
 .cta-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: clamp(32px, 4vw, 56px); }
 .cta-mail {
-  font-size: 17px;
+  font-size: var(--fs-body);
   color: var(--text-muted);
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -703,7 +716,7 @@ figure, blockquote { margin: 0; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  font-size: 15px;
+  font-size: var(--fs-sm);
   color: var(--text-dim);
 }
 .footer-link { transition: color 0.2s; direction: ltr; }
@@ -805,7 +818,6 @@ figure, blockquote { margin: 0; }
 }
 
 @media (max-width: 600px) {
-  body { font-size: 17px; }
   .logo svg { width: 26px; }
   .principles { grid-template-columns: 1fr; }
   .step-head { grid-template-columns: 32px 1fr; row-gap: 4px; }
@@ -814,13 +826,13 @@ figure, blockquote { margin: 0; }
   .about-photo { width: 100%; height: auto; aspect-ratio: 1000 / 1333; } /* phones: full width, the photo's own proportions */
   /* Tighter hero so the first gallery row peeks above the fold on phones */
   .hero { padding-top: 100px; }
-  .hero .lead { margin-top: 14px; font-size: 17px; }
+  .hero .lead { margin-top: 14px; font-size: var(--fs-lead); }
   .hero .btn { width: 100%; margin-top: 22px; }
   .hero-meta { margin-top: 14px; }
   .gallery { margin-top: 32px; }
   .hero .br-desk { display: inline; } /* phones: 3 lines, rotating word on its own line */
   .hero .br-mob { display: none; }
-  .hero-meta { gap: 8px 18px; font-size: 15px; }
+  .hero-meta { gap: 8px 18px; font-size: var(--fs-sm); }
   .cta-actions { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner { flex-direction: column; text-align: center; }
 }

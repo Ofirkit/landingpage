@@ -36,8 +36,20 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fi
 - **Page title and meta (approved):** title "UXUIKIT | עיצוב ובניית אתרים לסטארטאפים ועסקים". Social share title (`og:title`) "עיצוב ובניית אתרים לסטארטאפים ועסקים". Description and `og:description`: "מעצב ובונה אתרים שתהיו גאים לשלוח ללקוחות ולמשקיעים. עיצוב ב-Figma ופיתוח ב-Framer, Webflow או בקוד, לסטארטאפים, סטודיואים ועסקי שירות." The audience is still startups first, broadened to studios and service businesses (not moving away from startups). Rejected title "מעצב ובונה אתרים לא גנריים": negative framing with no search keywords.
 - **CTA copy (copywriter recommendation, approved):** header "בואו נדבר", hero and final CTA "בואו נכיר", packages "לשיחת היכרות". Every button books the intro call (`[קישור ליומן]`). Rejected: "להתחלת פרויקט" (asks for too much commitment on the first click) and "בואו נעבוד ביחד" (vague, and skips the intro step).
 - **Buttons:** every primary CTA is **white with dark text, 6px radius and a soft white glow**, used consistently everywhere, including the pricing cards (which use the pill shape from the reference). The old purple accent (`--accent`) now only appears in focus rings and details.
-- **Font:** Noto Sans Hebrew. Headings are 700 and everything else 400; no other weights.
-- **Hero headline:** 70.4px on desktop (the earlier 64px + 10%; `clamp(42px, 5.72vw, 70.4px)` below 1024px) with line-height 1.1. On desktop and phones (≤600px) it breaks into 3 lines (`.br-desk`: "אתרים שתהיו / גאים לשלוח / [rotating word]"); on tablets (601–1023px) into 2 (`.br-mob`).
+- **Font:** **IBM Plex Sans Hebrew** (switched from Noto Sans Hebrew after a side-by-side comparison with Heebo, Assistant and Rubik: more character, a precise "designer who builds" feel, matching Latin for the tool names, less common than Heebo/Rubik). Headings are 700 and everything else 400; no other weights. A paid alternative the user may consider: Ploni or Almoni by AlefAlefAlef.
+- **Type scale (user request: consistent sizes, about 12% smaller):** every font size comes from tokens in `:root`. Don't add one-off sizes.
+  - `--fs-display` 62px: hero headline, `clamp(38px, 5vw, 62px)` below 1024px.
+  - `--fs-h2` up to 66px: section headings and the final CTA.
+  - `--fs-xl` up to 44px: big statement text (About, Statement).
+  - `--fs-h3` up to 32px: process step titles and prices.
+  - `--fs-h4` up to 20px: card, principle, fit and FAQ titles.
+  - `--fs-lead` up to 21px: hero subheading.
+  - `--fs-body-lg` 17px: section intros, quotes, large buttons.
+  - `--fs-body` 16px: body text and buttons.
+  - `--fs-sm` 14px: labels, meta, nav.
+  - `--fs-xs` 13px: fine print.
+  - Deliberate exceptions: the mobile dropdown links (18px for tapping), the FAQ "+" icon and the avatar placeholder.
+- **Hero headline:** 62px on desktop (`--fs-display`; it was 70.4px before the 12% type reduction) with line-height 1.1. On desktop and phones (≤600px) it breaks into 3 lines (`.br-desk`: "אתרים שתהיו / גאים לשלוח / [rotating word]"); on tablets (601–1023px) into 2 (`.br-mob`).
 - **Breakpoints:**
   - ≥1024px: two-column hero, with the headline on the right and the supporting copy and CTA on the left.
   - ≤960px: hamburger nav, stacked sections.
@@ -67,7 +79,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fi
   - Keep Hebrew and RTL. Use logical CSS properties (`inset-inline`, `padding-inline-start`).
   - Put any unknown fact in a **`[placeholder]` in square brackets**; never invent prices, timelines, clients, numbers or testimonials.
   - After editing `styles.css` or `script.js`, **bump the `?v=` query** on both in `index.html`. Browsers served a stale stylesheet and broke the page in Firefox.
-  - Test the rotating headline with the **real Noto Sans Hebrew font**. It can't load from Google Fonts in the sandbox; get it with `npm pack @fontsource/noto-sans-hebrew` and inject it via Playwright. The fallback font hid a real bug.
+  - Test the rotating headline with the **real IBM Plex Sans Hebrew font**. It can't load from Google Fonts in the sandbox; get it with `npm pack @fontsource/ibm-plex-sans-hebrew` and serve its hebrew and latin woff2 files (with `unicode-range`) through a Playwright route for `fonts.googleapis.com`. The fallback font hid a real bug.
   - **One voice for all copy (user request):** Ofir speaks in the first person singular ("אני מעצב", "אני מתחיל"), never "אנחנו", and addresses readers in the plural ("אתם", "שלכם"). A "we" form is only for things done together with the client ("בואו נכיר", "מאשרים יחד"). Translate borrowed lines into this voice, including the saved messages.
   - Get the user's approval of a plan before large structural changes, which the user explicitly asked for.
   - Bundle third-party JS in `assets/vendor/`, not a CDN.
@@ -109,7 +121,7 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
 
 ## 6. Current status
 
-- **Done:** every section above, desktop and mobile. The rotating word, Lenis smooth scrolling and the bottom blur were verified in Chrome with the real font.
+- **Done:** every section above, desktop and mobile. The rotating word, Lenis smooth scrolling and the bottom blur were verified in Chrome with the real font (re-verified with IBM Plex Sans Hebrew: the clip is exactly one line at 62px and 38px).
 - **Placeholders still open** (full list in `README.md`):
   - Booking link `[קישור ליומן]` (4×) and `[מייל]`.
   - YouTube `[קישור]` (2×).
