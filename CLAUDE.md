@@ -46,7 +46,8 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - Exit: the old letters slide up out of the line one by one (0.35s, 25ms stagger).
   - Enter: the new letters rise from below, starting only after the exit (0.6s, 40ms stagger, 560ms delay).
   - Hold: each word stays for 3.6s (`HOLD`). It matches a reference GIF the user supplied.
-- **Nav hover roll:** JS splits each link into letters, each stacked with a copy, inside a one-line clip (`height: 1.2em` = 19.2px at 16px). On hover the letters go from `transform: none` to `translateY(-19.2px)` with an 18ms stagger. The link keeps an `aria-label`. The mobile dropdown panel is opaque (`#0e0e28`).
+- **Header sizes:** links and the header CTA are 14px (CTA padding 8×16). The logo is 31px wide (26px on mobile). The mobile menu button is 38px. The mobile dropdown links stay 18px for easy tapping.
+- **Nav hover roll:** JS splits each link into letters, each stacked with a copy, inside a one-line clip (`height: 1.2em` = 16.8px at 14px). On hover the letters go from `transform: none` to `translateY(-1.2em)`, which is −16.8px, with an 18ms stagger. It scales with font size. The link keeps an `aria-label`. The mobile dropdown panel is opaque (`#0e0e28`).
 - **Motion:** restrained. Reveal-on-scroll uses a 12px rise. Lenis uses `lerp: 0.1`. The bottom blur is 7 `backdrop-filter` layers (0.5px to 32px) plus a 0.35 tint. Everything respects `prefers-reduced-motion`.
 
 ## 4. Conventions and rules
