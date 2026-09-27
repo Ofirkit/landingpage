@@ -205,7 +205,9 @@ figure, blockquote { margin: 0; }
 }
 .roll-char > span { display: block; height: 1.2em; line-height: 1.2; }
 .main-nav a:hover .roll-char,
-.main-nav a:focus-visible .roll-char { transform: translateY(-1.2em); }
+.main-nav a:focus-visible .roll-char,
+.btn-primary:hover .roll-char,
+.btn-primary:focus-visible .roll-char { transform: translateY(-1.2em); }
 
 .header-actions { display: flex; align-items: center; gap: 10px; }
 

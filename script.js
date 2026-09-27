@@ -124,8 +124,8 @@ const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 2
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
-// Nav links: split into letters for the hover roll (each letter stacked with a copy)
-document.querySelectorAll(".main-nav a").forEach((link) => {
+// Nav links and CTA buttons: split into letters for the hover roll (each letter stacked with a copy)
+document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
   const text = link.textContent.trim();
   link.setAttribute("aria-label", text);
   const roll = document.createElement("span");
