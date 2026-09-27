@@ -22,7 +22,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
 | Process | `#process` | 4 steps. |
 | Packages | `#packages` | Landing page · full marketing site · from Figma to a live site · monthly maintenance (600 ₪ for 2 h, 1,200 ₪ for 4 h; these prices are real). |
-| Fit | `#fit` | "מתאים אם" / "פחות מתאים אם". |
+| Fit | `#fit` | "מתאים אם" / "פחות מתאים אם". The first "fit" line names startups, studios and service businesses. |
 | FAQ | `#faq` | `<details>` items. |
 | Final CTA | `#contact` | Booking button and a `mailto:` link. |
 | Bottom blur | `.bottom-blur` | Fixed progressive blur at the bottom of the viewport. |
