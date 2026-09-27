@@ -77,7 +77,16 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - Add a "הכי מבוקש" badge or other unverified claims.
 - Images: optimize before use (the 7.4MB portrait became a 60KB webp). Logos in `assets/logos/` have tightened `viewBox`es.
 
-## 5. Tried and rejected (don't repeat)
+## 4a. Saved messages (for later use)
+
+Lines the user liked on other sites. Use them only where they fit naturally, and ask before placing one.
+
+- **Not placed yet:** "We don't jump straight to the visuals. We start by understanding your business, your audience, and what your website actually needs to do."
+  - Draft Hebrew, not approved: "אנחנו לא קופצים ישר לעיצוב. מתחילים בהבנה של העסק, הקהל, ומה האתר שלכם באמת צריך לעשות."
+  - Possible homes: the Process intro (it overlaps with the current subtitle, so it would replace it) or the first process step.
+- **Already on the site:** "Your website isn't an expensive decoration…" (the Statement) and "First, we understand where you are → …" (the Process subtitle).
+
+ (don't repeat)
 
 - **About further down the page:** moved to directly after the hero at the user's request (introduce the person first).
 - **Pain / "why Framer" / outcome sections and a conversion-heavy tone:** replaced by the partner-tone brief ("איך אני עובד" principles).
