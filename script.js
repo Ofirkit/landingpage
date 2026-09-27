@@ -11,6 +11,21 @@ document.querySelectorAll(".gallery-track").forEach((track) => {
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Gallery videos: play only while on screen (saves CPU/battery, esp. with the cloned copy);
+// with reduced motion they stay on their poster frame
+const galleryVideos = document.querySelectorAll(".gallery video");
+if (reduceMotion) {
+  galleryVideos.forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
+} else if ("IntersectionObserver" in window) {
+  const vio = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) target.play().catch(() => {});
+      else target.pause();
+    });
+  });
+  galleryVideos.forEach((v) => vio.observe(v));
+}
+
 // Smooth (inertia) scrolling with Lenis; skipped for reduced motion
 if (window.Lenis && !reduceMotion) {
   window.lenis = new Lenis({

@@ -17,7 +17,6 @@ All placeholders are in square brackets in `index.html`. Search for `[` to find 
 - [ ] `[קישור ליומן]` (4×): booking link, used by every "לקביעת שיחה" button
 - [ ] `[מייל]`: email address in the final CTA (`mailto:`)
 - [ ] `[קישור]` (2×): YouTube channels UXUIKIT and Ophir Creates
-- [ ] `[שם הפרויקט]`: 10 gallery tiles; swap each for a real screenshot (see the comment above the gallery)
 - [ ] `[תמונה]` (2×): photos of Shani Gilad and Ran Alter
 - [ ] `[מחיר]` (3×) and `[זמן]` (3×): package prices and timelines
 - [ ] `[מספר]` (3×): number of pages in the full-site package; revision rounds in the FAQ

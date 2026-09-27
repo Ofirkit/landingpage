@@ -16,7 +16,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 |---|---|---|
 | Header | `.site-header` | Logo on the right; plain transparent links (איך אני עובד, המלצות, חבילות, שאלות) grouped with the "לקביעת שיחה" button on the left (styled after operatorx). No pill fill and no link numbers. "עבודות" was removed on purpose. |
 | Hero | `.hero` | Headline "אתרים שתהיו גאים לשלוח ___" with a rotating last word, then subheading, one CTA, and a status row: "מקבל פרויקטים חדשים" (green dot) and "מעל 10 שנות ניסיון" (blue dot). |
-| Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions; placeholder tiles for now. |
+| Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions. Row 1: Balance video, Alex, Agen.co security, Ashtanga (tall), Overcut, Noy. Row 2: Resonai Vera, Agen.co pricing, DataGen, Shani, AI agents, Unbound. No name tags on tiles (user request). |
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
 | About | `#about` | Short text, portrait `assets/ofir-portrait.webp`, YouTube links. |
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
@@ -40,7 +40,13 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - ≤960px: hamburger nav, stacked sections.
   - ≤600px: full-width buttons, single-column grids.
 - **Layout language:** editorial style. Section heads have a thin top rule, a small number (01–06) in a side column, and a large heading. Content is indented to line up with the heading (`--indent`). Minimal cards: only the packages and the final CTA are panels.
-- **Gallery:** rows are `min(450px, 58vw)` tall with a 16px gap and no edge fade. Tile ratios match the user's reference (16/10, 7/5, 9/7, 9/16). The rows scroll continuously and do **not** pause on hover.
+- **Gallery:** rows are `min(450px, 58vw)` tall with a 16px gap and no edge fade. The media's own ratio sets each tile's width (images 3:2, Ashtanga 1:2, video about 1.66:1). The rows scroll continuously and do **not** pause on hover.
+- **Gallery media (in `assets/work/`), optimized for speed:**
+  - Each image comes in two WebP sizes: `<name>-450.webp` and `<name>-900.webp`, quality 80. `srcset`/`sizes` makes each screen download only one; `width`/`height` attributes reserve space so the layout doesn't jump.
+  - The video is `balance-720` and `balance-450`, each as WebM (VP9) plus an MP4 (H.264) fallback, with no audio and faststart. `<source media>` gives 720p to wide screens and 450p to phones; `balance-poster.webp` is its first frame.
+  - The video plays only while on screen (IntersectionObserver) and stays on its poster under reduced motion.
+  - Totals: the originals were about 31MB (a 25.8MB MP4 and 11 PNGs); the whole gallery now downloads roughly 0.5MB on a standard screen and 1MB on a high-resolution one.
+  - Re-encode new media the same way: `pip install imageio-ffmpeg` for ffmpeg, and Pillow for WebP.
 - **Rotating word:** `data-words="למשקיעים,ללקוחות"`. Only these two words; do not add more without asking.
   - Mechanics: the word is clipped to exactly one line (`height: 1.1em` must equal the h1 line-height).
   - Exit: the old letters slide up out of the line one by one (0.35s, 25ms stagger).
@@ -89,7 +95,6 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 - **Placeholders still open** (full list in `README.md`):
   - Booking link `[קישור ליומן]` (4×) and `[מייל]`.
   - YouTube `[קישור]` (2×).
-  - 10 gallery tiles `[שם הפרויקט]`, waiting for real screenshots.
   - Photos of Shani and Ran `[תמונה]`.
   - Package `[מחיר]` and `[זמן]`.
   - `[מספר]` for pages and revision rounds.
@@ -101,7 +106,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 
 ## 7. Next steps
 
-1. Fill in the placeholders as Ofir supplies the content: gallery images first, then prices and timelines, links and photos.
+1. Fill in the placeholders as Ofir supplies the content: prices and timelines, links and photos. The gallery is done.
 2. Decide on the blur/footer overlap.
 3. Cross-browser check in Firefox and Safari.
 4. Later: a separate page for other audiences, such as agencies or non-startups, with its own message.

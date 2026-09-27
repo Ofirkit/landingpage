@@ -372,44 +372,15 @@ figure, blockquote { margin: 0; }
   position: relative;
   flex: none;
   height: 100%;
+  margin: 0;
   overflow: hidden;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: #111;
 }
-.shot img { width: auto; height: 100%; max-width: none; }
-/* Ratios match the reference: wide 1.6, mid 1.4, square-ish 1.3, phone 0.56 */
-.shot-wide { aspect-ratio: 16 / 10; }
-.shot-mid { aspect-ratio: 7 / 5; }
-.shot-square { aspect-ratio: 9 / 7; }
-.shot-narrow { aspect-ratio: 9 / 16; }
-
-.shot > span,
-.shot figcaption {
-  position: absolute;
-  inset: auto 14px 12px auto;
-  padding: 4px 10px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  direction: rtl;
-  background: rgba(0, 0, 0, 0.45);
-  border-radius: var(--radius-pill);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-/* Placeholders until real screenshots are added */
-.ph-1 { background: linear-gradient(135deg, #1b1464, #5118e0); }
-.ph-2 { background: linear-gradient(160deg, #3b3bff, #0b0b24); }
-.ph-3 { background: linear-gradient(135deg, #f2efe8, #c9c3b6); }
-.ph-4 { background: linear-gradient(135deg, #ff5a36, #ff9a5a); }
-.ph-5 { background: linear-gradient(135deg, #0d1a46, #2b6cff); }
-.ph-6 { background: linear-gradient(135deg, #121218, #3a3a48); }
-.ph-7 { background: linear-gradient(135deg, #6e2cf2, #e04fd0); }
-.ph-8 { background: linear-gradient(160deg, #0f2e2a, #3ce7a0); }
-.ph-9 { background: linear-gradient(135deg, #ff2d55, #1c0a3a); }
-.ph-10 { background: linear-gradient(135deg, #e8e4ff, #9f8cff); }
+/* Media sets the tile width: fixed row height, width from the file's own ratio (width/height attrs reserve space) */
+.shot img,
+.shot video { display: block; width: auto; height: 100%; max-width: none; object-fit: cover; }
 
 /* ==========================================================
    How I work — principles
