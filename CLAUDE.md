@@ -87,7 +87,7 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
   - Possible homes: the Process intro (it overlaps with the current subtitle, so it would replace it) or the first process step.
 - **Already on the site:** "Your website isn't an expensive decoration…" (the Statement) and "First, we understand where you are → …" (the Process subtitle).
 
- (don't repeat)
+## 5. Tried and rejected (don't repeat)
 
 - **About further down the page:** moved to directly after the hero at the user's request (introduce the person first).
 - **Pain / "why Framer" / outcome sections and a conversion-heavy tone:** replaced by the partner-tone brief ("איך אני עובד" principles).
