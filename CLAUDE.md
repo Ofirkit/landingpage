@@ -21,14 +21,14 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
 | Statement | `.statement` | Between Testimonials and Process: one big line, "האתר שלכם הוא לא קישוט יקר." (dim) / "הוא החוד החד ביותר של הנוכחות הדיגיטלית שלכם." (white), one sentence per line. A message the user liked on another site, meant "somewhere on the site", not for pricing. |
-| Process | `#process` | Subtitle "קודם אני מבין איפה אתם עומדים ← ואז בונה את הדרך הברורה ביותר לאן שאתם הולכים." (the second message the user liked), then 4 steps. |
+| Process | `#process` | Subtitle "קודם אני מבין איפה אתם עומדים ← ואז בונה את הדרך הברורה ביותר לאן שאתם הולכים." (the second message the user liked), then 4 steps as **vertical stacking cards** (user request; vertical chosen over horizontal: native scroll, works with Lenis and touch, no RTL sideways scrolling). Each card is `position: sticky` at `--stick` + n × `--peek` (104px + 18px on desktop, 84px + 12px ≤960px), so earlier cards peek out like a deck. JS sets `--p` (0 → 1) on a card as the next one covers it, and the card then scales down to 0.95 and dims (a `::after` in `var(--bg)` at up to 0.55). JS also gives every card the tallest card's height, so a longer card never sticks out below a shorter one. Card: violet "שלב 0X" label, large title, text, and a big faint number (6% white) at the far side (top corner on mobile). Same solid fill as the pricing cards (`#0c0c13`). Under reduced motion they become a plain list of cards. |
 | Packages | `#packages` | Layout after the user's pricing reference image, **in the site's dark colors** (the user wanted the layout, not the reference's light colors): centered heading; a subtle 48px grid spans the whole section behind the heading and all the cards; its top and bottom 20% fade into the page. It is built for cross-browser consistency: **solid line color `--grid-line: #0b0b12`** (not low-alpha white), positioned at `0 0` (not centered, which put lines on half pixels), and faded with a `var(--bg)` gradient layer on top (not `mask-image`). The earlier 3%-white + mask version looked right in Firefox but nearly vanished in Chrome and Brave. The cards have a solid fill (`#0c0c13`; the featured card's gradient is opaque too) so the grid never shows through them (user request), then three cards: landing page · full marketing site (featured: navy/indigo gradient, stronger border, **no badge**) · from Figma to a live site. Each card: title, one-liner, list with violet checks, "החל מ [מחיר]" (the user removed "זמן עבודה"), a full-width white pill "לשיחת היכרות" button, and "שיחת היכרות של 20 דקות" under it. No monthly/yearly tabs (user request). Monthly maintenance is a wide card below (600 ₪ for 2 h, 1,200 ₪ for 4 h; these prices are real). |
 | Fit | `#fit` | "מתאים אם" / "פחות מתאים אם". The first "fit" line names startups, studios and service businesses. |
 | FAQ | `#faq` | `<details>` items. |
 | Final CTA | `#contact` | Booking button and a `mailto:` link. |
 | Bottom blur | `.bottom-blur` | Fixed progressive blur at the bottom of the viewport. |
 
-JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky header → mobile menu → reveal-on-scroll.
+JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fill → process stacking cards → sticky header → mobile menu → reveal-on-scroll.
 
 ## 3. Design decisions
 
@@ -42,7 +42,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - ≥1024px: two-column hero, with the headline on the right and the supporting copy and CTA on the left.
   - ≤960px: hamburger nav, stacked sections.
   - ≤600px: full-width buttons, single-column grids.
-- **Layout language:** editorial style. Section heads have a thin top rule, a small number (01–06) in a side column, and a large heading. Content is indented to line up with the heading (`--indent`). Minimal cards: only the packages and the final CTA are panels.
+- **Layout language:** editorial style. Section heads have a thin top rule, a small number (01–06) in a side column, and a large heading. Content is indented to line up with the heading (`--indent`). Minimal cards: only the process steps, the packages and the final CTA are panels.
 - **Gallery:** rows are `min(450px, 58vw)` tall with a 16px gap and no edge fade. The media's own ratio sets each tile's width (images 3:2, Ashtanga 1:2, video about 1.66:1). The rows scroll continuously and do **not** pause on hover.
 - **Gallery media (in `assets/work/`), optimized for speed:**
   - Each image comes in two WebP sizes: `<name>-450.webp` and `<name>-900.webp`, quality 80. `srcset`/`sizes` makes each screen download only one; `width`/`height` attributes reserve space so the layout doesn't jump.

@@ -496,21 +496,58 @@ figure, blockquote { margin: 0; }
 .statement-text span:first-child { color: var(--text-dim); }
 
 /* ==========================================================
-   Process — rows
+   Process — stacking cards: each card sticks a little lower than the one before,
+   the next one slides over it, and the covered card scales down and dims (--p from JS)
    ========================================================== */
-.steps { padding-inline-start: var(--indent); }
-.step {
-  display: grid;
-  grid-template-columns: 72px 1fr 2fr;
-  column-gap: var(--col-gap);
-  align-items: baseline;
-  padding-block: 28px;
-  border-top: 1px solid var(--border);
+.steps {
+  --stick: 104px;   /* where the first card sticks (below the header) */
+  --peek: 18px;     /* how much of each earlier card stays visible */
+  display: flex;
+  flex-direction: column;
+  gap: clamp(64px, 14vh, 140px);
+  padding-inline-start: var(--indent);
 }
-.step:last-child { border-bottom: 1px solid var(--border); }
-.step-num { font-size: 16px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
-.step h3 { font-size: clamp(22px, 2vw, 26px); letter-spacing: -0.01em; }
-.step p { font-size: 17px; color: var(--text-muted); }
+.step {
+  --p: 0;
+  position: sticky;
+  top: calc(var(--stick) + var(--n) * var(--peek));
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: var(--col-gap);
+  min-height: clamp(300px, 40vh, 400px);
+  padding: clamp(28px, 3.4vw, 48px);
+  background: #0c0c13;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transform-origin: 50% 0;
+  transform: scale(calc(1 - var(--p) * 0.05));
+}
+.step::after { /* dims the card as the next one covers it */
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: var(--bg);
+  opacity: calc(var(--p) * 0.55);
+  pointer-events: none;
+}
+.step:nth-child(1) { --n: 0; }
+.step:nth-child(2) { --n: 1; }
+.step:nth-child(3) { --n: 2; }
+.step:nth-child(4) { --n: 3; }
+.step-body { display: flex; flex-direction: column; gap: 14px; align-self: start; max-width: 560px; }
+.step-label { font-size: 15px; color: var(--accent-soft); font-variant-numeric: tabular-nums; }
+.step h3 { font-size: clamp(28px, 3vw, 42px); line-height: 1.15; letter-spacing: -0.02em; }
+.step p { font-size: 18px; color: var(--text-muted); }
+.step-num {
+  font-size: clamp(96px, 12vw, 180px);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.06);
+  font-variant-numeric: tabular-nums;
+}
 
 /* ==========================================================
    Packages
@@ -749,6 +786,8 @@ figure, blockquote { margin: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
+  .step { position: relative; top: auto; transform: none; }
+  .step::after { display: none; }
   .gallery-row { overflow-x: auto; }
 }
 
@@ -790,8 +829,9 @@ figure, blockquote { margin: 0; }
   .about-photo { width: 240px; }
   .about-text { order: -1; } /* stacked: text first, photo after it */
   .quotes { grid-template-columns: 1fr; gap: 48px; max-width: 680px; }
-  .step { grid-template-columns: 56px 1fr; row-gap: 8px; }
-  .step p { grid-column: 2; }
+  .steps { --stick: 84px; --peek: 12px; }
+  .step { grid-template-columns: 1fr; min-height: 0; }
+  .step-num { position: absolute; inset-inline-end: 24px; top: 22px; font-size: 64px; }
   .fit-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 
