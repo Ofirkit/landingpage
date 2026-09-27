@@ -76,6 +76,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 
 - **Pain / "why Framer" / outcome sections and a conversion-heavy tone:** replaced by the partner-tone brief ("איך אני עובד" principles).
 - **Case-study cards:** replaced by the hero gallery.
+- **Project-name tags on gallery tiles:** removed at the user's request.
 - **"Exit after design" guarantee:** the user found it impractical. It was replaced by a homepage-first approval step.
 - **Pill-shaped nav with a fill:** replaced by transparent links (user request).
 - **Tool logos row in the hero** (Figma, Claude Code, Webflow, Framer): tried and then removed at the user's request. The SVGs are kept in `assets/logos/`.
