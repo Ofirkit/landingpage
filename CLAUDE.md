@@ -17,8 +17,8 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | Header | `.site-header` | Logo on the right; plain transparent links (איך אני עובד, המלצות, חבילות, שאלות) grouped with the "בואו נדבר" button on the left (styled after operatorx). No pill fill and no link numbers. "עבודות" was removed on purpose. |
 | Hero | `.hero` | Headline "אתרים שתהיו גאים לשלוח ___" with a rotating last word, then subheading, one CTA, and a status row: "מקבל פרויקטים חדשים" (green dot) and "מעל 10 שנות ניסיון" (blue dot). |
 | Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions. Row 1: Balance video, Alex, Agen.co security, Ashtanga (tall), Overcut, Noy. Row 2: Resonai Vera, Agen.co pricing, DataGen, Shani, AI agents, Unbound. No name tags on tiles (user request). |
-| How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
 | About | `#about` | Small portrait (`assets/ofir-portrait.webp`) on the right and a large two-paragraph statement ("היי, אני אופיר - מעצב ובונה אתרים. ..."), then the YouTube links. Words fill from gray to white on scroll. Photo width: about 245px on desktop, 240px on tablet, full width with the photo's own 3:4 ratio on phones (≤600px). |
+| How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
 | Process | `#process` | 4 steps. |
 | Packages | `#packages` | Landing page · full marketing site · from Figma to a live site · monthly maintenance (600 ₪ for 2 h, 1,200 ₪ for 4 h; these prices are real). |
@@ -77,6 +77,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 
 ## 5. Tried and rejected (don't repeat)
 
+- **About further down the page:** moved to directly after the hero at the user's request (introduce the person first).
 - **Pain / "why Framer" / outcome sections and a conversion-heavy tone:** replaced by the partner-tone brief ("איך אני עובד" principles).
 - **Case-study cards:** replaced by the hero gallery.
 - **Project-name tags on gallery tiles:** removed at the user's request.
