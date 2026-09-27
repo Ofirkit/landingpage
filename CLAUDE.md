@@ -4,7 +4,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 
 ## 1. Overview
 
-- Hebrew (RTL) service page for **UXUIKIT** (Ofir): design and website builds for **startups**.
+- Hebrew (RTL) service page for **UXUIKIT** (Ofir): design and website builds for **startups first, plus studios and service businesses**.
 - Offer: design in Figma; builds in **Framer, Webflow or code with Claude Code**. The copy must stay tool-neutral; never imply Framer-only.
 - Tone: a **professional business card, not a hard-sell page.** Readers mostly arrive warm (personal referrals and Ofir's YouTube channels). Core message: *a partner, not a vendor*.
 - Stack: static `index.html` + `styles.css` + `script.js`. No build step and no framework. Lenis 1.3.26 (MIT) is vendored in `assets/vendor/`.
@@ -32,6 +32,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 ## 3. Design decisions
 
 - **Palette:** based on uxuikit.com. The hero is flat `#111111` and fades into the page (`#030308`). Lower sections are near-black with subtle navy and violet radial glows. All tokens are in `:root` in `styles.css`.
+- **Page title and meta (approved):** title "UXUIKIT | עיצוב ובניית אתרים לסטארטאפים ועסקים". Social share title (`og:title`) "עיצוב ובניית אתרים לסטארטאפים ועסקים". Description and `og:description`: "מעצב ובונה אתרים שתהיו גאים לשלוח ללקוחות ולמשקיעים. עיצוב ב-Figma ופיתוח ב-Framer, Webflow או בקוד, לסטארטאפים, סטודיואים ועסקי שירות." The audience is still startups first, broadened to studios and service businesses (not moving away from startups). Rejected title "מעצב ובונה אתרים לא גנריים": negative framing with no search keywords.
 - **CTA copy (copywriter recommendation, approved):** header "בואו נדבר", hero and final CTA "בואו נכיר", packages "לשיחת היכרות". Every button books the intro call (`[קישור ליומן]`). Rejected: "להתחלת פרויקט" (asks for too much commitment on the first click) and "בואו נעבוד ביחד" (vague, and skips the intro step).
 - **Buttons:** every primary CTA is **white with dark text, 6px radius and a soft white glow**, used consistently everywhere. The old purple accent (`--accent`) now only appears in focus rings and details.
 - **Font:** Noto Sans Hebrew. Headings are 700 and everything else 400; no other weights.
