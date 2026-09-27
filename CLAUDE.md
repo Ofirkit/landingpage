@@ -18,7 +18,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | Hero | `.hero` | Headline "אתרים שתהיו גאים לשלוח ___" with a rotating last word, then subheading, one CTA, and a status row: "מקבל פרויקטים חדשים" (green dot) and "מעל 10 שנות ניסיון" (blue dot). |
 | Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions. Row 1: Balance video, Alex, Agen.co security, Ashtanga (tall), Overcut, Noy. Row 2: Resonai Vera, Agen.co pricing, DataGen, Shani, AI agents, Unbound. No name tags on tiles (user request). |
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
-| About | `#about` | Small portrait (`assets/ofir-portrait.webp`) on the right and a large two-paragraph statement ("היי, אני אופיר - מעצב ובונה אתרים. ..."), then the YouTube links. Words fill from gray to white on scroll. |
+| About | `#about` | Small portrait (`assets/ofir-portrait.webp`) on the right and a large two-paragraph statement ("היי, אני אופיר - מעצב ובונה אתרים. ..."), then the YouTube links. Words fill from gray to white on scroll. Photo width: about 245px on desktop, 240px on tablet, full width with the photo's own 3:4 ratio on phones (≤600px). |
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
 | Process | `#process` | 4 steps. |
 | Packages | `#packages` | Landing page · full marketing site · from Figma to a live site · monthly maintenance (600 ₪ for 2 h, 1,200 ₪ for 4 h; these prices are real). |
@@ -53,7 +53,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - Enter: the new letters rise from below, starting only after the exit (0.6s, 40ms stagger, 560ms delay).
   - Hold: each word stays for 3.6s (`HOLD`). It matches a reference GIF the user supplied.
 - **About scroll-fill:** JS wraps each word of `.fill-text` in `.w`. Words start at `rgba(255,255,255,0.26)` and become white (`.is-lit`) with `transition: color 0.3s ease` (the user's reference). Progress runs from 0, when the text's top reaches 85% of the viewport, to 1, when its bottom reaches 45%. Under reduced motion all words are lit.
-- **Header sizes:** links and the header CTA are 14px (CTA padding 8×16). The logo is 31px wide (26px on mobile). The mobile menu button is 38px. The mobile dropdown links stay 18px for easy tapping.
+- **Header sizes:** links and the header CTA are 14px (CTA padding 8×16). The logo is 31px wide (26px on mobile). The mobile menu button is 38px. **Below 960px the header CTA is hidden** (logo and menu button only; user request). The mobile dropdown links stay 18px for easy tapping.
 - **Nav hover roll:** JS splits each link into letters, each stacked with a copy, inside a one-line clip (`height: 1.2em` = 16.8px at 14px). On hover the letters go from `transform: none` to `translateY(-1.2em)`, which is −16.8px, with an 18ms stagger. It scales with font size. The link keeps an `aria-label`. The mobile dropdown panel is opaque (`#0e0e28`).
 - **Motion:** restrained. Reveal-on-scroll uses a 12px rise. Lenis uses `lerp: 0.1`. The bottom blur is 7 `backdrop-filter` layers (0.5px to 32px) plus a 0.35 tint. Everything respects `prefers-reduced-motion`.
 
