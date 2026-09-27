@@ -14,7 +14,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 
 | Section | id / class | Notes |
 |---|---|---|
-| Header | `.site-header` | Logo on the right; plain transparent links (איך אני עובד, המלצות, חבילות, שאלות) grouped with the "לקביעת שיחה" button on the left (styled after operatorx). No pill fill and no link numbers. "עבודות" was removed on purpose. |
+| Header | `.site-header` | Logo on the right; plain transparent links (איך אני עובד, המלצות, חבילות, שאלות) grouped with the "בואו נדבר" button on the left (styled after operatorx). No pill fill and no link numbers. "עבודות" was removed on purpose. |
 | Hero | `.hero` | Headline "אתרים שתהיו גאים לשלוח ___" with a rotating last word, then subheading, one CTA, and a status row: "מקבל פרויקטים חדשים" (green dot) and "מעל 10 שנות ניסיון" (blue dot). |
 | Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions. Row 1: Balance video, Alex, Agen.co security, Ashtanga (tall), Overcut, Noy. Row 2: Resonai Vera, Agen.co pricing, DataGen, Shani, AI agents, Unbound. No name tags on tiles (user request). |
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
@@ -32,6 +32,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 ## 3. Design decisions
 
 - **Palette:** based on uxuikit.com. The hero is flat `#111111` and fades into the page (`#030308`). Lower sections are near-black with subtle navy and violet radial glows. All tokens are in `:root` in `styles.css`.
+- **CTA copy (copywriter recommendation, approved):** header "בואו נדבר", hero and final CTA "בואו נכיר", packages "לשיחת היכרות". Every button books the intro call (`[קישור ליומן]`). Rejected: "להתחלת פרויקט" (asks for too much commitment on the first click) and "בואו נעבוד ביחד" (vague, and skips the intro step).
 - **Buttons:** every primary CTA is **white with dark text, 6px radius and a soft white glow**, used consistently everywhere. The old purple accent (`--accent`) now only appears in focus rings and details.
 - **Font:** Noto Sans Hebrew. Headings are 700 and everything else 400; no other weights.
 - **Hero headline:** 70.4px on desktop (the earlier 64px + 10%; `clamp(42px, 5.72vw, 70.4px)` below 1024px) with line-height 1.1. On desktop and phones (≤600px) it breaks into 3 lines (`.br-desk`: "אתרים שתהיו / גאים לשלוח / [rotating word]"); on tablets (601–1023px) into 2 (`.br-mob`).
@@ -53,6 +54,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - Enter: the new letters rise from below, starting only after the exit (0.6s, 40ms stagger, 560ms delay).
   - Hold: each word stays for 3.6s (`HOLD`). It matches a reference GIF the user supplied.
 - **About scroll-fill:** JS wraps each word of `.fill-text` in `.w`. Words start at `rgba(255,255,255,0.26)` and become white (`.is-lit`) with `transition: color 0.3s ease` (the user's reference). Progress runs from 0, when the text's top reaches 85% of the viewport, to 1, when its bottom reaches 45%. Under reduced motion all words are lit.
+- **Mobile hero (≤600px):** tightened so the first gallery row shows above the fold. The hero has 100px top padding, a 17px lead, and 32px between the status row and the gallery. Visible gallery: about 74px on an iPhone SE, about 200px on common phones. Keep this in mind before adding hero content on mobile.
 - **Header sizes:** links and the header CTA are 14px (CTA padding 8×16). The logo is 31px wide (26px on mobile). The mobile menu button is 38px. **Below 960px the header CTA is hidden** (logo and menu button only; user request). The mobile dropdown links stay 18px for easy tapping.
 - **Nav hover roll:** JS splits each link into letters, each stacked with a copy, inside a one-line clip (`height: 1.2em` = 16.8px at 14px). On hover the letters go from `transform: none` to `translateY(-1.2em)`, which is −16.8px, with an 18ms stagger. It scales with font size. The link keeps an `aria-label`. The mobile dropdown panel is opaque (`#0e0e28`).
 - **Motion:** restrained. Reveal-on-scroll uses a 12px rise. Lenis uses `lerp: 0.1`. The bottom blur is 7 `backdrop-filter` layers (0.5px to 32px) plus a 0.35 tint. Everything respects `prefers-reduced-motion`.

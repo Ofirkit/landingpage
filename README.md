@@ -14,7 +14,7 @@ A static landing page based on the design of [uxuikit.com](https://uxuikit.com/)
 
 All placeholders are in square brackets in `index.html`. Search for `[` to find them:
 
-- [ ] `[קישור ליומן]` (4×): booking link, used by every "לקביעת שיחה" button
+- [ ] `[קישור ליומן]` (4×): booking link, used by every booking button (header, hero, packages, final CTA)
 - [ ] `[מייל]`: email address in the final CTA (`mailto:`)
 - [ ] `[קישור]` (2×): YouTube channels UXUIKIT and Ophir Creates
 - [ ] `[תמונה]` (2×): photos of Shani Gilad and Ran Alter

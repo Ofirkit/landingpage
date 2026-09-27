@@ -735,7 +735,12 @@ figure, blockquote { margin: 0; }
   .logo svg { width: 26px; }
   .principles, .packages-grid { grid-template-columns: 1fr; }
   .about-photo { width: 100%; height: auto; aspect-ratio: 1000 / 1333; } /* phones: full width, the photo's own proportions */
-  .hero .btn { width: 100%; }
+  /* Tighter hero so the first gallery row peeks above the fold on phones */
+  .hero { padding-top: 100px; }
+  .hero .lead { margin-top: 14px; font-size: 17px; }
+  .hero .btn { width: 100%; margin-top: 22px; }
+  .hero-meta { margin-top: 14px; }
+  .gallery { margin-top: 32px; }
   .hero .br-desk { display: inline; } /* phones: 3 lines, rotating word on its own line */
   .hero .br-mob { display: none; }
   .hero-meta { gap: 8px 18px; font-size: 15px; }
