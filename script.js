@@ -71,6 +71,26 @@ const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 2
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
+// Nav links: split into letters for the hover roll (each letter stacked with a copy)
+document.querySelectorAll(".main-nav a").forEach((link) => {
+  const text = link.textContent.trim();
+  link.setAttribute("aria-label", text);
+  const roll = document.createElement("span");
+  roll.className = "roll";
+  roll.setAttribute("aria-hidden", "true");
+  [...text].forEach((ch, i) => {
+    const col = document.createElement("span");
+    col.className = "roll-char";
+    col.style.setProperty("--i", i);
+    col.innerHTML = "<span></span><span></span>";
+    col.children[0].textContent = ch;
+    col.children[1].textContent = ch;
+    roll.appendChild(col);
+  });
+  link.textContent = "";
+  link.appendChild(roll);
+});
+
 // Mobile menu
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.getElementById("main-nav");

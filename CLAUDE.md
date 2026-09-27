@@ -14,7 +14,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 
 | Section | id / class | Notes |
 |---|---|---|
-| Header | `.site-header` | Logo · pill nav (איך אני עובד, המלצות, חבילות, שאלות) · "לקביעת שיחה" button. "עבודות" was removed from the nav on purpose. |
+| Header | `.site-header` | Logo on the right; plain transparent links (איך אני עובד, המלצות, חבילות, שאלות) grouped with the "לקביעת שיחה" button on the left (styled after operatorx). No pill fill and no link numbers. "עבודות" was removed on purpose. |
 | Hero | `.hero` | Headline "אתרים שתהיו גאים לשלוח ___" with a rotating last word, then subheading, one CTA, and a status row: "מקבל פרויקטים חדשים" (green dot) and "מעל 10 שנות ניסיון" (blue dot). |
 | Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions; placeholder tiles for now. |
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
@@ -46,6 +46,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - Exit: the old letters slide up out of the line one by one (0.35s, 25ms stagger).
   - Enter: the new letters rise from below, starting only after the exit (0.6s, 40ms stagger, 560ms delay).
   - Hold: each word stays for 3.6s (`HOLD`). It matches a reference GIF the user supplied.
+- **Nav hover roll:** JS splits each link into letters, each stacked with a copy, inside a one-line clip (`height: 1.2em` = 19.2px at 16px). On hover the letters go from `transform: none` to `translateY(-19.2px)` with an 18ms stagger. The link keeps an `aria-label`. The mobile dropdown panel is opaque (`#0e0e28`).
 - **Motion:** restrained. Reveal-on-scroll uses a 12px rise. Lenis uses `lerp: 0.1`. The bottom blur is 7 `backdrop-filter` layers (0.5px to 32px) plus a 0.35 tint. Everything respects `prefers-reduced-motion`.
 
 ## 4. Conventions and rules
@@ -69,6 +70,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 - **Pain / "why Framer" / outcome sections and a conversion-heavy tone:** replaced by the partner-tone brief ("איך אני עובד" principles).
 - **Case-study cards:** replaced by the hero gallery.
 - **"Exit after design" guarantee:** the user found it impractical. It was replaced by a homepage-first approval step.
+- **Pill-shaped nav with a fill:** replaced by transparent links (user request).
 - **Tool logos row in the hero** (Figma, Claude Code, Webflow, Framer): tried and then removed at the user's request. The SVGs are kept in `assets/logos/`.
 - **Sticky mobile CTA bar, hero highlights row, "3 שיפורים" call promise and competitor research before calls:** all removed as too salesy or impractical.
 - **A "מה אני צריך מכם" section:** the user rejected it.
