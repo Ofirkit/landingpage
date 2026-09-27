@@ -726,6 +726,7 @@ figure, blockquote { margin: 0; }
   .principles { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo { width: 240px; }
+  .about-text { order: -1; } /* stacked: text first, photo after it */
   .quotes { grid-template-columns: 1fr; gap: 48px; max-width: 680px; }
   .step { grid-template-columns: 56px 1fr; row-gap: 8px; }
   .step p { grid-column: 2; }
