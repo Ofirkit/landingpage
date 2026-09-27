@@ -481,6 +481,21 @@ figure, blockquote { margin: 0; }
 .quote figcaption span:not(.avatar) { font-size: 15px; color: var(--text-dim); }
 
 /* ==========================================================
+   Statement: one big line between Testimonials and Process
+   ========================================================== */
+.statement { padding-block: calc(var(--section-y) * 0.6) 0; }
+.statement-text {
+  padding-inline-start: var(--indent);
+  font-size: clamp(30px, 3.8vw, 54px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+.statement-text span { display: block; } /* one sentence per line */
+.statement-text span:first-child { color: var(--text-dim); }
+
+/* ==========================================================
    Process — rows
    ========================================================== */
 .steps { padding-inline-start: var(--indent); }
@@ -500,18 +515,9 @@ figure, blockquote { margin: 0; }
 /* ==========================================================
    Packages
    ========================================================== */
-/* Light panel after the pricing reference: light cards, one black featured card,
-   pill buttons (black on light, white on black) and blue checks */
-.packages {
-  --p-ink: #0a0a0a;
-  --p-muted: #7c7c84;
-  --p-card: #f7f7f8;
-  --p-line: #ececef;
-  --p-check: #3478f6;
-  color: var(--p-ink);
-  background: #fff;
-  isolation: isolate;
-}
+/* Layout after the user's pricing reference (three cards, featured middle card, pill buttons),
+   in the site's own dark palette */
+.packages { isolation: isolate; }
 .packages::before { /* faint grid behind the heading, fading out */
   content: "";
   position: absolute;
@@ -519,31 +525,31 @@ figure, blockquote { margin: 0; }
   height: 520px;
   z-index: -1;
   background:
-    linear-gradient(to right, #f1f1f3 1px, transparent 1px) 0 0 / 72px 72px,
-    linear-gradient(to bottom, #f1f1f3 1px, transparent 1px) 0 0 / 72px 72px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 72px 72px,
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 72px 72px;
   -webkit-mask-image: linear-gradient(to bottom, #000, transparent);
   mask-image: linear-gradient(to bottom, #000, transparent);
 }
 .packages-head { max-width: 640px; margin: 0 auto clamp(48px, 6vw, 80px); text-align: center; }
-.packages-head .eyebrow { color: var(--p-muted); }
+.packages-head .eyebrow { color: var(--text-muted); }
 .packages-head h2 {
   margin-top: 8px;
   font-size: clamp(38px, 5.4vw, 76px);
   line-height: 1.04;
   letter-spacing: -0.02em;
 }
-.packages-sub { margin-top: 18px; font-size: 19px; color: var(--p-muted); text-wrap: balance; }
 
 .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
 .plan {
   display: flex;
   flex-direction: column;
   padding: clamp(24px, 2.4vw, 32px);
-  background: var(--p-card);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 20px;
 }
 .plan h3 { font-size: 23px; letter-spacing: -0.01em; }
-.plan-for { margin-top: 12px; font-size: 16px; color: var(--p-muted); }
+.plan-for { margin-top: 12px; font-size: 16px; color: var(--text-muted); }
 .plan-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; margin-bottom: 40px; }
 .plan-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
 .check {
@@ -552,7 +558,7 @@ figure, blockquote { margin: 0; }
   height: 16px;
   margin-top: 0.2em;
   fill: none;
-  stroke: var(--p-check);
+  stroke: var(--accent-soft);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -565,28 +571,18 @@ figure, blockquote { margin: 0; }
   margin-top: auto;
 }
 .plan-price p { display: flex; align-items: baseline; gap: 8px; }
-.plan-from { font-size: 15px; color: var(--p-muted); }
+.plan-from { font-size: 15px; color: var(--text-muted); }
 .plan-price strong { font-size: clamp(32px, 3vw, 42px); line-height: 1.1; letter-spacing: -0.02em; }
-.plan-time { font-size: 14px; color: var(--p-muted); white-space: nowrap; }
-.btn.plan-btn {
-  width: 100%;
-  margin-top: 24px;
-  padding-block: 16px;
-  color: #fff;
-  background: var(--p-ink);
-  border-radius: var(--radius-pill);
-  box-shadow: none;
-}
-.btn.plan-btn:hover { background: #2a2a2e; box-shadow: none; }
-.plan-note { margin-top: 12px; font-size: 13px; color: var(--p-muted); text-align: center; }
+.plan-time { font-size: 14px; color: var(--text-muted); white-space: nowrap; }
+.btn.plan-btn { width: 100%; margin-top: 24px; padding-block: 16px; border-radius: var(--radius-pill); }
+.plan-note { margin-top: 12px; font-size: 13px; color: var(--text-muted); text-align: center; }
 
-.plan-featured { color: #fff; background: #000; }
-.plan-featured .plan-for,
-.plan-featured .plan-from,
-.plan-featured .plan-time,
-.plan-featured .plan-note { color: #a1a1aa; }
-.plan-featured .btn.plan-btn { color: var(--p-ink); background: #fff; }
-.plan-featured .btn.plan-btn:hover { background: #e9e9ec; }
+.plan-featured {
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(81, 24, 224, 0.22), transparent 70%),
+    linear-gradient(to bottom, var(--navy), var(--indigo));
+  border-color: var(--border-strong);
+}
 
 .plan-wide {
   flex-direction: row;
@@ -600,8 +596,8 @@ figure, blockquote { margin: 0; }
 .plan-wide-prices { display: flex; flex-wrap: wrap; gap: 12px 40px; }
 .plan-wide-prices p { display: flex; align-items: baseline; gap: 8px; }
 .plan-wide-prices strong { font-size: 28px; letter-spacing: -0.01em; }
-.plan-wide-prices span { font-size: 15px; color: var(--p-muted); }
-.packages-note { margin-top: 32px; font-size: 15px; color: var(--p-muted); text-align: center; }
+.plan-wide-prices span { font-size: 15px; color: var(--text-muted); }
+.packages-note { margin-top: 32px; font-size: 15px; color: var(--text-muted); text-align: center; }
 
 /* ==========================================================
    Fit
@@ -737,9 +733,7 @@ figure, blockquote { margin: 0; }
 .bottom-blur::after {
   content: "";
   background: linear-gradient(to bottom, transparent, rgba(3, 3, 8, 0.35));
-  transition: opacity 0.3s;
 }
-.bottom-blur.on-light::after { opacity: 0; } /* no dark tint over the white packages panel */
 
 /* ==========================================================
    Reveal on scroll (subtle)
