@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260927y" />
+  <link rel="stylesheet" href="styles.css?v=20260928a" />
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -231,37 +231,45 @@
         </header>
 
         <ol class="steps">
-          <li class="step">
-            <div class="step-body">
-              <span class="step-label">שלב 01</span>
-              <h3>שיחת היכרות</h3>
-              <p>20 דקות. מכירים, מבינים מה האתר צריך לעשות, ובודקים אם יש התאמה.</p>
-            </div>
-            <span class="step-num" aria-hidden="true">01</span>
+          <li class="step is-open">
+            <h3 class="step-h">
+              <button class="step-head" type="button" aria-expanded="true" aria-controls="step-01">
+                <span class="step-num">01</span>
+                <span class="step-title">שיחת היכרות</span>
+                <span class="step-meta">הצעה מסודרת</span>
+              </button>
+            </h3>
+            <div class="step-panel" id="step-01"><div><p>20 דקות. מכירים, מבינים מה האתר צריך לעשות, ובודקים אם יש התאמה.</p></div></div>
           </li>
           <li class="step">
-            <div class="step-body">
-              <span class="step-label">שלב 02</span>
-              <h3>מבנה ועמוד הבית</h3>
-              <p>מגדירים יחד את מבנה האתר, ואני מעצב את עמוד הבית ב-Figma, או ישירות בכלי שבו נבנה את האתר. אם הטקסטים עוד לא מוכנים, אני עובד עם טקסט זמני כדי שהעבודה לא תיעצר.</p>
-            </div>
-            <span class="step-num" aria-hidden="true">02</span>
+            <h3 class="step-h">
+              <button class="step-head" type="button" aria-expanded="false" aria-controls="step-02">
+                <span class="step-num">02</span>
+                <span class="step-title">מבנה ועמוד הבית</span>
+                <span class="step-meta">עמוד בית מאושר</span>
+              </button>
+            </h3>
+            <div class="step-panel" id="step-02"><div><p>מגדירים יחד את מבנה האתר, ואני מעצב את עמוד הבית ב-Figma, או ישירות בכלי שבו נבנה את האתר. אם הטקסטים עוד לא מוכנים, אני עובד עם טקסט זמני כדי שהעבודה לא תיעצר.</p></div></div>
           </li>
           <li class="step">
-            <div class="step-body">
-              <span class="step-label">שלב 03</span>
-              <h3>שאר האתר</h3>
-              <p>שאר העמודים, אנימציות, CMS, התאמה לכל מסך ו-SEO. אתם עוקבים אחרי ההתקדמות בלינק חי.</p>
-            </div>
-            <span class="step-num" aria-hidden="true">03</span>
+            <h3 class="step-h">
+              <button class="step-head" type="button" aria-expanded="false" aria-controls="step-03">
+                <span class="step-num">03</span>
+                <span class="step-title">שאר האתר</span>
+                <span class="step-meta">לינק חי להתקדמות</span>
+              </button>
+            </h3>
+            <div class="step-panel" id="step-03"><div><p>שאר העמודים, אנימציות, CMS, התאמה לכל מסך ו-SEO. אתם עוקבים אחרי ההתקדמות בלינק חי.</p></div></div>
           </li>
           <li class="step">
-            <div class="step-body">
-              <span class="step-label">שלב 04</span>
-              <h3>השקה והדרכה</h3>
-              <p>חיבור דומיין, בדיקות אחרונות ועלייה לאוויר, ואז הדרכה קצרה לצוות.</p>
-            </div>
-            <span class="step-num" aria-hidden="true">04</span>
+            <h3 class="step-h">
+              <button class="step-head" type="button" aria-expanded="false" aria-controls="step-04">
+                <span class="step-num">04</span>
+                <span class="step-title">השקה והדרכה</span>
+                <span class="step-meta">אתר באוויר</span>
+              </button>
+            </h3>
+            <div class="step-panel" id="step-04"><div><p>חיבור דומיין, בדיקות אחרונות ועלייה לאוויר, ואז הדרכה קצרה לצוות.</p></div></div>
           </li>
         </ol>
       </div>
@@ -460,6 +468,6 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script src="script.js?v=20260927y" defer></script>
+  <script src="script.js?v=20260928a" defer></script>
 </body>
 </html>

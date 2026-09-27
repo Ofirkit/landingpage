@@ -118,35 +118,21 @@ if (fillBlocks.length) {
   }
 }
 
-// Process: as each card slides over the one before it, scale that one down and dim it (--p: 0 → 1)
+// Process: one step open at a time. With a mouse, hovering a row opens it and it stays open
+// after the pointer leaves (like the reference); on touch, tapping opens it. First step starts open.
 const steps = [...document.querySelectorAll(".step")];
-if (steps.length > 1 && !reduceMotion) {
-  let stepTick = false;
-  const updateSteps = () => {
-    stepTick = false;
-    for (let i = 0; i < steps.length - 1; i++) {
-      const cur = steps[i].getBoundingClientRect();
-      const next = steps[i + 1];
-      const nextTop = next.getBoundingClientRect().top;
-      const stickAt = parseFloat(getComputedStyle(next).top);
-      const from = cur.top + steps[i].offsetHeight; // the next card starts covering at this card's bottom
-      const p = Math.min(1, Math.max(0, (from - nextTop) / Math.max(1, from - stickAt)));
-      steps[i].style.setProperty("--p", p.toFixed(3));
-    }
-  };
-  const onSteps = () => { if (!stepTick) { stepTick = true; requestAnimationFrame(updateSteps); } };
-  // Same height for every card, so a taller card never sticks out below the one covering it
-  const equalize = () => {
-    steps.forEach((s) => (s.style.minHeight = ""));
-    const tallest = Math.max(...steps.map((s) => s.offsetHeight));
-    steps.forEach((s) => (s.style.minHeight = `${tallest}px`));
-    onSteps();
-  };
-  window.addEventListener("scroll", onSteps, { passive: true });
-  window.addEventListener("resize", equalize);
-  document.fonts?.ready.then(equalize);
-  equalize();
-}
+const openStep = (step) => {
+  steps.forEach((s) => {
+    const on = s === step;
+    s.classList.toggle("is-open", on);
+    s.querySelector(".step-head").setAttribute("aria-expanded", String(on));
+  });
+};
+const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+steps.forEach((step) => {
+  step.querySelector(".step-head").addEventListener("click", () => openStep(step));
+  if (canHover) step.addEventListener("mouseenter", () => openStep(step));
+});
 
 // Sticky header background
 const header = document.querySelector(".site-header");

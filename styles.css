@@ -496,58 +496,50 @@ figure, blockquote { margin: 0; }
 .statement-text span:first-child { color: var(--text-dim); }
 
 /* ==========================================================
-   Process — stacking cards: each card sticks a little lower than the one before,
-   the next one slides over it, and the covered card scales down and dims (--p from JS)
+   Process — accordion list after the user's reference: number in the side column, title on the
+   heading's line, what the step produces at the far end. One step is open at a time (JS);
+   the rest stay dim with only their titles showing.
    ========================================================== */
-.steps {
-  --stick: 104px;   /* where the first card sticks (below the header) */
-  --peek: 18px;     /* how much of each earlier card stays visible */
-  display: flex;
-  flex-direction: column;
-  gap: clamp(64px, 14vh, 140px);
-  padding-inline-start: var(--indent);
-}
-.step {
-  --p: 0;
-  position: sticky;
-  top: calc(var(--stick) + var(--n) * var(--peek));
+.steps { border-top: 1px solid var(--border); }
+.step { border-bottom: 1px solid var(--border); }
+.step-h { font: inherit; }
+.step-head {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: var(--col-gap);
-  min-height: clamp(300px, 40vh, 400px);
-  padding: clamp(28px, 3.4vw, 48px);
-  background: #0c0c13;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  transform-origin: 50% 0;
-  transform: scale(calc(1 - var(--p) * 0.05));
+  grid-template-columns: calc(var(--indent) - var(--col-gap)) 1fr auto;
+  column-gap: var(--col-gap);
+  align-items: baseline;
+  width: 100%;
+  padding-block: 26px;
+  font: inherit;
+  color: var(--text-dim);
+  text-align: start;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.35s var(--ease);
 }
-.step::after { /* dims the card as the next one covers it */
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: var(--bg);
-  opacity: calc(var(--p) * 0.55);
-  pointer-events: none;
+.step-num { font-size: 15px; font-variant-numeric: tabular-nums; }
+.step-title { font-size: clamp(24px, 2.6vw, 36px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+.step-meta { font-size: 14px; white-space: nowrap; }
+.step.is-open .step-head,
+.step-head:hover { color: var(--text); }
+
+/* Height animates from 0 to the text's own height */
+.step-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.45s var(--ease), opacity 0.35s var(--ease);
 }
-.step:nth-child(1) { --n: 0; }
-.step:nth-child(2) { --n: 1; }
-.step:nth-child(3) { --n: 2; }
-.step:nth-child(4) { --n: 3; }
-.step-body { display: flex; flex-direction: column; gap: 14px; align-self: start; max-width: 560px; }
-.step-label { font-size: 15px; color: var(--accent-soft); font-variant-numeric: tabular-nums; }
-.step h3 { font-size: clamp(28px, 3vw, 42px); line-height: 1.15; letter-spacing: -0.02em; }
-.step p { font-size: 18px; color: var(--text-muted); }
-.step-num {
-  font-size: clamp(96px, 12vw, 180px);
-  font-weight: 700;
-  line-height: 0.8;
-  letter-spacing: -0.04em;
-  color: rgba(255, 255, 255, 0.06);
-  font-variant-numeric: tabular-nums;
+.step-panel > div { overflow: hidden; }
+.step-panel p {
+  max-width: 560px;
+  margin: -8px 0 0;
+  margin-inline-start: var(--indent);
+  padding-bottom: 30px;
+  font-size: 17px;
+  color: var(--text-muted);
 }
+.js .step:not(.is-open) .step-panel { grid-template-rows: 0fr; opacity: 0; }
 
 /* ==========================================================
    Packages
@@ -786,8 +778,7 @@ figure, blockquote { margin: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
-  .step { position: relative; top: auto; transform: none; }
-  .step::after { display: none; }
+
   .gallery-row { overflow-x: auto; }
 }
 
@@ -829,9 +820,8 @@ figure, blockquote { margin: 0; }
   .about-photo { width: 240px; }
   .about-text { order: -1; } /* stacked: text first, photo after it */
   .quotes { grid-template-columns: 1fr; gap: 48px; max-width: 680px; }
-  .steps { --stick: 84px; --peek: 12px; }
-  .step { grid-template-columns: 1fr; min-height: 0; }
-  .step-num { position: absolute; inset-inline-end: 24px; top: 22px; font-size: 64px; }
+  .step-head { grid-template-columns: 40px 1fr auto; column-gap: 16px; padding-block: 22px; }
+  .step-panel p { margin-inline-start: 56px; }
   .fit-grid { grid-template-columns: 1fr; gap: 48px; }
 }
 
@@ -839,6 +829,9 @@ figure, blockquote { margin: 0; }
   body { font-size: 17px; }
   .logo svg { width: 26px; }
   .principles { grid-template-columns: 1fr; }
+  .step-head { grid-template-columns: 32px 1fr; row-gap: 4px; }
+  .step-meta { grid-column: 2; }
+  .step-panel p { margin-inline-start: 48px; }
   .about-photo { width: 100%; height: auto; aspect-ratio: 1000 / 1333; } /* phones: full width, the photo's own proportions */
   /* Tighter hero so the first gallery row peeks above the fold on phones */
   .hero { padding-top: 100px; }
