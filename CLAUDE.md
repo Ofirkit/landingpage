@@ -21,7 +21,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
 | Statement | `.statement` | Between Testimonials and Process: one big line, "האתר שלכם הוא לא קישוט יקר." (dim) / "הוא החוד החד ביותר של הנוכחות הדיגיטלית שלכם." (white), one sentence per line. A message the user liked on another site, meant "somewhere on the site", not for pricing. |
-| Process | `#process` | Subtitle "קודם מבינים איפה אתם עומדים ← ואז בונים את הדרך הברורה ביותר לאן שאתם הולכים." (the second message the user liked), then 4 steps. |
+| Process | `#process` | Subtitle "קודם אני מבין איפה אתם עומדים ← ואז בונה את הדרך הברורה ביותר לאן שאתם הולכים." (the second message the user liked), then 4 steps. |
 | Packages | `#packages` | Layout after the user's pricing reference image, **in the site's dark colors** (the user wanted the layout, not the reference's light colors): centered heading; a subtle 48px grid spans the whole section behind the heading and all the cards; its top and bottom 20% fade into the page. It is built for cross-browser consistency: **solid line color `--grid-line: #0b0b12`** (not low-alpha white), positioned at `0 0` (not centered, which put lines on half pixels), and faded with a `var(--bg)` gradient layer on top (not `mask-image`). The earlier 3%-white + mask version looked right in Firefox but nearly vanished in Chrome and Brave. The cards have a solid fill (`#0c0c13`; the featured card's gradient is opaque too) so the grid never shows through them (user request), then three cards: landing page · full marketing site (featured: navy/indigo gradient, stronger border, **no badge**) · from Figma to a live site. Each card: title, one-liner, list with violet checks, "החל מ [מחיר]" (the user removed "זמן עבודה"), a full-width white pill "לשיחת היכרות" button, and "שיחת היכרות של 20 דקות" under it. No monthly/yearly tabs (user request). Monthly maintenance is a wide card below (600 ₪ for 2 h, 1,200 ₪ for 4 h; these prices are real). |
 | Fit | `#fit` | "מתאים אם" / "פחות מתאים אם". The first "fit" line names startups, studios and service businesses. |
 | FAQ | `#faq` | `<details>` items. |
@@ -68,6 +68,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
   - Put any unknown fact in a **`[placeholder]` in square brackets**; never invent prices, timelines, clients, numbers or testimonials.
   - After editing `styles.css` or `script.js`, **bump the `?v=` query** on both in `index.html`. Browsers served a stale stylesheet and broke the page in Firefox.
   - Test the rotating headline with the **real Noto Sans Hebrew font**. It can't load from Google Fonts in the sandbox; get it with `npm pack @fontsource/noto-sans-hebrew` and inject it via Playwright. The fallback font hid a real bug.
+  - **One voice for all copy (user request):** Ofir speaks in the first person singular ("אני מעצב", "אני מתחיל"), never "אנחנו", and addresses readers in the plural ("אתם", "שלכם"). A "we" form is only for things done together with the client ("בואו נכיר", "מאשרים יחד"). Translate borrowed lines into this voice, including the saved messages.
   - Get the user's approval of a plan before large structural changes, which the user explicitly asked for.
   - Bundle third-party JS in `assets/vendor/`, not a CDN.
 - **Never:**
@@ -82,7 +83,7 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → sticky h
 Lines the user liked on other sites. Use them only where they fit naturally, and ask before placing one.
 
 - **Not placed yet:** "We don't jump straight to the visuals. We start by understanding your business, your audience, and what your website actually needs to do."
-  - Draft Hebrew, not approved: "אנחנו לא קופצים ישר לעיצוב. מתחילים בהבנה של העסק, הקהל, ומה האתר שלכם באמת צריך לעשות."
+  - Hebrew, in the site's voice (singular, user request): "אני לא קופץ ישר לעיצוב. אני מתחיל בהבנה של העסק שלכם, הקהל שלכם ומה האתר באמת צריך לעשות."
   - Possible homes: the Process intro (it overlaps with the current subtitle, so it would replace it) or the first process step.
 - **Already on the site:** "Your website isn't an expensive decoration…" (the Statement) and "First, we understand where you are → …" (the Process subtitle).
 
