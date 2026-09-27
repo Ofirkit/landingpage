@@ -18,7 +18,7 @@ All placeholders are in square brackets in `index.html`. Search for `[` to find 
 - [ ] `[מייל]`: email address in the final CTA (`mailto:`)
 - [ ] `[קישור]` (2×): YouTube channels UXUIKIT and Ophir Creates
 - [ ] `[תמונה]` (2×): photos of Shani Gilad and Ran Alter
-- [ ] `[מחיר]` (3×) and `[זמן]` (3×): package prices and timelines
+- [ ] `[מחיר]` (3×): package prices
 - [ ] `[מספר]` (3×): number of pages in the full-site package; revision rounds in the FAQ
 
 ## Local preview
