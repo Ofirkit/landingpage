@@ -1,19 +1,22 @@
-// Work gallery: duplicate each track once so the marquee loops seamlessly
-document.querySelectorAll(".gallery-track").forEach((track) => {
-  [...track.children].forEach((item) => {
-    const clone = item.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    clone.removeAttribute("role");
-    clone.removeAttribute("aria-label");
-    track.appendChild(clone);
-  });
+// Work wall: repeat each column's tiles so the drift loops seamlessly (--copies in CSS must match)
+const WALL_COPIES = 4;
+document.querySelectorAll(".wall-track").forEach((track) => {
+  const originals = [...track.children];
+  for (let n = 1; n < WALL_COPIES; n++) {
+    originals.forEach((item) => {
+      const clone = item.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      clone.querySelectorAll("img").forEach((img) => img.setAttribute("alt", ""));
+      track.appendChild(clone);
+    });
+  }
 });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // Gallery videos: play only while on screen (saves CPU/battery, esp. with the cloned copy);
 // with reduced motion they stay on their poster frame
-const galleryVideos = document.querySelectorAll(".gallery video");
+const galleryVideos = document.querySelectorAll(".wall video");
 if (reduceMotion) {
   galleryVideos.forEach((v) => { v.removeAttribute("autoplay"); v.pause(); });
 } else if ("IntersectionObserver" in window) {

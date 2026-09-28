@@ -15,8 +15,8 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | Section | id / class | Notes |
 |---|---|---|
 | Header | `.site-header` | Logo on the right; plain transparent links (איך אני עובד, המלצות, חבילות, שאלות) grouped with the "בואו נדבר" button on the left (styled after operatorx). No pill fill and no link numbers. "עבודות" was removed on purpose. |
-| Hero | `.hero` | Headline "אתרים שתהיו גאים לשלוח ___" with a rotating last word, then the subheading "אני מעצב ובונה אתרים שהופכים את המוצר והסיפור שלכם לחוויה ברורה, מובחנת ומשכנעת." (the user removed "לסטארטאפים" from it), one CTA, and a status row: "מקבל פרויקטים חדשים" (green dot) and "מעל 10 שנות ניסיון" (blue dot). |
-| Work gallery | `#work`, inside the hero | Two rows scrolling in opposite directions. Row 1: Balance video, Alex, Agen.co security, Ashtanga (tall), Overcut, Noy. Row 2: Resonai Vera, Agen.co pricing, DataGen, Shani, AI agents, Unbound. No name tags on tiles (user request). |
+| Hero | `.hero` | **Centered layout after the user's clonify.io reference:** a white pill badge ("● מקבל פרויקטים חדשים | מעל 10 שנות ניסיון"), the headline "אתרים שתהיו גאים / לשלוח ___" with a rotating last word (2 lines on tablet and desktop, 3 on phones), the subheading "אני מעצב ובונה אתרים שהופכים את המוצר והסיפור שלכם לחוויה ברורה, מובחנת ומשכנעת." (the user removed "לסטארטאפים" from it), and one CTA (the reference has two; the site keeps one). |
+| Work wall | `#work` (`.wall`), inside the hero | **Tilted 3D wall** (replaced the two horizontal marquee rows): five columns on a plane with `perspective: 2000px` and `rotateX(32deg) rotateZ(12deg)`; even columns are offset down. Each column drifts in a loop (odd up 70s, even down 80s). JS repeats each column's tiles `WALL_COPIES` = 4 times in total (must match `--copies` in CSS) and marks copies `aria-hidden`. The edges fade out through a mask on both axes. Columns: DataGen · Noy · Agen.co security / Balance video · Ashtanga · Unbound / Alex · Agen.co pricing (+ Agen.co security copy) / Resonai Vera · Overcut (+ Noy copy) / Shani · AI agents (+ Unbound copy). The "+ copy" tiles are decorative (`aria-hidden`, empty alt) so the 2-tile columns don't repeat a site back to back. No name tags (user request). The clonify.io site itself was blocked by the sandbox network, so the drift was inferred from the screenshot. |
 | About | `#about` | Small portrait (`assets/ofir-portrait.webp`) on the right and a large two-paragraph statement ("היי, אני אופיר - מעצב ובונה אתרים. ..."), then the YouTube links. Words fill from gray to white on scroll. Photo width: about 245px on desktop, 240px on tablet, full width with the photo's own 3:4 ratio on phones (≤600px). When stacked (≤960px) the text comes first and the photo after it (user request). |
 | How I work | `#how` | 6 principles, each "bold word + one line" (the brief's wording). |
 | Testimonials | `#testimonials` | In this order: Shani Gilad, Ran Alter, Shai Keren. |
@@ -28,7 +28,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | Final CTA | `#contact` | Booking button and a `mailto:` link. |
 | Bottom blur | `.bottom-blur` | Fixed progressive blur at the bottom of the viewport. |
 
-JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fill → process accordion → sticky header → mobile menu → reveal-on-scroll.
+JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill → process accordion → sticky header → mobile menu → reveal-on-scroll.
 
 **Light version for comparison (experiment, user request):** `light.html` is a copy of `index.html` that also loads `light.css` (token overrides only, same layout) and is `noindex`. It has a light page (`#f4f4f6`), ink text, dark buttons, white pricing cards, and **two dark navy accents: the featured pricing card and the final CTA panel**. While both versions exist, **any markup change must be made in both HTML files**. Once the user picks one, fold it into `index.html` and delete the other.
 
@@ -51,13 +51,13 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fi
   - `--fs-sm` 14px: labels, meta, nav.
   - `--fs-xs` 13px: fine print.
   - Deliberate exceptions: the mobile dropdown links (18px for tapping), the FAQ "+" icon and the avatar placeholder.
-- **Hero headline:** 62px on desktop (`--fs-display`; it was 70.4px before the 12% type reduction) with line-height 1.1. On desktop and phones (≤600px) it breaks into 3 lines (`.br-desk`: "אתרים שתהיו / גאים לשלוח / [rotating word]"); on tablets (601–1023px) into 2 (`.br-mob`).
+- **Hero headline:** 62px on desktop (`--fs-display`) with line-height 1.1, centered. Two lines on tablet and desktop (`.br-wide`: "אתרים שתהיו גאים / לשלוח [word]") and three on phones (`.br-phone`: "אתרים שתהיו / גאים לשלוח / [word]").
 - **Breakpoints:**
-  - ≥1024px: two-column hero, with the headline on the right and the supporting copy and CTA on the left.
+  - ≥1024px: the hero headline gets its full 62px size (the hero is centered at every width).
   - ≤960px: hamburger nav, stacked sections.
   - ≤600px: full-width buttons, single-column grids.
 - **Layout language:** editorial style. Section heads have a thin top rule and a large heading. **No section numbers and no side-column indent** (user request): all content starts at the page edge. **Wide layout:** `--container: 1480px` (same as the header row), gutter `clamp(16px, 4vw, 64px)`; paragraphs keep their own max-widths for readable lines. The process step numbers (01–04) stay, since they come from the reference. Minimal cards: only the packages and the final CTA are panels.
-- **Gallery:** rows are `min(450px, 58vw)` tall with a 16px gap and no edge fade. The media's own ratio sets each tile's width (images 3:2, Ashtanga 1:2, video about 1.66:1). The rows scroll continuously and do **not** pause on hover.
+- **Wall tiles:** column width `clamp(170px, 20vw, 300px)`, gap up to 24px; each tile is full column width with the media's own ratio (images 3:2, Ashtanga 1:2, video about 1.66:1), 12px radius and a soft shadow. The wall is `clamp(440px, 58vw, 800px)` tall. It never pauses on hover. Image `sizes` is "(max-width: 960px) 200px, 300px".
 - **Gallery media (in `assets/work/`), optimized for speed:**
   - Each image comes in two WebP sizes: `<name>-450.webp` and `<name>-900.webp`, quality 80. `srcset`/`sizes` makes each screen download only one; `width`/`height` attributes reserve space so the layout doesn't jump.
   - The video is `balance-720` and `balance-450`, each as WebM (VP9) plus an MP4 (H.264) fallback, with no audio and faststart. `<source media>` gives 720p to wide screens and 450p to phones; `balance-poster.webp` is its first frame.
@@ -70,10 +70,10 @@ JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fi
   - Enter: the new letters rise from below, starting only after the exit (0.6s, 40ms stagger, 560ms delay).
   - Hold: each word stays for 3.6s (`HOLD`). It matches a reference GIF the user supplied.
 - **About scroll-fill:** JS wraps each word of `.fill-text` in `.w`. Words start at `rgba(255,255,255,0.26)` and become white (`.is-lit`) with `transition: color 0.3s ease` (the user's reference). Progress runs from 0, when the text's top reaches 85% of the viewport, to 1, when its bottom reaches 45%. Under reduced motion all words are lit.
-- **Mobile hero (≤600px):** tightened so the first gallery row shows above the fold. The hero has 100px top padding, a 17px lead, and 32px between the status row and the gallery. Visible gallery: about 74px on an iPhone SE, about 200px on common phones. Keep this in mind before adding hero content on mobile.
+- **Mobile hero (≤600px):** tightened so the wall shows above the fold: 100px top padding, full-width button, 36px above the wall. On a 390×844 phone the top of the wall is visible. Keep this in mind before adding hero content on mobile.
 - **Header sizes:** links and the header CTA are 14px (CTA padding 8×16). The logo is 31px wide (26px on mobile). The mobile menu button is 38px. **Below 960px the header CTA is hidden** (logo and menu button only; user request). The mobile dropdown links stay 18px for easy tapping.
 - **Nav + CTA hover roll:** the same roll runs on the nav links and every `.btn-primary` button (user request). JS splits each link into letters, each stacked with a copy, inside a one-line clip (`height: 1.2em` = 16.8px at 14px). On hover the letters go from `transform: none` to `translateY(-1.2em)`, which is −16.8px, with an 18ms stagger. It scales with font size. The link keeps an `aria-label`. The mobile dropdown panel is opaque (`#0e0e28`).
-- **Light hero details:** the status dots are deeper (`#1fb954`, `#2f7cf6`) so they read on light; gallery tiles get a dark hairline border. JS adds `.on-light` to the header while it's over the hero (dark logo, links and button; a light glass background once scrolled) and to `.bottom-blur` while the hero is under it (hides the dark tint). The mobile dropdown links stay light on their dark panel.
+- **Light hero details:** the status dot is deeper (`#1fb954`, `#2f7cf6`) so they read on light; gallery tiles get a dark hairline border. JS adds `.on-light` to the header while it's over the hero (dark logo, links and button; a light glass background once scrolled) and to `.bottom-blur` while the hero is under it (hides the dark tint). The mobile dropdown links stay light on their dark panel.
 - **Motion:** restrained. Reveal-on-scroll uses a 12px rise. Lenis uses `lerp: 0.1`. The bottom blur is 7 `backdrop-filter` layers (0.5px to 32px) plus a 0.35 tint. Everything respects `prefers-reduced-motion`.
 
 ## 4. Conventions and rules
@@ -107,6 +107,7 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
 - **About further down the page:** moved to directly after the hero at the user's request (introduce the person first).
 - **Pain / "why Framer" / outcome sections and a conversion-heavy tone:** replaced by the partner-tone brief ("איך אני עובד" principles).
 - **Case-study cards:** replaced by the hero gallery.
+- **Two-column hero with two horizontal marquee rows:** replaced by the centered hero and tilted wall (clonify.io reference).
 - **Project-name tags on gallery tiles:** removed at the user's request.
 - **"Exit after design" guarantee:** the user found it impractical. It was replaced by a homepage-first approval step.
 - **Pill-shaped nav with a fill:** replaced by transparent links (user request).

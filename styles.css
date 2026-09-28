@@ -255,37 +255,36 @@ figure, blockquote { margin: 0; }
   overflow: hidden;
 }
 
+/* Centered hero after the clonify.io reference: badge, headline, subheading, one button, then the wall */
 .hero-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(20px, 2.4vw, 32px);
+  padding: 7px 16px;
+  font-size: var(--fs-sm);
+  color: #3a3b48;
+  background: #fff;
+  border: 1px solid rgba(11, 11, 18, 0.08);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 10px rgba(11, 11, 18, 0.05);
+}
+.hero-badge-sep { width: 1px; height: 12px; margin-inline: 6px; background: rgba(11, 11, 18, 0.16); }
 .hero h1 {
   max-width: 100%;
   font-size: var(--fs-display);
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
-.hero .br-desk { display: none; }
-.hero-side { display: flex; flex-direction: column; align-items: center; }
-
-/* Desktop: headline on the right, supporting copy and CTA on the left */
+/* 2 lines on tablets and desktop, 3 on phones (rotating word on its own line) */
+.hero .br-phone { display: none; }
 @media (min-width: 1024px) {
-  .hero-inner {
-    display: grid;
-    grid-template-columns: auto minmax(0, 620px);
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 64px;
-    max-width: 1480px;
-    text-align: start;
-  }
-  .hero h1 { font-size: var(--fs-display-max); line-height: 1.1; white-space: nowrap; }
-  .hero .br-desk { display: inline; }
-  .hero .br-mob { display: none; }
-  .hero-side { align-items: flex-start; }
-  .hero-side .lead { margin-top: 0; }
-  .hero-side .hero-meta { justify-content: flex-start; }
+  .hero h1 { font-size: var(--fs-display-max); white-space: nowrap; }
 }
 .lead {
-  max-width: 740px;
-  margin-top: clamp(20px, 2vw, 28px);
+  max-width: 620px;
+  margin-top: clamp(18px, 2vw, 26px);
   font-size: var(--fs-lead);
   line-height: 1.55;
   color: #3a3b48;
@@ -295,16 +294,6 @@ figure, blockquote { margin: 0; }
 .hero .btn-primary { color: #fff; background: var(--ink); box-shadow: 0 8px 24px rgba(11, 11, 18, 0.16); }
 .hero .btn-primary:hover { background: #262633; box-shadow: 0 10px 28px rgba(11, 11, 18, 0.22); }
 
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 28px;
-  margin-top: 22px;
-  font-size: var(--fs-sm);
-  color: #5a5b6b;
-}
-.hero-meta li { display: inline-flex; align-items: center; gap: 8px; }
 .dot { width: 7px; height: 7px; flex: none; border-radius: 50%; }
 .dot-green { background: #1fb954; box-shadow: 0 0 6px rgba(31, 185, 84, 0.45); }
 .dot-blue { background: #2f7cf6; box-shadow: 0 0 6px rgba(47, 124, 246, 0.45); }
@@ -359,55 +348,60 @@ figure, blockquote { margin: 0; }
 }
 
 /* ==========================================================
-   Work gallery (hero marquee)
+   Work wall (hero): five columns on a plane tilted in 3D, each drifting up or down in a loop.
+   JS repeats each column's tiles (--copies times in total) so the loop is seamless.
    ========================================================== */
-.gallery {
-  --row-h: min(450px, 58vw);
+.wall {
+  --col-w: clamp(170px, 20vw, 300px);
+  --wall-gap: clamp(14px, 1.6vw, 24px);
+  --copies: 4;
+  position: relative;
+  height: clamp(440px, 58vw, 800px);
+  margin-top: clamp(48px, 6vw, 80px);
+  overflow: hidden;
+  perspective: 2000px;
+  direction: ltr;
+  /* fade out on the sides and at the top and bottom */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent), linear-gradient(to bottom, transparent, #000 14%, #000 78%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent), linear-gradient(to bottom, transparent, #000 14%, #000 78%, transparent);
+  mask-composite: intersect;
+}
+.wall-plane {
+  position: absolute;
+  top: -8%;
+  left: 50%;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--wall-gap);
+  transform: translateX(-50%) rotateX(32deg) rotateZ(12deg);
+  transform-origin: 50% 0;
+}
+.wall-col { flex: none; width: var(--col-w); }
+.wall-col:nth-child(even) { margin-top: calc(var(--col-w) * -0.45); } /* stagger the columns */
+.wall-track {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: clamp(64px, 8vw, 104px);
-  direction: ltr;
+  gap: var(--wall-gap);
+  animation: wall-drift 70s linear infinite;
 }
-.gallery-row { overflow: hidden; height: var(--row-h); }
-.gallery-track {
-  display: flex;
-  gap: 16px;
-  width: max-content;
-  height: 100%;
-  animation: marquee 90s linear infinite;
-}
-.gallery-row-reverse .gallery-track { animation-direction: reverse; animation-duration: 100s; }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(-50% - 8px)); }
+.wall-col:nth-child(even) .wall-track { animation-direction: reverse; animation-duration: 80s; }
+@keyframes wall-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc((-100% - var(--wall-gap)) / var(--copies))); } /* one copy's height */
 }
 
 .shot {
   position: relative;
-  flex: none;
-  height: 100%;
   margin: 0;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid rgba(11, 11, 18, 0.08);
   background: #e4e4ea;
+  box-shadow: 0 12px 32px rgba(11, 11, 18, 0.1);
 }
-/* Media sets the tile width: fixed row height, width from the file's own ratio (width/height attrs reserve space) */
 .shot img,
-.shot video { display: block; width: auto; height: 100%; max-width: none; object-fit: cover; }
-
-/* ==========================================================
-   How I work — principles
-   ========================================================== */
-.principles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(40px, 5vw, 72px) var(--col-gap);
-}
-.principles li { padding-top: 20px; border-top: 1px solid var(--border); }
-.principles h3 { font-size: var(--fs-h4); letter-spacing: -0.01em; margin-bottom: 10px; }
-.principles p { font-size: var(--fs-body); color: var(--text-muted); }
+.shot video { display: block; width: 100%; height: auto; }
 
 /* ==========================================================
    About
@@ -788,7 +782,6 @@ figure, blockquote { margin: 0; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
 
-  .gallery-row { overflow-x: auto; }
 }
 
 /* ==========================================================
@@ -843,11 +836,9 @@ figure, blockquote { margin: 0; }
   .hero { padding-top: 100px; }
   .hero .lead { margin-top: 14px; font-size: var(--fs-lead); }
   .hero .btn { width: 100%; margin-top: 22px; }
-  .hero-meta { margin-top: 14px; }
-  .gallery { margin-top: 32px; }
-  .hero .br-desk { display: inline; } /* phones: 3 lines, rotating word on its own line */
-  .hero .br-mob { display: none; }
-  .hero-meta { gap: 8px 18px; font-size: var(--fs-sm); }
+  .wall { margin-top: 36px; }
+  .hero .br-phone { display: inline; } /* phones: 3 lines, rotating word on its own line */
+  .hero .br-wide { display: none; }
   .cta-actions { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
