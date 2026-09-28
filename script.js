@@ -136,7 +136,15 @@ steps.forEach((step) => {
 
 // Sticky header background
 const header = document.querySelector(".site-header");
-const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+// Light hero: dark header while it sits over the hero, and no dark blur tint over it
+const hero = document.querySelector(".hero");
+const blur = document.querySelector(".bottom-blur");
+const onScroll = () => {
+  header.classList.toggle("is-scrolled", window.scrollY > 24);
+  const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+  header.classList.toggle("on-light", heroBottom > header.offsetHeight / 2);
+  blur?.classList.toggle("on-light", heroBottom > window.innerHeight - 20);
+};
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 

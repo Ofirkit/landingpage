@@ -3,7 +3,8 @@
    ========================================================== */
 :root {
   --bg: #030308;
-  --hero-bg: #111111;
+  --hero-bg: #f3f3f6;  /* light hero (user request); the rest of the page stays dark */
+  --ink: #0b0b12;      /* text and buttons on light backgrounds */
   --navy: #0d1a46;
   --indigo: #17184b;
   --violet: #20154e;
@@ -161,7 +162,7 @@ figure, blockquote { margin: 0; }
   inset: 0 0 auto;
   z-index: 50;
   padding-block: 20px;
-  transition: background-color 0.3s, padding 0.3s;
+  transition: background-color 0.3s, padding 0.3s, color 0.3s;
 }
 .site-header.is-scrolled {
   padding-block: 12px;
@@ -170,6 +171,14 @@ figure, blockquote { margin: 0; }
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
+/* While the header sits over the light hero (JS adds .on-light): dark logo, links and button */
+.site-header.on-light,
+.site-header.on-light .logo { color: var(--ink); }
+.site-header.on-light.is-scrolled { background: rgba(243, 243, 246, 0.82); border-bottom-color: rgba(11, 11, 18, 0.08); }
+.site-header.on-light .btn-primary { color: #fff; background: var(--ink); box-shadow: none; }
+.site-header.on-light .btn-primary:hover { background: #262633; box-shadow: none; }
+.site-header.on-light .menu-toggle { background: rgba(11, 11, 18, 0.04); border-color: rgba(11, 11, 18, 0.12); }
+.site-header.on-light .menu-toggle span { background: var(--ink); }
 
 .header-inner {
   display: flex;
@@ -239,9 +248,10 @@ figure, blockquote { margin: 0; }
    ========================================================== */
 .hero {
   position: relative;
-  padding-block: clamp(150px, 15vw, 200px) clamp(72px, 9vw, 120px);
-  /* Flat dark hero that fades softly into the page background */
-  background: linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg) 62%, var(--bg) 100%);
+  padding-block: clamp(150px, 15vw, 200px) clamp(48px, 6vw, 80px);
+  /* Flat light hero; it ends with a clean edge into the dark page (a fade would leave a gray band) */
+  color: var(--ink);
+  background: var(--hero-bg);
   overflow: hidden;
 }
 
@@ -278,9 +288,12 @@ figure, blockquote { margin: 0; }
   margin-top: clamp(20px, 2vw, 28px);
   font-size: var(--fs-lead);
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.88);
+  color: #3a3b48;
 }
 .hero .btn { margin-top: clamp(32px, 3.2vw, 44px); }
+/* On the light hero the main button is dark (white buttons stay everywhere else) */
+.hero .btn-primary { color: #fff; background: var(--ink); box-shadow: 0 8px 24px rgba(11, 11, 18, 0.16); }
+.hero .btn-primary:hover { background: #262633; box-shadow: 0 10px 28px rgba(11, 11, 18, 0.22); }
 
 .hero-meta {
   display: flex;
@@ -289,12 +302,12 @@ figure, blockquote { margin: 0; }
   gap: 8px 28px;
   margin-top: 22px;
   font-size: var(--fs-sm);
-  color: var(--text-muted);
+  color: #5a5b6b;
 }
 .hero-meta li { display: inline-flex; align-items: center; gap: 8px; }
 .dot { width: 7px; height: 7px; flex: none; border-radius: 50%; }
-.dot-green { background: #75f68f; box-shadow: 0 0 8px rgba(117, 246, 143, 0.6); }
-.dot-blue { background: #69b7fa; box-shadow: 0 0 8px rgba(105, 183, 250, 0.6); }
+.dot-green { background: #1fb954; box-shadow: 0 0 6px rgba(31, 185, 84, 0.45); }
+.dot-blue { background: #2f7cf6; box-shadow: 0 0 6px rgba(47, 124, 246, 0.45); }
 
 /* Rotating last word of the headline.
    Exit: letters slide up out of the line one after another (quick).
@@ -377,8 +390,8 @@ figure, blockquote { margin: 0; }
   margin: 0;
   overflow: hidden;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: #111;
+  border: 1px solid rgba(11, 11, 18, 0.08);
+  background: #e4e4ea;
 }
 /* Media sets the tile width: fixed row height, width from the file's own ratio (width/height attrs reserve space) */
 .shot img,
@@ -756,7 +769,9 @@ figure, blockquote { margin: 0; }
 .bottom-blur::after {
   content: "";
   background: linear-gradient(to bottom, transparent, rgba(3, 3, 8, 0.35));
+  transition: opacity 0.3s;
 }
+.bottom-blur.on-light::after { opacity: 0; } /* no dark tint over the light hero */
 
 /* ==========================================================
    Reveal on scroll (subtle)
@@ -805,7 +820,7 @@ figure, blockquote { margin: 0; }
     background: #0e0e28;
     border-radius: 20px;
   }
-  .main-nav a { padding: 14px 18px; font-size: 18px; border-radius: 12px; }
+  .main-nav a { padding: 14px 18px; font-size: 18px; border-radius: 12px; color: var(--text); }
 
   .principles { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
