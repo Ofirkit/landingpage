@@ -348,7 +348,7 @@ figure, blockquote { margin: 0; }
 }
 
 /* ==========================================================
-   Work wall (hero): five columns on a plane tilted in 3D, each drifting up or down in a loop.
+   Work wall (hero): five columns rotated 14deg (as in the reference), each drifting up or down in a loop.
    JS repeats each column's tiles (--copies times in total) so the loop is seamless.
    ========================================================== */
 .wall {
@@ -362,26 +362,34 @@ figure, blockquote { margin: 0; }
   margin: clamp(40px, 5vw, 72px) auto 0;
   overflow: hidden;
   container-type: inline-size;
-  perspective: 2400px;
   direction: ltr;
-  /* Long fades on both axes, combined, so the wall dissolves into the background on every side */
-  -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.35) 10%, #000 28%, #000 72%, rgba(0, 0, 0, 0.35) 90%, transparent), linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4) 10%, #000 26%, #000 64%, rgba(0, 0, 0, 0.35) 84%, transparent);
+  /* Blend into the background on every side: a side fade, plus a short top/bottom fade that
+     catches the rotated column ends (each column also fades along its own length, below) */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent), linear-gradient(transparent, #000 14%, #000 86%, transparent);
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.35) 10%, #000 28%, #000 72%, rgba(0, 0, 0, 0.35) 90%, transparent), linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4) 10%, #000 26%, #000 64%, rgba(0, 0, 0, 0.35) 84%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent), linear-gradient(transparent, #000 14%, #000 86%, transparent);
   mask-composite: intersect;
 }
+/* Values from the reference's inspector: a flat rotate(14deg), no 3D */
 .wall-plane {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
   display: flex;
-  align-items: flex-start;
   gap: var(--wall-gap);
-  /* A gentle tilt: mostly a 13° rotation with a slight lean back (the reference is only lightly skewed) */
-  transform: translate(-50%, -50%) rotateX(10deg) rotateZ(13deg);
+  height: 100%; /* as in the reference, so the column fades sit inside the visible wall */
+  transform: translateX(-50%) rotate(14deg);
 }
-.wall-col { flex: none; width: var(--col-w); }
-.wall-col:nth-child(even) { margin-top: calc(var(--col-w) * 0.45); } /* stagger the columns */
+/* Each column is a vertical ticker faded at both ends, as in the reference: 0 → 25% → 75% → 0 */
+.wall-col {
+  flex: none;
+  width: var(--col-w);
+  height: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent 0%, #000 25%, #000 75%, transparent 100%);
+  mask-image: linear-gradient(transparent 0%, #000 25%, #000 75%, transparent 100%);
+}
+.wall-col:nth-child(even) .wall-track { margin-top: calc(var(--col-w) * -0.45); } /* stagger the columns */
 .wall-track {
   display: flex;
   flex-direction: column;
