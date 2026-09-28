@@ -30,6 +30,8 @@ Context for continuing work without the original chat. `README.md` holds the pla
 
 JS (`script.js`): gallery clone loop → Lenis → headline rotator → About fill → process accordion → sticky header → mobile menu → reveal-on-scroll.
 
+**Light version for comparison (experiment, user request):** `light.html` is a copy of `index.html` that also loads `light.css` (token overrides only, same layout) and is `noindex`. It has a light page (`#f4f4f6`), ink text, dark buttons, white pricing cards, and **two dark navy accents: the featured pricing card and the final CTA panel**. While both versions exist, **any markup change must be made in both HTML files**. Once the user picks one, fold it into `index.html` and delete the other.
+
 ## 3. Design decisions
 
 - **Palette:** based on uxuikit.com. **The hero is light** (user request): flat `--hero-bg: #f3f3f6` with `--ink: #0b0b12` text, ending in a clean edge into the dark page (`#030308`); a gradient between them left a muddy gray band. Lower sections are near-black with subtle navy and violet radial glows. All tokens are in `:root` in `styles.css`.
