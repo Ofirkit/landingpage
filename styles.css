@@ -490,11 +490,12 @@ figure, blockquote { margin: 0; }
 .how3-art { display: block; flex: 1; width: 100%; max-width: 320px; min-height: 180px; margin: 24px auto; overflow: visible; }
 .how3-art * { transform-box: fill-box; transform-origin: center; }
 /* Line weights follow the logo (a bold ring and a straight bar): bold rings, straight lines, square ends */
-.how3-art .ln { fill: none; stroke: var(--art-line); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.how3 { --logo-w: 5.4px; } /* the header logo's line: stroke 7 in a 40-unit mark drawn 31px wide = 5.4px */
+.how3-art .ln { fill: none; stroke: var(--art-line); stroke-width: var(--logo-w); vector-effect: non-scaling-stroke; }
 /* Outlines only (user request): the emphasized shapes are full-strength strokes instead of fills */
-.how3-art :is(.fill, .done) { fill: none; stroke: var(--text); stroke-width: 4; vector-effect: non-scaling-stroke; }
+.how3-art :is(.fill, .done) { fill: none; stroke: var(--text); stroke-width: var(--logo-w); vector-effect: non-scaling-stroke; }
 /* 1. Path: the dashed "design" circle, one line drawn to the filled "live" circle */
-.art-path .dash { stroke-dasharray: 5 6; }
+.art-path .dash { stroke-dasharray: 9 8; }
 .how3-art .draw { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 0.9s var(--ease) var(--d, 0.15s); }
 .art-path .mid { transition: opacity 0.4s var(--ease) 0.55s; }
 .how3-art .grow { transition: transform 0.8s var(--ease) var(--d, 0.95s), opacity 0.6s var(--ease) var(--d, 0.95s); }
@@ -503,9 +504,9 @@ figure, blockquote { margin: 0; }
 .art-steps .hole { fill: var(--card-bg); } /* covers the connecting line inside the open steps */
 .art-steps .done,
 .art-steps .now { transition: transform 0.6s var(--ease), opacity 0.5s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.3s); }
-.art-steps .ring { stroke-dasharray: 4 5; transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.3s); }
+.art-steps .ring { stroke-dasharray: 7 7; transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.3s); }
 /* 3. Link: two equal single-line rings slide in and lock, woven over and under (a small break where one passes under) */
-.art-link .gap { fill: none; stroke: var(--card-bg); stroke-width: 14; vector-effect: non-scaling-stroke; }
+.art-link .gap { fill: none; stroke: var(--card-bg); stroke-width: 18; vector-effect: non-scaling-stroke; }
 .art-link .slide { transition: transform 1.2s var(--ease) 0.15s, opacity 0.6s var(--ease) 0.15s; }
 /* Before playing (script.js adds .art-on when the card is in view, and replays it on hover) */
 .js .how3-card:not(.art-on) .draw { stroke-dashoffset: 1; }
@@ -634,7 +635,7 @@ figure, blockquote { margin: 0; }
    Decorations (under review on how-test.html): the logo's shapes (a bold ring and a straight bar), large,
    faint and cropped by their container. At most one per section; they play once when they come into view.
    ========================================================== */
-.deco { position: absolute; z-index: 0; pointer-events: none; color: var(--text); opacity: 0.07; }
+.deco { position: absolute; z-index: 0; pointer-events: none; color: var(--text); opacity: 0.13; }
 .deco * { transform-box: fill-box; transform-origin: center; }
 /* Final CTA: the logo, oversized, on the far side of the panel */
 .cta-panel { position: relative; overflow: hidden; isolation: isolate; }
@@ -649,12 +650,33 @@ figure, blockquote { margin: 0; }
 .qt { position: relative; overflow: hidden; isolation: isolate; --deco-bg: var(--bg); }
 .qt-dark { --deco-bg: #0b0b0b; }
 .qt > .container { position: relative; z-index: 1; }
-.deco-link { inset-inline-end: -34%; top: 50%; height: 150%; width: auto; translate: 0 -50%; opacity: 0.07; }
+.deco-link { inset-inline-end: -30%; top: 50%; height: 160%; width: auto; translate: 0 -50%; }
 .deco-link :is(circle, path) { fill: none; stroke: currentColor; stroke-width: 4; }
 .deco-link .deco-gap { stroke: var(--deco-bg); stroke-width: 14; }
 .deco-link g { transition: transform 1.6s var(--ease) 0.2s; }
 .js .deco-link:not(.deco-on) .deco-a { transform: translateX(-40px); }
 .js .deco-link:not(.deco-on) .deco-b { transform: translateX(40px); }
+/* Statement: card 1's path, large, on the far side */
+.statement-gap { position: relative; overflow-x: clip; isolation: isolate; } /* clip the sides only: no hard edge against the section above */
+.statement-gap > .container { position: relative; z-index: 1; }
+.deco-path { inset-inline-end: 2%; top: 50%; height: 120%; width: auto; translate: 0 -50%; opacity: 0.1; }
+.deco-path :is(circle, path) { fill: none; stroke: currentColor; stroke-width: 8; } /* user units (~12px drawn); non-scaling strokes break the pathLength draw */
+.deco-path .deco-dash { stroke-dasharray: 13 10; transition: opacity 0.8s var(--ease) 0.1s; }
+.deco-path .deco-line { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1s var(--ease) 0.4s; }
+.deco-path .deco-solid { transition: transform 0.9s var(--ease) 1.1s, opacity 0.6s var(--ease) 1.1s; }
+.js .deco-path:not(.deco-on) .deco-dash { opacity: 0; }
+.js .deco-path:not(.deco-on) .deco-line { stroke-dashoffset: 1; }
+.js .deco-path:not(.deco-on) .deco-solid { transform: scale(0.4); opacity: 0; }
+/* Process: card 2's four steps, large, beside the heading */
+.process-deco { position: relative; overflow: hidden; isolation: isolate; }
+.process-deco > .container { position: relative; z-index: 1; }
+.deco-steps { inset-inline-end: -3%; top: calc(var(--section-y) + 24px); width: min(620px, 46vw); height: auto; opacity: 0.1; }
+.deco-steps :is(circle, path) { fill: none; stroke: currentColor; stroke-width: 6; } /* user units (~12px drawn) */
+.deco-steps .deco-hole { fill: var(--bg); }
+.deco-steps .deco-muted { stroke-opacity: 0.45; }
+.deco-steps .deco-ring2 { stroke-dasharray: 9 7; }
+.deco-steps circle { transition: transform 0.6s var(--ease), opacity 0.5s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.2s); }
+.js .deco-steps:not(.deco-on) circle { transform: scale(0.3); opacity: 0; }
 
 /* ==========================================================
    Statement: one big line between Testimonials and Process
@@ -1004,7 +1026,9 @@ figure, blockquote { margin: 0; }
 @media (max-width: 600px) {
   .qt-item blockquote p::before { position: static; margin: 0; } /* no hanging quote at the screen edge */
   .deco-logo { inset-inline-end: -30%; top: -6%; height: 80%; } /* phones: smaller and further off the edge, away from the heading */
-  .deco-link { inset-inline-end: -45%; top: auto; bottom: -12%; height: 60%; translate: none; }
+  .deco-path { inset-inline-end: -20%; top: auto; bottom: 8%; height: 70%; translate: none; }
+  .deco-steps { display: none; } /* no room beside the heading on phones */
+  .deco-link { inset-inline-end: -50%; top: auto; bottom: -30%; height: 60%; translate: none; } /* below the arrows */
   .qt-item blockquote p { font-size: calc(var(--fs-h3) * 0.85); } /* 15% smaller on phones (user request) */
   .logo svg { width: 26px; }
   .principles { grid-template-columns: 1fr; }
