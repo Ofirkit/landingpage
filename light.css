@@ -60,11 +60,17 @@
 /* Bottom blur: a light tint instead of the dark one */
 .bottom-blur::after { background: linear-gradient(to bottom, transparent, rgba(244, 244, 246, 0.35)); }
 
-/* Hero headline (light version only, user request): ~90px on desktop, in three lines at every width:
-   "אתרים שתהיו / גאים לשלוח / [word]", so the rotating word has its own line. The h1's <br>s are, in
-   order: after שתהיו and after לשלוח (.br-phone, shown here) and after גאים (.br-wide, hidden here). */
+/* Hero headline (light version only, user request): ~90px on desktop, line-height 0.9, in three lines
+   at every width: "אתרים שתהיו / גאים לשלוח / [word]", so the rotating word has its own line. The h1's
+   <br>s are, in order: after שתהיו and after לשלוח (.br-phone, shown here) and after גאים (.br-wide, hidden). */
+.hero h1 { line-height: 0.9; }
 @media (min-width: 601px) {
-  .hero h1 { font-size: clamp(44px, 7vw, 90px); line-height: 1.1; }
+  .hero h1 { font-size: clamp(44px, 7vw, 90px); }
   .hero h1 .br-phone { display: inline; }
   .hero h1 .br-wide { display: none; }
 }
+/* With a 0.9 line height a one-line clip would cut the tops of ל and the tails of ק, so the rotating word
+   gets a taller clip (1.25em) whose extra height is taken back with negative margins: the line still
+   spaces at 0.9, and the letters still travel fully out of the window above and below. */
+.hero .rotator { height: 1.25em; margin-block: -0.175em; }
+.hero .rotator-word { line-height: 1.25; }
