@@ -187,6 +187,10 @@ if (tl) {
     rows.forEach((row, i) => row.classList.toggle("is-active", i === active));
     const first = rows[0].querySelector(".tl-dot").getBoundingClientRect();
     const last = rows[rows.length - 1].querySelector(".tl-dot").getBoundingClientRect();
+    // The line runs from the centre of the first dot to the centre of the last one
+    const top = tl.getBoundingClientRect().top;
+    tl.style.setProperty("--line-top", `${first.top + first.height / 2 - top}px`);
+    tl.style.setProperty("--line-len", `${last.top - first.top}px`);
     const p = (mid - first.top) / Math.max(1, last.top - first.top);
     tl.style.setProperty("--p", Math.min(1, Math.max(0, p)).toFixed(3));
   };

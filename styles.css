@@ -510,9 +510,12 @@ figure, blockquote { margin: 0; }
   --violet: var(--accent-soft);
   --blue: #2f7cf6;
   --p: 0;
+  --line-top: 60px;     /* script.js sets these from the first and last dots */
+  --line-len: 0px;
   position: relative;
   display: grid;
-  gap: 8px;
+  gap: clamp(140px, 30vh, 300px); /* tall on purpose: each step gets a good stretch of scrolling */
+  padding-block: clamp(40px, 8vh, 90px);
   max-width: 1040px;
   margin-inline: auto;
 }
@@ -520,15 +523,15 @@ figure, blockquote { margin: 0; }
 .tl::after { /* the track, and its gradient fill down to the active row */
   content: "";
   position: absolute;
-  top: 60px;
+  top: var(--line-top);
   left: 50%;
   width: 2px;
   translate: -50% 0;
   border-radius: 1px;
 }
-.tl::before { bottom: 60px; background: var(--border); }
+.tl::before { height: var(--line-len); background: var(--border); }
 .tl::after {
-  height: calc((100% - 120px) * var(--p));
+  height: calc(var(--line-len) * var(--p));
   background: linear-gradient(to bottom, var(--violet), var(--blue));
   box-shadow: 0 0 12px color-mix(in srgb, var(--violet) 55%, transparent);
   transition: height 0.25s linear;
@@ -957,9 +960,8 @@ figure, blockquote { margin: 0; }
   .principles { grid-template-columns: repeat(2, 1fr); }
   .how3 { grid-template-columns: 1fr; max-width: 560px; }
   /* timeline: the line moves to the start side; each row stacks next to it */
-  .tl::before, .tl::after { left: auto; inset-inline-start: 33px; translate: 50% 0; top: 44px; }
-  .tl::before { bottom: 44px; }
-  .tl::after { height: calc((100% - 88px) * var(--p)); }
+  .tl { gap: clamp(100px, 20vh, 180px); }
+  .tl::before, .tl::after { left: auto; inset-inline-start: 33px; translate: 50% 0; }
   .tl-row { grid-template-columns: 44px 1fr; column-gap: 14px; row-gap: 12px; padding: 20px 12px; }
   .tl-row .tl-dot { grid-column: 1; grid-row: 1 / span 2; align-self: start; margin-top: 26px; }
   .tl-row:nth-child(n) .tl-mark { grid-column: 2; grid-row: 1; justify-self: start; flex-direction: row; }
