@@ -641,6 +641,8 @@ figure, blockquote { margin: 0; }
   text-wrap: pretty;
 }
 .statement-text span { display: block; } /* one sentence per line */
+/* how-test.html: the Statement sits between How I work (which brings its own bottom space) and the black quote band */
+.statement-gap { padding-block: 0 var(--section-y); }
 .statement-text span:first-child { color: var(--text-dim); }
 
 /* ==========================================================

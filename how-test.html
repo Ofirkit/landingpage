@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260930v" />
+  <link rel="stylesheet" href="styles.css?v=20260930w" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20260930v" />
+  <link rel="stylesheet" href="light.css?v=20260930w" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -186,6 +186,14 @@
       </div>
     </section>
 
+    <!-- ===== Statement ===== -->
+    <!-- Moved between How I work and the testimonials (user pick): a light breather between the black cards and the black quote band -->
+    <section class="section statement statement-gap" aria-label="למה זה חשוב">
+      <div class="container">
+        <p class="statement-text reveal"><span>האתר שלכם הוא לא קישוט יקר.</span> <span>הוא החוד החד ביותר של הנוכחות הדיגיטלית שלכם.</span></p>
+      </div>
+    </section>
+
     <!-- ===== Testimonials ===== -->
     <!-- After the user's reference: one large centered quote at a time, the person below it and small
          arrows at the end of that line. The quotes share one grid cell, so switching never moves the page.
@@ -213,13 +221,6 @@
             <button class="qt-btn qt-next" type="button" aria-label="להמלצה הבאה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== Statement ===== -->
-    <section class="section statement" aria-label="למה זה חשוב">
-      <div class="container">
-        <p class="statement-text reveal"><span>האתר שלכם הוא לא קישוט יקר.</span> <span>הוא החוד החד ביותר של הנוכחות הדיגיטלית שלכם.</span></p>
       </div>
     </section>
 
@@ -470,6 +471,6 @@
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
   <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");
     if (/[?&]quote=white\b/.test(location.search)) document.querySelector(".qt").classList.remove("qt-dark");</script>
-  <script src="script.js?v=20260930v" defer></script>
+  <script src="script.js?v=20260930w" defer></script>
 </body>
 </html>
