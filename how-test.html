@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260930p" />
+  <link rel="stylesheet" href="styles.css?v=20260930q" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20260930p" />
+  <link rel="stylesheet" href="light.css?v=20260930q" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -141,7 +141,7 @@
              its card's story and plays when the card scrolls into view (.art-on from script.js; replays on hover).
              1: a dashed circle (the design) joined by one line to the filled circle (the live site).
              2: four circles for the four process steps, filled up to the current one.
-             3: a small circle orbits your project: I look at it from every side, not only at what was asked. -->
+             3: two equal rings slide in and link, woven over and under: partners, neither on top. -->
         <ul class="how3 how3-black">
           <!-- Black cards (user pick). ?white in the URL shows the earlier white cards for comparison -->
           <li class="how3-card reveal">
@@ -171,10 +171,12 @@
           </li>
           <li class="how3-card reveal">
             <h3>שותף, לא רק מבצע</h3>
-            <svg class="how3-art art-orbit" viewBox="0 0 300 240" aria-hidden="true">
-              <circle class="ln" cx="150" cy="120" r="44" />
-              <circle class="ln orbit-path" cx="150" cy="120" r="82" />
-              <g class="orbit"><circle class="fill" cx="217" cy="73" r="13" /></g>
+            <svg class="how3-art art-link" viewBox="0 0 300 240" aria-hidden="true">
+              <defs><clipPath id="link-under"><rect x="118" y="138" width="64" height="64" /></clipPath></defs>
+              <path class="band slide" d="M176 120 A54 54 0 1 0 68 120 A54 54 0 1 0 176 120 Z M166 120 A44 44 0 1 0 78 120 A44 44 0 1 0 166 120 Z" style="--dx:-46px" />
+              <path class="band slide" d="M232 120 A54 54 0 1 0 124 120 A54 54 0 1 0 232 120 Z M222 120 A44 44 0 1 0 134 120 A44 44 0 1 0 222 120 Z" style="--dx:46px" />
+              <!-- the start ring again, only around the lower crossing: there it passes over the other ring -->
+              <g class="slide" style="--dx:-46px"><path class="band" d="M176 120 A54 54 0 1 0 68 120 A54 54 0 1 0 176 120 Z M166 120 A44 44 0 1 0 78 120 A44 44 0 1 0 166 120 Z" clip-path="url(#link-under)" /></g>
             </svg>
             <p>אגיד לכם מה נראה לי נכון ולמה, ואציע שיפורים לפני שתבקשו. ההחלטה תמיד שלכם.</p>
           </li>
@@ -479,6 +481,6 @@
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
   <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");</script>
-  <script src="script.js?v=20260930p" defer></script>
+  <script src="script.js?v=20260930q" defer></script>
 </body>
 </html>
