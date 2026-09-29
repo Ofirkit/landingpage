@@ -75,6 +75,8 @@ body {
 }
 
 img { display: block; max-width: 100%; height: auto; }
+/* No long-press "save image" menu on iOS and no drag-out (user request; pairs with the right-click block in script.js) */
+img { -webkit-touch-callout: none; -webkit-user-drag: none; user-select: none; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3 { margin: 0; font-weight: 700; text-wrap: balance; }
 p { margin: 0; text-wrap: pretty; }

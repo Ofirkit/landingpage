@@ -240,4 +240,9 @@ if ("IntersectionObserver" in window) {
   revealEls.forEach((el) => el.classList.add("is-visible"));
 }
 
+// Images: no right-click menu and no drag-out (user request). A deterrent only: anyone determined can
+// still get the files through the browser's dev tools or a screenshot.
+document.addEventListener("contextmenu", (e) => { if (e.target.closest("img, .shot")) e.preventDefault(); });
+document.addEventListener("dragstart", (e) => { if (e.target.closest("img, .shot")) e.preventDefault(); });
+
 document.getElementById("year").textContent = new Date().getFullYear();
