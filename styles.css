@@ -868,7 +868,6 @@ figure, blockquote { margin: 0; }
 
   .principles { grid-template-columns: repeat(2, 1fr); }
   .how3 { grid-template-columns: 1fr; max-width: 560px; }
-  /* timeline: the line moves to the start side; each row stacks next to it */
   .how3-card { min-height: 0; }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo { width: 240px; }
