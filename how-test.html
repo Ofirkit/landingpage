@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260930d" />
+  <link rel="stylesheet" href="styles.css?v=20260930g" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20260930d" />
+  <link rel="stylesheet" href="light.css?v=20260930g" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -137,24 +137,41 @@
           <h2>איך אני עובד</h2>
         </header>
 
-        <!-- Bento: six principles, each with a small illustration built in HTML/CSS (aria-hidden) -->
+        <!-- Bento: six principles, each with a small illustration built from real content (aria-hidden) -->
         <ul class="bento">
           <li class="bento-card bento-e2e reveal">
             <div class="bento-visual" aria-hidden="true">
               <div class="e2e-flow">
-                <div class="e2e-node">
-                  <div class="mini-win"><span class="mini-bar"></span><div class="mini-frame"><i class="blk w60"></i><i class="blk w40"></i><i class="blk tall"></i></div></div>
-                  <span class="e2e-label"><strong>עיצוב</strong>Figma</span>
+                <div class="e2e-step">
+                  <div class="win win-figma">
+                    <div class="win-bar"><span class="win-dots"></span><span class="win-title">Figma</span></div>
+                    <div class="figma-body">
+                      <ul class="figma-layers"><li>Header</li><li class="is-on">Hero</li><li>Work</li><li>Footer</li></ul>
+                      <div class="figma-canvas"><div class="sel"><img src="assets/work/new-screens/balance-450.webp" alt="" /><span class="sel-size">1440 × 900</span></div></div>
+                    </div>
+                  </div>
+                  <span class="e2e-label"><b>1</b>עיצוב<span class="e2e-tools"> · Figma</span></span>
                 </div>
-                <span class="e2e-link"><i class="e2e-dot"></i></span>
-                <div class="e2e-node">
-                  <div class="mini-win mini-code"><span class="mini-bar"></span><code>&lt;/&gt;</code><i class="ln w70"></i><i class="ln w50"></i><i class="ln w60"></i></div>
-                  <span class="e2e-label"><strong>בנייה</strong><span><bdi dir="ltr">Framer · Webflow</bdi> · קוד</span></span>
+                <div class="e2e-step">
+                  <div class="win win-code">
+                    <div class="win-bar"><span class="win-dots"></span><span class="win-title">hero.html</span></div>
+                    <pre class="code"><span class="t">&lt;section&gt;</span>
+  <span class="t">&lt;h1&gt;</span>Rediscover<span class="t">&lt;/h1&gt;</span>
+  <span class="t">&lt;p&gt;</span>A clinic for…<span class="t">&lt;/p&gt;</span>
+  <span class="t">&lt;a</span> <span class="a">href</span>=<span class="v">"#call"</span><span class="t">&gt;</span>
+    Book a call
+  <span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;/section&gt;</span></pre>
+                  </div>
+                  <span class="e2e-label"><b>2</b>בנייה<span class="e2e-tools"> · <bdi dir="ltr">Framer · Webflow</bdi> · קוד</span></span>
                 </div>
-                <span class="e2e-link"><i class="e2e-dot"></i></span>
-                <div class="e2e-node">
-                  <div class="mini-win"><span class="mini-bar"><span class="live-dot"></span></span><div class="mini-frame"><i class="blk w60"></i><i class="blk w40"></i><i class="blk tall"></i></div></div>
-                  <span class="e2e-label"><strong>באוויר</strong>האתר שלכם</span>
+                <div class="e2e-step">
+                  <div class="win win-live">
+                    <div class="win-bar"><span class="win-dots"></span><span class="win-url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>yoursite.com</span></div>
+                    <img src="assets/work/new-screens/balance-450.webp" alt="" />
+                    <span class="live-pill"><i></i>Live</span>
+                  </div>
+                  <span class="e2e-label"><b>3</b>באוויר<span class="e2e-tools"> · האתר שלכם</span></span>
                 </div>
               </div>
             </div>
@@ -165,8 +182,8 @@
           <li class="bento-card bento-view reveal">
             <div class="bento-visual" aria-hidden="true">
               <div class="options">
-                <div class="option"><i class="blk w60"></i><i class="blk tall"></i><span class="opt-tag">A</span></div>
-                <div class="option is-picked"><i class="blk w60"></i><i class="blk tall"></i><span class="opt-tag">B</span><span class="opt-rec">ההמלצה שלי</span></div>
+                <div class="option"><img src="assets/work/noy-450.webp" alt="" /><span class="opt-tag">כיוון A</span></div>
+                <div class="option is-picked"><span class="opt-rec">ההמלצה שלי</span><img src="assets/work/shani-450.webp" alt="" /><span class="opt-tag">כיוון B</span></div>
               </div>
             </div>
             <h3>נקודת מבט.</h3>
@@ -175,9 +192,12 @@
 
           <li class="bento-card bento-init reveal">
             <div class="bento-visual" aria-hidden="true">
-              <div class="note">
-                <span class="note-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg></span>
-                <div><strong>רעיון לשיפור</strong><i class="ln w90"></i><i class="ln w60"></i></div>
+              <div class="comment">
+                <img class="comment-avatar" src="assets/ofir-portrait.webp" alt="" />
+                <div class="comment-body">
+                  <div class="comment-head"><strong>אופיר</strong><span class="comment-tag">הצעה</span></div>
+                  <p>אפשר להוסיף כאן המלצה של לקוח, זה יחזק את העמוד.</p>
+                </div>
               </div>
             </div>
             <h3>יוזמה.</h3>
@@ -186,9 +206,18 @@
 
           <li class="bento-card bento-clear reveal">
             <div class="bento-visual" aria-hidden="true">
-              <div class="mini-win mini-browser"><span class="mini-bar"><span class="mini-url">לינק חי לפרויקט</span></span>
-                <div class="steps-bar"><span class="is-done"></span><span class="is-done"></span><span class="is-now"></span><span></span></div>
-                <div class="steps-labels"><span>שיחה</span><span>עמוד בית</span><span>שאר האתר</span><span>השקה</span></div>
+              <div class="win win-status">
+                <div class="win-bar"><span class="win-dots"></span><span class="win-url">לינק חי לפרויקט</span></div>
+                <div class="status-body">
+                  <div class="status-top"><strong>הפרויקט שלכם</strong><span class="status-pct">שלב 3 מתוך 4</span></div>
+                  <div class="status-bar"><i></i></div>
+                  <ol class="status-list">
+                    <li class="is-done">שיחת היכרות</li>
+                    <li class="is-done">עמוד הבית אושר</li>
+                    <li class="is-now">שאר האתר</li>
+                    <li>השקה</li>
+                  </ol>
+                </div>
               </div>
             </div>
             <h3>שקיפות.</h3>
@@ -199,7 +228,11 @@
             <div class="bento-visual" aria-hidden="true">
               <div class="pq">
                 <div class="pq-head"><strong>הצעת מחיר</strong><span class="pq-ok">✓ סגורה מראש</span></div>
-                <i class="ln w80"></i><i class="ln w60"></i><i class="ln w70"></i>
+                <ul class="pq-items">
+                  <li>עיצוב עמוד הבית</li>
+                  <li>עיצוב ובניית שאר העמודים</li>
+                  <li>התאמה למובייל ו-SEO בסיסי</li>
+                </ul>
                 <div class="pq-total"><span>סה״כ</span><strong>[מחיר]</strong></div>
               </div>
             </div>
@@ -209,10 +242,15 @@
 
           <li class="bento-card bento-own reveal">
             <div class="bento-visual" aria-hidden="true">
-              <div class="mini-win cms"><span class="mini-bar"></span>
+              <div class="win cms">
+                <div class="win-bar"><span class="win-dots"></span><span class="win-title">ניהול תוכן</span></div>
                 <div class="cms-body">
-                  <div class="cms-side"><i class="ln w70"></i><i class="ln w50 is-on"></i><i class="ln w60"></i></div>
-                  <div class="cms-main"><span class="cms-field">כותרת חדשה<span class="caret"></span></span><i class="ln w90"></i><i class="ln w70"></i><span class="cms-btn">פרסום</span></div>
+                  <ul class="cms-side"><li>עמודים</li><li class="is-on">בלוג</li><li>משרות</li></ul>
+                  <div class="cms-main">
+                    <span class="cms-label">כותרת</span>
+                    <span class="cms-field">פוסט חדש<span class="caret"></span></span>
+                    <div class="cms-foot"><span class="cms-toggle"><i></i>מוכן לפרסום</span><span class="cms-btn">פרסום</span></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -519,6 +557,6 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script src="script.js?v=20260930d" defer></script>
+  <script src="script.js?v=20260930g" defer></script>
 </body>
 </html>
