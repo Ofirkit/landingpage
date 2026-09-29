@@ -477,7 +477,7 @@ figure, blockquote { margin: 0; }
 .how3-card {
   display: flex;
   flex-direction: column;
-  min-height: clamp(420px, 38vw, 540px);
+  min-height: clamp(420px, 42vw, 600px); /* ~600px on desktop (user request): more air around the drawings */
   padding: clamp(22px, 2.2vw, 32px);
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -974,6 +974,7 @@ figure, blockquote { margin: 0; }
 
 @media (max-width: 600px) {
   .qt-item blockquote p::before { position: static; margin: 0; } /* no hanging quote at the screen edge */
+  .qt-item blockquote p { font-size: calc(var(--fs-h3) * 0.85); } /* 15% smaller on phones (user request) */
   .logo svg { width: 26px; }
   .principles { grid-template-columns: 1fr; }
   .step-head { grid-template-columns: 32px 1fr; row-gap: 4px; }
