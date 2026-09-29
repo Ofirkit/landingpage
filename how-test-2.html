@@ -22,6 +22,7 @@
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20260930i" />
   <meta name="robots" content="noindex" />
+  <!-- how-test-2.html: light.html with the timeline variant of "איך אני עובד", for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -136,32 +137,25 @@
           <h2>איך אני עובד</h2>
         </header>
 
-        <ul class="principles">
-          <li class="reveal">
-            <h3>נקודת מבט.</h3>
-            <p>אני לא רק מבצע. אגיד לכם מה נראה לי נכון ולמה, וההחלטה נשארת שלכם.</p>
+        <!-- Timeline variant after the user's second reference: zigzag rows around a centre line.
+             The row nearest the middle of the screen is active; the line fills down to it (script.js). -->
+        <ol class="tl">
+          <li class="tl-row">
+            <div class="tl-mark" aria-hidden="true"><span class="tl-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M7.2 6H14a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h6.8"/></svg></span><span class="tl-num">01</span></div>
+            <span class="tl-dot" aria-hidden="true"></span>
+            <div class="tl-text"><h3>מקצה לקצה</h3><p>אותו אדם מעצב ובונה, אז מה שאישרתם הוא מה שעולה לאוויר. ואחרי ההשקה, הצוות שלכם מעדכן את האתר לבד.</p></div>
           </li>
-          <li class="reveal">
-            <h3>יוזמה.</h3>
-            <p>אם משהו יכול להיות טוב יותר, אציע את זה לפני שתבקשו.</p>
+          <li class="tl-row">
+            <div class="tl-mark" aria-hidden="true"><span class="tl-icon"><svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="tl-num">02</span></div>
+            <span class="tl-dot" aria-hidden="true"></span>
+            <div class="tl-text"><h3>שקיפות מלאה</h3><p>מחיר ידוע מראש, נקודות אישור ברורות, ותמיד תדעו איפה הפרויקט עומד.</p></div>
           </li>
-          <li class="reveal">
-            <h3>מקצה לקצה.</h3>
-            <p>אותו אדם מעצב ובונה, אז מה שאישרתם הוא מה שעולה לאוויר.</p>
+          <li class="tl-row">
+            <div class="tl-mark" aria-hidden="true"><span class="tl-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></svg></span><span class="tl-num">03</span></div>
+            <span class="tl-dot" aria-hidden="true"></span>
+            <div class="tl-text"><h3>שותף, לא רק מבצע</h3><p>אגיד לכם מה נראה לי נכון ולמה, ואציע שיפורים לפני שתבקשו. ההחלטה תמיד שלכם.</p></div>
           </li>
-          <li class="reveal">
-            <h3>שקיפות.</h3>
-            <p>נקודות אישור ברורות, ותמיד תדעו איפה הפרויקט עומד.</p>
-          </li>
-          <li class="reveal">
-            <h3>מחיר ידוע מראש.</h3>
-            <p>הצעה מסודרת אחרי השיחה, בלי הפתעות בדרך.</p>
-          </li>
-          <li class="reveal">
-            <h3>עצמאות.</h3>
-            <p>אחרי ההשקה האתר שלכם, והצוות מעדכן אותו לבד.</p>
-          </li>
-        </ul>
+        </ol>
       </div>
     </section>
 

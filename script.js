@@ -173,6 +173,29 @@ steps.forEach((step) => {
   if (canHover) step.addEventListener("mouseenter", () => openStep(step));
 });
 
+// Timeline ("How I work" variant): the row nearest the middle of the screen is active and the line
+// fills down to it. Only colors change, so nothing moves while scrolling.
+const tl = document.querySelector(".tl");
+if (tl) {
+  const rows = [...tl.querySelectorAll(".tl-row")];
+  let tlTick = false;
+  const updateTl = () => {
+    tlTick = false;
+    const mid = window.innerHeight * 0.55;
+    let active = 0;
+    rows.forEach((row, i) => { if (row.querySelector(".tl-dot").getBoundingClientRect().top <= mid) active = i; });
+    rows.forEach((row, i) => row.classList.toggle("is-active", i === active));
+    const first = rows[0].querySelector(".tl-dot").getBoundingClientRect();
+    const last = rows[rows.length - 1].querySelector(".tl-dot").getBoundingClientRect();
+    const p = (mid - first.top) / Math.max(1, last.top - first.top);
+    tl.style.setProperty("--p", Math.min(1, Math.max(0, p)).toFixed(3));
+  };
+  const onTl = () => { if (!tlTick) { tlTick = true; requestAnimationFrame(updateTl); } };
+  window.addEventListener("scroll", onTl, { passive: true });
+  window.addEventListener("resize", onTl);
+  updateTl();
+}
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 // Light hero: dark header while it sits over the hero, and no dark blur tint over it
