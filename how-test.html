@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260930q" />
+  <link rel="stylesheet" href="styles.css?v=20260930r" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20260930q" />
+  <link rel="stylesheet" href="light.css?v=20260930r" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -172,11 +172,13 @@
           <li class="how3-card reveal">
             <h3>שותף, לא רק מבצע</h3>
             <svg class="how3-art art-link" viewBox="0 0 300 240" aria-hidden="true">
-              <defs><clipPath id="link-under"><rect x="118" y="138" width="64" height="64" /></clipPath></defs>
-              <path class="band slide" d="M176 120 A54 54 0 1 0 68 120 A54 54 0 1 0 176 120 Z M166 120 A44 44 0 1 0 78 120 A44 44 0 1 0 166 120 Z" style="--dx:-46px" />
-              <path class="band slide" d="M232 120 A54 54 0 1 0 124 120 A54 54 0 1 0 232 120 Z M222 120 A44 44 0 1 0 134 120 A44 44 0 1 0 222 120 Z" style="--dx:46px" />
-              <!-- the start ring again, only around the lower crossing: there it passes over the other ring -->
-              <g class="slide" style="--dx:-46px"><path class="band" d="M176 120 A54 54 0 1 0 68 120 A54 54 0 1 0 176 120 Z M166 120 A44 44 0 1 0 78 120 A44 44 0 1 0 166 120 Z" clip-path="url(#link-under)" /></g>
+              <circle class="fill slide" cx="125" cy="120" r="50" style="--dx:-46px" />
+              <circle class="fill slide" cx="175" cy="120" r="50" style="--dx:46px" />
+              <!-- the weave: at each crossing the ring on top is redrawn over a short gap in the other one -->
+              <path class="gap slide" d="M142.86 81.7 A50 50 0 0 1 157.9 73.02" style="--dx:46px" />
+              <path class="fill slide" d="M142.86 81.7 A50 50 0 0 1 157.9 73.02" style="--dx:46px" />
+              <path class="gap slide" d="M157.14 158.3 A50 50 0 0 1 142.1 166.98" style="--dx:-46px" />
+              <path class="fill slide" d="M157.14 158.3 A50 50 0 0 1 142.1 166.98" style="--dx:-46px" />
             </svg>
             <p>אגיד לכם מה נראה לי נכון ולמה, ואציע שיפורים לפני שתבקשו. ההחלטה תמיד שלכם.</p>
           </li>
@@ -481,6 +483,6 @@
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
   <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");</script>
-  <script src="script.js?v=20260930q" defer></script>
+  <script src="script.js?v=20260930r" defer></script>
 </body>
 </html>
