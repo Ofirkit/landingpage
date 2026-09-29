@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UXUIKIT | עיצוב ובניית אתרים לסטארטאפים ועסקים</title>
   <meta name="description" content="מעצב ובונה אתרים שתהיו גאים לשלוח ללקוחות ולמשקיעים. עיצוב ב-Figma ופיתוח ב-Framer, Webflow או בקוד, לסטארטאפים, סטודיואים ועסקי שירות." />
-  <meta name="theme-color" content="#f4f4f6" />
+  <meta name="theme-color" content="#f4f4f4" />
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="he_IL" />
@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260930n" />
+  <link rel="stylesheet" href="styles.css?v=20260930o" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20260930n" />
+  <link rel="stylesheet" href="light.css?v=20260930o" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -141,42 +141,44 @@
              its card's story and plays when the card scrolls into view (.art-on from script.js; replays on hover).
              1: a dashed circle (the design) joined by one line to the filled circle (the live site).
              2: four circles for the four process steps, filled up to the current one.
-             3: two circles slide together; only their shared area lights up. -->
+             3: one path forks into two options; my recommendation is marked with a ring, the choice is yours. -->
         <ul class="how3">
+          <!-- ?black in the URL shows the black-cards variant -->
           <li class="how3-card reveal">
             <h3>מקצה לקצה</h3>
             <svg class="how3-art art-path" viewBox="0 0 300 240" aria-hidden="true">
-              <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--violet)"/><stop offset="1" stop-color="var(--blue)"/></linearGradient></defs>
               <circle class="ln dash" cx="230" cy="152" r="38" />
               <path class="ln draw" pathLength="1" d="M192 152 C150 152 150 88 108 88" />
               <circle class="ln mid" cx="150" cy="120" r="5" />
-              <circle class="fill grow" cx="70" cy="88" r="38" fill="url(#g1)" />
+              <circle class="fill grow" cx="70" cy="88" r="38" />
             </svg>
             <p>אותו אדם מעצב ובונה, אז מה שאישרתם הוא מה שעולה לאוויר. ואחרי ההשקה, הצוות שלכם מעדכן את האתר לבד.</p>
           </li>
           <li class="how3-card reveal">
             <h3>שקיפות מלאה</h3>
             <svg class="how3-art art-steps" viewBox="0 0 300 240" aria-hidden="true">
-              <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--violet)"/><stop offset="1" stop-color="var(--blue)"/></linearGradient></defs>
               <path class="ln" d="M51 120 H249" />
               <circle class="ln hole" cx="249" cy="120" r="24" />
               <circle class="ln hole" cx="183" cy="120" r="24" />
               <circle class="ln hole" cx="117" cy="120" r="24" />
               <circle class="ln hole" cx="51" cy="120" r="24" />
-              <circle class="done" cx="249" cy="120" r="24" fill="url(#g2)" style="--i:0" />
-              <circle class="done" cx="183" cy="120" r="24" fill="url(#g2)" style="--i:1" />
-              <circle class="fill now" cx="117" cy="120" r="24" fill="url(#g2)" style="--i:2" />
+              <circle class="done" cx="249" cy="120" r="24" style="--i:0" />
+              <circle class="done" cx="183" cy="120" r="24" style="--i:1" />
+              <circle class="fill now" cx="117" cy="120" r="24" style="--i:2" />
               <circle class="ln ring" cx="117" cy="120" r="33" style="--i:3" />
             </svg>
             <p>מחיר ידוע מראש, נקודות אישור ברורות, ותמיד תדעו איפה הפרויקט עומד.</p>
           </li>
           <li class="how3-card reveal">
             <h3>שותף, לא רק מבצע</h3>
-            <svg class="how3-art art-pair" viewBox="0 0 300 240" aria-hidden="true">
-              <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--violet)"/><stop offset="1" stop-color="var(--blue)"/></linearGradient></defs>
-              <path class="fill lens" d="M150 66.93 A60 60 0 0 1 150 173.07 A60 60 0 0 1 150 66.93 Z" fill="url(#g3)" />
-              <circle class="ln slide" cx="178" cy="120" r="60" style="--dx:-46px" />
-              <circle class="ln slide" cx="122" cy="120" r="60" style="--dx:46px" />
+            <svg class="how3-art art-fork" viewBox="0 0 300 240" aria-hidden="true">
+              <circle class="ln" cx="250" cy="120" r="5" />
+              <path class="ln draw" pathLength="1" d="M245 120 H180" style="--d:0.1s" />
+              <path class="ln draw" pathLength="1" d="M180 120 C142 120 134 70 96 70" style="--d:0.55s" />
+              <path class="ln draw" pathLength="1" d="M180 120 C142 120 134 170 96 170" style="--d:0.55s" />
+              <circle class="fill grow" cx="70" cy="70" r="26" style="--d:1.1s" />
+              <circle class="ln grow" cx="70" cy="170" r="26" style="--d:1.1s" />
+              <circle class="ln ring" cx="70" cy="70" r="35" />
             </svg>
             <p>אגיד לכם מה נראה לי נכון ולמה, ואציע שיפורים לפני שתבקשו. ההחלטה תמיד שלכם.</p>
           </li>
@@ -480,6 +482,7 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script src="script.js?v=20260930n" defer></script>
+  <script>if (/[?&]black\b/.test(location.search)) document.querySelector(".how3").classList.add("how3-black");</script>
+  <script src="script.js?v=20260930o" defer></script>
 </body>
 </html>
