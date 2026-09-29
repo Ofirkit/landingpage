@@ -173,6 +173,25 @@ steps.forEach((step) => {
   if (canHover) step.addEventListener("mouseenter", () => openStep(step));
 });
 
+// How I work (how-test.html): play each card's drawing when it comes into view; replay it on hover
+const artCards = document.querySelectorAll(".how3-card");
+if (artCards.length) {
+  const artIo = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("art-on"); artIo.unobserve(e.target); }
+  }), { threshold: 0.45 });
+  artCards.forEach((card) => {
+    artIo.observe(card);
+    if (canHover) card.addEventListener("mouseenter", () => {
+      if (!card.classList.contains("art-on")) return;
+      card.classList.add("art-reset");
+      card.classList.remove("art-on");
+      void card.offsetWidth; // apply the start state before playing again
+      card.classList.remove("art-reset");
+      card.classList.add("art-on");
+    });
+  });
+}
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 // Light hero: dark header while it sits over the hero, and no dark blur tint over it

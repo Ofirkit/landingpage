@@ -468,8 +468,8 @@ figure, blockquote { margin: 0; }
 
 /* ==========================================================
    How I work: three cards after the user's reference (under review on how-test.html): title at the top,
-   a line-art composition of circles in the middle, the description at the bottom. The circles start
-   gathered and move into place once the card is revealed. Colors come from the theme tokens.
+   a line-art drawing in the middle, the description at the bottom. Each drawing tells its card's story
+   and plays when the card comes into view (.art-on from script.js; replays on hover). Theme colors only.
    ========================================================== */
 .how3 {
   --violet: var(--accent-soft);
@@ -490,16 +490,35 @@ figure, blockquote { margin: 0; }
 }
 .how3-card h3 { font-size: var(--fs-h4); }
 .how3-card p { max-width: 36ch; font-size: var(--fs-body); color: var(--text-muted); }
+.how3-card { transition: border-color 0.3s var(--ease); }
+.how3-card:hover { border-color: var(--border-strong); }
 .how3-art { display: block; flex: 1; width: 100%; max-width: 320px; min-height: 180px; margin: 24px auto; overflow: visible; }
-.how3-art circle { transition: transform 1.1s var(--ease), opacity 0.8s var(--ease); }
+.how3-art * { transform-box: fill-box; transform-origin: center; }
 .how3-art .ln { fill: none; stroke: var(--art-line); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
 .how3-art .fill { filter: drop-shadow(0 10px 24px color-mix(in srgb, var(--violet) 35%, transparent)); }
-/* Before the reveal: every circle sits where its --dx/--dy offset puts it (gathered) and faint */
-.js .how3-card:not(.is-visible) .how3-art circle[style] { transform: translate(var(--dx), var(--dy)); opacity: 0.2; }
-/* stagger so the composition unfolds */
-.how3-art circle:nth-of-type(2) { transition-delay: 0.08s; }
-.how3-art circle:nth-of-type(3) { transition-delay: 0.16s; }
-.how3-art circle:nth-of-type(4) { transition-delay: 0.24s; }
+/* 1. Path: the dashed "design" circle, one line drawn to the filled "live" circle */
+.art-path .dash { stroke-dasharray: 4 5; }
+.art-path .draw { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1s var(--ease) 0.15s; }
+.art-path .mid { transition: opacity 0.4s var(--ease) 0.55s; }
+.art-path .grow { transition: transform 0.8s var(--ease) 0.95s, opacity 0.6s var(--ease) 0.95s; }
+/* 2. Steps: completed steps filled (softer), the current one full with a ring, the last one still open */
+.art-steps .done { opacity: 0.45; }
+.art-steps .hole { fill: var(--card-bg); } /* covers the connecting line inside the open steps */
+.art-steps .done,
+.art-steps .now { transition: transform 0.6s var(--ease), opacity 0.5s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.3s); }
+.art-steps .ring { stroke-dasharray: 3 5; transition: opacity 0.6s var(--ease), transform 0.8s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.3s); }
+/* 3. Pair: two outlines slide together, then the shared area lights up */
+.art-pair .slide { transition: transform 1s var(--ease), opacity 0.6s var(--ease); }
+.art-pair .lens { transition: transform 0.7s var(--ease) 0.8s, opacity 0.6s var(--ease) 0.8s; }
+/* Before playing (script.js adds .art-on when the card is in view, and replays it on hover) */
+.js .how3-card:not(.art-on) .draw { stroke-dashoffset: 1; }
+.js .how3-card:not(.art-on) .mid { opacity: 0; }
+.js .how3-card:not(.art-on) .grow { transform: scale(0.4); opacity: 0; }
+.js .how3-card:not(.art-on) :is(.done, .now) { transform: scale(0.3); opacity: 0; }
+.js .how3-card:not(.art-on) .ring { transform: scale(0.7); opacity: 0; }
+.js .how3-card:not(.art-on) .slide { transform: translateX(var(--dx)); opacity: 0.3; }
+.js .how3-card:not(.art-on) .lens { transform: scale(0.5); opacity: 0; }
+.how3-card.art-reset .how3-art * { transition: none !important; }
 
 /* ==========================================================
    Testimonials
