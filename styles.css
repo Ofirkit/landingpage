@@ -562,6 +562,67 @@ figure, blockquote { margin: 0; }
 .quote figcaption strong { font-size: var(--fs-body); font-weight: 700; }
 .quote figcaption span:not(.avatar) { font-size: var(--fs-sm); color: var(--text-dim); }
 
+/* Testimonials slider (under review on how-test.html), after the user's reference: intro on the start
+   side, large cards in a row that slides sideways and bleeds to the page edge, arrows below */
+.tst { overflow-x: clip; }
+.tst-grid {
+  --bleed: calc(max(0px, (100vw - var(--container)) / 2) + var(--gutter)); /* container edge → page edge */
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) 1fr;
+  gap: var(--col-gap);
+  align-items: start;
+}
+.tst-intro { position: sticky; top: 120px; padding-top: clamp(24px, 4vw, 64px); }
+.tst-intro h2 { font-size: var(--fs-xl); line-height: 1.12; letter-spacing: -0.02em; text-wrap: balance; }
+.tst-intro p { max-width: 34ch; margin-top: 20px; font-size: var(--fs-body-lg); color: var(--text-muted); }
+.tst-slider { min-width: 0; margin-inline-end: calc(-1 * var(--bleed)); }
+.tst-track {
+  display: flex;
+  gap: 24px;
+  padding-inline-end: var(--bleed);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.tst-track::-webkit-scrollbar { display: none; }
+.tst-track:focus-visible { outline-offset: 6px; border-radius: 24px; }
+.tst-card {
+  flex: 0 0 min(760px, 84%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 4vw, 56px);
+  min-height: clamp(420px, 36vw, 520px);
+  padding: clamp(28px, 3.4vw, 52px);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  scroll-snap-align: start;
+}
+.tst-org { font-size: var(--fs-body-lg); font-weight: 700; letter-spacing: 0.2em; }
+.tst-org:not([dir]) { letter-spacing: 0.02em; }
+.tst-card blockquote { flex: 1; }
+.tst-card blockquote p { font-size: var(--fs-lead); line-height: 1.6; text-wrap: pretty; }
+.tst-card figcaption { display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center; }
+.tst-card figcaption strong { font-size: var(--fs-body); font-weight: 700; }
+.tst-card figcaption span:not(.avatar) { font-size: var(--fs-sm); color: var(--text-muted); }
+.tst-nav { display: flex; gap: 8px; justify-content: flex-end; margin-top: 24px; padding-inline-end: var(--bleed); }
+.tst-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.2s var(--ease);
+}
+.tst-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tst-next svg { transform: scaleX(-1); } /* RTL: "next" points left, "previous" points right */
+.tst-btn:disabled { opacity: 0.3; cursor: default; }
+
 /* ==========================================================
    Statement: one big line between Testimonials and Process
    ========================================================== */
@@ -894,6 +955,12 @@ figure, blockquote { margin: 0; }
   .principles { grid-template-columns: repeat(2, 1fr); }
   .how3 { grid-template-columns: 1fr; max-width: 560px; }
   .how3-card { min-height: 0; }
+  .tst-grid { grid-template-columns: 1fr; }
+  .tst-intro { position: static; padding-top: 0; }
+  .tst-slider { margin-inline: calc(-1 * var(--gutter)); }
+  .tst-track { padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .tst-card { flex-basis: min(620px, 86%); min-height: 0; }
+  .tst-nav { padding-inline-end: var(--gutter); }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo { width: 240px; }
   .about-text { order: -1; } /* stacked: text first, photo after it */

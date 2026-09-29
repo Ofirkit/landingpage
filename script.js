@@ -192,6 +192,29 @@ if (artCards.length) {
   });
 }
 
+// Testimonials slider (how-test.html): the arrows scroll one card; each is disabled at its end
+const tstTrack = document.querySelector(".tst-track");
+if (tstTrack) {
+  const prev = document.querySelector(".tst-prev");
+  const next = document.querySelector(".tst-next");
+  const sign = getComputedStyle(tstTrack).direction === "rtl" ? -1 : 1; // RTL scrolls toward negative
+  const step = () => {
+    const card = tstTrack.querySelector(".tst-card");
+    return card.offsetWidth + parseFloat(getComputedStyle(tstTrack).columnGap || 0);
+  };
+  const updateTst = () => {
+    const x = Math.abs(tstTrack.scrollLeft);
+    const max = tstTrack.scrollWidth - tstTrack.clientWidth;
+    prev.disabled = x < 4;
+    next.disabled = x > max - 4;
+  };
+  prev.addEventListener("click", () => tstTrack.scrollBy({ left: -sign * step(), behavior: "smooth" }));
+  next.addEventListener("click", () => tstTrack.scrollBy({ left: sign * step(), behavior: "smooth" }));
+  tstTrack.addEventListener("scroll", updateTst, { passive: true });
+  window.addEventListener("resize", updateTst);
+  updateTst();
+}
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 // Light hero: dark header while it sits over the hero, and no dark blur tint over it
