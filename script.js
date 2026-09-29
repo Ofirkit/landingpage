@@ -207,6 +207,19 @@ if (qtItems.length) {
   document.querySelector(".qt-next").addEventListener("click", () => showQt(qtIndex + 1));
 }
 
+// Decorations (how-test.html): play once when their section comes into view
+const decos = document.querySelectorAll(".deco");
+if (decos.length && "IntersectionObserver" in window) {
+  const decoIo = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    const deco = e.target.querySelector(".deco");
+    deco?.classList.add("deco-on");
+    deco?.querySelector(".deco-ring")?.addEventListener("transitionend", () => deco.classList.add("deco-done"), { once: true });
+    decoIo.unobserve(e.target);
+  }), { threshold: 0.35 });
+  decos.forEach((d) => decoIo.observe(d.parentElement));
+} else decos.forEach((d) => d.classList.add("deco-on", "deco-done"));
+
 // Sticky header background
 const header = document.querySelector(".site-header");
 // Light hero: dark header while it sits over the hero, and no dark blur tint over it
