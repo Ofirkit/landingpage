@@ -473,7 +473,7 @@ figure, blockquote { margin: 0; }
    ========================================================== */
 .how3 {
   /* Monochrome (user request: black and white only, clean): both gradient stops are the text color,
-     so the fills are solid ink on the light page and solid white on the dark one */
+     and every shape is an outline: ink on the light page, white on the dark one */
   --violet: var(--text);
   --blue: var(--text);
   --art-line: color-mix(in srgb, var(--text) 32%, transparent);
@@ -497,13 +497,15 @@ figure, blockquote { margin: 0; }
 .how3-art { display: block; flex: 1; width: 100%; max-width: 320px; min-height: 180px; margin: 24px auto; overflow: visible; }
 .how3-art * { transform-box: fill-box; transform-origin: center; }
 .how3-art .ln { fill: none; stroke: var(--art-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+/* Outlines only (user request): the emphasized shapes are full-strength strokes instead of fills */
+.how3-art :is(.fill, .done) { fill: none; stroke: var(--text); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
 /* 1. Path: the dashed "design" circle, one line drawn to the filled "live" circle */
 .art-path .dash { stroke-dasharray: 4 5; }
 .art-path .draw { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1s var(--ease) 0.15s; }
 .art-path .mid { transition: opacity 0.4s var(--ease) 0.55s; }
 .art-path .grow { transition: transform 0.8s var(--ease) 0.95s, opacity 0.6s var(--ease) 0.95s; }
 /* 2. Steps: completed steps filled (softer), the current one full with a ring, the last one still open */
-.art-steps .done { opacity: 0.16; }
+.art-steps .done { opacity: 0.5; }
 .art-steps .hole { fill: var(--card-bg); } /* covers the connecting line inside the open steps */
 .art-steps .done,
 .art-steps .now { transition: transform 0.6s var(--ease), opacity 0.5s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.3s); }
