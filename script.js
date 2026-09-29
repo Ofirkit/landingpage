@@ -192,27 +192,19 @@ if (artCards.length) {
   });
 }
 
-// Testimonials slider (how-test.html): the arrows scroll one card; each is disabled at its end
-const tstTrack = document.querySelector(".tst-track");
-if (tstTrack) {
-  const prev = document.querySelector(".tst-prev");
-  const next = document.querySelector(".tst-next");
-  const sign = getComputedStyle(tstTrack).direction === "rtl" ? -1 : 1; // RTL scrolls toward negative
-  const step = () => {
-    const card = tstTrack.querySelector(".tst-card");
-    return card.offsetWidth + parseFloat(getComputedStyle(tstTrack).columnGap || 0);
+// Testimonials, one quote at a time (how-test.html): the arrows cycle through the quotes
+const qtItems = [...document.querySelectorAll(".qt-item")];
+if (qtItems.length) {
+  let qtIndex = 0;
+  const showQt = (i) => {
+    qtIndex = (i + qtItems.length) % qtItems.length;
+    qtItems.forEach((item, k) => {
+      item.classList.toggle("is-active", k === qtIndex);
+      item.toggleAttribute("aria-hidden", k !== qtIndex);
+    });
   };
-  const updateTst = () => {
-    const x = Math.abs(tstTrack.scrollLeft);
-    const max = tstTrack.scrollWidth - tstTrack.clientWidth;
-    prev.disabled = x < 4;
-    next.disabled = x > max - 4;
-  };
-  prev.addEventListener("click", () => tstTrack.scrollBy({ left: -sign * step(), behavior: "smooth" }));
-  next.addEventListener("click", () => tstTrack.scrollBy({ left: sign * step(), behavior: "smooth" }));
-  tstTrack.addEventListener("scroll", updateTst, { passive: true });
-  window.addEventListener("resize", updateTst);
-  updateTst();
+  document.querySelector(".qt-prev").addEventListener("click", () => showQt(qtIndex - 1));
+  document.querySelector(".qt-next").addEventListener("click", () => showQt(qtIndex + 1));
 }
 
 // Sticky header background

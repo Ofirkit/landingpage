@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20260930t" />
+  <link rel="stylesheet" href="styles.css?v=20260930v" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20260930t" />
+  <link rel="stylesheet" href="light.css?v=20260930v" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -187,48 +187,30 @@
     </section>
 
     <!-- ===== Testimonials ===== -->
-    <!-- After the user's reference: intro on the start side, a row of large cards that slides sideways
-         (scroll-snap; the arrows scroll one card), the next card peeking in from the page edge -->
-    <section class="section testimonials tst" id="testimonials">
-      <div class="container tst-grid">
-        <header class="tst-intro reveal">
-          <h2>מה אומרים עליי לקוחות ומנהלי מוצר</h2>
-          <p>לקוחות שבניתי להם אתרים, ומנהלי מוצר שעבדתי איתם לאורך השנים.</p>
-        </header>
-
-        <div class="tst-slider reveal">
-          <div class="tst-track" tabindex="0" role="region" aria-label="המלצות">
-            <figure class="tst-card">
-              <p class="tst-org">אתר תיק עבודות</p>
-              <blockquote><p>"הייתה לי חוויה מצוינת בעבודה עם אופיר על אתר תיק העבודות שלי. הוא מקצועי, אמין, והביא רעיונות יצירתיים ששיפרו מאוד את התוצאה הסופית. אופיר הבין את החזון שלי מהר, והאתר שקיבלתי עלה על הציפיות. ממליצה בחום לעבוד איתו!"</p></blockquote>
-              <figcaption>
-                <span class="avatar avatar-ph" aria-hidden="true">[תמונה]</span>
-                <strong>שני גלעד</strong>
-                <span>מעצבת מוצר</span>
-              </figcaption>
+    <!-- After the user's reference: one large centered quote at a time, the person below it and small
+         arrows at the end of that line. The quotes share one grid cell, so switching never moves the page.
+         Black band by default; how-test.html?quote=white shows it on the page's own background. -->
+    <section class="section testimonials qt qt-dark" id="testimonials" aria-labelledby="qt-title">
+      <div class="container">
+        <h2 class="sr-only" id="qt-title">המלצות</h2>
+        <div class="qt-inner reveal">
+          <div class="qt-stack" aria-live="polite">
+            <figure class="qt-item is-active">
+              <blockquote><p>הייתה לי חוויה מצוינת בעבודה עם אופיר על אתר תיק העבודות שלי. הוא מקצועי, אמין, והביא רעיונות יצירתיים ששיפרו מאוד את התוצאה הסופית. אופיר הבין את החזון שלי מהר, והאתר שקיבלתי עלה על הציפיות. ממליצה בחום לעבוד איתו!</p></blockquote>
+              <figcaption><span class="avatar avatar-ph" aria-hidden="true">[תמונה]</span><span><strong>שני גלעד</strong> — מעצבת מוצר, אתר תיק עבודות</span></figcaption>
             </figure>
-            <figure class="tst-card">
-              <p class="tst-org" dir="ltr">LYCHEE</p>
-              <blockquote><p>"במשך כשנתיים נהניתי לעבוד עם אופיר כמעצב המוצר שלנו ב-Lychee. העיצובים שלו הרשימו אותי כל פעם מחדש, בשילוב מושלם של אסתטיקה ומקצועיות. הוא תמיד חקר לעומק לפני שהתחיל לעצב, והתקשורת איתו הייתה פשוטה ויעילה, כך שהחזון שלנו תורגם לעיצוב בדיוק. מעצב מוכשר ואמין, ואני ממליץ עליו בחום לכל צוות."</p></blockquote>
-              <figcaption>
-                <span class="avatar avatar-ph" aria-hidden="true">[תמונה]</span>
-                <strong>רן אלטר</strong>
-                <span>לשעבר CPO ושותף מייסד, Lychee</span>
-              </figcaption>
+            <figure class="qt-item" aria-hidden="true">
+              <blockquote><p>במשך כשנתיים נהניתי לעבוד עם אופיר כמעצב המוצר שלנו ב‑Lychee. העיצובים שלו הרשימו אותי כל פעם מחדש, בשילוב מושלם של אסתטיקה ומקצועיות. הוא תמיד חקר לעומק לפני שהתחיל לעצב, והתקשורת איתו הייתה פשוטה ויעילה, כך שהחזון שלנו תורגם לעיצוב בדיוק. מעצב מוכשר ואמין, ואני ממליץ עליו בחום לכל צוות.</p></blockquote>
+              <figcaption><span class="avatar avatar-ph" aria-hidden="true">[תמונה]</span><span><strong>רן אלטר</strong> — לשעבר CPO ושותף מייסד, Lychee</span></figcaption>
             </figure>
-            <figure class="tst-card">
-              <p class="tst-org" dir="ltr">SILVERFORT</p>
-              <blockquote><p>"לעבוד עם אופיר לאורך השנים היה תמיד תענוג גדול. העיצובים שהוא יוצר תמיד מתאימים בדיוק לפיצ'רים שהמשתמשים צריכים. יש לו כישרון ליצור חוויית משתמש מהנה ולפשט את הפונקציונליות של הפלטפורמה. אופיר מבין מגבלות טכניות ותמיד יצירתי בדרך שבה הוא מתמודד איתן."</p></blockquote>
-              <figcaption>
-                <img class="avatar" src="assets/shai-keren.webp" width="86" height="86" alt="" />
-                <strong>שי קרן</strong>
-                <span dir="ltr">Product Design Lead, Silverfort</span>
-              </figcaption>
+            <figure class="qt-item" aria-hidden="true">
+              <blockquote><p>לעבוד עם אופיר לאורך השנים היה תמיד תענוג גדול. העיצובים שהוא יוצר תמיד מתאימים בדיוק לפיצ'רים שהמשתמשים צריכים. יש לו כישרון ליצור חוויית משתמש מהנה ולפשט את הפונקציונליות של הפלטפורמה. אופיר מבין מגבלות טכניות ותמיד יצירתי בדרך שבה הוא מתמודד איתן.</p></blockquote>
+              <figcaption><img class="avatar" src="assets/shai-keren.webp" width="86" height="86" alt="" /><span><strong>שי קרן</strong> — <span dir="ltr">Product Design Lead, Silverfort</span></span></figcaption>
             </figure>
           </div>
-          <div class="tst-nav">
-            <button class="tst-btn tst-prev" type="button" aria-label="להמלצה הקודמת"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-            <button class="tst-btn tst-next" type="button" aria-label="להמלצה הבאה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <div class="qt-nav">
+            <button class="qt-btn qt-prev" type="button" aria-label="להמלצה הקודמת"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+            <button class="qt-btn qt-next" type="button" aria-label="להמלצה הבאה"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
           </div>
         </div>
       </div>
@@ -486,7 +468,8 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");</script>
-  <script src="script.js?v=20260930t" defer></script>
+  <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");
+    if (/[?&]quote=white\b/.test(location.search)) document.querySelector(".qt").classList.remove("qt-dark");</script>
+  <script src="script.js?v=20260930v" defer></script>
 </body>
 </html>
