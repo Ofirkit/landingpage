@@ -6,6 +6,7 @@
    ========================================================== */
 :root {
   --bg: #f4f4f6;
+  --card-bg: #fff;
   --hero-bg: #f4f4f6;               /* hero and page are one surface */
   --surface: rgba(11, 11, 18, 0.04);
   --surface-strong: rgba(11, 11, 18, 0.07);

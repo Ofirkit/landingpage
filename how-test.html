@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UXUIKIT | עיצוב ובניית אתרים לסטארטאפים ועסקים</title>
   <meta name="description" content="מעצב ובונה אתרים שתהיו גאים לשלוח ללקוחות ולמשקיעים. עיצוב ב-Figma ופיתוח ב-Framer, Webflow או בקוד, לסטארטאפים, סטודיואים ועסקי שירות." />
-  <meta name="theme-color" content="#0b0b24" />
+  <meta name="theme-color" content="#f4f4f6" />
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="he_IL" />
@@ -19,6 +19,10 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
   <link rel="stylesheet" href="styles.css?v=20260930d" />
+  <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
+  <link rel="stylesheet" href="light.css?v=20260930d" />
+  <meta name="robots" content="noindex" />
+  <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -133,28 +137,85 @@
           <h2>איך אני עובד</h2>
         </header>
 
-        <ul class="principles">
-          <li class="reveal">
-            <h3>נקודת מבט.</h3>
-            <p>אני לא רק מבצע. אגיד לכם מה נראה לי נכון ולמה, וההחלטה נשארת שלכם.</p>
-          </li>
-          <li class="reveal">
-            <h3>יוזמה.</h3>
-            <p>אם משהו יכול להיות טוב יותר, אציע את זה לפני שתבקשו.</p>
-          </li>
-          <li class="reveal">
+        <!-- Bento: six principles, each with a small illustration built in HTML/CSS (aria-hidden) -->
+        <ul class="bento">
+          <li class="bento-card bento-e2e reveal">
+            <div class="bento-visual" aria-hidden="true">
+              <div class="e2e-flow">
+                <div class="e2e-node">
+                  <div class="mini-win"><span class="mini-bar"></span><div class="mini-frame"><i class="blk w60"></i><i class="blk w40"></i><i class="blk tall"></i></div></div>
+                  <span class="e2e-label"><strong>עיצוב</strong>Figma</span>
+                </div>
+                <span class="e2e-link"><i class="e2e-dot"></i></span>
+                <div class="e2e-node">
+                  <div class="mini-win mini-code"><span class="mini-bar"></span><code>&lt;/&gt;</code><i class="ln w70"></i><i class="ln w50"></i><i class="ln w60"></i></div>
+                  <span class="e2e-label"><strong>בנייה</strong><span><bdi dir="ltr">Framer · Webflow</bdi> · קוד</span></span>
+                </div>
+                <span class="e2e-link"><i class="e2e-dot"></i></span>
+                <div class="e2e-node">
+                  <div class="mini-win"><span class="mini-bar"><span class="live-dot"></span></span><div class="mini-frame"><i class="blk w60"></i><i class="blk w40"></i><i class="blk tall"></i></div></div>
+                  <span class="e2e-label"><strong>באוויר</strong>האתר שלכם</span>
+                </div>
+              </div>
+            </div>
             <h3>מקצה לקצה.</h3>
             <p>אותו אדם מעצב ובונה, אז מה שאישרתם הוא מה שעולה לאוויר.</p>
           </li>
-          <li class="reveal">
+
+          <li class="bento-card bento-view reveal">
+            <div class="bento-visual" aria-hidden="true">
+              <div class="options">
+                <div class="option"><i class="blk w60"></i><i class="blk tall"></i><span class="opt-tag">A</span></div>
+                <div class="option is-picked"><i class="blk w60"></i><i class="blk tall"></i><span class="opt-tag">B</span><span class="opt-rec">ההמלצה שלי</span></div>
+              </div>
+            </div>
+            <h3>נקודת מבט.</h3>
+            <p>אני לא רק מבצע. אגיד לכם מה נראה לי נכון ולמה, וההחלטה נשארת שלכם.</p>
+          </li>
+
+          <li class="bento-card bento-init reveal">
+            <div class="bento-visual" aria-hidden="true">
+              <div class="note">
+                <span class="note-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg></span>
+                <div><strong>רעיון לשיפור</strong><i class="ln w90"></i><i class="ln w60"></i></div>
+              </div>
+            </div>
+            <h3>יוזמה.</h3>
+            <p>אם משהו יכול להיות טוב יותר, אציע את זה לפני שתבקשו.</p>
+          </li>
+
+          <li class="bento-card bento-clear reveal">
+            <div class="bento-visual" aria-hidden="true">
+              <div class="mini-win mini-browser"><span class="mini-bar"><span class="mini-url">לינק חי לפרויקט</span></span>
+                <div class="steps-bar"><span class="is-done"></span><span class="is-done"></span><span class="is-now"></span><span></span></div>
+                <div class="steps-labels"><span>שיחה</span><span>עמוד בית</span><span>שאר האתר</span><span>השקה</span></div>
+              </div>
+            </div>
             <h3>שקיפות.</h3>
             <p>נקודות אישור ברורות, ותמיד תדעו איפה הפרויקט עומד.</p>
           </li>
-          <li class="reveal">
+
+          <li class="bento-card bento-price reveal">
+            <div class="bento-visual" aria-hidden="true">
+              <div class="pq">
+                <div class="pq-head"><strong>הצעת מחיר</strong><span class="pq-ok">✓ סגורה מראש</span></div>
+                <i class="ln w80"></i><i class="ln w60"></i><i class="ln w70"></i>
+                <div class="pq-total"><span>סה״כ</span><strong>[מחיר]</strong></div>
+              </div>
+            </div>
             <h3>מחיר ידוע מראש.</h3>
             <p>הצעה מסודרת אחרי השיחה, בלי הפתעות בדרך.</p>
           </li>
-          <li class="reveal">
+
+          <li class="bento-card bento-own reveal">
+            <div class="bento-visual" aria-hidden="true">
+              <div class="mini-win cms"><span class="mini-bar"></span>
+                <div class="cms-body">
+                  <div class="cms-side"><i class="ln w70"></i><i class="ln w50 is-on"></i><i class="ln w60"></i></div>
+                  <div class="cms-main"><span class="cms-field">כותרת חדשה<span class="caret"></span></span><i class="ln w90"></i><i class="ln w70"></i><span class="cms-btn">פרסום</span></div>
+                </div>
+              </div>
+            </div>
             <h3>עצמאות.</h3>
             <p>אחרי ההשקה האתר שלכם, והצוות מעדכן אותו לבד.</p>
           </li>

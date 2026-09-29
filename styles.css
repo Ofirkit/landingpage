@@ -4,7 +4,8 @@
 :root {
   --bg: #030308;
   --hero-bg: #f3f3f6;  /* light hero (user request); the rest of the page stays dark */
-  --ink: #0b0b12;      /* text and buttons on light backgrounds */
+  --ink: #0b0b12;
+  --card-bg: #0c0c13;  /* solid card fill (bento); light.css sets white */      /* text and buttons on light backgrounds */
   --navy: #0d1a46;
   --indigo: #17184b;
   --violet: #20154e;
@@ -466,6 +467,187 @@ figure, blockquote { margin: 0; }
 .yt-link svg { width: 20px; height: 20px; fill: #ff0033; }
 
 /* ==========================================================
+   How I work: bento (under review on how-test.html). Six cards of different sizes, each with a small
+   illustration built in HTML/CSS. Colors come from the theme tokens, so it works dark and light.
+   ========================================================== */
+.bento {
+  --mini-bg: color-mix(in srgb, var(--text) 4%, transparent);
+  --mini: color-mix(in srgb, var(--text) 12%, transparent);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "e2e e2e view init"
+    "e2e e2e clear clear"
+    "price price own own";
+  gap: 16px;
+}
+.bento-e2e { grid-area: e2e; }
+.bento-view { grid-area: view; }
+.bento-init { grid-area: init; }
+.bento-clear { grid-area: clear; }
+.bento-price { grid-area: price; }
+.bento-own { grid-area: own; }
+.bento-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(18px, 1.8vw, 26px);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.bento-card h3 { margin-top: 20px; font-size: var(--fs-h4); }
+.bento-card p { margin-top: 6px; font-size: var(--fs-body); color: var(--text-muted); }
+.bento-visual {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  min-height: 160px;
+  padding: 20px;
+  background: var(--mini-bg);
+  border-radius: 14px;
+}
+.bento-e2e .bento-visual { min-height: 300px; }
+
+/* Shared mini-UI parts */
+.mini-win {
+  width: 100%;
+  max-width: 150px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+}
+.mini-bar {
+  display: flex;
+  align-items: center;
+  height: 16px;
+  padding-inline: 7px 6px;
+  background: var(--mini-bg);
+  border-bottom: 1px solid var(--border);
+}
+.mini-bar::before { /* three window dots */
+  content: "";
+  width: 22px;
+  height: 5px;
+  background: radial-gradient(circle, var(--mini) 2.5px, transparent 2.6px) 0 0 / 8px 5px repeat-x;
+}
+.mini-frame { display: grid; gap: 5px; padding: 8px; }
+.blk { display: block; height: 7px; background: var(--mini); border-radius: 3px; }
+.blk.tall { height: 34px; }
+.ln { display: block; height: 5px; margin-top: 6px; background: var(--mini); border-radius: 3px; }
+.w40 { width: 40%; } .w50 { width: 50%; } .w60 { width: 60%; } .w70 { width: 70%; } .w80 { width: 80%; } .w90 { width: 90%; }
+.live-dot { width: 6px; height: 6px; margin-inline-start: auto; background: var(--success); border-radius: 50%; box-shadow: 0 0 6px var(--success); }
+
+/* מקצה לקצה: design → build → live, with a dot travelling along the links */
+.e2e-flow { display: flex; align-items: center; justify-content: center; width: 100%; }
+.e2e-node { display: flex; flex: 1 1 0; flex-direction: column; align-items: center; gap: 14px; max-width: 210px; }
+.e2e-label { display: grid; gap: 2px; font-size: var(--fs-xs); color: var(--text-dim); text-align: center; }
+.e2e-label strong { font-size: var(--fs-sm); color: var(--text); }
+.bento-e2e .mini-win { max-width: 210px; }
+.bento-e2e .blk { height: 9px; }
+.bento-e2e .blk.tall { height: 70px; }
+.bento-e2e .mini-code .ln { height: 7px; margin-top: 9px; }
+.mini-code code { display: block; padding: 8px 8px 2px; font: 700 var(--fs-sm) / 1 ui-monospace, monospace; color: var(--accent-soft); direction: ltr; text-align: left; }
+.mini-code .ln { margin-inline: 8px; }
+.mini-code .ln:last-child { margin-bottom: 9px; }
+.e2e-link {
+  position: relative;
+  flex: 0 0 clamp(18px, 3.5vw, 48px);
+  height: 2px;
+  margin-bottom: 52px; /* line up with the windows, not the labels */
+  background: repeating-linear-gradient(to left, var(--border-strong) 0 4px, transparent 4px 8px);
+}
+.e2e-dot {
+  position: absolute;
+  top: -2px;
+  inset-inline-start: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-soft);
+  border-radius: 50%;
+  animation: e2e-travel 2.4s var(--ease) infinite;
+}
+.e2e-link + .e2e-node + .e2e-link .e2e-dot { animation-delay: 1.2s; }
+@keyframes e2e-travel {
+  0% { inset-inline-start: 0; opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { inset-inline-start: calc(100% - 6px); opacity: 0; }
+}
+
+/* נקודת מבט: two options, one recommended */
+.options { display: flex; gap: 12px; }
+.option { position: relative; display: grid; gap: 5px; width: 88px; padding: 10px 8px 8px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; }
+.opt-tag { font-size: var(--fs-xs); color: var(--text-dim); text-align: center; }
+.option.is-picked { border-color: var(--accent-soft); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 22%, transparent); }
+.opt-rec {
+  position: absolute;
+  top: -12px;
+  inset-inline: 50% auto;
+  translate: 50% 0;
+  padding: 2px 8px;
+  font-size: var(--fs-xs);
+  white-space: nowrap;
+  color: #fff;
+  background: var(--accent-soft);
+  border-radius: var(--radius-pill);
+}
+
+/* יוזמה: a suggestion note */
+.note {
+  display: flex;
+  gap: 10px;
+  width: min(230px, 100%);
+  padding: 12px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+  rotate: -3deg;
+}
+.note > div { flex: 1; }
+.note strong { font-size: var(--fs-sm); }
+.note-icon { flex: none; display: grid; place-items: center; width: 28px; height: 28px; background: color-mix(in srgb, var(--accent-soft) 16%, transparent); border-radius: 8px; }
+.note-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--accent-soft); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* שקיפות: a live link with the project's steps */
+.mini-browser { max-width: 460px; }
+.mini-browser .mini-bar { height: 24px; }
+.mini-url { margin-inline: auto; padding: 1px 12px; font-size: var(--fs-xs); color: var(--text-dim); background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-pill); }
+.steps-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 16px 14px 8px; }
+.steps-bar span { height: 6px; background: var(--mini); border-radius: 3px; }
+.steps-bar .is-done { background: var(--accent-soft); }
+.steps-bar .is-now { background: linear-gradient(to left, var(--accent-soft) 50%, var(--mini) 50%); animation: step-pulse 2s ease-in-out infinite; }
+@keyframes step-pulse { 50% { opacity: 0.55; } }
+.steps-labels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 0 14px 14px; font-size: var(--fs-xs); color: var(--text-dim); }
+
+/* מחיר ידוע מראש: a quote with one total */
+.pq {
+  width: min(330px, 100%);
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+}
+.pq-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; font-size: var(--fs-sm); }
+.pq-ok { font-size: var(--fs-xs); color: var(--success); }
+.pq-total { display: flex; align-items: baseline; justify-content: space-between; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--border-strong); font-size: var(--fs-sm); color: var(--text-dim); }
+.pq-total strong { font-size: var(--fs-h4); color: var(--text); }
+
+/* עצמאות: a CMS the team edits */
+.cms { max-width: 380px; }
+.cms-body { display: grid; grid-template-columns: 90px 1fr; }
+.cms-side { padding: 10px; border-inline-end: 1px solid var(--border); }
+.cms-side .ln.is-on { background: var(--accent-soft); }
+.cms-main { display: grid; align-content: start; padding: 10px 12px 12px; }
+.cms-field { display: flex; align-items: center; padding: 5px 8px; font-size: var(--fs-sm); border: 1px solid var(--accent-soft); border-radius: 6px; }
+.caret { width: 1px; height: 1em; margin-inline-start: 2px; background: var(--text); animation: caret-blink 1s steps(1) infinite; }
+@keyframes caret-blink { 50% { opacity: 0; } }
+.cms-btn { justify-self: start; margin-top: 10px; padding: 3px 12px; font-size: var(--fs-xs); color: var(--card-bg); background: var(--text); border-radius: 6px; }
+
+/* ==========================================================
    Testimonials
    ========================================================== */
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--col-gap); }
@@ -831,6 +1013,7 @@ figure, blockquote { margin: 0; }
   .main-nav a { padding: 14px 18px; font-size: 18px; border-radius: 12px; color: var(--text); }
 
   .principles { grid-template-columns: repeat(2, 1fr); }
+  .bento { grid-template-columns: repeat(2, 1fr); grid-template-areas: "e2e e2e" "view init" "clear clear" "price own"; }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo { width: 240px; }
   .about-text { order: -1; } /* stacked: text first, photo after it */
@@ -843,6 +1026,8 @@ figure, blockquote { margin: 0; }
 @media (max-width: 600px) {
   .logo svg { width: 26px; }
   .principles { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: 1fr; grid-template-areas: "e2e" "view" "init" "clear" "price" "own"; }
+  .bento-e2e .bento-visual { min-height: 200px; }
   .step-head { grid-template-columns: 32px 1fr; row-gap: 4px; }
   .step-meta { grid-column: 2; }
   .step-panel p { margin-inline-start: 48px; }
