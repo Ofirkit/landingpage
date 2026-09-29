@@ -14,6 +14,42 @@ document.querySelectorAll(".wall-track").forEach((track) => {
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Work wall: every column drifts at the same speed. The CSS loop moves each track by one copy of its
+// tiles, so a taller column needs a longer loop; the duration is set from each column's own height.
+// Speed is relative to the column width, so it feels the same on every screen size.
+const WALL_SPEED = 0.035; // column widths per second
+const wall = document.querySelector(".wall");
+const wallTracks = [...document.querySelectorAll(".wall-track")];
+const wallAnims = () => wallTracks.flatMap((t) => t.getAnimations());
+const setWallSpeed = () => {
+  wallTracks.forEach((track) => {
+    const anim = track.getAnimations()[0];
+    if (!anim) return; // reduced motion: no animation
+    const gap = parseFloat(getComputedStyle(track).rowGap) || 0;
+    const period = (track.offsetHeight + gap) / WALL_COPIES; // one copy, in px
+    const duration = (period / (track.offsetWidth * WALL_SPEED)) * 1000;
+    const old = anim.effect.getTiming().duration;
+    if (!duration || Math.abs(duration - old) < 1) return;
+    // keep each column where it is, so a resize never makes the wall jump
+    const progress = ((anim.currentTime || 0) % old) / old;
+    anim.effect.updateTiming({ duration });
+    anim.currentTime = progress * duration;
+  });
+};
+if (wall && !reduceMotion) {
+  setWallSpeed();
+  let wallTick = false;
+  new ResizeObserver(() => {
+    if (!wallTick) { wallTick = true; requestAnimationFrame(() => { wallTick = false; setWallSpeed(); }); }
+  }).observe(wall);
+  // pause the drift while the wall is off screen (it never pauses on hover)
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      wallAnims().forEach((a) => (entry.isIntersecting ? a.play() : a.pause()));
+    }).observe(wall);
+  }
+}
+
 // Gallery videos: play only while on screen (saves CPU/battery, esp. with the cloned copy);
 // with reduced motion they stay on their poster frame
 const galleryVideos = document.querySelectorAll(".wall video");

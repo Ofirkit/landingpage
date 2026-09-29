@@ -393,9 +393,12 @@ figure, blockquote { margin: 0; }
   display: flex;
   flex-direction: column;
   gap: var(--wall-gap);
+  /* 70s is only a fallback: script.js sets each column's duration from its height so all move at one speed */
   animation: wall-drift 70s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
-.wall-col:nth-child(even) .wall-track { animation-direction: reverse; animation-duration: 80s; }
+.wall-col:nth-child(even) .wall-track { animation-direction: reverse; }
 @keyframes wall-drift {
   from { transform: translateY(0); }
   to { transform: translateY(calc((-100% - var(--wall-gap)) / var(--copies))); } /* one copy's height */
