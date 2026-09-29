@@ -754,6 +754,7 @@ figure, blockquote { margin: 0; }
 .plan-price p { display: flex; align-items: baseline; gap: 8px; }
 .plan-from { font-size: var(--fs-sm); color: var(--text-muted); }
 .plan-price strong { font-size: var(--fs-h3); line-height: 1.1; letter-spacing: -0.02em; }
+.plan-extra { margin-top: 6px; font-size: var(--fs-sm); color: var(--text-muted); } /* the price of each extra page, under the base price */
 .btn.plan-btn { width: 100%; margin-top: 24px; padding-block: 16px; border-radius: var(--radius-pill); }
 .plan-note { margin-top: 12px; font-size: var(--fs-xs); color: var(--text-muted); text-align: center; }
 
