@@ -26,7 +26,7 @@ Context for continuing work without the original chat. `README.md` holds the pla
 | Fit | `#fit` | "מתאים אם" / "פחות מתאים אם". The first "fit" line names startups, studios and service businesses. |
 | FAQ | `#faq` | `<details>` items. |
 | Final CTA | `#contact` | Booking button and a `mailto:` link. **Image trail in review on `how-test.html`** (after the user's Alture reference): **rebuilt frame by frame from the user's screen recording of the reference** (119 frames at 25fps; the GIF was uploaded to `assets/`): a new image each time the mouse has moved `STEP` = 90px since the last one, checked once a frame. So a slow move shows one image at a time (each is gone before the next is due; the user wanted slow moves to still show images, which the speed-threshold version didn't), fast moves add one a frame with gaps that widen with speed (a fast circle keeps ~14 on screen, a chain like the reference), and standing still adds nothing. Each image **starts at the previous image's spot and glides to the cursor** (`GLIDE` 900ms, ease-out; this is the smooth feel), pops in (scale 0.8→1, ~90ms), holds, then **shrinks to 0.2 and fades in place** (`LIFE` 750ms). **No tilt; the newest is on top.** **4:3, cropped from the top of each wall screenshot, `clamp(150px, 14vw, 210px)` wide** (the `.ti` wrapper): the reference's small upright 4:5 crop was tried and the user said the proportions looked wrong, so it went back to the earlier versions' size and shape. The wrapper carries the glide and the `<img>` the pop/shrink, so the two run on separate timings. **Performance:** all images are decoded up front and a pool of 26 wrappers is reused. **The button stays clear (user request):** nothing appears within 60px of it, and the images never take pointer events. Earlier tries: a distance trail with tilt (the user: it lagged) and a speed-threshold version (slow moves showed nothing). Only with a mouse (`hover: hover` and `pointer: fine`) and without reduced motion; otherwise a still fan of 5 screenshots (`.cta-fan`) sits in the corner (on phones the panel gets 200px of bottom padding so the fan sits under the text). The oversized-logo decoration was removed from this section (one effect per section). **Only the main button, no "או כתבו לי במייל" link** (user request; how-test only for now). **Full width is the pick (user)** and the default on how-test: `.contact-full`, centered, **82vh tall** (user: 80-85%), a faint 28px dot grid; the rounded panel is kept at `how-test.html?cta=panel`. |
-| Bottom blur | `.bottom-blur` | Fixed progressive blur at the bottom of the viewport. |
+| Bottom blur | `.bottom-blur` | Fixed progressive blur at the bottom of the viewport. **The footer pushes it off the screen** (user request: it hid the footer): in the scroll handler, the blur slides down (`translateY`) by how far the footer has risen into view, relative to the smaller of the blur's and the footer's heights, so it is fully gone once the footer is fully in. A slide, not a fade: opacity on the blur's parent would stop its `backdrop-filter` from blurring the page. All three pages. |
 
 JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill → process accordion → sticky header → mobile menu → reveal-on-scroll.
 
@@ -143,7 +143,6 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
   - YouTube `[קישור]` (2×).
   - `[מספר]` for pages and revision rounds.
 - **Known issues and loose ends:**
-  - The bottom blur covers the footer text at the very bottom of the page. A fade-out near the footer was offered but not built.
   - Firefox and Safari were never tested in-sandbox (only Chromium is installed). The user reported Firefox issues earlier, which were fixed by cache-busting.
   - `assets/IMG20260802130258.jpg` (7.4MB original) and `assets/ofir.webp` (still used as `og:image`) sit in the repo; consider updating `og:image` and removing the original.
   - No PR has been opened; the work is only on the branch.
@@ -151,7 +150,6 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
 ## 7. Next steps
 
 1. Fill in the placeholders as Ofir supplies the content: prices and timelines, links and photos. The gallery is done.
-2. Decide on the blur/footer overlap.
 3. Cross-browser check in Firefox and Safari.
 4. Later: a separate page for other audiences, such as agencies or non-startups, with its own message.
 5. Later: possibly a copywriting service. Update the FAQ "מי כותב את הטקסטים?" and the "מתאים/פחות מתאים" lists if it's added.

@@ -304,14 +304,23 @@ const header = document.querySelector(".site-header");
 // Light hero: dark header while it sits over the hero, and no dark blur tint over it
 const hero = document.querySelector(".hero");
 const blur = document.querySelector(".bottom-blur");
+const footer = document.querySelector(".site-footer");
 const onScroll = () => {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
   const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
   header.classList.toggle("on-light", heroBottom > header.offsetHeight / 2);
   blur?.classList.toggle("on-light", heroBottom > window.innerHeight - 20);
+  // The footer pushes the bottom blur off the screen as it comes into view, so it never covers the footer.
+  // (A slide, not a fade: opacity on the blur's parent would stop its backdrop-filter from blurring the page.)
+  if (blur && footer) {
+    const rise = window.innerHeight - footer.getBoundingClientRect().top; // how far the footer has come up
+    const p = Math.min(1, Math.max(0, rise / Math.min(blur.offsetHeight, footer.offsetHeight))); // gone once the footer is fully in
+    blur.style.transform = p ? `translateY(${(p * 100).toFixed(1)}%)` : "";
+  }
 };
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
+window.addEventListener("resize", onScroll);
 
 // Nav links and CTA buttons: split into letters for the hover roll (each letter stacked with a copy)
 document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
