@@ -333,6 +333,21 @@ figure, blockquote { margin: 0; }
 }
 .rotator-word.no-anim .char { transition: none; }
 
+/* Reel version (how-test.html, after the user's heading-animation.gif): the words sit on one vertical
+   strip behind the same one-line window and the whole word moves as a block, like a slot-machine reel.
+   script.js animates the strip (pull back, fast spin past a word, overshoot, settle). */
+.rotator-reel { transition: width 0.4s cubic-bezier(0.33, 1, 0.68, 1); }
+.reel-strip {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  will-change: transform;
+}
+.rotator-reel .rotator-word { position: static; display: block; }
+
 .sr-only {
   position: absolute !important;
   width: 1px;

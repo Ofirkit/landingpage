@@ -74,3 +74,7 @@
    spaces at 0.9, and the letters still travel fully out of the window above and below. */
 .hero .rotator { height: 1.25em; margin-block: -0.175em; }
 .hero .rotator-word { line-height: 1.25; }
+/* Reel version: its words pass through the whole window, and the window's extra top reaches the line
+   above, so the reel's top is clipped at 0.22em: the tops of ל sit 0.25em down at rest and the line above
+   ends at 0.11em (measured with the real font), so passing letters stay clear of the line above. */
+.hero .rotator-reel { clip-path: inset(0.22em 0 0 0); }

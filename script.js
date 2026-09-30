@@ -74,8 +74,72 @@ if (window.Lenis && !reduceMotion) {
   });
 }
 
+// Headline, reel version (how-test.html): the words sit on a vertical strip and the whole word moves as
+// a block, like a slot-machine reel. Each change pulls back a little, spins fast past one more word,
+// overshoots and settles (timed from the user's reference GIF). The direction alternates.
+const reel = document.querySelector(".rotator-reel");
+if (reel && !reduceMotion) {
+  const HOLD = 2500;       // time each word stays on screen (ms)
+  const DURATION = 760;    // one change: pull back + spin + settle (ms)
+  const words = reel.dataset.words.split(",").map((w) => w.trim()).filter(Boolean);
+  const n = words.length;
+  // Each change moves SPIN items, so it passes through words on the way and lands on the other one
+  // (SPIN % n === 1). The strip has room for a full spin either side of the middle.
+  const SPIN = n + 1;
+  const L = 2 * SPIN + n;
+  const mid = (i) => SPIN + (((i - SPIN) % n) + n) % n; // same word, back in the middle section
+  reel.textContent = "";
+  const strip = document.createElement("span");
+  strip.className = "reel-strip";
+  const items = Array.from({ length: L }, (_, i) => {
+    const el = document.createElement("span");
+    el.className = "rotator-word";
+    el.textContent = words[(((i - SPIN) % n) + n) % n];
+    strip.appendChild(el);
+    return el;
+  });
+  reel.appendChild(strip);
+  // translate as a share of the strip's own height, so it scales with the font size
+  const at = (p) => `translateY(${(-p / L) * 100}%)`;
+  let pos = SPIN;
+  strip.style.transform = at(pos);
+  const fit = () => { reel.style.width = `${items[pos].offsetWidth}px`; };
+  fit();
+  document.fonts?.ready.then(fit);
+  window.addEventListener("resize", fit);
+
+  if (n > 1) {
+    let dir = -1; // -1: the strip moves down (the new word comes from above), like the reference's first change
+    setInterval(() => {
+      if (document.hidden) return;
+      const from = pos;
+      const to = from + dir * SPIN;
+      // pull back and overshoot, in items; small enough to stay inside light.css's clip at rest
+      const back = 0.06 * -dir;
+      const over = 0.06 * dir;
+      pos = to;
+      // widen the window before the spin, but narrow it only once the longer word has left
+      if (items[to].offsetWidth >= items[from].offsetWidth) fit();
+      else setTimeout(fit, DURATION * 0.55);
+      strip.style.transform = at(to); // the end state underneath the animation, so its last frame never flickers
+      const anim = strip.animate([
+        { transform: at(from), easing: "cubic-bezier(0.45, 0, 0.55, 1)" },
+        { transform: at(from + back), offset: 0.24, easing: "cubic-bezier(0.55, 0, 0.25, 1)" },
+        { transform: at(to + over), offset: 0.7, easing: "cubic-bezier(0.33, 1, 0.68, 1)" },
+        { transform: at(to) },
+      ], { duration: DURATION });
+      anim.onfinish = () => {
+        // jump back to the same word in the middle section (identical content, so nothing visibly moves)
+        pos = mid(to);
+        strip.style.transform = at(pos);
+      };
+      dir = -dir;
+    }, HOLD + DURATION);
+  }
+}
+
 // Headline: rotate the last word, letter by letter
-const rotator = document.querySelector(".rotator");
+const rotator = document.querySelector(".rotator:not(.rotator-reel)");
 if (rotator && !reduceMotion) {
   const HOLD = 3600; // time each word stays on screen (ms)
   const words = rotator.dataset.words.split(",").map((w) => w.trim()).filter(Boolean);
