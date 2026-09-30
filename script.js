@@ -214,11 +214,49 @@ if (decos.length && "IntersectionObserver" in window) {
     if (!e.isIntersecting) return;
     const deco = e.target.querySelector(".deco");
     deco?.classList.add("deco-on");
-    deco?.querySelector(".deco-ring")?.addEventListener("transitionend", () => deco.classList.add("deco-done"), { once: true });
     decoIo.unobserve(e.target);
   }), { threshold: 0.35 });
   decos.forEach((d) => decoIo.observe(d.parentElement));
-} else decos.forEach((d) => d.classList.add("deco-on", "deco-done"));
+} else decos.forEach((d) => d.classList.add("deco-on"));
+
+// Final CTA (how-test.html): wall screenshots follow the mouse and fade away. Only with a mouse and
+// without reduced motion; otherwise the still fan in the corner stays.
+const ctaPanel = document.querySelector(".cta-panel");
+const trail = ctaPanel?.querySelector(".cta-trail");
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (trail && finePointer && !calm) {
+  ctaPanel.classList.add("cta-trail-on");
+  const srcs = [...new Set([...document.querySelectorAll(".wall img")].map((img) => img.getAttribute("src")))];
+  const STEP = 90; // px of mouse travel between images
+  const MAX = 8;   // images alive at once
+  let next = 0, lastX = null, lastY = null;
+  ctaPanel.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    const r = ctaPanel.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    if (lastX !== null && Math.hypot(x - lastX, y - lastY) < STEP) return;
+    lastX = x; lastY = y;
+    const img = document.createElement("img");
+    img.src = srcs[next++ % srcs.length];
+    img.alt = "";
+    trail.appendChild(img);
+    const w = img.offsetWidth, h = img.offsetHeight;
+    const rot = (Math.random() * 10 - 5).toFixed(1);
+    const at = `translate(${x - w / 2}px, ${y - h / 2}px) rotate(${rot}deg)`;
+    img.animate(
+      [
+        { transform: `${at} scale(0.6)`, opacity: 0 },
+        { transform: `${at} scale(1)`, opacity: 1, offset: 0.2 },
+        { transform: `${at} scale(1)`, opacity: 1, offset: 0.6 },
+        { transform: `${at} scale(0.85)`, opacity: 0 },
+      ],
+      { duration: 1400, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+    ).onfinish = () => img.remove();
+    while (trail.children.length > MAX) trail.firstElementChild.remove();
+  });
+  ctaPanel.addEventListener("pointerleave", () => { lastX = lastY = null; });
+}
 
 // Sticky header background
 const header = document.querySelector(".site-header");

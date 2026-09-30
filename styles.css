@@ -640,15 +640,41 @@ figure, blockquote { margin: 0; }
    ========================================================== */
 .deco { position: absolute; z-index: 0; pointer-events: none; color: var(--text); opacity: 0.13; }
 .deco * { transform-box: fill-box; transform-origin: center; }
-/* Final CTA: the logo, oversized, on the far side of the panel */
 .cta-panel { position: relative; overflow: hidden; isolation: isolate; }
-.cta-panel > :not(.deco) { position: relative; z-index: 1; }
-.deco-logo { inset-inline-end: -3%; top: -14%; height: 110%; width: auto; }
-.deco-ring { fill: none; stroke: currentColor; stroke-width: 7; stroke-dasharray: 1; stroke-dashoffset: 0; transform: rotate(-90deg); transition: stroke-dashoffset 1.8s var(--ease) 0.2s; }
-.deco-bar { fill: currentColor; transform-origin: right center; transition: transform 1s var(--ease) 1.3s; }
-.js .deco:not(.deco-on) .deco-ring { stroke-dashoffset: 1; }
-.js .deco:not(.deco-on) .deco-bar { transform: scaleX(0); }
-.deco-done .deco-ring { stroke-dasharray: none; } /* after drawing: a solid ring, no seam where the dash closes */
+.cta-panel > :not(.deco, .cta-trail, .cta-fan) { position: relative; z-index: 1; }
+/* Final CTA image trail (after the user's reference): wall screenshots follow the mouse and fade away.
+   They sit under the text and are clipped by the panel. Touch screens and reduced motion get a still fan. */
+.cta-trail { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.cta-trail img, .cta-fan img {
+  position: absolute;
+  width: clamp(150px, 14vw, 210px);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.cta-trail img { top: 0; left: 0; will-change: transform, opacity; }
+.cta-fan { position: absolute; inset-inline-end: clamp(16px, 4vw, 64px); bottom: -24px; z-index: 0; width: 420px; height: 260px; pointer-events: none; }
+.cta-fan img { bottom: calc(var(--k) * 26px); inset-inline-end: calc(var(--k) * 52px); transform: rotate(calc(-4deg + var(--k) * 2deg)); }
+.cta-trail-on .cta-fan { display: none; } /* a mouse is present: the trail replaces the fan */
+/* Full-width version (how-test.html?cta=full): the panel spans the page, centered, with a faint dot grid */
+.contact-full { padding-bottom: 0; }
+.contact-full > .container { max-width: none; padding-inline: 0; }
+.contact-full .cta-panel {
+  display: grid;
+  place-items: center;
+  align-content: center; /* keep the heading and the buttons together in the middle */
+  min-height: min(88vh, 820px);
+  text-align: center;
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.09) 1px, transparent 1.5px) 0 0 / 28px 28px,
+    radial-gradient(70% 60% at 50% 50%, #151515, #070707 75%);
+}
+.contact-full .cta-panel h2 { margin-inline: auto; }
+.contact-full .cta-actions { justify-content: center; }
 /* Testimonials: the linked rings, large, cropped at the band's far side */
 .qt { position: relative; overflow: hidden; isolation: isolate; --deco-bg: var(--bg); }
 .qt-dark { --deco-bg: #0b0b0b; }
@@ -1007,7 +1033,10 @@ figure, blockquote { margin: 0; }
 
 @media (max-width: 600px) {
   .qt-item blockquote p::before { position: static; margin: 0; } /* no hanging quote at the screen edge */
-  .deco-logo { inset-inline-end: -30%; top: -6%; height: 80%; } /* phones: smaller and further off the edge, away from the heading */
+  .cta-panel:not(.cta-trail-on) { padding-bottom: 200px; } /* phones: room for the fan under the text */
+  .cta-fan { width: 300px; height: 170px; inset-inline-end: -24px; bottom: -36px; }
+  .cta-fan img { width: 140px; }
+  .cta-fan img { bottom: calc(var(--k) * 18px); inset-inline-end: calc(var(--k) * 36px); }
   .deco-link { inset-inline-end: -50%; top: auto; bottom: -30%; height: 60%; translate: none; } /* below the arrows */
   .qt-item blockquote p { font-size: calc(var(--fs-h3) * 0.85); } /* 15% smaller on phones (user request) */
   .logo svg { width: 26px; }
