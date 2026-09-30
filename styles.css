@@ -662,11 +662,13 @@ figure, blockquote { margin: 0; }
 /* Process: card 2's four steps, large, beside the heading */
 .process-deco { position: relative; overflow: hidden; isolation: isolate; }
 .process-deco > .container { position: relative; z-index: 1; }
-.deco-steps { inset-inline-end: -3%; top: calc(var(--section-y) + 24px); width: min(620px, 46vw); height: auto; opacity: 0.1; }
-.deco-steps :is(circle, path) { fill: none; stroke: currentColor; stroke-width: 6; } /* user units (~12px drawn) */
+.deco-steps { inset-inline-end: -3%; top: calc(var(--section-y) + 24px); width: min(620px, 46vw); height: auto; opacity: 0.06; } /* subtler (user request) */
+/* the same line weights as the How I work cards (user request): 4px circles, 2px connector, open step and dashed ring */
+.deco-steps :is(circle, path) { fill: none; stroke: currentColor; stroke-width: 4; vector-effect: non-scaling-stroke; }
+.deco-steps :is(.deco-muted, .deco-ring2) { stroke-width: 2; }
 .deco-steps .deco-hole { fill: var(--bg); }
 .deco-steps .deco-muted { stroke-opacity: 0.45; }
-.deco-steps .deco-ring2 { stroke-dasharray: 9 7; }
+.deco-steps .deco-ring2 { stroke-dasharray: 4 5; }
 .deco-steps circle { transition: transform 0.6s var(--ease), opacity 0.5s var(--ease); transition-delay: calc(0.15s + var(--i) * 0.2s); }
 .js .deco-steps:not(.deco-on) circle { transform: scale(0.3); opacity: 0; }
 
