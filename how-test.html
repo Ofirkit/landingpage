@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261001u" />
+  <link rel="stylesheet" href="styles.css?v=20261001s" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20261001u" />
+  <link rel="stylesheet" href="light.css?v=20261001s" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -105,23 +105,14 @@
     </section>
 
     <!-- ===== About ===== -->
-    <!-- After the user's reference: a full-width split. One half is a slowly moving blurred gradient (black and
-         white, not the reference's colors) with a glass quote card; the other half is the text. Instead of the
-         reference's button: a 64px photo with the YouTube links. All copy is the About's existing text. -->
-    <section class="about about-split" id="about">
-      <div class="ab-visual" aria-hidden="true">
-        <div class="ab-blobs"><i></i><i></i><i></i><i></i></div>
-      </div>
-      <figure class="ab-quote reveal">
-        <blockquote><p>"הכי טוב לי כשצריך לקחת משהו מורכב ולהפוך אותו לפשוט וברור."</p></blockquote>
-        <figcaption><strong>אופיר</strong><span>מעצב ובונה אתרים, UXUIKIT</span></figcaption>
-      </figure>
-      <div class="ab-text reveal">
-        <p class="ab-label"><span class="ab-dot" aria-hidden="true"></span>קצת עליי</p>
-        <h2>היי, אני אופיר - מעצב ובונה אתרים.</h2>
-        <p class="ab-body">התחלתי כמפתח פרונט-אנד, עברתי לעיצוב מוצר, ויש לי יותר מעשר שנים בעיצוב ופיתוח מוצרים דיגיטליים.</p>
-        <div class="ab-me">
-          <img class="ab-avatar" src="assets/ofir-avatar.webp" width="64" height="64" alt="אופיר" />
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <img class="about-photo reveal" src="assets/ofir-portrait.webp" width="1000" height="1333" loading="lazy"
+             alt="אופיר, המעצב מאחורי UXUIKIT, מחייך בכיסא המשרדי שלו" />
+        <div class="about-text">
+          <!-- Words fill from gray to white as you scroll (script.js: "About: fill text on scroll") -->
+          <p class="fill-text">היי, אני אופיר - מעצב ובונה אתרים. התחלתי כמפתח פרונט-אנד, עברתי לעיצוב מוצר, ויש לי יותר מעשר שנים בעיצוב ופיתוח מוצרים דיגיטליים.</p>
+          <p class="fill-text">הכי טוב לי כשצריך לקחת משהו מורכב ולהפוך אותו לפשוט וברור.</p>
           <div class="yt">
             <span class="yt-label">מלמד Figma ו-Framer ביוטיוב:</span>
             <div class="yt-links">
@@ -496,6 +487,6 @@
   <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");
     if (/[?&]quote=white\b/.test(location.search)) document.querySelector(".qt").classList.remove("qt-dark");
     if (/[?&]cta=panel\b/.test(location.search)) document.querySelector("#contact").classList.remove("contact-full");</script>
-  <script src="script.js?v=20261001u" defer></script>
+  <script src="script.js?v=20261001s" defer></script>
 </body>
 </html>

@@ -462,55 +462,6 @@ figure, blockquote { margin: 0; }
 .yt-link:hover { background: var(--surface); border-color: var(--border-strong); }
 .yt-link svg { width: 20px; height: 20px; fill: currentColor; }
 
-/* About, split version (under review on how-test.html), after the user's reference: a full-width
-   half-and-half section. The visual half is a slowly drifting blurred gradient in black and white with a glass
-   quote card on it; the text half has a label, the heading, one paragraph and a 64px photo with the YouTube links. */
-.about-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "visual text";
-  min-height: min(100vh, 940px);
-}
-.ab-visual { grid-area: visual; position: relative; overflow: hidden; background: #050505; }
-.ab-blobs { position: absolute; inset: -10%; filter: blur(48px); }
-.ab-blobs i { position: absolute; border-radius: 50%; will-change: transform; }
-.ab-blobs i:nth-child(1) { width: 70%; aspect-ratio: 1; left: -10%; top: -20%; background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0) 68%); animation: ab-drift-a 11s ease-in-out infinite alternate; }
-.ab-blobs i:nth-child(2) { width: 65%; aspect-ratio: 1; right: -12%; top: -15%; background: radial-gradient(circle, #d9d9d9 0%, rgba(217,217,217,0) 66%); animation: ab-drift-b 13s ease-in-out infinite alternate; }
-.ab-blobs i:nth-child(3) { width: 80%; aspect-ratio: 1; left: 10%; top: 18%; background: radial-gradient(circle, #6f6f6f 0%, rgba(111,111,111,0) 64%); animation: ab-drift-c 15s ease-in-out infinite alternate; }
-.ab-blobs i:nth-child(4) { width: 55%; aspect-ratio: 1; left: 30%; top: -30%; background: radial-gradient(circle, #f2f2f2 0%, rgba(242,242,242,0) 62%); animation: ab-drift-d 9s ease-in-out infinite alternate; }
-@keyframes ab-drift-a { 50% { transform: translate(30%, 22%) scale(1.2); } 100% { transform: translate(8%, 40%) scale(0.95); } }
-@keyframes ab-drift-b { 50% { transform: translate(-28%, 30%) scale(0.85); } 100% { transform: translate(-10%, 8%) scale(1.15); } }
-@keyframes ab-drift-c { 50% { transform: translate(-22%, -18%) scale(1.25); } 100% { transform: translate(14%, -8%) scale(1); } }
-@keyframes ab-drift-d { 50% { transform: translate(24%, 36%) scale(1.15); } 100% { transform: translate(-18%, 20%) scale(0.9); } }
-.ab-quote {
-  grid-area: visual;
-  align-self: center;
-  justify-self: center;
-  position: relative;
-  z-index: 1;
-  width: min(380px, 80%);
-  padding: 32px 28px 20px;
-  color: #f5f5f5;
-  text-align: center;
-  background: rgba(20, 20, 20, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 12px;
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-}
-.ab-quote p { font-size: var(--fs-h4); font-weight: 700; line-height: 1.35; }
-.ab-quote figcaption { display: flex; flex-direction: column; margin-top: 28px; text-align: start; }
-.ab-quote figcaption strong { font-size: var(--fs-sm); }
-.ab-quote figcaption span { font-size: var(--fs-xs); color: rgba(245, 245, 245, 0.7); }
-.ab-text { grid-area: text; align-self: center; max-width: 560px; padding: clamp(56px, 8vw, 120px) clamp(24px, 6vw, 110px); }
-.ab-label { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); font-weight: 700; }
-.ab-dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
-.ab-text h2 { margin-top: 20px; font-size: var(--fs-xl); line-height: 1.12; letter-spacing: -0.02em; text-wrap: balance; }
-.ab-body { max-width: 42ch; margin-top: 24px; font-size: var(--fs-body-lg); color: var(--text-muted); }
-.ab-me { display: flex; align-items: center; gap: 16px; margin-top: 36px; }
-.ab-avatar { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
-.ab-me .yt { gap: 10px; margin-top: 0; }
-
 /* ==========================================================
    How I work: three cards after the user's reference (under review on how-test.html): title at the top,
    a line-art drawing in the middle, the description at the bottom. Each drawing tells its card's story
@@ -1073,8 +1024,6 @@ figure, blockquote { margin: 0; }
   .how3 { grid-template-columns: 1fr; max-width: 560px; }
   .how3-card { min-height: 0; }
   .about-grid { grid-template-columns: 1fr; }
-  .about-split { grid-template-columns: 1fr; grid-template-areas: "visual" "text"; min-height: 0; }
-  .ab-visual { min-height: clamp(380px, 90vw, 560px); }
   .about-photo { width: 240px; }
   .about-text { order: -1; } /* stacked: text first, photo after it */
   .quotes { grid-template-columns: 1fr; gap: 48px; max-width: 680px; }
