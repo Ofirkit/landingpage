@@ -219,13 +219,15 @@ if (decos.length && "IntersectionObserver" in window) {
   decos.forEach((d) => decoIo.observe(d.parentElement));
 } else decos.forEach((d) => d.classList.add("deco-on"));
 
-// Final CTA (how-test.html): wall screenshots trail the mouse and fade away. Only with a mouse and
-// without reduced motion; otherwise the still fan in the corner stays.
-// Feel (user request): the trail follows a smoothed copy of the cursor (it glides, it doesn't snap), and it
-// reacts to speed: moving slowly adds nothing after the first image; faster moves add images, and the
-// faster the move, the wider the gap between them. Each image drifts on a little in the direction of travel
-// while it fades. Every image is decoded up front and a fixed pool of <img> elements is reused.
-// The button stays clear: images never appear near it, and they never take pointer events.
+// Final CTA (how-test.html): an image trail rebuilt frame by frame from the user's recording of the reference.
+// - A new image each time the mouse has moved STEP px since the last one (checked once a frame). Slow moves
+//   show one image at a time (each one is gone before the next is due); fast moves add one a frame, and the
+//   faster the move, the wider the gap. Standing still adds nothing.
+// - Each image starts at the previous image's spot and glides to the cursor (the smooth feel), pops in,
+//   holds, then shrinks and fades in place. No tilt; the newest is on top.
+// Only with a mouse and without reduced motion; otherwise the still fan in the corner stays. Every image is
+// decoded up front and a fixed pool is reused. The button stays clear: nothing appears near it, and the
+// images never take pointer events.
 const ctaPanel = document.querySelector(".cta-panel");
 const trail = ctaPanel?.querySelector(".cta-trail");
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -234,61 +236,55 @@ if (trail && finePointer && !calm) {
   ctaPanel.classList.add("cta-trail-on");
   const srcs = [...new Set([...document.querySelectorAll(".wall img")].map((img) => img.getAttribute("src")))];
   srcs.forEach((src) => { const im = new Image(); im.src = src; im.decode?.().catch(() => {}); }); // warm the cache
-  const EASE = 0.14;       // how quickly the smoothed point catches up with the cursor (per frame at 60fps)
-  const MIN_SPEED = 380;   // px/s: slower than this adds no new images (a relaxed move is ~200-300)
-  const GAP_PER_SPEED = 0.12; // gap = speed × this, so faster moves spread the images out
-  const MIN_GAP = 90, MAX_GAP = 300;
-  const POOL = 12;
+  const STEP = 90;      // px of mouse travel per image
+  const GLIDE = 900;    // ms for an image to glide from the previous spot to the cursor
+  const LIFE = 750;     // ms from appearing to gone
+  const POOL = 26;      // enough for about a second of one-per-frame spawning
   const pool = Array.from({ length: POOL }, () => {
+    const item = document.createElement("div");
+    item.className = "ti";
     const img = document.createElement("img");
     img.alt = "";
     img.decoding = "async";
     img.draggable = false;
-    trail.appendChild(img);
-    return img;
+    item.appendChild(img);
+    trail.appendChild(item);
+    return item;
   });
   const cta = ctaPanel.querySelector(".btn-primary");
-  let size = null, next = 0, slot = 0, cursor = null, pos = null, lastSpawn = null, speed = 0, last = 0, running = false;
-  const measure = () => { size = { w: pool[0].offsetWidth || 180, h: pool[0].offsetHeight || 135 }; };
+  let size = null, next = 0, slot = 0, mouse = null, lastSpawn = null, running = false;
+  const measure = () => { size = { w: pool[0].offsetWidth || 130, h: pool[0].offsetHeight || 160 }; };
   const nearButton = (x, y) => {
     if (!cta) return false;
     const b = cta.getBoundingClientRect(), r = ctaPanel.getBoundingClientRect(), pad = 60;
     return x > b.left - r.left - pad && x < b.right - r.left + pad && y > b.top - r.top - pad && y < b.bottom - r.top + pad;
   };
-  const spawn = (x, y, vx, vy) => {
-    if (nearButton(x, y)) return;
-    const img = pool[slot++ % POOL];
+  const at = (p) => `translate3d(${(p.x - size.w / 2).toFixed(1)}px, ${(p.y - size.h / 2).toFixed(1)}px, 0)`;
+  const spawn = (from, to) => {
+    const item = pool[slot++ % POOL];
+    const img = item.firstElementChild;
+    item.getAnimations().forEach((a) => a.cancel());
     img.getAnimations().forEach((a) => a.cancel());
     img.src = srcs[next++ % srcs.length];
-    const rot = Math.random() * 10 - 5;
-    const drift = Math.min(1, speed / 1500) * 60; // faster moves carry the image a little further
-    const [dx, dy] = [vx * drift, vy * drift];
-    const place = (ox, oy, s, r) => `translate3d(${(x - size.w / 2 + ox).toFixed(1)}px, ${(y - size.h / 2 + oy).toFixed(1)}px, 0) rotate(${r.toFixed(1)}deg) scale(${s})`;
-    trail.appendChild(img); // newest on top
+    trail.appendChild(item); // newest on top
+    item.animate([{ transform: at(from) }, { transform: at(to) }],
+      { duration: GLIDE, easing: "cubic-bezier(0.16, 1, 0.3, 1)", fill: "forwards" });
     img.animate(
       [
-        { transform: place(0, 0, 0.82, rot), opacity: 0 },
-        { transform: place(dx * 0.35, dy * 0.35, 1, rot), opacity: 1, offset: 0.22 },
-        { transform: place(dx * 0.75, dy * 0.75, 1, rot * 0.8), opacity: 1, offset: 0.6 },
-        { transform: place(dx, dy, 0.9, rot * 0.6), opacity: 0 },
+        { transform: "scale(0.8)", opacity: 0 },
+        { transform: "scale(1)", opacity: 1, offset: 0.12 },
+        { transform: "scale(1)", opacity: 1, offset: 0.55 },
+        { transform: "scale(0.2)", opacity: 0 },
       ],
-      { duration: 1600, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+      { duration: LIFE, easing: "ease-in-out", fill: "forwards" }
     );
   };
-  const frame = (t) => {
-    if (!cursor) { running = false; return; }
-    const dt = Math.min(64, t - (last || t)) || 16.7;
-    last = t;
-    const k = 1 - Math.pow(1 - EASE, dt / 16.7); // frame-rate independent easing
-    const px = pos.x, py = pos.y;
-    pos = { x: pos.x + (cursor.x - pos.x) * k, y: pos.y + (cursor.y - pos.y) * k };
-    const step = Math.hypot(pos.x - px, pos.y - py);
-    speed = speed * 0.85 + (step / dt) * 1000 * 0.15; // smoothed px/s
-    const gap = Math.min(MAX_GAP, Math.max(MIN_GAP, speed * GAP_PER_SPEED));
-    const d = Math.hypot(pos.x - lastSpawn.x, pos.y - lastSpawn.y);
-    if (speed > MIN_SPEED && d >= gap) {
-      spawn(pos.x, pos.y, (pos.x - lastSpawn.x) / d, (pos.y - lastSpawn.y) / d);
-      lastSpawn = { ...pos };
+  const frame = () => {
+    if (!mouse) { running = false; return; }
+    if (!lastSpawn) lastSpawn = { ...mouse };
+    if (Math.hypot(mouse.x - lastSpawn.x, mouse.y - lastSpawn.y) >= STEP) {
+      if (!nearButton(mouse.x, mouse.y)) spawn(lastSpawn, mouse);
+      lastSpawn = { ...mouse };
     }
     requestAnimationFrame(frame);
   };
@@ -296,14 +292,10 @@ if (trail && finePointer && !calm) {
     if (e.pointerType !== "mouse") return;
     if (!size) measure();
     const r = ctaPanel.getBoundingClientRect();
-    cursor = { x: e.clientX - r.left, y: e.clientY - r.top };
-    if (!pos) { // entering: one image right away, then speed decides
-      pos = { ...cursor }; lastSpawn = { ...cursor }; speed = 0;
-      spawn(pos.x, pos.y, 0, 0);
-    }
-    if (!running) { running = true; last = 0; requestAnimationFrame(frame); }
+    mouse = { x: e.clientX - r.left, y: e.clientY - r.top };
+    if (!running) { running = true; requestAnimationFrame(frame); }
   }, { passive: true });
-  ctaPanel.addEventListener("pointerleave", () => { cursor = pos = lastSpawn = null; });
+  ctaPanel.addEventListener("pointerleave", () => { mouse = lastSpawn = null; });
   window.addEventListener("resize", () => { size = null; });
 }
 
