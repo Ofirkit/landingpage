@@ -18,9 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261001m" />
+  <link rel="stylesheet" href="styles.css?v=20261001n" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20261001m" />
+  <link rel="stylesheet" href="light.css?v=20261001n" />
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -449,8 +449,8 @@
     </section>
 
     <!-- ===== Final CTA ===== -->
-    <section class="section contact" id="contact">
-      <!-- ?cta=full shows the full-width version of this section; the default is the rounded panel -->
+    <section class="section contact contact-full" id="contact">
+      <!-- Full width is the default (user pick); ?cta=panel shows the rounded-panel version. Only the main button, no email link (user request). -->
       <div class="container">
         <div class="cta-panel reveal">
           <!-- After the user's reference: screenshots from the wall follow the mouse and fade away (script.js).
@@ -460,7 +460,6 @@
           <h2>לא בטוחים מה האתר שלכם צריך? בואו נבין את זה יחד.</h2>
           <div class="cta-actions">
             <a class="btn btn-primary btn-lg" href="[קישור ליומן]" target="_blank" rel="noopener">בואו נדבר</a>
-            <a class="cta-mail" href="mailto:[מייל]">או כתבו לי במייל</a>
           </div>
         </div>
       </div>
@@ -487,7 +486,7 @@
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
   <script>if (/[?&]white\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-black");
     if (/[?&]quote=white\b/.test(location.search)) document.querySelector(".qt").classList.remove("qt-dark");
-    if (/[?&]cta=full\b/.test(location.search)) document.querySelector("#contact").classList.add("contact-full");</script>
-  <script src="script.js?v=20261001m" defer></script>
+    if (/[?&]cta=panel\b/.test(location.search)) document.querySelector("#contact").classList.remove("contact-full");</script>
+  <script src="script.js?v=20261001n" defer></script>
 </body>
 </html>

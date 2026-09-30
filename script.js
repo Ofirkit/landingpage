@@ -221,6 +221,9 @@ if (decos.length && "IntersectionObserver" in window) {
 
 // Final CTA (how-test.html): wall screenshots follow the mouse and fade away. Only with a mouse and
 // without reduced motion; otherwise the still fan in the corner stays.
+// Smoothness: every image is decoded up front, a fixed pool of <img> elements is reused (no DOM churn,
+// no layout reads), and a rAF loop fills in images along the mouse path, so fast moves leave no gaps.
+// The button stays clear: images never spawn near it, and they never take pointer events.
 const ctaPanel = document.querySelector(".cta-panel");
 const trail = ctaPanel?.querySelector(".cta-trail");
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -228,34 +231,63 @@ const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (trail && finePointer && !calm) {
   ctaPanel.classList.add("cta-trail-on");
   const srcs = [...new Set([...document.querySelectorAll(".wall img")].map((img) => img.getAttribute("src")))];
-  const STEP = 90; // px of mouse travel between images
-  const MAX = 8;   // images alive at once
-  let next = 0, lastX = null, lastY = null;
-  ctaPanel.addEventListener("pointermove", (e) => {
-    if (e.pointerType !== "mouse") return;
-    const r = ctaPanel.getBoundingClientRect();
-    const x = e.clientX - r.left, y = e.clientY - r.top;
-    if (lastX !== null && Math.hypot(x - lastX, y - lastY) < STEP) return;
-    lastX = x; lastY = y;
+  srcs.forEach((src) => { const im = new Image(); im.src = src; im.decode?.().catch(() => {}); }); // warm the cache
+  const STEP = 80;   // px of mouse travel between images
+  const POOL = 10;   // images reused in turn (at most this many on screen)
+  const pool = Array.from({ length: POOL }, () => {
     const img = document.createElement("img");
-    img.src = srcs[next++ % srcs.length];
     img.alt = "";
+    img.decoding = "async";
+    img.draggable = false;
     trail.appendChild(img);
-    const w = img.offsetWidth, h = img.offsetHeight;
+    return img;
+  });
+  const cta = ctaPanel.querySelector(".btn-primary");
+  let size = null, next = 0, anchor = null, target = null, ticking = false, slot = 0;
+  const measure = () => { size = { w: pool[0].offsetWidth || 180, h: pool[0].offsetHeight || 135 }; };
+  const nearButton = (x, y) => {
+    if (!cta) return false;
+    const b = cta.getBoundingClientRect(), r = ctaPanel.getBoundingClientRect(), pad = 60;
+    return x > b.left - r.left - pad && x < b.right - r.left + pad && y > b.top - r.top - pad && y < b.bottom - r.top + pad;
+  };
+  const spawn = (x, y) => {
+    if (nearButton(x, y)) return;
+    const img = pool[slot++ % POOL];
+    img.getAnimations().forEach((a) => a.cancel());
+    img.src = srcs[next++ % srcs.length];
     const rot = (Math.random() * 10 - 5).toFixed(1);
-    const at = `translate(${x - w / 2}px, ${y - h / 2}px) rotate(${rot}deg)`;
+    const at = `translate3d(${(x - size.w / 2).toFixed(1)}px, ${(y - size.h / 2).toFixed(1)}px, 0) rotate(${rot}deg)`;
+    trail.appendChild(img); // newest on top
     img.animate(
       [
-        { transform: `${at} scale(0.6)`, opacity: 0 },
-        { transform: `${at} scale(1)`, opacity: 1, offset: 0.2 },
-        { transform: `${at} scale(1)`, opacity: 1, offset: 0.6 },
-        { transform: `${at} scale(0.85)`, opacity: 0 },
+        { transform: `${at} scale(0.7)`, opacity: 0 },
+        { transform: `${at} scale(1)`, opacity: 1, offset: 0.18 },
+        { transform: `${at} scale(1)`, opacity: 1, offset: 0.55 },
+        { transform: `${at} scale(0.88)`, opacity: 0 },
       ],
-      { duration: 1400, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
-    ).onfinish = () => img.remove();
-    while (trail.children.length > MAX) trail.firstElementChild.remove();
-  });
-  ctaPanel.addEventListener("pointerleave", () => { lastX = lastY = null; });
+      { duration: 1300, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+    );
+  };
+  const tick = () => {
+    ticking = false;
+    if (!target) return;
+    if (!anchor) { anchor = target; spawn(target.x, target.y); return; }
+    let dx = target.x - anchor.x, dy = target.y - anchor.y, d = Math.hypot(dx, dy);
+    while (d >= STEP) { // fill in along the path so fast moves leave an even trail
+      anchor = { x: anchor.x + (dx / d) * STEP, y: anchor.y + (dy / d) * STEP };
+      spawn(anchor.x, anchor.y);
+      dx = target.x - anchor.x; dy = target.y - anchor.y; d = Math.hypot(dx, dy);
+    }
+  };
+  ctaPanel.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    if (!size) measure();
+    const r = ctaPanel.getBoundingClientRect();
+    target = { x: e.clientX - r.left, y: e.clientY - r.top };
+    if (!ticking) { ticking = true; requestAnimationFrame(tick); }
+  }, { passive: true });
+  ctaPanel.addEventListener("pointerleave", () => { anchor = target = null; });
+  window.addEventListener("resize", () => { size = null; });
 }
 
 // Sticky header background

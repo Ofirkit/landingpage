@@ -654,18 +654,18 @@ figure, blockquote { margin: 0; }
   border-radius: 10px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
-.cta-trail img { top: 0; left: 0; will-change: transform, opacity; }
+.cta-trail img { top: 0; left: 0; opacity: 0; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4); will-change: transform, opacity; pointer-events: none; user-select: none; }
 .cta-fan { position: absolute; inset-inline-end: clamp(16px, 4vw, 64px); bottom: -24px; z-index: 0; width: 420px; height: 260px; pointer-events: none; }
 .cta-fan img { bottom: calc(var(--k) * 26px); inset-inline-end: calc(var(--k) * 52px); transform: rotate(calc(-4deg + var(--k) * 2deg)); }
 .cta-trail-on .cta-fan { display: none; } /* a mouse is present: the trail replaces the fan */
-/* Full-width version (how-test.html?cta=full): the panel spans the page, centered, with a faint dot grid */
+/* Full-width version (the default on how-test.html; ?cta=panel shows the panel): spans the page, centered, faint dot grid */
 .contact-full { padding-bottom: 0; }
 .contact-full > .container { max-width: none; padding-inline: 0; }
 .contact-full .cta-panel {
   display: grid;
   place-items: center;
   align-content: center; /* keep the heading and the buttons together in the middle */
-  min-height: min(88vh, 820px);
+  min-height: 82vh; /* about 80-85% of the screen (user request) */
   text-align: center;
   border: 0;
   border-radius: 0;
