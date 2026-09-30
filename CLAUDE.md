@@ -131,6 +131,7 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
   - The first timing was too fast.
 - **"How I work" as a bento grid with mini UI mock-ups:** too "wireframy", then "amateur" even with real screenshots and content. Replaced by three line-art cards after the user's reference.
 - **"How I work" as a zigzag timeline** (`how-test-2.html`, after a second reference; four steps, a scroll-driven active row and a glowing line): the user said it doesn't work, and it was deleted. Back to the three line-art cards.
+- **About as a full-width split after the Alture reference** (a drifting black-and-white blurred gradient half with a glass quote card, a text half with a label, heading, paragraph and a 64px photo): built on how-test, then reverted (user: "it doesn't look like the reference"). The About keeps the portrait + scroll-fill design. If it's tried again, match the reference much more closely (its gradient is a large, bright, sharply shaped glow filling the half, with a small solid-colored quote card).
 - **Process as vertical stacking cards (sticky deck):** built, then replaced by the reference's numbered accordion list at the user's request.
 - **Framer-only copy:** replaced with tool-neutral copy.
 
