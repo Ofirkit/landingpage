@@ -104,6 +104,11 @@ Lines the user liked on other sites. Use them only where they fit naturally, and
 - **Not placed yet:** "We don't jump straight to the visuals. We start by understanding your business, your audience, and what your website actually needs to do."
   - Hebrew, in the site's voice (singular, user request): "אני לא קופץ ישר לעיצוב. אני מתחיל בהבנה של העסק שלכם, הקהל שלכם ומה האתר באמת צריך לעשות."
   - Possible homes: the Process intro (it overlaps with the current subtitle, so it would replace it) or the first process step.
+- **Not placed yet (saved 2026-09-30, user: "take note, don't add it yet"): a before/after pair** from a reference, heading "Your startup might be held back by design", two columns of three lines each, an ✕ on the left and a ✓ on the right:
+  - "If any of this sounds familiar": People visit your website, but don't convert. · You have to explain or justify the product before people take it seriously. · Onboarding requires extra explanations to prevent confusion.
+  - "What changes when we work together": Intentional design replaces friction, so users know exactly what to do next. · A well-crafted visual identity conveys professionalism, so people trust you from the start. · An intuitive user experience, so users understand the product without hand-holding.
+  - Hebrew draft in the site's voice (not approved): "אולי העיצוב מעכב אתכם" / "אם משהו מזה נשמע מוכר": אנשים נכנסים לאתר, אבל לא פונים. · אתם צריכים להסביר ולהצדיק את המוצר לפני שלוקחים אתכם ברצינות. · / "מה משתנה כשעובדים יחד": עיצוב מכוון במקום חיכוך, כך שברור מה הצעד הבא. · עיצוב מוקפד משדר מקצועיות, ומייצר אמון מהרגע הראשון. ·
+  - **Before placing it:** it is pain-point copy, and section 5 lists "pain sections and a conversion-heavy tone" as rejected, so keep the tone calm (the partner voice, not a hard sell). The onboarding lines are about product UX, not websites; drop or adapt them, since the offer is website design and builds. Don't promise conversion results (no invented outcomes). A possible home: the Fit section ("מתאים אם" / "פחות מתאים אם") already has a two-column ✓/✕ shape.
 - **Already on the site:** "Your website isn't an expensive decoration…" (the Statement) and "First, we understand where you are → …" (the Process subtitle).
 
 ## 5. Tried and rejected (don't repeat)
