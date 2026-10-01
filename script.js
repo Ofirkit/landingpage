@@ -183,7 +183,7 @@ if (rotator && !reduceMotion) {
 }
 
 // About: pinned blur reveal (how-test.html), after the user's reference. The statement sits ~100px under
-// the hero and starts sharpening as soon as it scrolls into view. When it reaches the middle of the screen
+// the hero and starts sharpening as soon as it scrolls into view. When it reaches the top third of the screen
 // the stage pins (position: sticky, so the browser keeps it perfectly in step with the scroll) for D px:
 // the rest of the words sharpen, then the photo comes up to meet the text, then the page scrolls on.
 // JS only sets the blur/opacity of the words and the photo's offset, from the scroll position, so
@@ -208,6 +208,7 @@ if (ar && !reduceMotion) {
   ar.classList.add("ar-on");
 
   const START = 0.88;   // the first word starts when the text's middle is at 88% of the screen height
+  const PIN = 0.32;     // the text pins with its middle at 32% of the screen height (the reference's top third)
   const REVEAL = 0.6;   // share of the pin by which the last word is switched on
   const SETTLE = REVEAL; // the photo starts peeking in at the exact point the last word is revealed (user);
                          // until then it waits just below the screen, then rises to meet the text
@@ -239,7 +240,7 @@ if (ar && !reduceMotion) {
     vh = window.innerHeight;
     D = Math.round(vh * 1.8);
     const textMid = text.offsetTop + text.offsetHeight / 2;  // inside the stage
-    const stickyTop = Math.round(vh / 2 - textMid);           // the text's middle pins at the middle of the screen
+    const stickyTop = Math.max(90, Math.round(vh * PIN - textMid)); // the text's middle pins at PIN, clear of the header
     stage.style.top = `${stickyTop}px`;
     const pad = parseFloat(getComputedStyle(track).paddingTop);
     track.style.height = `${pad + stage.offsetHeight + D}px`; // the stage's height plus D of pinned scrolling
@@ -247,7 +248,7 @@ if (ar && !reduceMotion) {
     pinAt = stageDocTop - stickyTop;
     // how far below its resting place the photo waits so that it is just out of sight while pinned
     hide = Math.max(0, Math.round(vh + 2 - (stickyTop + lower.offsetTop)));
-    lead = (START - 0.5) * vh;
+    lead = START * vh - (stickyTop + textMid);
     lastY = null;
     update();
   };
