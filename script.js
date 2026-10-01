@@ -209,10 +209,10 @@ if (ar && !reduceMotion) {
 
   const START = 0.88;   // the first word starts when the text's middle is at 88% of the screen height
   const REVEAL = 0.6;   // share of the pin by which the last word is switched on
-  const SETTLE = 0.7;   // share of the pin where the photo starts rising, after the last word has sharpened
-                        // (it waits fully below the screen until then, then peeks in and meets the text; user)
+  const SETTLE = REVEAL; // the photo starts peeking in at the exact point the last word is revealed (user);
+                         // until then it waits just below the screen, then rises to meet the text
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
-  const easeInOut = (t) => 0.5 - Math.cos(Math.PI * t) / 2;
+  const easeOut = (t) => Math.sin((Math.PI * t) / 2); // moves at once, slows as the photo meets the text
   let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null, hide = 0;
   const state = words.map(() => null);
 
@@ -232,7 +232,7 @@ if (ar && !reduceMotion) {
       w.classList.toggle("is-on", on);
     });
     // photo: fully below the screen until SETTLE, then it peeks in and rises to meet the text by the end
-    const settle = easeInOut(clamp01((s / D - SETTLE) / (1 - SETTLE)));
+    const settle = easeOut(clamp01((s / D - SETTLE) / (1 - SETTLE)));
     lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(hide * (1 - settle))}px, 0)` : "";
   };
   const measure = () => {
@@ -246,7 +246,7 @@ if (ar && !reduceMotion) {
     const stageDocTop = track.getBoundingClientRect().top + window.scrollY + pad;
     pinAt = stageDocTop - stickyTop;
     // how far below its resting place the photo waits so that it is just out of sight while pinned
-    hide = Math.max(0, Math.round(vh + 24 - (stickyTop + lower.offsetTop)));
+    hide = Math.max(0, Math.round(vh + 2 - (stickyTop + lower.offsetTop)));
     lead = (START - 0.5) * vh;
     lastY = null;
     update();

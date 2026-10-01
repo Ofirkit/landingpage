@@ -21,9 +21,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261003s" />
+  <link rel="stylesheet" href="styles.css?v=20261003u" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20261003s" />
+  <link rel="stylesheet" href="light.css?v=20261003u" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=warm and ?tone=neutral for comparison -->
   <link rel="stylesheet" href="tone.css?v=20261003m" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" ? "warm" : "cool")); })();</script>
@@ -120,6 +120,9 @@
           <div class="ar-lower">
             <figure class="ar-photo"><img src="assets/ofir-portrait.webp" width="1000" height="1333" loading="lazy" decoding="async"
                  alt="אופיר, המעצב מאחורי UXUIKIT, מחייך בכיסא המשרדי שלו" /></figure>
+            <!-- After the reference: a smaller paragraph (gray, key phrases in full ink) and the CTA. Draft copy, awaiting the user's OK -->
+            <p class="ar-sub">אני לא רק מעצב ולא רק מפתח: אני מלווה אתכם <strong>מהרעיון ועד אתר חי</strong>. מבין את העסק, מעצב ב-Figma ובונה ב-Framer, ב-Webflow או בקוד, כך <strong>שמה שאישרתם הוא בדיוק מה שעולה לאוויר</strong>.</p>
+            <a href="[קישור ליומן]" class="btn btn-primary ar-cta" target="_blank" rel="noopener">בואו נדבר</a>
             <div class="yt">
               <span class="yt-label">מלמד Figma ו-Framer ביוטיוב:</span>
               <div class="yt-links">
@@ -598,6 +601,6 @@
     if (/[?&]plancta=bottom\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-cta-bottom");
     if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");
     if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
-  <script src="script.js?v=20261003s" defer></script>
+  <script src="script.js?v=20261003u" defer></script>
 </body>
 </html>
