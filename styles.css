@@ -1097,9 +1097,9 @@ section[hidden] { display: none !important; }
   font-weight: 400;
   line-height: 1;
   color: var(--text-muted);
-  transition: transform 0.3s var(--ease);
+  transition: transform 0.45s var(--ease);
 }
-.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item[open]:not(.is-closing) summary::after { transform: rotate(45deg); } /* .is-closing (script.js) turns the × back at the start of the close */
 .faq-item p { max-width: 720px; padding-bottom: 26px; font-size: var(--fs-body); color: var(--text-muted); }
 
 /* ==========================================================

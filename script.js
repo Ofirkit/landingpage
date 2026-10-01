@@ -522,3 +522,46 @@ document.addEventListener("contextmenu", (e) => { if (e.target.closest("img, .sh
 document.addEventListener("dragstart", (e) => { if (e.target.closest("img, .shot")) e.preventDefault(); });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// FAQ: smooth open and close (user: they opened and closed instantly). The <details> height animates
+// between the question's height and the full height, and the answer fades and rises in. A click during an
+// animation reverses it from where it is. Without JS or with reduced motion: the native instant toggle.
+if (!reduceMotion) {
+  document.querySelectorAll(".faq-item").forEach((item) => {
+    const summary = item.querySelector("summary");
+    const answer = item.querySelector("summary + *");
+    let anim = null;
+    const DURATION = 450;
+    const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+    const run = (from, to, opening) => {
+      anim?.cancel();
+      item.style.overflow = "hidden";
+      anim = item.animate({ height: [`${from}px`, `${to}px`] }, { duration: DURATION, easing: EASE });
+      answer?.animate(
+        opening
+          ? [{ opacity: 0, transform: "translateY(-6px)" }, { opacity: 1, transform: "none" }]
+          : [{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-6px)" }],
+        { duration: opening ? DURATION : DURATION * 0.6, easing: EASE, fill: "both" }
+      );
+      anim.onfinish = () => {
+        anim = null;
+        item.style.overflow = "";
+        if (!opening) item.open = false;
+        item.classList.remove("is-closing");
+      };
+    };
+    summary.addEventListener("click", (e) => {
+      e.preventDefault();
+      const start = item.offsetHeight;
+      if (!item.open || item.classList.contains("is-closing")) {
+        // open (or re-open a closing item from its current height)
+        item.classList.remove("is-closing");
+        item.open = true;
+        run(start, item.scrollHeight, true);
+      } else {
+        item.classList.add("is-closing");
+        run(start, summary.offsetHeight, false);
+      }
+    });
+  });
+}
