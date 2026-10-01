@@ -2,8 +2,8 @@
    Tone test (how-test.html only, loaded after light.css).
    A tinted black-and-white scale instead of pure neutral grays, for a more premium feel.
    Tint strength raised ~2-3x after the user's first look ("I don't see much difference").
-   Warm (stone/paper) is the default here; how-test.html?tone=cool shows a slate version and
-   ?tone=neutral the current colors (no class, so none of this applies).
+   Cool (slate) is the user's pick and the default here; how-test.html?tone=warm shows the stone/paper
+   version (the user: "hazy and dreamlike, not in a good way") and ?tone=neutral the current colors.
    Rules: every color comes from the scale below, nothing is pure #000 or #fff, and surfaces
    step ~4-6% apart so the layers read as deliberate.
    ========================================================== */
