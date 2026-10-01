@@ -884,7 +884,6 @@ figure, blockquote { margin: 0; }
 .p3 {
   --p3-line: #e2e2e2;     /* card border (frame: #e2e2e0) */
   --p3-rule: #e9e9e9;     /* divider (frame: #e9e9e7) */
-  --p3-muted: #666;
 }
 .p3::before { display: none; }
 /* User's measurements (2026-10-03): cards 475px wide and 720px tall, names 24px, prices 40px semibold,
@@ -892,8 +891,8 @@ figure, blockquote { margin: 0; }
 .p3-wrap { max-width: calc(3 * 475px + 2 * 32px + 2 * var(--gutter)); }
 /* Intro: start-aligned, offset like the frame (an 88px label + a 197px gap before the copy) */
 .p3-head { padding-inline-start: 285px; margin-bottom: 64px; }
-.p3-head h2 { font-size: 50px; font-weight: 400; line-height: 54px; letter-spacing: -0.02em; color: var(--text); }
-.p3-head p { max-width: 440px; margin-top: 23px; font-size: 15.5px; line-height: 21px; color: var(--p3-muted); }
+.p3-head h2 { font-size: 50px; font-weight: 700; line-height: 54px; letter-spacing: -0.02em; color: var(--text); }
+.p3-head p { max-width: 440px; margin-top: 23px; font-size: 16px; line-height: 24px; color: var(--text-muted); }
 .p3-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 475px)); justify-content: center; gap: 32px; align-items: stretch; }
 .p3-card {
   position: relative;
@@ -921,12 +920,12 @@ figure, blockquote { margin: 0; }
   border-radius: 3px 3px 12px 12px;
   box-shadow: 0 6px 11px rgba(0, 0, 0, 0.14);
 }
-.p3-card h3 { font-size: 24px; font-weight: 400; line-height: 30px; color: var(--p3-muted); }
+.p3-card h3 { font-size: 24px; font-weight: 700; line-height: 30px; letter-spacing: -0.01em; color: var(--text); }
 .p3-price { display: flex; align-items: center; gap: 8px; padding-top: 24px; }
-.p3-price strong { font-size: 40px; font-weight: 600; line-height: 50px; letter-spacing: -0.03em; color: var(--text); } /* semibold (600 is loaded on how-test only) */
-.p3-price span { font-size: 16px; color: var(--p3-muted); }
+.p3-price strong { font-size: 40px; font-weight: 700; line-height: 50px; letter-spacing: -0.02em; color: var(--text); }
+.p3-price span { font-size: 16px; color: var(--text-muted); }
 /* Two lines of room, so every button sits at the same height */
-.p3-desc { min-height: 64px; padding-top: 16px; font-size: 16px; line-height: 24px; color: var(--p3-muted); }
+.p3-desc { min-height: 64px; padding-top: 16px; font-size: 16px; line-height: 24px; color: var(--text-muted); }
 
 .p3-card .btn.p3-btn {
   width: 100%;
@@ -934,7 +933,7 @@ figure, blockquote { margin: 0; }
   margin-top: 29px;
   padding: 0;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text);
   background: #fff;
   border: 0.6px solid #e8e8e8;
@@ -959,7 +958,7 @@ figure, blockquote { margin: 0; }
 .p3-ic { flex: none; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .p3-label { padding-top: 25px; font-size: 16px; line-height: 22px; color: var(--text); }
 .p3-list { display: flex; flex-direction: column; gap: 11px; margin-top: 16px; }
-.p3-list li { display: flex; gap: 11px; align-items: center; height: 22px; font-size: 16px; line-height: 22px; color: var(--p3-muted); }
+.p3-list li { display: flex; gap: 11px; align-items: center; height: 22px; font-size: 16px; line-height: 22px; color: var(--text); }
 .p3-arrow {
   flex: none;
   width: 17px;
