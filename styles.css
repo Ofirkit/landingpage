@@ -463,6 +463,39 @@ figure, blockquote { margin: 0; }
 .fill-text .w { color: rgba(255, 255, 255, 0.26); transition: color 0.3s ease; }
 .fill-text .w.is-lit { color: var(--text); }
 
+/* About, pinned blur reveal (how-test.html), after the user's reference. The final layout is plain flow:
+   statement, then the framed photo, then the YouTube links. With JS (.ar-on) the section gets an extra
+   --ar-d of scroll room and script.js moves .ar-inner so it stays put while the words sharpen, then lets
+   the text rise and the photo come up to meet it. Without JS or with reduced motion: the plain layout. */
+.ar { padding-block: clamp(96px, 10vw, 140px) var(--section-y); }
+.ar.ar-on { padding-block: 0 calc(var(--ar-d, 0px) + var(--section-y)); }
+.ar.ar-on .ar-inner { padding-top: clamp(96px, 10vw, 140px); will-change: transform; }
+.ar-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ar-text {
+  max-width: 30ch;
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.ar-text .w { display: inline-block; will-change: filter, opacity; }
+.ar-lower { display: flex; flex-direction: column; align-items: center; gap: 32px; margin-top: clamp(48px, 6vw, 80px); }
+.ar.ar-on .ar-lower { will-change: transform; }
+/* The large photo in a soft frame, like the reference */
+.ar-photo {
+  width: min(520px, 100%);
+  margin: 0;
+  padding: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+.ar-photo img { display: block; width: 100%; height: auto; aspect-ratio: 1000 / 1333; object-fit: cover; border-radius: 14px; }
+.ar .yt { align-items: center; margin-top: 0; }
+.ar .yt-links { justify-content: center; }
+section[hidden] { display: none !important; }
+
 .yt { display: flex; flex-direction: column; gap: 12px; margin-top: clamp(-80px, -4vw, -20px); }
 .yt-label { font-size: var(--fs-sm); color: var(--text-dim); }
 .yt-links { display: flex; flex-wrap: wrap; gap: 10px; }

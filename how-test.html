@@ -21,9 +21,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261003j" />
+  <link rel="stylesheet" href="styles.css?v=20261003o" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20261003j" />
+  <link rel="stylesheet" href="light.css?v=20261003o" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=warm and ?tone=neutral for comparison -->
   <link rel="stylesheet" href="tone.css?v=20261003m" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" ? "warm" : "cool")); })();</script>
@@ -110,7 +110,35 @@
     </section>
 
     <!-- ===== About ===== -->
-    <section class="section about" id="about">
+    <!-- About, after the user's reference: the section pins after the hero, a short statement reveals word by word
+         from blurry to sharp as you scroll, then the text rises and the photo comes up to meet it, and the page
+         scrolls on (script.js: "About: pinned blur reveal"). how-test.html?about=current shows the previous About. -->
+    <section class="section ar" id="about">
+      <div class="ar-inner">
+        <div class="container ar-content">
+          <p class="ar-text">היי, אני אופיר. התחלתי כמפתח פרונט-אנד, עברתי לעיצוב מוצר, ואחרי יותר מעשר שנים אני עדיין הכי אוהב לקחת משהו מורכב ולהפוך אותו לפשוט וברור.</p>
+          <div class="ar-lower">
+            <figure class="ar-photo"><img src="assets/ofir-portrait.webp" width="1000" height="1333" loading="lazy" decoding="async"
+                 alt="אופיר, המעצב מאחורי UXUIKIT, מחייך בכיסא המשרדי שלו" /></figure>
+            <div class="yt">
+              <span class="yt-label">מלמד Figma ו-Framer ביוטיוב:</span>
+              <div class="yt-links">
+                <a class="yt-link" href="[קישור]" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.6 12a31 31 0 00.4 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.4-4.8 31 31 0 00-.4-4.8z"/><path d="M9.8 15.1l5.8-3.1-5.8-3.1z" fill="#fff"/></svg>
+                  <span>UXUIKIT</span>
+                </a>
+                <a class="yt-link" href="[קישור]" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.6 12a31 31 0 00.4 4.8 3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.4-4.8 31 31 0 00-.4-4.8z"/><path d="M9.8 15.1l5.8-3.1-5.8-3.1z" fill="#fff"/></svg>
+                  <span>Ophir Creates</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about-current" hidden>
       <div class="container about-grid">
         <img class="about-photo reveal" src="assets/ofir-portrait.webp" width="1000" height="1333" loading="lazy"
              alt="אופיר, המעצב מאחורי UXUIKIT, מחייך בכיסא המשרדי שלו" />
@@ -568,7 +596,8 @@
     if (/[?&]cta=panel\b/.test(location.search)) document.querySelector("#contact").classList.remove("contact-full");
     if (/[?&]pricing=current\b/.test(location.search)) { const a = document.querySelector(".p3"), b = document.querySelector("#packages-current"); a.hidden = true; a.id = "packages-variant"; b.hidden = false; b.id = "packages"; }
     if (/[?&]plancta=bottom\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-cta-bottom");
-    if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");</script>
-  <script src="script.js?v=20261003j" defer></script>
+    if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");
+    if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
+  <script src="script.js?v=20261003o" defer></script>
 </body>
 </html>

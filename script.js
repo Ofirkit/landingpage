@@ -182,6 +182,72 @@ if (rotator && !reduceMotion) {
   }
 }
 
+// About: pinned blur reveal (how-test.html), after the user's reference. The section gets D px of extra
+// scroll room; while the reader scrolls through it, .ar-inner is moved down by the same amount, so the
+// stage looks pinned. Over those D px: a short empty pause, then the words sharpen from blurry and faint
+// one by one, then the text rises from the middle of the screen to its place while the photo comes up to
+// meet it. At the end the offset equals D and the layout is the plain flow, so normal scrolling resumes
+// with no jump. Everything is a function of the scroll position, so scrolling back plays it in reverse.
+const ar = document.querySelector(".ar");
+if (ar && !reduceMotion) {
+  const inner = ar.querySelector(".ar-inner");
+  const text = ar.querySelector(".ar-text");
+  const lower = ar.querySelector(".ar-lower");
+  const words = [];
+  const parts = text.textContent.trim().split(/(\s+)/);
+  text.textContent = "";
+  parts.forEach((part) => {
+    if (/^\s+$/.test(part)) { text.append(part); return; }
+    const w = document.createElement("span");
+    w.className = "w";
+    w.textContent = part;
+    text.append(w);
+    words.push(w);
+  });
+  ar.classList.add("ar-on");
+
+  const PAUSE = 0.14;   // share of D before the first word (about 2-3 wheel steps)
+  const REVEAL = 0.68;  // share of D where the last word is sharp; the rest moves the text and photo into place
+  const SPREAD = 4;     // how many words are sharpening at the same time
+  const BLUR = 12;      // px of blur on a word that hasn't started
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  let D = 0, top = 0, centerShift = 0, vh = 0;
+  const state = words.map(() => -1);
+
+  const update = () => {
+    const pin = Math.min(Math.max(window.scrollY - top, 0), D);
+    const p = D ? pin / D : 1;
+    const settle = ease(clamp01((p - REVEAL) / (1 - REVEAL)));
+    inner.style.transform = `translate3d(0, ${(pin + centerShift * (1 - settle)).toFixed(1)}px, 0)`;
+    lower.style.transform = settle < 1 ? `translate3d(0, ${(vh * (1 - settle)).toFixed(1)}px, 0)` : "";
+    const r = clamp01((p - PAUSE) / (REVEAL - PAUSE)) * (words.length + SPREAD);
+    words.forEach((w, i) => {
+      const t = Math.round(clamp01((r - i) / SPREAD) * 100) / 100;
+      if (t === state[i]) return;
+      state[i] = t;
+      w.style.opacity = t;
+      w.style.filter = t < 1 ? `blur(${(BLUR * (1 - t)).toFixed(1)}px)` : "";
+    });
+  };
+  const measure = () => {
+    vh = window.innerHeight;
+    D = Math.round(vh * 2.2);
+    ar.style.setProperty("--ar-d", `${D}px`);
+    inner.style.transform = "";
+    const box = text.getBoundingClientRect();
+    top = ar.getBoundingClientRect().top + window.scrollY;
+    // where the text sits at rest (the top of the section) vs. the middle of the screen
+    centerShift = (vh - box.height) / 2 - (box.top - ar.getBoundingClientRect().top);
+    update();
+  };
+  measure();
+  document.fonts?.ready.then(measure);
+  window.addEventListener("resize", measure);
+  window.addEventListener("load", measure);
+  window.addEventListener("scroll", update, { passive: true });
+}
+
 // About: fill text on scroll. Words go from gray to white as the block moves up the screen.
 const fillBlocks = document.querySelectorAll(".fill-text");
 if (fillBlocks.length) {
