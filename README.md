@@ -17,6 +17,7 @@ All placeholders are in square brackets in `index.html`. Search for `[` to find 
 - [ ] `[קישור ליומן]` (4×): booking link, used by every booking button (header, hero, packages, final CTA)
 - [ ] `[מייל]`: email address in the final CTA (`mailto:`)
 - [ ] `[קישור]` (2×): YouTube channels UXUIKIT and Ophir Creates
+- [ ] `[דומיין]` (2× per page): the site's address, in `og:url` and the share image `og:image` (`https://[דומיין]/assets/og-image.jpg`). Link previews need the full URL.
 - [x] `[תמונה]` (2×): photos of Shani Gilad and Ran Alter (added: `assets/shani-gilad.webp`, `assets/ran-alter.webp`)
 - [x] `[מחיר]`: package prices (landing 5,000 ₪, full site 15,000 ₪ + 2,800 ₪ per extra page, Figma to live 3,500 ₪ + 1,750 ₪ per extra page)
 - [x] Revision rounds in the FAQ: 2 for the home page, one for the other pages
@@ -27,3 +28,10 @@ All placeholders are in square brackets in `index.html`. Search for `[` to find 
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
+
+## Before publishing
+
+- [ ] Replace `[דומיין]` with the real address (share image and `og:url`).
+- [ ] **Make sure the published page has no `<meta name="robots" content="noindex" />`** (user reminder). `index.html` has none; `light.html` and `how-test.html` carry it because they are experiments. If one of them becomes the live page, remove the tag, or fold it into `index.html` and delete the experiments.
+- [ ] Fill in the booking link, email and YouTube links above.
+- [ ] Test link previews (WhatsApp, LinkedIn post inspector) once the site is live.

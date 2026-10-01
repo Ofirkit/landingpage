@@ -100,13 +100,14 @@ if (reel && !reduceMotion) {
   const at = (p) => `translateY(${(-p / 3) * 100}%)`; // share of the strip's height, so it scales with the font
   let index = 0;
   // every slot always holds a word, so all three are exactly one line tall
-  slots.forEach((el, i) => { el.textContent = words[i === 1 ? 0 : 1 % words.length]; });
+  // words are drawn by CSS from data-t (not text nodes), so search engines read the heading's word only once (from .sr-only)
+  slots.forEach((el, i) => { el.dataset.t = words[i === 1 ? 0 : 1 % words.length]; });
   strip.style.transform = at(1);
   const fit = () => {
     // measure every word in a spare slot and keep the window at the longest
-    const spare = slots[0], keep = spare.textContent;
-    reel.style.width = `${Math.max(...words.map((w) => { spare.textContent = w; return spare.offsetWidth; }))}px`;
-    spare.textContent = keep;
+    const spare = slots[0], keep = spare.dataset.t;
+    reel.style.width = `${Math.max(...words.map((w) => { spare.dataset.t = w; return spare.offsetWidth; }))}px`;
+    spare.dataset.t = keep;
   };
   fit();
   document.fonts?.ready.then(fit);
@@ -118,7 +119,7 @@ if (reel && !reduceMotion) {
       if (document.hidden) return;
       index = (index + 1) % words.length;
       const to = 1 + dir;
-      slots[to].textContent = words[index];
+      slots[to].dataset.t = words[index];
       strip.style.transform = at(to); // the end state underneath the animation
       strip.animate([
         { transform: at(1), easing: "cubic-bezier(0.45, 0, 0.55, 1)" },
@@ -128,7 +129,7 @@ if (reel && !reduceMotion) {
         { transform: at(to) },
       ], { duration: DURATION }).onfinish = () => {
         // move the word back to the middle slot (same word, same spot, so nothing visibly changes)
-        slots[1].textContent = words[index];
+        slots[1].dataset.t = words[index];
         strip.style.transform = at(1);
       };
       dir = -dir;
@@ -149,7 +150,7 @@ if (rotator && !reduceMotion) {
       const c = document.createElement("span");
       c.className = "char";
       c.style.setProperty("--i", n);
-      c.textContent = ch;
+      c.dataset.t = ch; // drawn by CSS, so the letters aren't page text (see the reel note above)
       wordEl.appendChild(c);
     });
     rotator.appendChild(wordEl);

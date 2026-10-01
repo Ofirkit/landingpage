@@ -310,6 +310,9 @@ figure, blockquote { margin: 0; }
   /* Resize to the new word only after the old one has left */
   transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1) 0.45s;
 }
+/* The rotating words and letters are drawn from data-t, not written as text: the heading's words are
+   in the .sr-only line once, so screen readers and search engines don't read them twice */
+.rotator [data-t]::before { content: attr(data-t); }
 .rotator-word { position: absolute; top: 0; right: 0; white-space: nowrap; }
 .rotator-word.is-current { position: relative; }
 .rotator .char {
