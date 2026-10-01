@@ -1,55 +1,51 @@
 /* ==========================================================
    Tone test (how-test.html only, loaded after light.css).
    A tinted black-and-white scale instead of pure neutral grays, for a more premium feel.
+   Tint strength raised ~2-3x after the user's first look ("I don't see much difference").
    Warm (stone/paper) is the default here; how-test.html?tone=cool shows a slate version and
    ?tone=neutral the current colors (no class, so none of this applies).
    Rules: every color comes from the scale below, nothing is pure #000 or #fff, and surfaces
    step ~4-6% apart so the layers read as deliberate.
    ========================================================== */
 :root.tone-warm {
-  /* light surfaces */
-  --t-paper: #f3f2ee;      /* page */
-  --t-surface: #fbfaf7;    /* cards, raised */
-  --t-line: #e3e1db;       /* card borders, hairlines */
-  --t-rule: #eae8e2;       /* dividers */
-  /* ink */
-  --t-ink: #13120f;
-  --t-ink-hover: #26241f;
-  --t-muted: #56534c;
-  --t-dim: #85817a;
-  /* dark surfaces */
-  --t-d0: #0e0d0b;         /* black bands: testimonials, final CTA */
-  --t-d1: #171613;         /* black cards */
-  --t-d2: #22201c;         /* raised / gradient tops */
-  --t-d3: #2e2c27;         /* strong borders, hover */
-  /* text on dark */
-  --t-on-dark: #f2f0ea;
-  --t-on-dark-muted: #b6b2a9;
-  --t-on-dark-dim: #8d8980;
-  /* rgb triplets for the alpha uses */
-  --t-ink-rgb: 19, 18, 15;
-  --t-paper-rgb: 243, 242, 238;
-  --t-on-dark-rgb: 242, 240, 234;
+  --t-paper: #eeeae2;
+  --t-surface: #f8f6f1;
+  --t-line: #ddd7cc;
+  --t-rule: #e6e1d8;
+  --t-ink: #17140f;
+  --t-ink-hover: #2b261f;
+  --t-muted: #5c554a;
+  --t-dim: #8b8478;
+  --t-d0: #13110d;
+  --t-d1: #1d1a15;
+  --t-d2: #29251e;
+  --t-d3: #36312a;
+  --t-on-dark: #f3eee4;
+  --t-on-dark-muted: #bcb4a6;
+  --t-on-dark-dim: #918a7d;
+  --t-ink-rgb: 23, 20, 15;
+  --t-paper-rgb: 238, 234, 226;
+  --t-on-dark-rgb: 243, 238, 228;
 }
 :root.tone-cool {
-  --t-paper: #f2f3f5;
-  --t-surface: #fafbfc;
-  --t-line: #e0e3e8;
-  --t-rule: #e8eaee;
-  --t-ink: #0f1115;
-  --t-ink-hover: #222630;
-  --t-muted: #4f545d;
-  --t-dim: #80858f;
-  --t-d0: #0b0d10;
-  --t-d1: #14171c;
-  --t-d2: #1e2228;
-  --t-d3: #2a2f37;
-  --t-on-dark: #eef1f4;
-  --t-on-dark-muted: #aeb3bb;
-  --t-on-dark-dim: #878c95;
-  --t-ink-rgb: 15, 17, 21;
-  --t-paper-rgb: 242, 243, 245;
-  --t-on-dark-rgb: 238, 241, 244;
+  --t-paper: #edf0f4;
+  --t-surface: #f7f9fb;
+  --t-line: #d9dee6;
+  --t-rule: #e3e7ed;
+  --t-ink: #0e1219;
+  --t-ink-hover: #222937;
+  --t-muted: #4b5462;
+  --t-dim: #7d8696;
+  --t-d0: #0a0e14;
+  --t-d1: #121821;
+  --t-d2: #1b222d;
+  --t-d3: #28303d;
+  --t-on-dark: #edf1f6;
+  --t-on-dark-muted: #aab3c0;
+  --t-on-dark-dim: #848d9b;
+  --t-ink-rgb: 14, 18, 25;
+  --t-paper-rgb: 237, 240, 244;
+  --t-on-dark-rgb: 237, 241, 246;
 }
 
 /* ---- Page tokens ---- */
