@@ -21,9 +21,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261003i" />
+  <link rel="stylesheet" href="styles.css?v=20261003j" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20261003i" />
+  <link rel="stylesheet" href="light.css?v=20261003j" />
+  <!-- Tone test: a tinted black-and-white scale. Warm by default; ?tone=cool for slate, ?tone=neutral for the current pure grays -->
+  <link rel="stylesheet" href="tone.css?v=20261003k" />
+  <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "warm"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "cool" ? "cool" : "warm")); })();</script>
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
@@ -566,6 +569,6 @@
     if (/[?&]pricing=current\b/.test(location.search)) { const a = document.querySelector(".p3"), b = document.querySelector("#packages-current"); a.hidden = true; a.id = "packages-variant"; b.hidden = false; b.id = "packages"; }
     if (/[?&]plancta=bottom\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-cta-bottom");
     if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");</script>
-  <script src="script.js?v=20261003i" defer></script>
+  <script src="script.js?v=20261003j" defer></script>
 </body>
 </html>
