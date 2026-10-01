@@ -208,11 +208,12 @@ if (ar && !reduceMotion) {
   ar.classList.add("ar-on");
 
   const START = 0.88;   // the first word starts when the text's middle is at 88% of the screen height
-  const REVEAL = 0.55;  // share of the pin by which the last word is sharp
-  const SETTLE = 0.62;  // share of the pin where the photo starts rising (it arrives at the end)
+  const REVEAL = 0.6;   // share of the pin by which the last word is switched on
+  const SETTLE = 0.66;  // share of the pin where the photo starts rising (it arrives at the end)
+  const PEEK = 0.94;    // while the words reveal, the photo's top peeks in at 94% of the screen height (reference)
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const ease = (t) => 1 - Math.pow(1 - t, 3);
-  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null;
+  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null, peek = 0;
   const state = words.map(() => null);
 
   const update = () => {
@@ -230,13 +231,13 @@ if (ar && !reduceMotion) {
       state[i] = on;
       w.classList.toggle("is-on", on);
     });
-    // photo: held below the screen until SETTLE, then rises into place by the end of the pin
+    // photo: peeks in at the bottom of the screen until SETTLE, then rises into place by the end of the pin
     const settle = ease(clamp01((s / D - SETTLE) / (1 - SETTLE)));
-    lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(vh * 0.9 * (1 - settle))}px, 0)` : "";
+    lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(peek * (1 - settle))}px, 0)` : "";
   };
   const measure = () => {
     vh = window.innerHeight;
-    D = Math.round(vh * 1.3);
+    D = Math.round(vh * 1.8);
     const textMid = text.offsetTop + text.offsetHeight / 2;  // inside the stage
     const stickyTop = Math.round(vh / 2 - textMid);           // the text's middle pins at the middle of the screen
     stage.style.top = `${stickyTop}px`;
@@ -244,6 +245,8 @@ if (ar && !reduceMotion) {
     track.style.height = `${pad + stage.offsetHeight + D}px`; // the stage's height plus D of pinned scrolling
     const stageDocTop = track.getBoundingClientRect().top + window.scrollY + pad;
     pinAt = stageDocTop - stickyTop;
+    // how far below its resting place the photo waits so that it just peeks in at PEEK while pinned
+    peek = Math.max(0, Math.round(PEEK * vh - (stickyTop + lower.offsetTop)));
     lead = (START - 0.5) * vh;
     lastY = null;
     update();
