@@ -19,7 +19,7 @@ All placeholders are in square brackets in `index.html`. Search for `[` to find 
 - [ ] `[קישור]` (2×): YouTube channels UXUIKIT and Ophir Creates
 - [x] `[תמונה]` (2×): photos of Shani Gilad and Ran Alter (added: `assets/shani-gilad.webp`, `assets/ran-alter.webp`)
 - [x] `[מחיר]`: package prices (landing 5,000 ₪, full site 15,000 ₪ + 2,800 ₪ per extra page, Figma to live 3,500 ₪ + 1,750 ₪ per extra page)
-- [ ] `[מספר]` (2×): revision rounds in the FAQ (the full-site page count is done: home page + up to 3 inner pages)
+- [x] Revision rounds in the FAQ: 2 for the home page, one for the other pages
 
 ## Local preview
 

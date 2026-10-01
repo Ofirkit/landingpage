@@ -78,3 +78,6 @@
    above, so the reel's top is clipped at 0.22em: the tops of ל sit 0.25em down at rest and the line above
    ends at 0.11em (measured with the real font), so passing letters stay clear of the line above. */
 .hero .rotator-reel { clip-path: inset(0.22em 0 0 0); }
+
+/* Pricing: the Figma block stays lighter than the white main cards (page-colored fill) */
+.plan.plan-figma { background: var(--bg); }
