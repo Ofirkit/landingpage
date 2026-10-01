@@ -887,63 +887,66 @@ figure, blockquote { margin: 0; }
   --p3-muted: #666;
 }
 .p3::before { display: none; }
-.p3-wrap { max-width: calc(1140px + 2 * var(--gutter)); } /* the frame's 1140px content width */
+/* User's measurements (2026-10-03): cards 475px wide and 720px tall, names 24px, prices 40px semibold,
+   all other text 16px, 54px buttons. The rest of the frame's spacing is scaled by the same ~1.33 */
+.p3-wrap { max-width: calc(3 * 475px + 2 * 32px + 2 * var(--gutter)); }
 /* Intro: start-aligned, offset like the frame (an 88px label + a 197px gap before the copy) */
 .p3-head { padding-inline-start: 285px; margin-bottom: 64px; }
 .p3-head h2 { font-size: 50px; font-weight: 400; line-height: 54px; letter-spacing: -0.02em; color: var(--text); }
 .p3-head p { max-width: 440px; margin-top: 23px; font-size: 15.5px; line-height: 21px; color: var(--p3-muted); }
-.p3-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; align-items: stretch; }
+.p3-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 475px)); justify-content: center; gap: 32px; align-items: stretch; }
 .p3-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 29px 27px 27px;
+  min-height: 720px;
+  padding: 38px 36px 36px;
   background: var(--bg);
   border: 1px solid var(--p3-line);
-  border-radius: 19px;
+  border-radius: 25px;
 }
 .p3-featured { background: #fff; border-color: #fff; }
 .p3-badge {
   position: absolute;
   top: -1px;
-  inset-inline-end: 26px;
+  inset-inline-end: 34px;
   display: flex;
   align-items: center;
-  height: 29px;
-  padding-inline: 12px;
-  font-size: 12px;
+  height: 38px;
+  padding-inline: 16px;
+  font-size: 16px;
   font-weight: 700;
   color: #fff;
   background: var(--ink);
-  border-radius: 2px 2px 9px 9px;
-  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.14);
+  border-radius: 3px 3px 12px 12px;
+  box-shadow: 0 6px 11px rgba(0, 0, 0, 0.14);
 }
-.p3-card h3 { font-size: 18px; font-weight: 400; line-height: 22px; color: var(--p3-muted); }
-.p3-price { display: flex; align-items: center; gap: 6px; padding-top: 18px; }
-.p3-price strong { font-size: 31px; font-weight: 500; line-height: 38px; letter-spacing: -0.03em; color: var(--text); } /* the reference's medium, tightly set price (500 is loaded on how-test only) */
-.p3-price span { font-size: 14px; color: var(--p3-muted); }
+.p3-card h3 { font-size: 24px; font-weight: 400; line-height: 30px; color: var(--p3-muted); }
+.p3-price { display: flex; align-items: center; gap: 8px; padding-top: 24px; }
+.p3-price strong { font-size: 40px; font-weight: 600; line-height: 50px; letter-spacing: -0.03em; color: var(--text); } /* semibold (600 is loaded on how-test only) */
+.p3-price span { font-size: 16px; color: var(--p3-muted); }
 /* Two lines of room, so every button sits at the same height */
-.p3-desc { min-height: 50px; padding-top: 12px; font-size: 12.5px; line-height: 17px; color: var(--p3-muted); }
+.p3-desc { min-height: 64px; padding-top: 16px; font-size: 16px; line-height: 24px; color: var(--p3-muted); }
 
 .p3-card .btn.p3-btn {
   width: 100%;
-  height: 40px;
-  margin-top: 22px;
+  height: 54px;
+  margin-top: 29px;
   padding: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   color: var(--text);
   background: #fff;
   border: 0.6px solid #e8e8e8;
-  border-radius: 9px;
+  border-radius: 12px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 .p3-card .btn.p3-btn:hover { background: #fafafa; }
 .p3-featured .btn.p3-btn { color: #fff; background: linear-gradient(to bottom, #222, #000); border-color: #242424; }
 .p3-featured .btn.p3-btn:hover { background: linear-gradient(to bottom, #333, #111); }
 
-/* Rows have the frame's fixed heights (18px facts, 15px items); Hebrew's taller default line box added ~16px per card */
-.p3-facts { position: relative; display: flex; flex-direction: column; gap: 9px; padding-top: 28px; padding-bottom: 18px; }
+/* Fixed row heights (24px facts, 22px items): Hebrew's taller default line box would add height per row */
+.p3-facts { position: relative; display: flex; flex-direction: column; gap: 12px; padding-top: 37px; padding-bottom: 24px; }
 .p3-facts::after { /* the reference's fine dashed divider */
   content: "";
   position: absolute;
@@ -952,15 +955,15 @@ figure, blockquote { margin: 0; }
   height: 1px;
   background: repeating-linear-gradient(to left, #e2e2e2 0 3px, transparent 3px 6px);
 }
-.p3-facts li { display: flex; gap: 10px; align-items: center; height: 18px; font-size: 12.5px; line-height: 18px; color: var(--text); }
-.p3-ic { flex: none; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.p3-label { padding-top: 19px; font-size: 11px; line-height: 14px; color: var(--text); }
-.p3-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-.p3-list li { display: flex; gap: 8px; align-items: center; height: 15px; font-size: 12.5px; line-height: 15px; color: var(--p3-muted); }
+.p3-facts li { display: flex; gap: 12px; align-items: center; height: 24px; font-size: 16px; line-height: 24px; color: var(--text); }
+.p3-ic { flex: none; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.p3-label { padding-top: 25px; font-size: 16px; line-height: 22px; color: var(--text); }
+.p3-list { display: flex; flex-direction: column; gap: 11px; margin-top: 16px; }
+.p3-list li { display: flex; gap: 11px; align-items: center; height: 22px; font-size: 16px; line-height: 22px; color: var(--p3-muted); }
 .p3-arrow {
   flex: none;
-  width: 13px;
-  height: 13px;
+  width: 17px;
+  height: 17px;
   fill: none;
   stroke: var(--text);
   stroke-width: 2;
@@ -976,7 +979,11 @@ figure, blockquote { margin: 0; }
 @media (max-width: 960px) {
   .p3-head { padding-inline-start: 0; margin-bottom: 40px; }
   .p3-head h2 { font-size: 40px; line-height: 44px; }
-  .p3-grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; gap: 20px; }
+}
+/* Below ~1180px three 16px-text cards get too narrow: stack them at their full 475px width */
+@media (max-width: 1180px) {
+  .p3-grid { grid-template-columns: minmax(0, 475px); gap: 24px; }
+  .p3-card { min-height: 0; }
 }
 
 /* ==========================================================
