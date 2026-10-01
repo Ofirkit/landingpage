@@ -10,6 +10,14 @@ Context for continuing work without the original chat. `README.md` holds the pla
 - Stack: static `index.html` + `styles.css` + `script.js`. No build step and no framework. Lenis 1.3.26 (MIT) is vendored in `assets/vendor/`.
 - Preview locally: `python3 -m http.server`. Work happens on branch `claude/hebrew-design-landing-page-stb5yj`.
 
+## 1a. Sanity (blog content)
+
+- Project **UXUIKIT** `wrr8h8yb`, dataset `production` (public read). The Studio lives in **`studio/`** (code-managed, its own `package.json`; the site itself still has no build step).
+- **The schema files in `studio/schemaTypes/` are the source of truth.** Change the schema there, then deploy it from `studio/` with `npx sanity schemas deploy` (needs `npx sanity login`; the sandbox can't log in, so the user runs it locally). Don't use the MCP `deploy_schema` tool anymore. The `post` type was first set up through MCP; that copy is to be removed once the Studio's schema is deployed.
+- Content created through the Sanity MCP tools stays a **draft** until the user approves publishing. One draft post exists: "האתר שלכם הוא לא קישוט יקר" (`website-is-not-decoration`).
+- Run the Studio with `cd studio && npm run dev` (localhost:3333). In the sandbox, `sanity build` needs `--no-auto-updates` (the update CDN is blocked).
+- Showing posts on the site is not built yet; plan to read published posts from the public API with a small script (get the user's OK on the plan first).
+
 ## 2. Structure (all in `index.html`, top to bottom)
 
 | Section | id / class | Notes |

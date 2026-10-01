@@ -1,0 +1,12 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+.sanity
+
+# Logs and local env
+*.log
+.env*
+*.tsbuildinfo
+schema.json
