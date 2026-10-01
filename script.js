@@ -210,26 +210,25 @@ if (ar && !reduceMotion) {
   const START = 0.88;   // the first word starts when the text's middle is at 88% of the screen height
   const REVEAL = 0.55;  // share of the pin by which the last word is sharp
   const SETTLE = 0.62;  // share of the pin where the photo starts rising (it arrives at the end)
-  const SPREAD = 4;     // how many words are sharpening at the same time
-  const BLUR = 12;      // px of blur on a word that hasn't started
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null;
-  const state = words.map(() => -1);
+  const state = words.map(() => null);
 
   const update = () => {
     const y = window.scrollY;
     if (y === lastY) return;
     lastY = y;
     const s = y - pinAt; // < 0 before the pin, 0..D while pinned
-    // words: from START (before the pin) to REVEAL (inside the pin)
-    const r = clamp01((s + lead) / (lead + REVEAL * D)) * (words.length + SPREAD);
+    // words: the scroll decides which words are switched on (from START, before the pin, to REVEAL,
+    // inside the pin); each switched-on word then sharpens on its own via a CSS transition, so a word never
+    // stays half blurred when the reader stops mid-scroll (user). Scrolling back switches words off again.
+    const r = clamp01((s + lead) / (lead + REVEAL * D)) * words.length;
     words.forEach((w, i) => {
-      const t = Math.round(clamp01((r - i) / SPREAD) * 50) / 50;
-      if (t === state[i]) return;
-      state[i] = t;
-      w.style.opacity = t;
-      w.style.filter = t < 1 ? `blur(${(BLUR * (1 - t)).toFixed(1)}px)` : "none";
+      const on = r > i;
+      if (on === state[i]) return;
+      state[i] = on;
+      w.classList.toggle("is-on", on);
     });
     // photo: held below the screen until SETTLE, then rises into place by the end of the pin
     const settle = ease(clamp01((s / D - SETTLE) / (1 - SETTLE)));

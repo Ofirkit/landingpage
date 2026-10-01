@@ -482,7 +482,16 @@ figure, blockquote { margin: 0; }
   letter-spacing: -0.01em;
   color: var(--text);
 }
-.ar-text .w { display: inline-block; will-change: filter, opacity; }
+/* Each word starts blurred and faint; script.js switches it on (.is-on) when the scroll reaches it and the
+   transition finishes the sharpening by itself, so it never stays half blurred (and reverses the same way) */
+.ar-text .w {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.6s ease, filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: filter, opacity;
+}
+.ar-text .w.is-on { opacity: 1; filter: blur(0); }
 .ar-lower { display: flex; flex-direction: column; align-items: center; gap: 32px; margin-top: clamp(48px, 6vw, 80px); }
 .ar.ar-on .ar-lower { will-change: transform; }
 /* The large photo in a soft frame, like the reference */
