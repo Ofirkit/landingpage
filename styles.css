@@ -920,7 +920,7 @@ figure, blockquote { margin: 0; }
 }
 .p3-card h3 { font-size: 18px; font-weight: 400; line-height: 22px; color: var(--p3-muted); }
 .p3-price { display: flex; align-items: center; gap: 6px; padding-top: 18px; }
-.p3-price strong { font-size: 31px; font-weight: 400; line-height: 38px; color: var(--text); }
+.p3-price strong { font-size: 31px; font-weight: 500; line-height: 38px; letter-spacing: -0.03em; color: var(--text); } /* the reference's medium, tightly set price (500 is loaded on how-test only) */
 .p3-price span { font-size: 14px; color: var(--p3-muted); }
 /* Two lines of room, so every button sits at the same height */
 .p3-desc { min-height: 50px; padding-top: 12px; font-size: 12.5px; line-height: 17px; color: var(--p3-muted); }
@@ -942,12 +942,21 @@ figure, blockquote { margin: 0; }
 .p3-featured .btn.p3-btn { color: #fff; background: linear-gradient(to bottom, #222, #000); border-color: #242424; }
 .p3-featured .btn.p3-btn:hover { background: linear-gradient(to bottom, #333, #111); }
 
-.p3-facts { display: flex; flex-direction: column; gap: 9px; padding-top: 28px; padding-bottom: 18px; border-bottom: 1px solid var(--p3-rule); }
-.p3-facts li { display: flex; gap: 10px; align-items: center; min-height: 18px; font-size: 12.5px; color: var(--text); }
+/* Rows have the frame's fixed heights (18px facts, 15px items); Hebrew's taller default line box added ~16px per card */
+.p3-facts { position: relative; display: flex; flex-direction: column; gap: 9px; padding-top: 28px; padding-bottom: 18px; }
+.p3-facts::after { /* the reference's fine dashed divider */
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: repeating-linear-gradient(to left, #e2e2e2 0 3px, transparent 3px 6px);
+}
+.p3-facts li { display: flex; gap: 10px; align-items: center; height: 18px; font-size: 12.5px; line-height: 18px; color: var(--text); }
 .p3-ic { flex: none; width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .p3-label { padding-top: 19px; font-size: 11px; line-height: 14px; color: var(--text); }
 .p3-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-.p3-list li { display: flex; gap: 8px; align-items: center; min-height: 15px; font-size: 12.5px; line-height: 15px; color: var(--p3-muted); }
+.p3-list li { display: flex; gap: 8px; align-items: center; height: 15px; font-size: 12.5px; line-height: 15px; color: var(--p3-muted); }
 .p3-arrow {
   flex: none;
   width: 13px;
