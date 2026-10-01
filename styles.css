@@ -464,12 +464,15 @@ figure, blockquote { margin: 0; }
 .fill-text .w.is-lit { color: var(--text); }
 
 /* About, pinned blur reveal (how-test.html), after the user's reference. The final layout is plain flow:
-   statement, then the framed photo, then the YouTube links. With JS (.ar-on) the section gets an extra
-   --ar-d of scroll room and script.js moves .ar-inner so it stays put while the words sharpen, then lets
-   the text rise and the photo come up to meet it. Without JS or with reduced motion: the plain layout. */
+   statement, then the framed photo, then the YouTube links. With JS (.ar-on) the stage is sticky inside a
+   taller track, so it pins with the text in the middle of the screen while the words sharpen and the photo
+   comes up to meet it (script.js). Without JS or with reduced motion: the plain layout. */
 .ar { padding-block: clamp(96px, 10vw, 140px) var(--section-y); }
-.ar.ar-on { padding-block: 0 calc(var(--ar-d, 0px) + var(--section-y)); }
-.ar.ar-on .ar-inner { padding-top: clamp(96px, 10vw, 140px); will-change: transform; }
+/* With JS: the text sits ~100px under the hero (user); .ar-inner is the scroll track (its height is set by
+   script.js) and .ar-content the sticky stage; overflow: clip keeps the lowered photo from spilling out */
+.ar.ar-on { padding-top: 0; overflow: clip; }
+.ar.ar-on .ar-inner { padding-top: 100px; }
+.ar.ar-on .ar-content { position: sticky; }
 .ar-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .ar-text {
   max-width: 30ch;

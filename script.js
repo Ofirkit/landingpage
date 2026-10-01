@@ -182,15 +182,16 @@ if (rotator && !reduceMotion) {
   }
 }
 
-// About: pinned blur reveal (how-test.html), after the user's reference. The section gets D px of extra
-// scroll room; while the reader scrolls through it, .ar-inner is moved down by the same amount, so the
-// stage looks pinned. Over those D px: a short empty pause, then the words sharpen from blurry and faint
-// one by one, then the text rises from the middle of the screen to its place while the photo comes up to
-// meet it. At the end the offset equals D and the layout is the plain flow, so normal scrolling resumes
-// with no jump. Everything is a function of the scroll position, so scrolling back plays it in reverse.
+// About: pinned blur reveal (how-test.html), after the user's reference. The statement sits ~100px under
+// the hero and starts sharpening as soon as it scrolls into view. When it reaches the middle of the screen
+// the stage pins (position: sticky, so the browser keeps it perfectly in step with the scroll) for D px:
+// the rest of the words sharpen, then the photo comes up to meet the text, then the page scrolls on.
+// JS only sets the blur/opacity of the words and the photo's offset, from the scroll position, so
+// scrolling back plays it in reverse. Updates run on Lenis's own frame (same frame as the scroll).
 const ar = document.querySelector(".ar");
 if (ar && !reduceMotion) {
-  const inner = ar.querySelector(".ar-inner");
+  const track = ar.querySelector(".ar-inner");
+  const stage = ar.querySelector(".ar-content");
   const text = ar.querySelector(".ar-text");
   const lower = ar.querySelector(".ar-lower");
   const words = [];
@@ -206,45 +207,53 @@ if (ar && !reduceMotion) {
   });
   ar.classList.add("ar-on");
 
-  const PAUSE = 0.14;   // share of D before the first word (about 2-3 wheel steps)
-  const REVEAL = 0.68;  // share of D where the last word is sharp; the rest moves the text and photo into place
+  const START = 0.88;   // the first word starts when the text's middle is at 88% of the screen height
+  const REVEAL = 0.55;  // share of the pin by which the last word is sharp
+  const SETTLE = 0.62;  // share of the pin where the photo starts rising (it arrives at the end)
   const SPREAD = 4;     // how many words are sharpening at the same time
   const BLUR = 12;      // px of blur on a word that hasn't started
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const ease = (t) => 1 - Math.pow(1 - t, 3);
-  let D = 0, top = 0, centerShift = 0, vh = 0;
+  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null;
   const state = words.map(() => -1);
 
   const update = () => {
-    const pin = Math.min(Math.max(window.scrollY - top, 0), D);
-    const p = D ? pin / D : 1;
-    const settle = ease(clamp01((p - REVEAL) / (1 - REVEAL)));
-    inner.style.transform = `translate3d(0, ${(pin + centerShift * (1 - settle)).toFixed(1)}px, 0)`;
-    lower.style.transform = settle < 1 ? `translate3d(0, ${(vh * (1 - settle)).toFixed(1)}px, 0)` : "";
-    const r = clamp01((p - PAUSE) / (REVEAL - PAUSE)) * (words.length + SPREAD);
+    const y = window.scrollY;
+    if (y === lastY) return;
+    lastY = y;
+    const s = y - pinAt; // < 0 before the pin, 0..D while pinned
+    // words: from START (before the pin) to REVEAL (inside the pin)
+    const r = clamp01((s + lead) / (lead + REVEAL * D)) * (words.length + SPREAD);
     words.forEach((w, i) => {
-      const t = Math.round(clamp01((r - i) / SPREAD) * 100) / 100;
+      const t = Math.round(clamp01((r - i) / SPREAD) * 50) / 50;
       if (t === state[i]) return;
       state[i] = t;
       w.style.opacity = t;
-      w.style.filter = t < 1 ? `blur(${(BLUR * (1 - t)).toFixed(1)}px)` : "";
+      w.style.filter = t < 1 ? `blur(${(BLUR * (1 - t)).toFixed(1)}px)` : "none";
     });
+    // photo: held below the screen until SETTLE, then rises into place by the end of the pin
+    const settle = ease(clamp01((s / D - SETTLE) / (1 - SETTLE)));
+    lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(vh * 0.9 * (1 - settle))}px, 0)` : "";
   };
   const measure = () => {
     vh = window.innerHeight;
-    D = Math.round(vh * 2.2);
-    ar.style.setProperty("--ar-d", `${D}px`);
-    inner.style.transform = "";
-    const box = text.getBoundingClientRect();
-    top = ar.getBoundingClientRect().top + window.scrollY;
-    // where the text sits at rest (the top of the section) vs. the middle of the screen
-    centerShift = (vh - box.height) / 2 - (box.top - ar.getBoundingClientRect().top);
+    D = Math.round(vh * 1.3);
+    const textMid = text.offsetTop + text.offsetHeight / 2;  // inside the stage
+    const stickyTop = Math.round(vh / 2 - textMid);           // the text's middle pins at the middle of the screen
+    stage.style.top = `${stickyTop}px`;
+    const pad = parseFloat(getComputedStyle(track).paddingTop);
+    track.style.height = `${pad + stage.offsetHeight + D}px`; // the stage's height plus D of pinned scrolling
+    const stageDocTop = track.getBoundingClientRect().top + window.scrollY + pad;
+    pinAt = stageDocTop - stickyTop;
+    lead = (START - 0.5) * vh;
+    lastY = null;
     update();
   };
   measure();
   document.fonts?.ready.then(measure);
-  window.addEventListener("resize", measure);
   window.addEventListener("load", measure);
+  window.addEventListener("resize", measure);
+  if (window.lenis) window.lenis.on("scroll", update);
   window.addEventListener("scroll", update, { passive: true });
 }
 
