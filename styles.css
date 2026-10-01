@@ -954,11 +954,11 @@ figure, blockquote { margin: 0; }
   height: 1px;
   background: repeating-linear-gradient(to left, #e2e2e2 0 3px, transparent 3px 6px);
 }
-.p3-facts li { display: flex; gap: 12px; align-items: center; height: 24px; font-size: 16px; line-height: 24px; color: var(--text); }
+.p3-facts li { display: flex; gap: 12px; align-items: center; min-height: 24px; font-size: 16px; line-height: 24px; color: var(--text); }
 .p3-ic { flex: none; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .p3-label { padding-top: 25px; font-size: 16px; line-height: 22px; color: var(--text); }
 .p3-list { display: flex; flex-direction: column; gap: 11px; margin-top: 16px; }
-.p3-list li { display: flex; gap: 11px; align-items: center; height: 22px; font-size: 16px; line-height: 22px; color: var(--text); }
+.p3-list li { display: flex; gap: 11px; align-items: flex-start; min-height: 22px; font-size: 16px; line-height: 22px; color: var(--text); }
 .p3-arrow {
   flex: none;
   width: 17px;
@@ -968,8 +968,13 @@ figure, blockquote { margin: 0; }
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transform: scaleX(-1); /* ↗ becomes ↖: "forward" in RTL */
+  margin-top: 2.5px; /* centers the icon on the first 22px line, also when an item wraps */
 }
+/* Plus icons by default (user: "try a version with plus icons"); ?icons=arrow brings back the reference's arrows */
+.p3-arrow .i-arrow { display: none; }
+.p3-arrows .p3-arrow .i-arrow { display: inline; }
+.p3-arrows .p3-arrow .i-plus { display: none; }
+.p3-arrows .p3-arrow { transform: scaleX(-1); } /* ↗ becomes ↖: "forward" in RTL */
 
 /* ?plancta=bottom: the button moves under the list, level across the cards */
 .p3-cta-bottom .btn.p3-btn { order: 1; margin-top: auto; }
@@ -983,6 +988,10 @@ figure, blockquote { margin: 0; }
 @media (max-width: 1180px) {
   .p3-grid { grid-template-columns: minmax(0, 475px); gap: 24px; }
   .p3-card { min-height: 0; }
+}
+/* Phones: the tab and the full-width tier name were touching (user); the name drops below the tab */
+@media (max-width: 600px) {
+  .p3-featured { padding-top: 64px; }
 }
 
 /* ==========================================================
