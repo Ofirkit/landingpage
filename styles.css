@@ -552,7 +552,7 @@ section[hidden] { display: none !important; }
   border: 1px solid var(--border);
   border-radius: 20px;
 }
-.how3-card h3 { font-size: var(--fs-h4); }
+.how3-card h3 { order: -1; font-size: var(--fs-h4); } /* the drawing comes first in the markup; cards show the title above it */
 .how3-card p { max-width: 36ch; font-size: var(--fs-body); color: var(--text-muted); }
 .how3-card { transition: border-color 0.3s var(--ease); }
 .how3-card:hover { border-color: var(--border-strong); }
@@ -599,6 +599,23 @@ section[hidden] { display: none !important; }
   color: var(--text);
   background: var(--card-bg);
 }
+/* No cards (the default on how-test.html; ?how=cards shows the cards): the drawing on top,
+   then the title, then the description, centered on the page */
+.section-head-bare { padding-top: 0; border-top: 0; }
+.how3-open { gap: clamp(40px, 5vw, 80px); }
+.how3-open .how3-card {
+  --card-bg: var(--bg); /* the weave gaps and open steps cut in the page color */
+  min-height: 0;
+  padding: 0;
+  align-items: center;
+  text-align: center;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+.how3-open .how3-card h3 { order: 0; }
+.how3-open .how3-art { flex: none; min-height: 0; aspect-ratio: 300 / 240; max-width: 280px; margin: -24px auto 0; } /* the viewBox has ~50px of air around the shapes */
+.how3-open .how3-card p { margin-top: 12px; }
 
 /* ==========================================================
    Testimonials
