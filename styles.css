@@ -616,6 +616,20 @@ section[hidden] { display: none !important; }
 .how3-open .how3-card h3 { order: 0; }
 .how3-open .how3-art { flex: none; min-height: 0; aspect-ratio: 300 / 240; max-width: 280px; margin: -24px auto 0; } /* the viewBox has ~50px of air around the shapes */
 .how3-open .how3-card p { margin-top: 12px; }
+/* Light outlined cards, styled like the pricing cards (.p3-card): page-colored fill, hairline border,
+   25px radius; the drawing on top, then the title and description, start-aligned like the pricing text */
+.how3-soft { gap: 32px; }
+.how3-soft .how3-card {
+  align-items: stretch;
+  padding: 38px 36px 40px;
+  text-align: start;
+  border: 1px solid var(--p3-line, #e2e2e2);
+  border-radius: 25px;
+}
+.how3-soft .how3-card h3 { font-size: 24px; line-height: 30px; letter-spacing: -0.01em; }
+.how3-soft .how3-card p { max-width: none; margin-top: 12px; line-height: 24px; }
+.how3-soft .how3-art { margin: -8px auto 8px; }
+@media (max-width: 600px) { .how3-soft .how3-card { padding: 28px 24px 32px; } }
 
 /* ==========================================================
    Testimonials

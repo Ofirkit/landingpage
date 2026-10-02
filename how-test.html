@@ -21,11 +21,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261003x" />
+  <link rel="stylesheet" href="styles.css?v=20261003y" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
-  <link rel="stylesheet" href="light.css?v=20261003x" />
+  <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=warm and ?tone=neutral for comparison -->
-  <link rel="stylesheet" href="tone.css?v=20261003m" />
+  <link rel="stylesheet" href="tone.css?v=20261003n" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" ? "warm" : "cool")); })();</script>
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
@@ -178,9 +178,9 @@
              1: a dashed circle (the design) joined by one straight line to the solid circle (the live site).
              2: four circles for the four process steps, filled up to the current one.
              3: two equal rings slide in and link, woven over and under: partners, neither on top. -->
-        <ul class="how3 how3-open">
-          <!-- No cards (default): drawing, title, description on the page. ?how=cards shows the black cards,
-               ?how=cards&white the earlier white ones -->
+        <ul class="how3 how3-open how3-soft">
+          <!-- Default: drawing, title, description in light outlined cards styled like the pricing cards.
+               ?how=open drops the cards, ?how=cards shows the black cards, ?how=cards&white the earlier white ones -->
           <li class="how3-card reveal">
             <svg class="how3-art art-path" viewBox="0 0 300 240" aria-hidden="true">
               <circle class="ln dash" cx="230" cy="152" r="38" />
@@ -595,13 +595,14 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script>if (/[?&]how=cards\b/.test(location.search)) { var h3l = document.querySelector(".how3"); h3l.classList.remove("how3-open"); if (!/[?&]white\b/.test(location.search)) h3l.classList.add("how3-black"); document.querySelector("#how .section-head").classList.remove("section-head-bare"); }
+  <script>if (/[?&]how=open\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-soft");
+    if (/[?&]how=cards\b/.test(location.search)) { document.querySelector(".how3").classList.remove("how3-soft"); var h3l = document.querySelector(".how3"); h3l.classList.remove("how3-open"); if (!/[?&]white\b/.test(location.search)) h3l.classList.add("how3-black"); document.querySelector("#how .section-head").classList.remove("section-head-bare"); }
     if (/[?&]quote=white\b/.test(location.search)) document.querySelector(".qt").classList.remove("qt-dark");
     if (/[?&]cta=panel\b/.test(location.search)) document.querySelector("#contact").classList.remove("contact-full");
     if (/[?&]pricing=current\b/.test(location.search)) { const a = document.querySelector(".p3"), b = document.querySelector("#packages-current"); a.hidden = true; a.id = "packages-variant"; b.hidden = false; b.id = "packages"; }
     if (/[?&]plancta=bottom\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-cta-bottom");
     if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");
     if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
-  <script src="script.js?v=20261003x" defer></script>
+  <script src="script.js?v=20261003y" defer></script>
 </body>
 </html>
