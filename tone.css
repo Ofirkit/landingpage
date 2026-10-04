@@ -161,7 +161,8 @@
     linear-gradient(to bottom, var(--t-d2), var(--t-d1));
 }
 .toned .p3 { --p3-line: var(--t-line); --p3-rule: var(--t-line); }
-.toned .how3-soft { --p3-line: var(--t-line); }
+.toned .how3-soft,
+.toned .pc { --p3-line: var(--t-line); }
 .toned .p3-featured { background: var(--t-surface); border-color: var(--t-surface); }
 .toned .p3-badge { color: var(--t-on-dark); background: var(--t-ink); }
 .toned .p3-card .btn.p3-btn { color: var(--t-ink); background: var(--t-surface); border-color: var(--t-line); }

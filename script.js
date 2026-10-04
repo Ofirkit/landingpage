@@ -314,6 +314,27 @@ steps.forEach((step) => {
   if (canHover) step.addEventListener("mouseenter", () => openStep(step));
 });
 
+// Process cards (how-test.html): as each card slides over the one before it, shrink and dim that one
+// (--p 0 → 1). The pin itself is CSS sticky; this only sets --p, on Lenis's own scroll event too,
+// so the scale moves in the same frame as the scroll
+const pcCards = [...document.querySelectorAll(".pc-card")];
+if (pcCards.length > 1 && !reduceMotion) {
+  const updatePc = () => {
+    for (let i = 0; i < pcCards.length - 1; i++) {
+      const cur = pcCards[i];
+      const next = pcCards[i + 1];
+      const from = cur.getBoundingClientRect().top + cur.offsetHeight; // the next card starts covering here
+      const stickAt = parseFloat(getComputedStyle(next).top);
+      const p = Math.min(1, Math.max(0, (from - next.getBoundingClientRect().top) / Math.max(1, from - stickAt)));
+      cur.style.setProperty("--p", p.toFixed(3));
+    }
+  };
+  window.addEventListener("scroll", updatePc, { passive: true });
+  window.addEventListener("resize", updatePc);
+  if (window.lenis) window.lenis.on("scroll", updatePc);
+  updatePc();
+}
+
 // How I work (how-test.html): play each card's drawing when it comes into view; replay it on hover
 const artCards = document.querySelectorAll(".how3-card");
 if (artCards.length) {
