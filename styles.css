@@ -849,79 +849,79 @@ section[hidden] { display: none !important; }
 }
 .js .step:not(.is-open) .step-panel { grid-template-rows: 0fr; opacity: 0; }
 
-/* ----- Process variant (how-test.html, 2026-10-04): stacking cards, text only. Each card sticks a little
-   lower than the one before, the next slides over it, and the covered card shrinks slightly and dims
-   (--p 0 → 1, set by script.js on Lenis's scroll). Sticky, not a JS translate, so the pin itself never lags.
-   Grid rows of 1fr give every card the height of the tallest, so none sticks out below another.
-   Card style matches the pricing and How I work cards. ----- */
-.pc { --p3-line: #e2e2e2; }
+/* ----- Process variant (how-test.html, 2026-10-04): stacking cards, text only, laid out after the user's
+   reference: dark cards, a large two-line title (the second line dim), a row of small tags and a paragraph
+   with an asterisk at the bottom. All cards stick at the same spot; as the next one slides over, the covered
+   card rises by --peek (so its first title line stays visible above the new card), shrinks and darkens.
+   Older cards sit a little higher and smaller behind it. script.js sets --d (how many cards cover this one,
+   fractional) on Lenis's scroll; the pin itself is CSS sticky, so it never lags. Grid rows of 1fr give
+   every card the height of the tallest. ----- */
+.pc {
+  --pc-bg: #1a1a1a;
+  --pc-shade: #0b0b0b;
+  --pc-text: #f5f5f5;
+  --pc-muted: #b3b3b3;
+  --pc-dim: #8a8a8a;
+  --pc-line: rgba(255, 255, 255, 0.14);
+}
 .pc-list {
-  --stick: 112px;   /* where the first card sticks, below the header */
-  --peek: 24px;     /* how much of each earlier card stays visible */
+  --peek: 118px;    /* the covered card's visible strip: its padding + the first title line */
+  --stick: calc(104px + var(--peek));
   display: grid;
   grid-auto-rows: 1fr;
-  row-gap: clamp(48px, 10vh, 112px);
+  row-gap: 48px;
 }
 .pc-card {
-  --p: 0;
+  --d: 0;
   position: sticky;
-  top: calc(var(--stick) + var(--n) * var(--peek));
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas: "num text" ". text" "title out";
-  column-gap: clamp(32px, 6vw, 112px);
-  min-height: clamp(260px, 34vh, 320px);
-  padding: 40px 44px;
-  background: var(--card-bg);
-  border: 1px solid var(--p3-line);
-  border-radius: 25px;
+  top: var(--stick);
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(420px, 52vh, 480px);
+  padding: 40px 48px 44px;
+  color: var(--pc-text);
+  background: var(--pc-bg);
+  border-radius: 24px;
   transform-origin: 50% 0;
-  transform: scale(calc(1 - var(--p) * 0.06));
+  transform:
+    translateY(calc(var(--peek) * -1 * min(var(--d), 1) - 14px * min(max(0, var(--d) - 1), 2)))
+    scale(calc(1 - 0.045 * min(var(--d), 3)));
 }
-.pc-card::after { /* fades the covered card toward the page color */
+.pc-card::after { /* darkens the covered card */
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 0;
   border-radius: inherit;
-  background: var(--bg);
-  opacity: calc(var(--p) * 0.6);
+  background: var(--pc-shade);
+  opacity: calc(min(var(--d), 1) * 0.6);
   pointer-events: none;
 }
-.pc-card:nth-child(1) { --n: 0; }
-.pc-card:nth-child(2) { --n: 1; }
-.pc-card:nth-child(3) { --n: 2; }
-.pc-card:nth-child(4) { --n: 3; }
-.pc-num {
-  grid-area: num;
-  font-size: var(--fs-body);
-  color: var(--text-dim);
-  font-variant-numeric: tabular-nums;
+.pc-title { font-size: var(--fs-h2); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; }
+.pc-title span { display: block; }
+.pc-title-2 { color: var(--pc-dim); }
+.pc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: auto 0 0;
+  padding: 40px 0 0;
+  list-style: none;
 }
-.pc-title { grid-area: title; align-self: end; font-size: var(--fs-h3); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-.pc-text { grid-area: text; max-width: 520px; font-size: var(--fs-body-lg); line-height: 1.6; color: var(--text-muted); }
-.pc-out {
-  grid-area: out;
-  align-self: end;
-  max-width: 520px;
-  padding-top: 16px;
-  border-top: 1px solid var(--p3-line);
-  font-size: var(--fs-body);
-  color: var(--text);
+.pc-tags li {
+  padding: 4px 12px;
+  font-size: var(--fs-xs);
+  color: var(--pc-muted);
+  border: 1px solid var(--pc-line);
+  border-radius: 999px;
 }
-.pc-out span { color: var(--text-muted); }
+.pc-text { display: flex; gap: 12px; max-width: 620px; margin-top: 20px; font-size: var(--fs-body-lg); line-height: 1.6; color: var(--pc-muted); }
+.pc-star { flex: none; width: 20px; height: 20px; margin-top: 0.25em; fill: none; stroke: var(--pc-text); stroke-width: 1.5; stroke-linecap: round; }
 @media (max-width: 960px) {
-  .pc-list { --stick: 88px; --peek: 14px; row-gap: 40px; }
-  .pc-card {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas: "num" "title" "text" "out";
-    min-height: 0;
-    padding: 28px 24px 32px;
-  }
-  .pc-title { align-self: start; margin-top: 20px; }
-  .pc-text { margin-top: 12px; font-size: var(--fs-body); }
-  .pc-out { margin-top: 24px; }
+  .pc-list { --peek: 80px; --stick: calc(84px + var(--peek)); row-gap: 32px; }
+  .pc-card { min-height: 0; padding: 28px 24px 30px; border-radius: 20px; }
+  .pc-tags { padding-top: 32px; }
+  .pc-text { font-size: var(--fs-body); }
+  .pc-star { width: 18px; height: 18px; }
 }
 
 /* ==========================================================
@@ -1302,6 +1302,7 @@ section[hidden] { display: none !important; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
   .pc-card { position: relative; top: auto; transform: none; }
+  .pc-list { --stick: 0px; }
   .pc-card::after { display: none; }
 
 }

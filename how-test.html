@@ -21,11 +21,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261004b" />
+  <link rel="stylesheet" href="styles.css?v=20261004c" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
-  <link rel="stylesheet" href="tone.css?v=20261004c" />
+  <link rel="stylesheet" href="tone.css?v=20261004d" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
@@ -281,28 +281,24 @@
 
         <ol class="pc-list">
           <li class="pc-card">
-            <span class="pc-num" aria-hidden="true">01</span>
-            <h3 class="pc-title">שיחת היכרות</h3>
-            <p class="pc-text">20 דקות. מכירים, מבינים מה האתר צריך לעשות, ובודקים אם יש התאמה.</p>
-            <p class="pc-out"><span>בסוף השלב:</span> הצעה מסודרת</p>
+            <h3 class="pc-title"><span>שיחת היכרות</span> <span class="pc-title-2">והצעה מסודרת</span></h3>
+            <ul class="pc-tags"><li>20 דקות</li><li>מטרות האתר</li><li>בדיקת התאמה</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>20 דקות. מכירים, מבינים מה האתר צריך לעשות, ובודקים אם יש התאמה.</span></p>
           </li>
           <li class="pc-card">
-            <span class="pc-num" aria-hidden="true">02</span>
-            <h3 class="pc-title">מבנה ועמוד הבית</h3>
-            <p class="pc-text">מגדירים יחד את מבנה האתר, ואני מעצב את עמוד הבית ב-Figma, או ישירות בכלי שבו נבנה את האתר. אם הטקסטים עוד לא מוכנים, אני עובד עם טקסט זמני כדי שהעבודה לא תיעצר.</p>
-            <p class="pc-out"><span>בסוף השלב:</span> עמוד בית מאושר</p>
+            <h3 class="pc-title"><span>מבנה ועמוד הבית</span> <span class="pc-title-2">לאישור שלכם</span></h3>
+            <ul class="pc-tags"><li>מבנה האתר</li><li>עיצוב עמוד הבית</li><li>טקסט זמני</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>מגדירים יחד את מבנה האתר, ואני מעצב את עמוד הבית ב-Figma, או ישירות בכלי שבו נבנה את האתר. אם הטקסטים עוד לא מוכנים, אני עובד עם טקסט זמני כדי שהעבודה לא תיעצר.</span></p>
           </li>
           <li class="pc-card">
-            <span class="pc-num" aria-hidden="true">03</span>
-            <h3 class="pc-title">שאר האתר</h3>
-            <p class="pc-text">שאר העמודים, אנימציות, CMS, התאמה לכל מסך ו-SEO. אתם עוקבים אחרי ההתקדמות בלינק חי.</p>
-            <p class="pc-out"><span>בסוף השלב:</span> לינק חי להתקדמות</p>
+            <h3 class="pc-title"><span>שאר האתר</span> <span class="pc-title-2">עם לינק חי להתקדמות</span></h3>
+            <ul class="pc-tags"><li>עמודים</li><li>אנימציות</li><li>CMS</li><li>התאמה לכל מסך</li><li>SEO</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>שאר העמודים, אנימציות, CMS, התאמה לכל מסך ו-SEO. אתם עוקבים אחרי ההתקדמות בלינק חי.</span></p>
           </li>
           <li class="pc-card">
-            <span class="pc-num" aria-hidden="true">04</span>
-            <h3 class="pc-title">השקה והדרכה</h3>
-            <p class="pc-text">חיבור דומיין, בדיקות אחרונות ועלייה לאוויר, ואז הדרכה קצרה לצוות.</p>
-            <p class="pc-out"><span>בסוף השלב:</span> אתר באוויר</p>
+            <h3 class="pc-title"><span>השקה והדרכה</span> <span class="pc-title-2">עד שהאתר באוויר</span></h3>
+            <ul class="pc-tags"><li>חיבור דומיין</li><li>בדיקות אחרונות</li><li>עלייה לאוויר</li><li>הדרכה לצוות</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>חיבור דומיין, בדיקות אחרונות ועלייה לאוויר, ואז הדרכה קצרה לצוות.</span></p>
           </li>
         </ol>
       </div>
@@ -639,6 +635,6 @@
     if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");
     if (/[?&]process=current\b/.test(location.search)) { const a = document.querySelector(".pc"), b = document.querySelector("#process-current"); a.remove(); b.hidden = false; b.id = "process"; }
     if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
-  <script src="script.js?v=20261004a" defer></script>
+  <script src="script.js?v=20261004b" defer></script>
 </body>
 </html>

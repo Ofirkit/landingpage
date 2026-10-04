@@ -314,19 +314,24 @@ steps.forEach((step) => {
   if (canHover) step.addEventListener("mouseenter", () => openStep(step));
 });
 
-// Process cards (how-test.html): as each card slides over the one before it, shrink and dim that one
-// (--p 0 → 1). The pin itself is CSS sticky; this only sets --p, on Lenis's own scroll event too,
-// so the scale moves in the same frame as the scroll
+// Process cards (how-test.html): every card sticks at the same spot. p[i] is how far card i+1 has slid over
+// card i (0 → 1); --d on a card is how many cards cover it (the sum of p from it on), which CSS turns into
+// rise, shrink and shade. Computed from the stick position and the cards' (equal) height, not from the covered
+// card's own box, which its transform moves. Updated on Lenis's own scroll event too, so it moves with the scroll
 const pcCards = [...document.querySelectorAll(".pc-card")];
 if (pcCards.length > 1 && !reduceMotion) {
   const updatePc = () => {
-    for (let i = 0; i < pcCards.length - 1; i++) {
-      const cur = pcCards[i];
+    const stickAt = parseFloat(getComputedStyle(pcCards[0]).top);
+    const h = pcCards[0].offsetHeight;
+    const p = pcCards.map((c, i) => {
       const next = pcCards[i + 1];
-      const from = cur.getBoundingClientRect().top + cur.offsetHeight; // the next card starts covering here
-      const stickAt = parseFloat(getComputedStyle(next).top);
-      const p = Math.min(1, Math.max(0, (from - next.getBoundingClientRect().top) / Math.max(1, from - stickAt)));
-      cur.style.setProperty("--p", p.toFixed(3));
+      if (!next) return 0;
+      return Math.min(1, Math.max(0, (stickAt + h - next.getBoundingClientRect().top) / Math.max(1, h)));
+    });
+    let d = 0;
+    for (let i = pcCards.length - 1; i >= 0; i--) {
+      d += p[i];
+      pcCards[i].style.setProperty("--d", d.toFixed(3));
     }
   };
   window.addEventListener("scroll", updatePc, { passive: true });
