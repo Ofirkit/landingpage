@@ -220,6 +220,25 @@ figure, blockquote { margin: 0; }
 
 .header-actions { display: flex; align-items: center; gap: 10px; }
 
+/* Language switcher (HE / EN): a globe and the two codes, the current one in full ink. Inherits the header's
+   text color, so it follows the header over the light hero and when scrolled */
+.lang-switch { display: flex; align-items: center; gap: 2px; margin-inline-end: 6px; font-size: var(--fs-sm); line-height: 1; }
+.lang-ic { width: 16px; height: 16px; margin-inline-end: 4px; fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.7; }
+.lang-switch a { padding: 6px 5px; color: inherit; text-decoration: none; letter-spacing: 0.04em; opacity: 0.6; transition: opacity 0.2s; }
+.lang-switch a:hover { opacity: 1; }
+.lang-switch a[aria-current] { font-weight: 700; opacity: 1; }
+.lang-switch a + a { position: relative; }
+.lang-switch a + a::before { content: ""; position: absolute; inset-inline-start: -1px; top: 50%; width: 1px; height: 12px; background: currentColor; opacity: 0.35; transform: translateY(-50%); }
+
+/* ----- English page (en.html, dir="ltr"): undo the right-to-left specifics ----- */
+[dir="ltr"] .rotator-word { right: auto; left: 0; }
+[dir="ltr"] .qt-next svg { transform: none; }      /* LTR: "previous" points left, "next" points right */
+[dir="ltr"] .qt-prev svg { transform: scaleX(-1); }
+[dir="ltr"] .p3-arrows .p3-arrow { transform: none; }
+[dir="ltr"] .how3-art { scale: -1 1; }             /* the drawings read left to right (card 2's steps fill from the left) */
+[lang="en"] .qt-item blockquote p::before { content: "\201C"; }
+[lang="en"] .qt-item blockquote p::after { content: "\201D"; }
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -935,6 +954,7 @@ section[hidden] { display: none !important; }
 .pc-flat .pc-card::after { inset: 0; background: var(--pc-flat-bg); opacity: calc(min(var(--d), 1) * 0.55); } /* fades the content, keeps the border */
 .pc-flat .pc-num {
   display: block;
+  align-self: flex-start; /* hugs the start edge: right in Hebrew, left in English */
   writing-mode: vertical-rl;
   font-size: 44px;
   line-height: 1;

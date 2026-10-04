@@ -509,12 +509,16 @@ document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
   link.appendChild(roll);
 });
 
+// Language switcher: keep the page's ?query (tone and other variants) when switching language
+document.querySelectorAll(".lang-switch a[href]").forEach((a) => { a.href = a.getAttribute("href") + location.search; });
+
 // Mobile menu
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.getElementById("main-nav");
 const setMenu = (open) => {
   toggle.setAttribute("aria-expanded", String(open));
-  toggle.setAttribute("aria-label", open ? "סגירת תפריט" : "פתיחת תפריט");
+  const en = document.documentElement.lang === "en";
+  toggle.setAttribute("aria-label", open ? (en ? "Close menu" : "סגירת תפריט") : (en ? "Open menu" : "פתיחת תפריט"));
   nav.classList.toggle("is-open", open);
 };
 toggle.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
