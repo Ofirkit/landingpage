@@ -48,6 +48,31 @@
   --t-on-dark-rgb: 237, 241, 246;
 }
 
+/* Dark monochrome (2026-10-04, user: "a dark one for all the site"; how-test.html?tone=dark). The same slate
+   family, inverted: "paper" is the page, "surface" the raised cards, "ink" the light text, and the d-steps
+   are the bands and dark cards, lifted a little above the page so a long dark page keeps its rhythm.
+   Nothing is pure black or white. Buttons flip to light with dark text (overrides at the end of the file). */
+:root.tone-dark {
+  --t-paper: #090c11;
+  --t-surface: #121821;
+  --t-line: #222a36;
+  --t-rule: #1a212b;
+  --t-ink: #e9edf2;
+  --t-ink-hover: #d3d9e1;
+  --t-muted: #a3acb9;
+  --t-dim: #7a8392;
+  --t-d0: #0e131a;
+  --t-d1: #151b24;
+  --t-d2: #1d2430;
+  --t-d3: #2b3340;
+  --t-on-dark: #e9edf2;
+  --t-on-dark-muted: #a3acb9;
+  --t-on-dark-dim: #7a8392;
+  --t-ink-rgb: 233, 237, 242;
+  --t-paper-rgb: 9, 12, 17;
+  --t-on-dark-rgb: 233, 237, 242;
+}
+
 /* ---- Page tokens ---- */
 :root.toned {
   --bg: var(--t-paper);
@@ -152,3 +177,31 @@
 .toned .menu-toggle,
 .toned .site-header.on-light .menu-toggle { color: var(--t-ink); background: rgba(var(--t-ink-rgb), 0.04); border-color: rgba(var(--t-ink-rgb), 0.12); }
 .toned .menu-toggle span { background: var(--t-ink); }
+
+/* ---- Dark monochrome: light buttons and tabs with dark text (the shared rules pair ink with on-dark,
+   which are both light here) ---- */
+.tone-dark .btn-primary,
+.tone-dark .site-header.on-light .btn-primary,
+.tone-dark .cta-panel .btn-primary,
+.tone-dark .plan-featured .btn-primary {
+  color: var(--t-paper);
+  background: var(--t-ink);
+  box-shadow: 0 0 0 1px rgba(var(--t-ink-rgb), 0.3), 0 0 24px rgba(var(--t-ink-rgb), 0.12);
+}
+.tone-dark .btn-primary:hover,
+.tone-dark .site-header.on-light .btn-primary:hover,
+.tone-dark .cta-panel .btn-primary:hover,
+.tone-dark .plan-featured .btn-primary:hover { background: var(--t-ink-hover); }
+.tone-dark .p3-badge { color: var(--t-paper); background: var(--t-ink); box-shadow: 0 6px 14px rgba(var(--t-paper-rgb), 0.6); }
+/* Pricing buttons: the side cards get a quiet raised button, the featured card the light one */
+.tone-dark .p3-card .btn.p3-btn { color: var(--t-ink); background: var(--t-d2); border-color: var(--t-line); box-shadow: none; }
+.tone-dark .p3-card .btn.p3-btn:hover { background: var(--t-d3); }
+.tone-dark .p3-featured .btn.p3-btn { color: var(--t-paper); background: var(--t-ink); border-color: var(--t-ink); }
+.tone-dark .p3-featured .btn.p3-btn:hover { background: var(--t-ink-hover); }
+/* The featured pricing card is the raised step, the side cards sit on the page */
+.tone-dark .p3-featured { background: var(--t-d1); border-color: var(--t-line); }
+/* Shadows read as black on a dark page */
+.tone-dark .hero-badge { box-shadow: none; }
+.tone-dark .shot { box-shadow: 0 12px 32px rgba(var(--t-paper-rgb), 0.7); }
+/* The YouTube icon's play triangle is drawn in white; on a light icon it needs the page color */
+.tone-dark .yt-link svg path[fill="#fff"] { fill: var(--t-paper); }

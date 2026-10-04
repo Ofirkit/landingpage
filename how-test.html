@@ -24,9 +24,9 @@
   <link rel="stylesheet" href="styles.css?v=20261004a" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
-  <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=warm and ?tone=neutral for comparison -->
-  <link rel="stylesheet" href="tone.css?v=20261003n" />
-  <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" ? "warm" : "cool")); })();</script>
+  <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
+  <link rel="stylesheet" href="tone.css?v=20261004b" />
+  <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
   <script>document.documentElement.classList.add("js");</script>
