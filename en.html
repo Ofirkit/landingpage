@@ -21,9 +21,11 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- English font: Geist by default; ?font=inter-tight, ?font=instrument or ?font=manrope load an alternative for comparison -->
+  <link id="font-en" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap" rel="stylesheet" />
+  <script>(function () { var f = (location.search.match(/[?&]font=([\w-]+)/) || [])[1], m = { "inter-tight": "Inter+Tight", instrument: "Instrument+Sans", manrope: "Manrope" }; if (m[f]) { document.getElementById("font-en").href = "https://fonts.googleapis.com/css2?family=" + m[f] + ":wght@400;700&display=swap"; document.documentElement.classList.add("font-" + f); } })();</script>
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261004f" />
+  <link rel="stylesheet" href="styles.css?v=20261004g" />
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <link rel="stylesheet" href="tone.css?v=20261004e" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
@@ -275,7 +277,7 @@
         <div class="p3-grid">
           <article class="p3-card reveal">
             <h3>Landing page</h3>
-            <p class="p3-price"><span>From</span><strong>₪7,000</strong></p>
+            <p class="p3-price"><span>From</span><strong>$2,200</strong></p>
             <p class="p3-desc">One focused page for a launch, a fundraise or a campaign, leading visitors to one clear action.</p>
             <a href="[booking link]" class="btn btn-primary p3-btn" target="_blank" rel="noopener">Let’s talk</a>
             <ul class="p3-facts">
@@ -295,7 +297,7 @@
           <article class="p3-card p3-featured reveal">
             <span class="p3-badge">Best value</span>
             <h3>Full marketing site</h3>
-            <p class="p3-price"><span>From</span><strong>₪17,000</strong></p>
+            <p class="p3-price"><span>From</span><strong>$5,400</strong></p>
             <p class="p3-desc">For a business that needs a real home online: inner pages and a structure that lasts.</p>
             <a href="[booking link]" class="btn btn-primary p3-btn" target="_blank" rel="noopener">Let’s talk</a>
             <ul class="p3-facts">
@@ -308,13 +310,13 @@
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Site structure and navigation planning</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Team training for updating the site</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 revision rounds for the home page, 1 for the rest</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Extra page: from ₪2,800</li>
+              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Extra page: from $900</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Live within 3–5 weeks</li>
             </ul>
           </article>
           <article class="p3-card reveal">
             <h3>Figma to live site</h3>
-            <p class="p3-price"><span>From</span><strong>₪3,500</strong></p>
+            <p class="p3-price"><span>From</span><strong>$1,100</strong></p>
             <p class="p3-desc">Have a Figma design? I’ll build it as a live site in Framer, Webflow or code.</p>
             <a href="[booking link]" class="btn btn-primary p3-btn" target="_blank" rel="noopener">Let’s talk</a>
             <ul class="p3-facts">
@@ -328,7 +330,7 @@
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Animations, CMS and basic SEO as needed</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>UX notes for improvements along the way</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>1 revision round and 14 days of support</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Extra page: from ₪1,750</li>
+              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Extra page: from $550</li>
             </ul>
           </article>
         </div>
@@ -382,8 +384,8 @@
             <p>I design in Figma and build in Framer, Webflow or code with Claude Code. The tool depends on the project and on who will maintain the site afterwards, and we’ll choose what’s right for you together on the call.</p>
           </details>
           <details class="faq-item">
-            <summary>Why not a ₪500 landing page?</summary>
-            <p>A ₪500 page is usually a ready-made template with your content dropped in. With me, every page starts from a goal and an audience, is designed from scratch in Figma and is built around what you want visitors to do. It’s a different product, not a pricier version of the same thing.</p>
+            <summary>Why not a $150 landing page?</summary>
+            <p>A $150 page is usually a ready-made template with your content dropped in. With me, every page starts from a goal and an audience, is designed from scratch in Figma and is built around what you want visitors to do. It’s a different product, not a pricier version of the same thing.</p>
           </details>
           <details class="faq-item">
             <summary>What if we don’t like the design?</summary>

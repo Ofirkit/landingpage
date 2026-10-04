@@ -230,7 +230,12 @@ figure, blockquote { margin: 0; }
 .lang-switch a + a { position: relative; }
 .lang-switch a + a::before { content: ""; position: absolute; inset-inline-start: -1px; top: 50%; width: 1px; height: 12px; background: currentColor; opacity: 0.35; transform: translateY(-50%); }
 
-/* ----- English page (en.html, dir="ltr"): undo the right-to-left specifics ----- */
+/* ----- English page (en.html, dir="ltr"): its own font and undoing the right-to-left specifics ----- */
+/* Geist (Google Fonts) for English; ?font= on en.html swaps in an alternative for comparison */
+:root[lang="en"] { --font: "Geist", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+:root[lang="en"].font-inter-tight { --font: "Inter Tight", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+:root[lang="en"].font-instrument { --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
+:root[lang="en"].font-manrope { --font: "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; }
 [dir="ltr"] .rotator-word { right: auto; left: 0; }
 [dir="ltr"] .qt-next svg { transform: none; }      /* LTR: "previous" points left, "next" points right */
 [dir="ltr"] .qt-prev svg { transform: scaleX(-1); }
