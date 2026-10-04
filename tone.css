@@ -170,6 +170,8 @@
   --pc-dim: var(--t-on-dark-dim);
   --pc-line: rgba(var(--t-on-dark-rgb), 0.16);
 }
+/* Flat cards: the darkest step, with a light hairline */
+.toned .pc-flat { --pc-flat-bg: var(--t-d0); --pc-flat-line: rgba(var(--t-on-dark-rgb), 0.24); }
 /* Dark tone: the cards step up from the page, the covered ones sink back toward it */
 .tone-dark .pc { --pc-bg: var(--t-d2); --pc-shade: var(--t-paper); }
 .toned .p3-featured { background: var(--t-surface); border-color: var(--t-surface); }

@@ -916,12 +916,57 @@ section[hidden] { display: none !important; }
 }
 .pc-text { display: flex; gap: 12px; max-width: 620px; margin-top: 20px; font-size: var(--fs-body-lg); line-height: 1.6; color: var(--pc-muted); }
 .pc-star { flex: none; width: 20px; height: 20px; margin-top: 0.25em; fill: none; stroke: var(--pc-text); stroke-width: 1.5; stroke-linecap: round; }
+.pc-num { display: none; }
+/* Flat filled cards (default on how-test, 2026-10-04, after the user's second reference): square corners, a dark fill
+   with a thin light border, the number set vertically at the top, then empty space, the title, the description
+   and a hairline under it. The second title line, tags and asterisk belong to the rounded version (?pc=round).
+   On wide screens the cards take the end column (near-square, like the reference) and the heading stays beside them */
+.pc-flat {
+  --pc-flat-bg: #0b0b0b;
+  --pc-flat-line: rgba(255, 255, 255, 0.22);
+}
+.pc-flat .pc-card {
+  min-height: clamp(460px, 58vh, 540px);
+  padding: 36px 36px 48px;
+  background: var(--pc-flat-bg);
+  border: 1px solid var(--pc-flat-line);
+  border-radius: 0;
+}
+.pc-flat .pc-card::after { inset: 0; background: var(--pc-flat-bg); opacity: calc(min(var(--d), 1) * 0.55); } /* fades the content, keeps the border */
+.pc-flat .pc-num {
+  display: block;
+  writing-mode: vertical-rl;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.pc-flat .pc-title-2,
+.pc-flat .pc-tags,
+.pc-flat .pc-star { display: none; }
+.pc-flat .pc-title { margin-top: auto; font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.02em; }
+.pc-flat .pc-text {
+  display: block;
+  max-width: none;
+  margin-top: 16px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--pc-flat-line);
+}
+@media (min-width: 1024px) {
+  .pc-flat .container { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 720px); column-gap: clamp(48px, 6vw, 112px); align-items: start; }
+  .pc-flat .section-head { position: sticky; top: 120px; margin-bottom: 0; }
+}
+
 @media (max-width: 960px) {
   .pc-list { --peek: 80px; --stick: calc(84px + var(--peek)); row-gap: 32px; }
   .pc-card { min-height: 0; padding: 28px 24px 30px; border-radius: 20px; }
   .pc-tags { padding-top: 32px; }
   .pc-text { font-size: var(--fs-body); }
   .pc-star { width: 18px; height: 18px; }
+  .pc-flat .pc-card { min-height: 0; padding: 28px 24px 32px; }
+  .pc-flat .pc-num { font-size: 32px; }
+  .pc-flat .pc-title { margin-top: 64px; }
+  .pc-flat .pc-text { padding-bottom: 24px; }
 }
 
 /* ==========================================================
