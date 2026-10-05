@@ -230,3 +230,6 @@
 .tone-dark .pc-folder .pc-card:nth-child(3) { --f-bg: var(--t-d3); }
 .tone-dark .pc-folder .pc-card:nth-child(4) { --f-bg: color-mix(in srgb, var(--t-d3), var(--t-ink) 12%); } /* 5 steps only */
 .tone-dark .pc-folder .pc-card:last-child { --f-bg: var(--t-ink); --f-text: var(--t-paper); --f-muted: rgba(var(--t-paper-rgb), 0.72); }
+/* Full-screen menu open: the header loses its glass and sits on the menu's background */
+.toned.menu-open .site-header.is-scrolled,
+.toned.menu-open .site-header.on-light.is-scrolled { background: transparent; border-bottom-color: transparent; }

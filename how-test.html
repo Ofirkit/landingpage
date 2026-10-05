@@ -23,11 +23,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261005t" />
+  <link rel="stylesheet" href="styles.css?v=20261005u" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
-  <link rel="stylesheet" href="tone.css?v=20261005b" />
+  <link rel="stylesheet" href="tone.css?v=20261005c" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1], s; try { s = localStorage.getItem("uxk-theme"); } catch (e) {} if (!t) t = s === "dark" ? "dark" : "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
@@ -52,6 +52,7 @@
           <li><a href="#testimonials">המלצות</a></li>
           <li><a href="#packages">חבילות</a></li>
           <li><a href="#faq">שאלות</a></li>
+          <li class="nav-cta"><a href="[קישור ליומן]" class="btn btn-primary" target="_blank" rel="noopener">בואו נדבר</a></li>
         </ul>
       </nav>
 
@@ -336,7 +337,7 @@
             <span class="pc-num" aria-hidden="true">05</span>
             <h3 class="pc-title"><span>השקה והדרכה</span> <span class="pc-title-2">עד שהאתר באוויר</span></h3>
             <ul class="pc-tags"><li>חיבור דומיין</li><li>בדיקות אחרונות</li><li>עלייה לאוויר</li><li>הדרכה לצוות</li><li>תמיכה אחרי ההשקה</li></ul>
-            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>מחברים את הדומיין, עוברים על בדיקות אחרונות בכל גודל מסך, והאתר עולה לאוויר. אחר כך הדרכה קצרה לצוות שלכם, כדי שתוכלו לעדכן את האתר בעצמכם. ואחרי ההשקה אני זמין לתיקוני באגים ולשאלות לאורך תקופת התמיכה.</span></p>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>מחברים את הדומיין, עוברים על בדיקות אחרונות במחשב, בטאבלט ובנייד, והאתר עולה לאוויר. אחר כך הדרכה קצרה לצוות שלכם, כדי שתוכלו לעדכן את האתר בעצמכם. ואחרי ההשקה אני זמין לתיקוני באגים ולשאלות לאורך תקופת התמיכה.</span></p>
             <p class="pc-out"><span class="pc-out-v">אתר באוויר</span><span class="pc-out-l">בסוף השלב</span></p>
           </li>
         </ol>
@@ -679,6 +680,6 @@
     if (/[?&]pc=(flat|round)\b/.test(location.search)) { const pc = document.querySelector(".pc"); pc.classList.remove("pc-folder"); if (/[?&]pc=flat\b/.test(location.search)) pc.classList.add("pc-flat"); }
     if (/[?&]process=current\b/.test(location.search)) { const a = document.querySelector(".pc"), b = document.querySelector("#process-current"); a.remove(); b.hidden = false; b.id = "process"; }
     if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
-  <script src="script.js?v=20261005q" defer></script>
+  <script src="script.js?v=20261005r" defer></script>
 </body>
 </html>

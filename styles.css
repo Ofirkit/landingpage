@@ -1765,3 +1765,75 @@ section[hidden] { display: none !important; }
   .pc-folder .pc-tags { grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 20px; padding-top: 20px; } /* one column: long tags wrapped in two */
   .pc-folder .pc-tags li { font-size: var(--fs-sm); }
 }
+
+/* ----- Full-screen menu (how-test and en, 2026-10-05, user: "on desktop and mobile the menu opens full screen
+   with no scroll until you close it; the links fade in one by one, each after the previous one finishes").
+   The menu button shows at every width; script.js moves the nav out of the header (the scrolled header's
+   backdrop-filter would trap a fixed child inside it), locks the page scroll while it's open and numbers the
+   links (--i) for the sequence. Without JS: the old inline links / phone dropdown. ----- */
+html:has(body.v2) { scrollbar-gutter: stable; } /* no sideways jump when the scroll locks */
+.js .v2 .header-actions { margin-inline-start: auto; }
+.js .v2 .menu-toggle { display: inline-flex; }
+.js body.v2 > .main-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 45; /* over the page and the bottom blur, under the header (logo, switchers, close button) */
+  display: flex;
+  align-items: center;
+  margin: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg);
+  visibility: hidden;
+  opacity: 0;
+  transform: none;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+.js body.v2 > .main-nav.is-open { visibility: visible; opacity: 1; transition: opacity 0.35s ease; }
+.js body.v2 > .main-nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding: 112px var(--gutter) 64px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.js body.v2 > .main-nav li { opacity: 0; transform: translateY(18px); }
+/* one link at a time: each fades and rises in 0.32s, and the next starts when it has finished */
+.js body.v2 > .main-nav.is-open li {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(0.15s + var(--i, 0) * 0.32s);
+}
+.js body.v2 > .main-nav li:not(.nav-cta) a {
+  display: inline-block;
+  padding: 2px 0;
+  font-size: clamp(40px, 7vw, 88px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  border-radius: 0;
+}
+.js body.v2 > .main-nav .nav-cta { margin-top: 36px; }
+.nav-cta { display: none; }
+.js body.v2 > .main-nav .nav-cta { display: block; }
+/* while it's open the header sits on the menu's own background: no glass, the page's text color */
+html.menu-open .site-header,
+html.menu-open .site-header.is-scrolled { background: transparent; border-bottom-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+html.menu-open .site-header,
+html.menu-open .site-header .logo { color: var(--text); }
+html.menu-open { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .js body.v2 > .main-nav li { transform: none; }
+}
+@media (min-width: 961px) {
+  .js body.v2 > .main-nav .nav-cta { display: none; } /* the header keeps its own "Let's talk" button here */
+}

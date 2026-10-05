@@ -373,13 +373,22 @@ if (pcCards.length > 1 && !reduceMotion) {
 // next card's tab is still below the screen when this card reaches its stick position (from layoutVh, so the
 // phone address bar can't change the page height mid-scroll)
 const pcFolder = document.querySelector(".pc-folder .pc-list");
+let pcPin = null;
 if (pcFolder && pcCards.length > 1 && !reduceMotion) {
   const gapPc = () => {
     const cs = getComputedStyle(pcFolder);
     const tab = parseFloat(cs.getPropertyValue("--tab")) || 0;
     const h = pcCards[0].offsetHeight;
-    // the stack (tabs + card) pins centered on the screen, not at the top
-    const stickAt = Math.max(tab + 24, Math.round((layoutVh - h - tab) / 2) + tab);
+    // the stack (tabs + card) pins centered in the space under the header (which comes back on scroll up), so
+    // the header never covers the tabs; the bottom blur slides away while the stack is pinned (see the header's
+    // scroll handler). If the stack doesn't fit under the header, its bottom edge sits 12px above the screen's
+    const hdr = (document.querySelector(".header-inner")?.offsetHeight || 40) + 25; // the scrolled header's height
+    const block = h + tab;
+    const top = block <= layoutVh - hdr - 24
+      ? hdr + Math.round((layoutVh - hdr - block) / 2)
+      : Math.max(12, layoutVh - 12 - block);
+    const stickAt = top + tab;
+    pcPin = { stick: stickAt, h };
     pcFolder.style.setProperty("--stick", `${stickAt}px`);
     pcFolder.style.setProperty("--pc-gap", `${Math.max(tab + 48, Math.ceil(layoutVh - stickAt - h + tab + 24))}px`);
   };
@@ -538,7 +547,16 @@ const onScroll = () => {
   // (A slide, not a fade: opacity on the blur's parent would stop its backdrop-filter from blurring the page.)
   if (blur && footer) {
     const rise = window.innerHeight - footer.getBoundingClientRect().top; // how far the footer has come up
-    const p = Math.min(1, Math.max(0, rise / Math.min(blur.offsetHeight, footer.offsetHeight))); // gone once the footer is fully in
+    let p = Math.min(1, Math.max(0, rise / Math.min(blur.offsetHeight, footer.offsetHeight))); // gone once the footer is fully in
+    // The process folder stack also pushes it away while it's pinned, so the blur never covers a card's bottom
+    // (user): it slides out over the last 200px before the first card pins and back as the stack leaves
+    if (pcPin && pcFolder && pcFolder.isConnected) {
+      const first = pcCards[0].getBoundingClientRect().top;
+      const lastBottom = pcCards[pcCards.length - 1].getBoundingClientRect().bottom;
+      const pIn = (pcPin.stick + 200 - first) / 200;
+      const pOut = (lastBottom - (pcPin.stick + pcPin.h) + 200) / 200;
+      p = Math.max(p, Math.min(1, Math.max(0, Math.min(pIn, pOut))));
+    }
     blur.style.transform = p ? `translateY(${(p * 100).toFixed(1)}%)` : "";
   }
 };
@@ -708,11 +726,28 @@ if (themeBtn) {
 // Mobile menu
 const toggle = document.querySelector(".menu-toggle");
 const nav = document.getElementById("main-nav");
+// Full-screen version (how-test / en, body.v2): the nav moves out of the header, right after it (the scrolled
+// header's backdrop-filter would make a fixed child size itself to the header), the links are numbered for the
+// one-by-one fade, and while it's open the page can't scroll (Lenis stopped, html overflow hidden) and the
+// page behind it is inert
+const fullMenu = document.body.classList.contains("v2");
+if (fullMenu) {
+  header.after(nav);
+  nav.querySelectorAll("li").forEach((li, i) => li.style.setProperty("--i", i));
+}
 const setMenu = (open) => {
+  if (open === nav.classList.contains("is-open")) return;
   toggle.setAttribute("aria-expanded", String(open));
   const en = document.documentElement.lang === "en";
   toggle.setAttribute("aria-label", open ? (en ? "Close menu" : "סגירת תפריט") : (en ? "Open menu" : "פתיחת תפריט"));
   nav.classList.toggle("is-open", open);
+  if (!fullMenu) return;
+  document.documentElement.classList.toggle("menu-open", open);
+  header.classList.remove("is-hidden");
+  if (window.lenis) open ? window.lenis.stop() : window.lenis.start();
+  document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = open; });
+  if (open) nav.querySelector("a")?.focus({ preventScroll: true });
+  else if (nav.contains(document.activeElement)) toggle.focus({ preventScroll: true });
 };
 toggle.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
 header.addEventListener("focusin", () => header.classList.remove("is-hidden"));
