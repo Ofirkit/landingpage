@@ -217,3 +217,14 @@
 .tone-dark .shot { box-shadow: 0 12px 32px rgba(var(--t-paper-rgb), 0.7); }
 /* The YouTube icon's play triangle is drawn in white; on a light icon it needs the page color */
 .tone-dark .yt-link svg path[fill="#fff"] { fill: var(--t-paper); }
+
+/* Process folder tabs: the cards step from the lightest surface to the darkest shade; in the dark tone from the
+   raised surface up through the lighter steps to an inverted light card for the launch */
+.toned .pc-folder .pc-card { --f-bg: var(--t-surface); --f-text: var(--t-ink); --f-muted: var(--t-muted); }
+.toned .pc-folder .pc-card:nth-child(2) { --f-bg: var(--t-line); }
+.toned .pc-folder .pc-card:nth-child(3) { --f-bg: var(--t-d3); --f-text: var(--t-on-dark); --f-muted: var(--t-on-dark-muted); }
+.toned .pc-folder .pc-card:nth-child(4) { --f-bg: var(--t-d0); --f-text: var(--t-on-dark); --f-muted: var(--t-on-dark-muted); }
+.tone-dark .pc-folder .pc-card { --f-bg: var(--t-d1); }
+.tone-dark .pc-folder .pc-card:nth-child(2) { --f-bg: var(--t-d2); }
+.tone-dark .pc-folder .pc-card:nth-child(3) { --f-bg: var(--t-d3); }
+.tone-dark .pc-folder .pc-card:nth-child(4) { --f-bg: var(--t-ink); --f-text: var(--t-paper); --f-muted: rgba(var(--t-paper-rgb), 0.72); }

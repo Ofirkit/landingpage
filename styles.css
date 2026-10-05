@@ -1063,7 +1063,9 @@ section[hidden] { display: none !important; }
 }
 .pc-text { display: flex; gap: 12px; max-width: 620px; margin-top: 20px; font-size: var(--fs-body-lg); line-height: 1.6; color: var(--pc-muted); }
 .pc-star { flex: none; width: 20px; height: 20px; margin-top: 0.25em; fill: none; stroke: var(--pc-text); stroke-width: 1.5; stroke-linecap: round; }
-.pc-num { display: none; }
+.pc-num,
+.pc-tab,
+.pc-out { display: none; } /* the folder version (.pc-folder) shows the tab and the deliverable */
 /* Flat filled cards (default on how-test, 2026-10-04, after the user's second reference): square corners, a dark fill
    with a thin light border, the number set vertically at the top, then empty space, the title, the description
    and a hairline under it. The second title line, tags and asterisk belong to the rounded version (?pc=round).
@@ -1616,4 +1618,112 @@ section[hidden] { display: none !important; }
   .v2 .p3-card,
   .v2 .pc-flat .pc-card { padding: 28px 24px 32px; }
   .v2 .p3-featured { padding-top: 64px; }
+}
+
+/* ----- Process as folder tabs (default on how-test and en, 2026-10-05, after the user's reference: "cards turning
+   to tabs in a folder"). Each card has a tab on its top edge, a quarter of the width, each one further along
+   (01 at the start edge, 04 at the far end). Every card sticks at the same spot, so the next card covers the
+   previous card's body but not its tab: the covered steps stay as a row of folder tabs above the current one.
+   The tab grows out of the card with concave corners (radial-gradient fillets). Cards step from the lightest
+   surface to the darkest shade, so the stack reads like a folder of differently colored dividers. Body: title and
+   description at the top, the step's deliverable as a large "stat" at the bottom, and a huge faint step number
+   on the end side (the reference's image slot). No rise, shrink or shade: the next card simply covers it. ----- */
+.pc-folder .pc-list {
+  --tab: 52px;
+  --fil: 18px;      /* the concave corner where the tab meets the card */
+  --stick: calc(88px + var(--tab));
+  row-gap: calc(var(--tab) + 48px);
+  padding-top: var(--tab);
+}
+.pc-folder .pc-card {
+  --f-bg: #fcfcfc;
+  --f-text: #0b0b0b;
+  --f-muted: #4a4a4a;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas: "title num" "text num" ". num" "out num";
+  column-gap: 48px;
+  min-height: clamp(440px, 60vh, 560px);
+  padding: 44px 48px 44px;
+  color: var(--f-text);
+  background: var(--f-bg);
+  border-radius: var(--r-lg, 24px);
+  transform: none;
+}
+.pc-folder .pc-card:nth-child(1) { border-start-start-radius: 0; }
+.pc-folder .pc-card:nth-child(2) { --f-bg: #dedede; }
+.pc-folder .pc-card:nth-child(3) { --f-bg: #2a2a2a; --f-text: #f5f5f5; --f-muted: #b3b3b3; }
+.pc-folder .pc-card:nth-child(4) { --f-bg: #0b0b0b; --f-text: #f5f5f5; --f-muted: #b3b3b3; }
+.pc-folder .pc-card::after { display: none; }
+.pc-folder .pc-tab {
+  --i: 0;
+  position: absolute;
+  bottom: 100%;
+  inset-inline-start: calc(var(--i) * 25%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: calc(25% - var(--fil) - 4px);
+  height: var(--tab);
+  padding-inline: 24px;
+  font-size: var(--fs-sm);
+  line-height: 1;
+  color: var(--f-text);
+  background: var(--f-bg);
+  border-radius: 16px 16px 0 0;
+}
+.pc-folder .pc-card:nth-child(2) .pc-tab { --i: 1; }
+.pc-folder .pc-card:nth-child(3) .pc-tab { --i: 2; }
+.pc-folder .pc-card:nth-child(4) .pc-tab { --i: 3; }
+.pc-folder .pc-tab::before,
+.pc-folder .pc-tab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: var(--fil);
+  height: var(--fil);
+  pointer-events: none;
+}
+/* RTL: the start side is the right */
+.pc-folder .pc-tab::before { right: calc(var(--fil) * -1); background: radial-gradient(circle at 100% 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
+.pc-folder .pc-tab::after { left: calc(var(--fil) * -1); background: radial-gradient(circle at 0 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
+[dir="ltr"] .pc-folder .pc-tab::before { right: auto; left: calc(var(--fil) * -1); background: radial-gradient(circle at 0 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
+[dir="ltr"] .pc-folder .pc-tab::after { left: auto; right: calc(var(--fil) * -1); background: radial-gradient(circle at 100% 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
+.pc-folder .pc-card:nth-child(1) .pc-tab::before { display: none; } /* flush with the card's start edge */
+.pc-folder .pc-tab-l { color: var(--f-muted); }
+[lang="en"] .pc-folder .pc-tab-l { text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-xs); }
+.pc-folder .pc-tab-n { font-weight: 700; font-variant-numeric: tabular-nums; }
+.pc-folder .pc-title { grid-area: title; font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.03em; }
+.pc-folder .pc-title-2,
+.pc-folder .pc-tags,
+.pc-folder .pc-star { display: none; }
+.pc-folder .pc-text { grid-area: text; display: block; max-width: 560px; margin-top: 24px; color: var(--f-muted); }
+.pc-folder .pc-out { grid-area: out; display: flex; flex-direction: column; gap: 10px; padding-top: 40px; }
+.pc-folder .pc-out-v { font-size: var(--fs-h3); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.pc-folder .pc-out-l { font-size: var(--fs-sm); color: var(--f-muted); }
+.pc-folder .pc-num {
+  grid-area: num;
+  display: block;
+  align-self: end;
+  margin-bottom: -0.1em;
+  font-size: clamp(120px, 15vw, 230px);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.1;
+}
+@media (max-width: 960px) {
+  .pc-folder .pc-list { --tab: 44px; --fil: 12px; --stick: calc(72px + var(--tab)); row-gap: calc(var(--tab) + 32px); }
+  .pc-folder .pc-card { min-height: 0; padding: 32px 28px 32px; column-gap: 24px; }
+  .pc-folder .pc-tab { padding-inline: 16px; }
+  .pc-folder .pc-num { font-size: 96px; }
+}
+@media (max-width: 600px) {
+  .pc-folder .pc-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "text" "." "out"; min-height: 380px; padding: 28px 24px 30px; }
+  .pc-folder .pc-tab { justify-content: center; padding-inline: 8px; }
+  .pc-folder .pc-tab-l, .pc-folder .pc-num { display: none; }
+  .pc-folder .pc-text { margin-top: 16px; font-size: var(--fs-body); }
+  .pc-folder .pc-out { padding-top: 32px; }
 }
