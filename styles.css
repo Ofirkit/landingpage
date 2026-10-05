@@ -865,17 +865,57 @@ section[hidden] { display: none !important; }
   letter-spacing: -0.02em;
   text-wrap: pretty;
 }
-.statement-text span { display: block; } /* one sentence per line */
+.statement-text > span { display: block; } /* one sentence per line */
 /* how-test.html: the Statement sits between How I work (which brings its own bottom space) and the black quote band */
 .statement-gap { padding-block: 0 var(--section-y); }
-.statement-text span:first-child { color: var(--text-dim); }
-/* how-test.html / en.html (2026-10-05, user: "a strong statement… should get way bigger"): display size, the biggest
-   type on the page, tight leading, and more air around it */
-.statement-xl { padding-block: calc(var(--section-y) * 0.4) calc(var(--section-y) * 1.4); }
-.statement-xl .statement-text { font-size: var(--fs-mega); line-height: 1; letter-spacing: -0.045em; }
-.statement-xl .statement-text span { text-wrap: balance; } /* no lone last word */
-.statement-xl .statement-text span + span { margin-top: 0.12em; }
-:lang(he) .statement-xl .statement-text { letter-spacing: -0.03em; }
+.statement-text > span:first-child { color: var(--text-dim); }
+/* how-test.html / en.html (2026-10-05, user: "a strong statement… should get way bigger", then "100 view height,
+   aligned to the center, with an animation"): display size, the biggest type on the page, centered in a full-screen
+   section. The animation (script.js "Statement: cross it out") plays once when half the section is in view: the first
+   sentence rises in, a bar like the logo's draws through "an expensive decoration", then the second sentence rises in
+   line by line. Without JS or with reduced motion the end state shows: the phrase struck, both sentences in place */
+.statement-xl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: calc(var(--section-y) * 0.5);
+  text-align: center;
+}
+.statement-xl .container { width: 100%; }
+.statement-xl .statement-text { max-width: 15ch; margin-inline: auto; font-size: var(--fs-mega); line-height: 1; letter-spacing: -0.045em; }
+:lang(he) .statement-xl .statement-text { max-width: 13ch; letter-spacing: -0.03em; }
+.statement-xl .statement-text > span { text-wrap: balance; } /* no lone last word */
+.statement-xl .statement-text > span + span { margin-top: 0.14em; }
+/* The strike: drawn over the letters in the full text color. Without the animation it is a plain line-through;
+   with it (.st-ready), script.js wraps each word of the phrase and a bar on top of each word (running on through
+   the following space) grows in turn, so the words read as one continuous stroke, even across a line break */
+.st-strike { text-decoration: line-through var(--text) 0.085em; }
+.st-ready .st-strike { text-decoration: none; }
+.st-sw { position: relative; display: inline-block; } /* one box per word, so a bar never splits at a line break */
+.st-sw::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0 -0.26em;
+  top: 54%;
+  height: 0.085em;
+  background: var(--text);
+  transform-origin: left center;
+  transition: transform var(--dur, 0.3s) linear var(--delay, 0.75s);
+}
+:lang(he) .st-sw::after { top: 50%; }
+[dir="rtl"] .st-sw::after { transform-origin: right center; }
+.st-sw.st-eol::after, .st-sw:last-child::after { inset-inline-end: 0; }
+/* second sentence: each word in its own mask (script.js), rising in by line */
+.st-w { display: inline-block; overflow: hidden; vertical-align: top; padding-block: 0.06em 0.16em; margin-block: -0.06em -0.16em; }
+.st-wi { display: inline-block; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+@media (prefers-reduced-motion: no-preference) {
+  .st-ready .statement-text > span:first-child { opacity: 0; transform: translateY(0.3em); transition: opacity 0.8s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+  .st-ready.st-on .statement-text > span:first-child { opacity: 1; transform: none; }
+  .st-ready:not(.st-on) .st-sw::after { transform: scaleX(0); }
+  .st-ready:not(.st-on) .st-wi { transform: translateY(115%); }
+}
 
 /* ==========================================================
    Process — accordion list after the user's reference: number in the side column, title on the

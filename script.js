@@ -509,6 +509,44 @@ document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
   link.appendChild(roll);
 });
 
+// Statement: cross it out (how-test.html / en.html). Once half the full-screen section is in view: the first
+// sentence rises in, a bar draws through the phrase, then the second sentence rises in line by line. Each word of
+// the second sentence gets its own mask; words on the same line share a delay, so the lines arrive one after another
+const statement = document.querySelector(".statement-xl");
+if (statement && !reduceMotion) {
+  const second = statement.querySelector(".statement-text > span:last-child");
+  second.innerHTML = second.textContent.trim().split(/\s+/)
+    .map((w) => `<span class="st-w"><span class="st-wi">${w}</span></span>`).join(" ");
+  const words = [...second.querySelectorAll(".st-w")];
+  // the strike: one bar per word, timed by width so the stroke moves at one speed through the whole phrase
+  const strike = statement.querySelector(".st-strike");
+  strike.innerHTML = strike.textContent.trim().split(/\s+/).map((w) => `<span class="st-sw">${w}</span>`).join(" ");
+  const strikeWords = [...strike.querySelectorAll(".st-sw")];
+  const timeStrike = () => {
+    // a word at the end of a line doesn't carry its bar on into the empty space
+    strikeWords.forEach((w) => w.classList.toggle("st-eol", !w.nextElementSibling || w.nextElementSibling.offsetTop !== w.offsetTop));
+    const widths = strikeWords.map((w) => w.offsetWidth + (w.classList.contains("st-eol") ? 0 : 0.26 * parseFloat(getComputedStyle(w).fontSize)));
+    const total = widths.reduce((a, b) => a + b, 0);
+    let at = 0.75;
+    strikeWords.forEach((w, i) => {
+      const dur = (0.9 * widths[i]) / total;
+      w.style.setProperty("--delay", `${at.toFixed(3)}s`);
+      w.style.setProperty("--dur", `${dur.toFixed(3)}s`);
+      at += dur;
+    });
+  };
+  statement.classList.add("st-ready");
+  const stIo = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    const tops = [...new Set(words.map((w) => w.offsetTop))].sort((a, b) => a - b);
+    words.forEach((w) => { w.firstChild.style.transitionDelay = `${1.7 + tops.indexOf(w.offsetTop) * 0.14}s`; });
+    timeStrike();
+    statement.classList.add("st-on");
+    stIo.disconnect();
+  }, { threshold: 0.5 });
+  stIo.observe(statement);
+}
+
 // Language switcher: keep the page's ?query (tone and other variants) when switching language
 document.querySelectorAll(".lang-switch a[href]").forEach((a) => { a.href = a.getAttribute("href") + location.search; });
 
