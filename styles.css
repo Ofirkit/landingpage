@@ -1622,7 +1622,7 @@ section[hidden] { display: none !important; }
 
 /* ----- Process as folder tabs (default on how-test and en, 2026-10-05, after the user's reference: "cards turning
    to tabs in a folder"). Each card has a tab on its top edge, a quarter of the width, each one further along
-   (01 at the start edge, 04 at the far end). Every card sticks at the same spot, so the next card covers the
+   (01 at the start edge, the last step at the far end; 4 or 5 steps). Every card sticks at the same spot, so the next card covers the
    previous card's body but not its tab: the covered steps stay as a row of folder tabs above the current one.
    The tab grows out of the card with concave corners (radial-gradient fillets). Cards step from the lightest
    surface to the darkest shade, so the stack reads like a folder of differently colored dividers. Body: title and
@@ -1632,6 +1632,7 @@ section[hidden] { display: none !important; }
   --tab: 52px;
   --fil: 18px;      /* the concave corner where the tab meets the card */
   --stick: calc(88px + var(--tab));
+  --n: 4;           /* the number of steps: each tab takes 1/n of the width */
   row-gap: var(--pc-gap, calc(var(--tab) + 48px)); /* script.js widens it so each card settles before the next shows */
   padding-top: var(--tab);
 }
@@ -1654,17 +1655,19 @@ section[hidden] { display: none !important; }
 .pc-folder .pc-card:nth-child(1) { border-start-start-radius: 0; }
 .pc-folder .pc-card:nth-child(2) { --f-bg: #dedede; }
 .pc-folder .pc-card:nth-child(3) { --f-bg: #2a2a2a; --f-text: #f5f5f5; --f-muted: #b3b3b3; }
-.pc-folder .pc-card:nth-child(4) { --f-bg: #0b0b0b; --f-text: #f5f5f5; --f-muted: #b3b3b3; }
+.pc-folder .pc-card:nth-child(4) { --f-bg: #1a1a1a; --f-text: #f5f5f5; --f-muted: #b3b3b3; } /* only when there are 5 steps */
+.pc-folder .pc-card:last-child { --f-bg: #0b0b0b; --f-text: #f5f5f5; --f-muted: #b3b3b3; }
+.pc-folder .pc-list:has(> .pc-card:nth-child(5)) { --n: 5; }
 .pc-folder .pc-card::after { display: none; }
 .pc-folder .pc-tab {
   --i: 0;
   position: absolute;
   bottom: 100%;
-  inset-inline-start: calc(var(--i) * 25%);
+  inset-inline-start: calc(var(--i) * 100% / var(--n));
   display: flex;
   align-items: center;
   gap: 10px;
-  width: calc(25% - var(--fil) - 4px);
+  width: calc(100% / var(--n) - var(--fil) - 4px);
   height: var(--tab);
   padding-inline: 24px;
   font-size: var(--fs-sm);
@@ -1675,8 +1678,9 @@ section[hidden] { display: none !important; }
 }
 .pc-folder .pc-card:nth-child(2) .pc-tab { --i: 1; }
 .pc-folder .pc-card:nth-child(3) .pc-tab { --i: 2; }
-.pc-folder .pc-card:nth-child(4) .pc-tab { inset-inline-start: auto; inset-inline-end: 0; } /* flush with the end edge */
-.pc-folder .pc-card:nth-child(4) { border-start-end-radius: 0; }
+.pc-folder .pc-card:nth-child(4) .pc-tab { --i: 3; }
+.pc-folder .pc-card:last-child .pc-tab { inset-inline-start: auto; inset-inline-end: 0; } /* flush with the end edge */
+.pc-folder .pc-card:last-child { border-start-end-radius: 0; }
 .pc-folder .pc-tab::before,
 .pc-folder .pc-tab::after {
   content: "";
@@ -1692,7 +1696,7 @@ section[hidden] { display: none !important; }
 [dir="ltr"] .pc-folder .pc-tab::before { right: auto; left: calc(var(--fil) * -1); background: radial-gradient(circle at 0 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
 [dir="ltr"] .pc-folder .pc-tab::after { left: auto; right: calc(var(--fil) * -1); background: radial-gradient(circle at 100% 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
 .pc-folder .pc-card:nth-child(1) .pc-tab::before,
-.pc-folder .pc-card:nth-child(4) .pc-tab::after { display: none; } /* flush with the card's edge */
+.pc-folder .pc-card:last-child .pc-tab::after { display: none; } /* flush with the card's edge */
 .pc-folder .pc-tab-l { color: var(--f-muted); }
 [lang="en"] .pc-folder .pc-tab-l { text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-xs); }
 .pc-folder .pc-tab-n { font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -1758,6 +1762,6 @@ section[hidden] { display: none !important; }
   .pc-folder .pc-tab-l, .pc-folder .pc-num { display: none; }
   .pc-folder .pc-text { margin-top: 16px; font-size: var(--fs-body); }
   .pc-folder .pc-out { padding-top: 32px; }
-  .pc-folder .pc-tags { gap: 10px 20px; margin-top: 20px; padding-top: 20px; }
+  .pc-folder .pc-tags { grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 20px; padding-top: 20px; } /* one column: long tags wrapped in two */
   .pc-folder .pc-tags li { font-size: var(--fs-sm); }
 }

@@ -23,11 +23,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261005r" />
+  <link rel="stylesheet" href="styles.css?v=20261005t" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
-  <link rel="stylesheet" href="tone.css?v=20261005a" />
+  <link rel="stylesheet" href="tone.css?v=20261005b" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1], s; try { s = localStorage.getItem("uxk-theme"); } catch (e) {} if (!t) t = s === "dark" ? "dark" : "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
   <meta name="robots" content="noindex" />
   <!-- how-test.html: light.html with the new bento "איך אני עובד" section, for review before it goes live -->
@@ -294,6 +294,7 @@
           <div>
             <h2>תהליך</h2>
             <p class="section-sub">קודם אני מבין איפה אתם עומדים ← ואז בונה את הדרך הברורה ביותר לאן שאתם הולכים.</p>
+            <p class="section-sub">כבר יש לכם עיצוב ב-Figma? מדלגים ישר לשלב 4.</p>
           </div>
         </header>
 
@@ -303,31 +304,39 @@
             <span class="pc-num" aria-hidden="true">01</span>
             <h3 class="pc-title"><span>שיחת היכרות</span> <span class="pc-title-2">והצעה מסודרת</span></h3>
             <ul class="pc-tags"><li>היכרות עם העסק והקהל</li><li>מטרות האתר</li><li>בדיקת התאמה</li><li>הצעה עם היקף ומחיר</li></ul>
-            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>שיחה של 20 דקות. אתם מספרים על העסק, על הקהל ועל מה האתר צריך לעשות, ואני שואל את השאלות שיעזרו לי להבין את התמונה. אם יש התאמה, תקבלו ממני הצעה מסודרת עם היקף, מחיר ולוח זמנים.</span></p>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>שיחה של 20 דקות. אתם מספרים על העסק, על הקהל, על מה האתר צריך לעשות ואילו עמודים אתם צריכים, ואני שואל את השאלות שיעזרו לי להבין את התמונה. אם יש התאמה, תקבלו ממני הצעה מסודרת עם היקף, מחיר ולוח זמנים.</span></p>
             <p class="pc-out"><span class="pc-out-v">הצעה מסודרת</span><span class="pc-out-l">בסוף השלב</span></p>
           </li>
           <li class="pc-card">
             <span class="pc-tab" aria-hidden="true"><span class="pc-tab-l">שלב</span><span class="pc-tab-n">02</span></span>
             <span class="pc-num" aria-hidden="true">02</span>
-            <h3 class="pc-title"><span>מבנה ועמוד הבית</span> <span class="pc-title-2">לאישור שלכם</span></h3>
-            <ul class="pc-tags"><li>מבנה האתר</li><li>עיצוב עמוד הבית</li><li>סבבי תיקונים</li><li>אישור לפני שממשיכים</li></ul>
-            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>מגדירים יחד את מבנה האתר: אילו עמודים, מה יש בכל אחד ובאיזה סדר. אחר כך אני מעצב את עמוד הבית ב-Figma, או ישירות בכלי שבו נבנה את האתר. אם הטקסטים עוד לא מוכנים, אני עובד עם טקסט זמני כדי שהעבודה לא תיעצר. ממשיכים רק אחרי שאישרתם.</span></p>
-            <p class="pc-out"><span class="pc-out-v">עמוד בית מאושר</span><span class="pc-out-l">בסוף השלב</span></p>
+            <h3 class="pc-title"><span>מבנה העמוד תוך 48 שעות</span></h3>
+            <ul class="pc-tags"><li>סדר ומסר</li><li>wireframe ב-Figma</li><li>סבב הערות</li><li>אישור לפני שממשיכים</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>תוך 48 שעות מקבלת המקדמה תקבלו את מבנה העמוד (wireframe): מה מופיע, באיזה סדר, ומה המסר של כל חלק. עוד בלי צבעים ועיצוב, כדי שנסגור קודם את הסיפור ורק אחר כך את המראה. באתר עם כמה עמודים מתחילים מעמוד הבית. אם הטקסטים עוד לא מוכנים, אני עובד עם טקסט זמני.</span></p>
+            <p class="pc-out"><span class="pc-out-v">מבנה מאושר</span><span class="pc-out-l">בסוף השלב</span></p>
           </li>
           <li class="pc-card">
             <span class="pc-tab" aria-hidden="true"><span class="pc-tab-l">שלב</span><span class="pc-tab-n">03</span></span>
             <span class="pc-num" aria-hidden="true">03</span>
-            <h3 class="pc-title"><span>שאר האתר</span> <span class="pc-title-2">עם לינק חי להתקדמות</span></h3>
-            <ul class="pc-tags"><li>שאר העמודים</li><li>אנימציות</li><li>CMS</li><li>התאמה לכל מסך</li><li>SEO</li></ul>
-            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>אחרי שעמוד הבית מאושר, אני בונה את שאר העמודים באותה שפה: אנימציות, CMS לתכנים שמתעדכנים, התאמה לכל מסך ו-SEO. אתם עוקבים אחרי ההתקדמות בלינק חי ויכולים להעיר תוך כדי, בלי לחכות לסוף.</span></p>
-            <p class="pc-out"><span class="pc-out-v">לינק חי להתקדמות</span><span class="pc-out-l">בסוף השלב</span></p>
+            <h3 class="pc-title"><span>עיצוב מלא לאישור שלכם</span></h3>
+            <ul class="pc-tags"><li>עיצוב ב-Figma</li><li>סבבי תיקונים</li><li>כל העמודים</li><li>אישור לפני בנייה</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>על בסיס המבנה המאושר אני מעצב את העמוד ב-Figma: צבעים, טיפוגרפיה, תמונות וכל הפרטים הקטנים. כאן נמצאים סבבי התיקונים. באתר עם כמה עמודים, כל עמוד עובר את אותו מסלול: מבנה ואז עיצוב. לבנייה עוברים רק אחרי שאישרתם את העיצוב כולו.</span></p>
+            <p class="pc-out"><span class="pc-out-v">עיצוב מאושר</span><span class="pc-out-l">בסוף השלב</span></p>
           </li>
           <li class="pc-card">
             <span class="pc-tab" aria-hidden="true"><span class="pc-tab-l">שלב</span><span class="pc-tab-n">04</span></span>
             <span class="pc-num" aria-hidden="true">04</span>
+            <h3 class="pc-title"><span>בנייה עם לינק חי להתקדמות</span></h3>
+            <ul class="pc-tags"><li>בנייה אחד לאחד</li><li>אנימציות</li><li>התאמה לכל מסך</li><li>SEO</li><li>CMS לפי הצורך</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>העיצוב המאושר הופך לאתר אמיתי, אחד לאחד: אנימציות, התאמה לכל מסך, SEO, ו-CMS לתכנים שמתעדכנים אם צריך. ברגע שהעמוד הראשון בנוי תקבלו לינק חי, ותוכלו לעקוב ולהעיר תוך כדי. באגים וסטיות מהעיצוב המאושר אני מתקן בלי הגבלה.</span></p>
+            <p class="pc-out"><span class="pc-out-v">אתר מוכן להשקה</span><span class="pc-out-l">בסוף השלב</span></p>
+          </li>
+          <li class="pc-card">
+            <span class="pc-tab" aria-hidden="true"><span class="pc-tab-l">שלב</span><span class="pc-tab-n">05</span></span>
+            <span class="pc-num" aria-hidden="true">05</span>
             <h3 class="pc-title"><span>השקה והדרכה</span> <span class="pc-title-2">עד שהאתר באוויר</span></h3>
-            <ul class="pc-tags"><li>חיבור דומיין</li><li>בדיקות אחרונות</li><li>עלייה לאוויר</li><li>הדרכה לצוות</li></ul>
-            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>מחברים את הדומיין, עוברים על בדיקות אחרונות בכל גודל מסך, והאתר עולה לאוויר. אחר כך הדרכה קצרה לצוות שלכם, כדי שתוכלו לעדכן את האתר בעצמכם.</span></p>
+            <ul class="pc-tags"><li>חיבור דומיין</li><li>בדיקות אחרונות</li><li>עלייה לאוויר</li><li>הדרכה לצוות</li><li>תמיכה אחרי ההשקה</li></ul>
+            <p class="pc-text"><svg class="pc-star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5v17M2.6 5.75l14.8 8.5M2.6 14.25l14.8-8.5"/></svg><span>מחברים את הדומיין, עוברים על בדיקות אחרונות בכל גודל מסך, והאתר עולה לאוויר. אחר כך הדרכה קצרה לצוות שלכם, כדי שתוכלו לעדכן את האתר בעצמכם. ואחרי ההשקה אני זמין לתיקוני באגים ולשאלות לאורך תקופת התמיכה.</span></p>
             <p class="pc-out"><span class="pc-out-v">אתר באוויר</span><span class="pc-out-l">בסוף השלב</span></p>
           </li>
         </ol>
@@ -408,7 +417,7 @@
             <a href="[קישור ליומן]" class="btn btn-primary p3-btn" target="_blank" rel="noopener">בואו נדבר</a>
             <ul class="p3-facts">
               <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>עמוד אחד</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>טיוטה ראשונה תוך 48 שעות</li>
+              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>מבנה העמוד תוך 48 שעות</li>
             </ul>
             <p class="p3-label">כולל:</p>
             <ul class="p3-list">
@@ -416,7 +425,7 @@
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>בנייה ב-Framer, ב-Webflow או בקוד</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>התאמה מלאה למובייל ולטאבלט</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>טופס לידים, אנליטיקס ו-SEO בסיסי</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 סבבי תיקונים ו-30 יום תמיכה</li>
+              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 סבבי תיקונים לעיצוב ו-30 יום תמיכה</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>באוויר תוך 1–2 שבועות</li>
             </ul>
           </article>
@@ -428,14 +437,14 @@
             <a href="[קישור ליומן]" class="btn btn-primary p3-btn" target="_blank" rel="noopener">בואו נדבר</a>
             <ul class="p3-facts">
               <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>עד 5 עמודים</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>טיוטה ראשונה תוך 48 שעות</li>
+              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>מבנה עמוד הבית תוך 48 שעות</li>
             </ul>
             <p class="p3-label">כולל:</p>
             <ul class="p3-list">
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>כל מה שבדף הנחיתה</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>אפיון מבנה האתר והניווט</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>הדרכה לצוות לעדכון האתר</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 סבבי תיקונים לעמוד הבית, אחד לשאר</li>
+              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 סבבי תיקונים לעיצוב עמוד הבית, אחד לשאר</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>עמוד נוסף: החל מ-2,800 ₪</li>
               <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>באוויר תוך 3–5 שבועות</li>
             </ul>
@@ -597,11 +606,15 @@
           </details>
           <details class="faq-item">
             <summary>מה אם לא נאהב את העיצוב?</summary>
-            <p>בגלל זה מתחילים מעמוד הבית. מאשרים יחד את הכיוון, עם סבבי תיקונים מוגדרים, לפני שממשיכים לשאר האתר.</p>
+            <p>בגלל זה עובדים בשלבים. קודם מאשרים את מבנה העמוד, אחר כך את העיצוב, עם סבבי תיקונים מוגדרים, ורק אז עוברים לבנייה.</p>
           </details>
           <details class="faq-item">
             <summary>כמה סבבי תיקונים יש?</summary>
-            <p>2 סבבי תיקונים לעמוד הבית וסבב אחד לשאר העמודים. בדף נחיתה יש 2 סבבים, ובבנייה מעיצוב Figma קיים סבב אחד. שינויים מעבר לזה מתומחרים בנפרד.</p>
+            <p>הסבבים הם על העיצוב: בדף נחיתה 2 סבבים, ובאתר מלא 2 סבבים לעמוד הבית וסבב אחד לשאר העמודים. לפני כן יש סבב הערות על מבנה העמוד, שלא נספר. בשלב הבנייה אני מתקן באגים וסטיות מהעיצוב המאושר בלי הגבלה. בבנייה מעיצוב Figma קיים יש סבב תיקונים אחד. שינויים מעבר לזה מתומחרים בנפרד.</p>
+          </details>
+          <details class="faq-item">
+            <summary>איך מתבצע התשלום?</summary>
+            <p>50% מקדמה בתחילת העבודה, והיתרה לפני העלייה לאוויר.</p>
           </details>
           <!-- Copywriting may become a service later; this answer is easy to edit. -->
           <details class="faq-item">

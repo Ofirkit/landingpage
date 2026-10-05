@@ -223,8 +223,10 @@
 .toned .pc-folder .pc-card { --f-bg: var(--t-surface); --f-text: var(--t-ink); --f-muted: var(--t-muted); }
 .toned .pc-folder .pc-card:nth-child(2) { --f-bg: var(--t-line); }
 .toned .pc-folder .pc-card:nth-child(3) { --f-bg: var(--t-d3); --f-text: var(--t-on-dark); --f-muted: var(--t-on-dark-muted); }
-.toned .pc-folder .pc-card:nth-child(4) { --f-bg: var(--t-d0); --f-text: var(--t-on-dark); --f-muted: var(--t-on-dark-muted); }
+.toned .pc-folder .pc-card:nth-child(4) { --f-bg: var(--t-d2); --f-text: var(--t-on-dark); --f-muted: var(--t-on-dark-muted); } /* 5 steps only */
+.toned .pc-folder .pc-card:last-child { --f-bg: var(--t-d0); --f-text: var(--t-on-dark); --f-muted: var(--t-on-dark-muted); }
 .tone-dark .pc-folder .pc-card { --f-bg: var(--t-d1); }
 .tone-dark .pc-folder .pc-card:nth-child(2) { --f-bg: var(--t-d2); }
 .tone-dark .pc-folder .pc-card:nth-child(3) { --f-bg: var(--t-d3); }
-.tone-dark .pc-folder .pc-card:nth-child(4) { --f-bg: var(--t-ink); --f-text: var(--t-paper); --f-muted: rgba(var(--t-paper-rgb), 0.72); }
+.tone-dark .pc-folder .pc-card:nth-child(4) { --f-bg: color-mix(in srgb, var(--t-d3), var(--t-ink) 12%); } /* 5 steps only */
+.tone-dark .pc-folder .pc-card:last-child { --f-bg: var(--t-ink); --f-text: var(--t-paper); --f-muted: rgba(var(--t-paper-rgb), 0.72); }
