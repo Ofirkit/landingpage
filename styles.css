@@ -1641,8 +1641,8 @@ section[hidden] { display: none !important; }
   --f-muted: #4a4a4a;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-rows: auto auto 1fr auto;
-  grid-template-areas: "title num" "text num" ". num" "out num";
+  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-areas: "title num" "text num" "list num" ". num" "out num";
   column-gap: 48px;
   min-height: clamp(440px, 60vh, 560px);
   padding: 44px 48px 44px;
@@ -1698,8 +1698,38 @@ section[hidden] { display: none !important; }
 .pc-folder .pc-tab-n { font-weight: 700; font-variant-numeric: tabular-nums; }
 .pc-folder .pc-title { grid-area: title; font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.03em; }
 .pc-folder .pc-title-2,
-.pc-folder .pc-tags,
 .pc-folder .pc-star { display: none; }
+/* what the step covers: the tags become a two-column list with small plus marks */
+.pc-folder .pc-tags {
+  grid-area: list;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 32px;
+  max-width: 560px;
+  margin: 28px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--f-text) 14%, transparent);
+}
+.pc-folder .pc-tags li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  font-size: var(--fs-body);
+  color: var(--f-text);
+  border: 0;
+  border-radius: 0;
+}
+.pc-folder .pc-tags li::before {
+  content: "";
+  flex: none;
+  width: 11px;
+  height: 11px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+  opacity: 0.55;
+}
 .pc-folder .pc-text { grid-area: text; display: block; max-width: 560px; margin-top: 24px; color: var(--f-muted); }
 .pc-folder .pc-out { grid-area: out; display: flex; flex-direction: column; gap: 10px; padding-top: 40px; }
 .pc-folder .pc-out-v { font-size: var(--fs-h3); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
@@ -1723,9 +1753,11 @@ section[hidden] { display: none !important; }
   .pc-folder .pc-num { font-size: 96px; }
 }
 @media (max-width: 600px) {
-  .pc-folder .pc-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "text" "." "out"; min-height: 380px; padding: 28px 24px 30px; }
+  .pc-folder .pc-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "text" "list" "." "out"; min-height: 380px; padding: 28px 24px 30px; }
   .pc-folder .pc-tab { justify-content: center; padding-inline: 8px; }
   .pc-folder .pc-tab-l, .pc-folder .pc-num { display: none; }
   .pc-folder .pc-text { margin-top: 16px; font-size: var(--fs-body); }
   .pc-folder .pc-out { padding-top: 32px; }
+  .pc-folder .pc-tags { gap: 10px 20px; margin-top: 20px; padding-top: 20px; }
+  .pc-folder .pc-tags li { font-size: var(--fs-sm); }
 }
