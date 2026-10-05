@@ -735,23 +735,54 @@ if (fullMenu) {
   header.after(nav);
   nav.querySelectorAll("li").forEach((li, i) => li.style.setProperty("--i", i));
 }
-const setMenu = (open) => {
-  if (open === nav.classList.contains("is-open")) return;
+// Closing plays the cascade in reverse (user, 2026-10-05): the links leave from the last to the first
+// (.is-closing, each with --r = its place from the end), and only then does the overlay fade out and the page
+// unlock. A menu link waits for that too: its click is held, and once the menu is closed it's clicked again so
+// Lenis scrolls to the section as usual.
+const CLOSE_STEP = 90;   // ms between links leaving (matches the CSS)
+const CLOSE_LEAVE = 500; // ms each link takes to leave (matches the CSS)
+let closeTimer = 0;
+let passThrough = false;
+const finishClose = () => {
+  nav.classList.remove("is-open", "is-closing");
+  document.documentElement.classList.remove("menu-open");
+  if (window.lenis) window.lenis.start();
+  document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = false; });
+};
+const setMenu = (open, after) => {
+  const isOpen = nav.classList.contains("is-open") && !nav.classList.contains("is-closing");
+  if (open === isOpen) return;
   toggle.setAttribute("aria-expanded", String(open));
   const en = document.documentElement.lang === "en";
   toggle.setAttribute("aria-label", open ? (en ? "Close menu" : "סגירת תפריט") : (en ? "Open menu" : "פתיחת תפריט"));
-  nav.classList.toggle("is-open", open);
-  if (!fullMenu) return;
-  document.documentElement.classList.toggle("menu-open", open);
+  if (!fullMenu) { nav.classList.toggle("is-open", open); return; }
+  clearTimeout(closeTimer);
   header.classList.remove("is-hidden");
-  if (window.lenis) open ? window.lenis.stop() : window.lenis.start();
-  document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = open; });
-  if (open) nav.querySelector("a")?.focus({ preventScroll: true });
-  else if (nav.contains(document.activeElement)) toggle.focus({ preventScroll: true });
+  if (open) {
+    nav.classList.remove("is-closing");
+    nav.classList.add("is-open");
+    document.documentElement.classList.add("menu-open");
+    if (window.lenis) window.lenis.stop();
+    document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = true; });
+    nav.querySelector("a")?.focus({ preventScroll: true });
+    return;
+  }
+  if (nav.contains(document.activeElement)) toggle.focus({ preventScroll: true });
+  const items = [...nav.querySelectorAll("li")].filter((li) => li.offsetParent !== null);
+  items.forEach((li, i) => li.style.setProperty("--r", items.length - 1 - i));
+  nav.classList.add("is-closing");
+  const wait = reduceMotion ? 0 : CLOSE_STEP * (items.length - 1) + CLOSE_LEAVE;
+  closeTimer = setTimeout(() => { finishClose(); if (after) after(); }, wait);
 };
 toggle.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
 header.addEventListener("focusin", () => header.classList.remove("is-hidden"));
-nav.addEventListener("click", (e) => e.target.closest("a") && setMenu(false));
+nav.addEventListener("click", (e) => {
+  const a = e.target.closest("a");
+  if (!a || passThrough) return;
+  if (!fullMenu || a.target === "_blank") { setMenu(false); return; }
+  e.preventDefault(); // close first, then follow the link
+  setMenu(false, () => { passThrough = true; a.click(); passThrough = false; });
+});
 document.addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
 
 // Reveal on scroll
