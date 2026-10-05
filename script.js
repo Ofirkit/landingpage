@@ -228,7 +228,7 @@ if (ar && !reduceMotion) {
                          // until then it waits just below the screen, then rises to meet the text
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const easeOut = (t) => Math.sin((Math.PI * t) / 2); // moves at once, slows as the photo meets the text
-  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null, hide = 0;
+  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null, hide = 0, restTop = 0;
   const state = words.map(() => null);
 
   const update = () => {
@@ -248,6 +248,11 @@ if (ar && !reduceMotion) {
     });
     // photo: fully below the screen until SETTLE, then it peeks in and rises to meet the text by the end
     const settle = easeOut(clamp01((s / D - SETTLE) / (1 - SETTLE)));
+    // how far it waits below its resting place: measured against the screen height right now, not layoutVh,
+    // because on phones the address bar hides while scrolling and the screen gets taller than the layout height
+    // (with layoutVh the photo peeked in at the bottom early). This only moves the photo, so the page never jumps.
+    const screenH = Math.max(vh, window.innerHeight, window.visualViewport ? window.visualViewport.height : 0);
+    hide = Math.max(0, Math.round(screenH + 2 - restTop));
     lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(hide * (1 - settle))}px, 0)` : "";
   };
   const measure = () => {
@@ -261,7 +266,7 @@ if (ar && !reduceMotion) {
     const stageDocTop = track.getBoundingClientRect().top + window.scrollY + pad;
     pinAt = stageDocTop - stickyTop;
     // how far below its resting place the photo waits so that it is just out of sight while pinned
-    hide = Math.max(0, Math.round(vh + 2 - (stickyTop + lower.offsetTop)));
+    restTop = stickyTop + lower.offsetTop; // the photo block's resting top on the screen while pinned
     lead = START * vh - (stickyTop + textMid);
     lastY = null;
     update();
