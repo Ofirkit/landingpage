@@ -1787,9 +1787,9 @@ html:has(body.v2) { scrollbar-gutter: stable; } /* no sideways jump when the scr
   visibility: hidden;
   opacity: 0;
   transform: none;
-  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.4s;
 }
-.js body.v2 > .main-nav.is-open { visibility: visible; opacity: 1; transition: opacity 0.35s ease; }
+.js body.v2 > .main-nav.is-open { visibility: visible; opacity: 1; transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 .js body.v2 > .main-nav ul {
   display: flex;
   flex-direction: column;
@@ -1804,13 +1804,24 @@ html:has(body.v2) { scrollbar-gutter: stable; } /* no sideways jump when the scr
   border-radius: 0;
   box-shadow: none;
 }
-.js body.v2 > .main-nav li { opacity: 0; transform: translateY(18px); }
-/* one link at a time: each fades and rises in 0.32s, and the next starts when it has finished */
+/* Links cascade in (user: the strict one-after-another 0.32s steps felt robotic): each rises 40px out of a soft
+   blur with a long expo-out ease, so most of its move happens in the first ~0.25s and the next one starts as it
+   settles (0.11s apart). Closing fades them all at once, quickly */
+.js body.v2 > .main-nav li {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(8px);
+  transition: opacity 0.2s ease, transform 0s linear 0.2s, filter 0s linear 0.2s;
+}
 .js body.v2 > .main-nav.is-open li {
   opacity: 1;
   transform: none;
-  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(0.15s + var(--i, 0) * 0.32s);
+  filter: none;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(0.12s + var(--i, 0) * 0.11s);
 }
 .js body.v2 > .main-nav li:not(.nav-cta) a {
   display: inline-block;
@@ -1832,7 +1843,7 @@ html.menu-open .site-header,
 html.menu-open .site-header .logo { color: var(--text); }
 html.menu-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
-  .js body.v2 > .main-nav li { transform: none; }
+  .js body.v2 > .main-nav li { transform: none; filter: none; }
 }
 @media (min-width: 961px) {
   .js body.v2 > .main-nav .nav-cta { display: none; } /* the header keeps its own "Let's talk" button here */

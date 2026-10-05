@@ -211,7 +211,24 @@
 .tone-dark .p3-featured .btn.p3-btn { color: var(--t-paper); background: var(--t-ink); border-color: var(--t-ink); }
 .tone-dark .p3-featured .btn.p3-btn:hover { background: var(--t-ink-hover); }
 /* The featured pricing card is the raised step, the side cards sit on the page */
-.tone-dark .p3-featured { background: var(--t-d1); border-color: var(--t-line); }
+/* The featured pricing card stays near-white in the dark theme too (user, 2026-10-05): it takes the light slate
+   scale locally, so everything inside (text, rule, icons, the dark button and tab) renders as in the light theme */
+.tone-dark .p3-featured {
+  --t-paper: #edf0f4; --t-surface: #f7f9fb; --t-line: #d9dee6; --t-rule: #e3e7ed;
+  --t-ink: #0e1219; --t-ink-hover: #222937; --t-muted: #4b5462; --t-dim: #7d8696;
+  --t-d0: #0a0e14; --t-d1: #121821; --t-d2: #1b222d; --t-d3: #28303d;
+  --t-on-dark: #edf1f6; --t-on-dark-muted: #aab3c0; --t-on-dark-dim: #848d9b;
+  --t-ink-rgb: 14, 18, 25; --t-paper-rgb: 237, 240, 244; --t-on-dark-rgb: 237, 241, 246;
+  --bg: var(--t-paper); --card-bg: var(--t-surface); --ink: var(--t-ink);
+  --text: var(--t-ink); --text-muted: var(--t-muted); --text-dim: var(--t-dim);
+  --border: rgba(var(--t-ink-rgb), 0.1); --border-strong: rgba(var(--t-ink-rgb), 0.2);
+  color: var(--t-ink);
+  background: var(--t-surface);
+  border-color: var(--t-surface);
+}
+.tone-dark .p3-featured .btn.p3-btn { color: var(--t-on-dark); background: linear-gradient(to bottom, var(--t-d3), var(--t-d0)); border-color: var(--t-d3); }
+.tone-dark .p3-featured .btn.p3-btn:hover { background: linear-gradient(to bottom, var(--t-d3), var(--t-d1)); }
+.tone-dark .p3-featured .p3-badge { color: var(--t-on-dark); background: var(--t-ink); box-shadow: 0 6px 14px rgba(9, 12, 17, 0.5); }
 /* Shadows read as black on a dark page */
 .tone-dark .hero-badge { box-shadow: none; }
 .tone-dark .shot { box-shadow: 0 12px 32px rgba(var(--t-paper-rgb), 0.7); }
