@@ -38,6 +38,7 @@
   --fs-display: clamp(38px, 5vw, 62px);           /* hero headline, below 1024px */
   --fs-h2: clamp(34px, 4.6vw, 66px);              /* section headings, final CTA */
   --fs-xl: clamp(26px, 3.2vw, 44px);              /* big statement text: About, Statement */
+  --fs-mega: clamp(42px, 7.6vw, 124px);           /* the Statement on how-test/en: the biggest type on the page */
   --fs-h3: clamp(24px, 2.4vw, 32px);              /* process step titles, prices */
   --fs-h4: clamp(18px, 1.5vw, 20px);              /* card, principle, fit and FAQ titles */
   --fs-lead: clamp(17px, 1.5vw, 21px);            /* hero subheading */
@@ -868,6 +869,13 @@ section[hidden] { display: none !important; }
 /* how-test.html: the Statement sits between How I work (which brings its own bottom space) and the black quote band */
 .statement-gap { padding-block: 0 var(--section-y); }
 .statement-text span:first-child { color: var(--text-dim); }
+/* how-test.html / en.html (2026-10-05, user: "a strong statement… should get way bigger"): display size, the biggest
+   type on the page, tight leading, and more air around it */
+.statement-xl { padding-block: calc(var(--section-y) * 0.4) calc(var(--section-y) * 1.4); }
+.statement-xl .statement-text { font-size: var(--fs-mega); line-height: 1; letter-spacing: -0.045em; }
+.statement-xl .statement-text span { text-wrap: balance; } /* no lone last word */
+.statement-xl .statement-text span + span { margin-top: 0.12em; }
+:lang(he) .statement-xl .statement-text { letter-spacing: -0.03em; }
 
 /* ==========================================================
    Process — accordion list after the user's reference: number in the side column, title on the
