@@ -930,7 +930,7 @@ section[hidden] { display: none !important; }
 .st-sw::after {
   content: "";
   position: absolute;
-  inset-inline: 0 calc(-1 * var(--gap, 0.26em));
+  inset-inline: 0 calc(-1 * var(--gap, 0.26em) - 1px); /* 1px of overlap into the next word's bar: no hairline seam */
   top: 54%;
   height: 0.085em;
   background: var(--text);

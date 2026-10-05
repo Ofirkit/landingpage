@@ -658,10 +658,13 @@ if (statement) {
         const n = w.nextElementSibling;
         const eol = !n || n.offsetTop !== w.offsetTop;
         w.classList.toggle("st-eol", eol);
-        const a = w.getBoundingClientRect(), b = n ? n.getBoundingClientRect() : a;
-        const gap = eol ? 0 : Math.max(0, b.left > a.right ? b.left - a.right : a.left - b.right);
-        w.style.setProperty("--gap", `${gap.toFixed(1)}px`);
-        return a.width + gap;
+        // layout offsets, not getBoundingClientRect: the sentence is scaled and moved while it animates in,
+        // and measuring through that transform made the gap too short, leaving a break in the bar (user)
+        const aL = w.offsetLeft, aR = aL + w.offsetWidth;
+        const bL = n ? n.offsetLeft : aL, bR = n ? bL + n.offsetWidth : aR;
+        const gap = eol ? 0 : Math.max(0, bL > aR ? bL - aR : aL - bR);
+        w.style.setProperty("--gap", `${gap.toFixed(2)}px`);
+        return w.offsetWidth + gap;
       });
     };
     const drawStrike = (k) => {
@@ -701,6 +704,7 @@ if (statement) {
     window.addEventListener("scroll", updateStatement, { passive: true });
     window.addEventListener("resize", () => { measureStrike(); updateStatement(); });
     document.fonts?.addEventListener("loadingdone", () => { measureStrike(); updateStatement(); });
+    document.fonts?.ready.then(() => { measureStrike(); updateStatement(); });
     if (window.lenis) window.lenis.on("scroll", updateStatement);
     updateStatement();
   }
