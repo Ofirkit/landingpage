@@ -253,6 +253,17 @@ if (ar && !reduceMotion) {
     update();
   };
   measure();
+  // Links to #about land where the reveal is complete (statement written, photo in place), not at the empty start
+  window.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href="#about"]');
+    if (!a || !ar.isConnected) return;
+    e.preventDefault();
+    e.stopPropagation();
+    document.querySelector('.menu-toggle[aria-expanded="true"]')?.click(); // close the phone menu
+    const target = pinAt + D;
+    if (window.lenis) window.lenis.scrollTo(target);
+    else window.scrollTo({ top: target, behavior: "smooth" });
+  }, true);
   document.fonts?.ready.then(measure);
   window.addEventListener("load", measure);
   window.addEventListener("resize", measure);
