@@ -523,6 +523,48 @@ figure, blockquote { margin: 0; }
 .ar-cta { margin-top: 32px; }
 .ar .yt { margin-top: 48px; }
 .ar.ar-on .ar-lower { will-change: transform; }
+/* YouTube channels under the About (2026-10-05, after the user's reference): a small label with the YouTube mark,
+   then one full-width row per channel: the name large, the topic and language small, and a round arrow button.
+   The whole row is the link; the button fills on hover. The red mark is a deliberate brand exception, like the green dot */
+.ytl { align-self: stretch; margin-top: clamp(80px, 9vw, 128px); text-align: start; }
+.ytl-label { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; font-size: var(--fs-sm); font-weight: 700; color: var(--text-muted); }
+:lang(en) .ytl-label { text-transform: uppercase; letter-spacing: 0.14em; }
+.ytl-icon { flex: none; width: 42px; height: 30px; }
+.ytl-icon rect { fill: #ff0033; }
+.ytl-icon path { fill: #fff; }
+.ytl-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+.ytl-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  padding-block: clamp(20px, 2.6vw, 40px);
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.ytl-text { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; min-width: 0; }
+.ytl-name { font-size: var(--fs-h2); font-weight: 700; line-height: 1; letter-spacing: -0.04em; }
+.ytl-meta { font-size: var(--fs-body-lg); color: var(--text-muted); white-space: nowrap; }
+.ytl-go {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 6vw, 88px);
+  aspect-ratio: 1;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ytl-go svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s var(--ease); }
+[dir="rtl"] .ytl-go svg { scale: -1 1; } /* ↖ in Hebrew: "forward" points left */
+.ytl-row:hover .ytl-go,
+.ytl-row:focus-visible .ytl-go { color: var(--bg); background: var(--text); border-color: var(--text); }
+.ytl-row:hover .ytl-go svg { transform: translate(2px, -2px); }
+@media (max-width: 600px) {
+  .ytl-text { flex-direction: column; align-items: flex-start; }
+  .ytl-label { gap: 12px; }
+  .ytl-icon { width: 34px; height: 24px; }
+}
 /* The large photo in a soft frame, like the reference */
 .ar-photo {
   width: min(520px, 100%);
