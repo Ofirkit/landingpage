@@ -369,6 +369,22 @@ if (pcCards.length > 1 && !reduceMotion) {
   if (window.lenis) window.lenis.on("scroll", updatePc);
   updatePc();
 }
+// Folder tabs: a card must be at its place before the next one shows, so the gap between cards is set so the
+// next card's tab is still below the screen when this card reaches its stick position (from layoutVh, so the
+// phone address bar can't change the page height mid-scroll)
+const pcFolder = document.querySelector(".pc-folder .pc-list");
+if (pcFolder && pcCards.length > 1 && !reduceMotion) {
+  const gapPc = () => {
+    const cs = getComputedStyle(pcFolder);
+    const tab = parseFloat(cs.getPropertyValue("--tab")) || 0;
+    const stickAt = parseFloat(getComputedStyle(pcCards[0]).top);
+    const h = pcCards[0].offsetHeight;
+    pcFolder.style.setProperty("--pc-gap", `${Math.max(tab + 48, Math.ceil(layoutVh - stickAt - h + tab + 24))}px`);
+  };
+  window.addEventListener("resize", gapPc);
+  if (document.fonts) document.fonts.ready.then(gapPc);
+  gapPc();
+}
 
 // How I work (how-test.html): play each card's drawing when it comes into view; replay it on hover
 const artCards = document.querySelectorAll(".how3-card");

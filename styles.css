@@ -1632,7 +1632,7 @@ section[hidden] { display: none !important; }
   --tab: 52px;
   --fil: 18px;      /* the concave corner where the tab meets the card */
   --stick: calc(88px + var(--tab));
-  row-gap: calc(var(--tab) + 48px);
+  row-gap: var(--pc-gap, calc(var(--tab) + 48px)); /* script.js widens it so each card settles before the next shows */
   padding-top: var(--tab);
 }
 .pc-folder .pc-card {
@@ -1675,7 +1675,8 @@ section[hidden] { display: none !important; }
 }
 .pc-folder .pc-card:nth-child(2) .pc-tab { --i: 1; }
 .pc-folder .pc-card:nth-child(3) .pc-tab { --i: 2; }
-.pc-folder .pc-card:nth-child(4) .pc-tab { --i: 3; }
+.pc-folder .pc-card:nth-child(4) .pc-tab { inset-inline-start: auto; inset-inline-end: 0; } /* flush with the end edge */
+.pc-folder .pc-card:nth-child(4) { border-start-end-radius: 0; }
 .pc-folder .pc-tab::before,
 .pc-folder .pc-tab::after {
   content: "";
@@ -1690,7 +1691,8 @@ section[hidden] { display: none !important; }
 .pc-folder .pc-tab::after { left: calc(var(--fil) * -1); background: radial-gradient(circle at 0 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
 [dir="ltr"] .pc-folder .pc-tab::before { right: auto; left: calc(var(--fil) * -1); background: radial-gradient(circle at 0 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
 [dir="ltr"] .pc-folder .pc-tab::after { left: auto; right: calc(var(--fil) * -1); background: radial-gradient(circle at 100% 0, transparent calc(var(--fil) - 0.5px), var(--f-bg) var(--fil)); }
-.pc-folder .pc-card:nth-child(1) .pc-tab::before { display: none; } /* flush with the card's start edge */
+.pc-folder .pc-card:nth-child(1) .pc-tab::before,
+.pc-folder .pc-card:nth-child(4) .pc-tab::after { display: none; } /* flush with the card's edge */
 .pc-folder .pc-tab-l { color: var(--f-muted); }
 [lang="en"] .pc-folder .pc-tab-l { text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-xs); }
 .pc-folder .pc-tab-n { font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -1715,7 +1717,7 @@ section[hidden] { display: none !important; }
   opacity: 0.1;
 }
 @media (max-width: 960px) {
-  .pc-folder .pc-list { --tab: 44px; --fil: 12px; --stick: calc(72px + var(--tab)); row-gap: calc(var(--tab) + 32px); }
+  .pc-folder .pc-list { --tab: 44px; --fil: 12px; --stick: calc(72px + var(--tab)); row-gap: var(--pc-gap, calc(var(--tab) + 32px)); }
   .pc-folder .pc-card { min-height: 0; padding: 32px 28px 32px; column-gap: 24px; }
   .pc-folder .pc-tab { padding-inline: 16px; }
   .pc-folder .pc-num { font-size: 96px; }
