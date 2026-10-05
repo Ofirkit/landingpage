@@ -472,8 +472,17 @@ const header = document.querySelector(".site-header");
 const hero = document.querySelector(".hero");
 const blur = document.querySelector(".bottom-blur");
 const footer = document.querySelector(".site-footer");
+// Hide on scroll down, show on scroll up (user, 2026-10-05). Always shown near the top, while the phone menu is
+// open and while focus is inside it (keyboard users). A few pixels of slack so tiny jitters don't toggle it
+let lastY = window.scrollY;
 const onScroll = () => {
-  header.classList.toggle("is-scrolled", window.scrollY > 24);
+  const y = window.scrollY;
+  header.classList.toggle("is-scrolled", y > 24);
+  if (Math.abs(y - lastY) > 6) {
+    const hide = y > lastY && y > 160 && !header.querySelector(":focus-visible") && !document.querySelector(".main-nav.is-open");
+    header.classList.toggle("is-hidden", hide);
+    lastY = y;
+  }
   const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
   header.classList.toggle("on-light", heroBottom > header.offsetHeight / 2);
   blur?.classList.toggle("on-light", heroBottom > window.innerHeight - 20);
@@ -566,6 +575,16 @@ if (statement) {
         at += dur;
       });
     };
+    // scrolling back above the section: the bar retreats the way it came, last word first, at twice the speed
+    const retreatStrike = () => {
+      let at = 0;
+      [...strikeWords].reverse().forEach((w) => {
+        const dur = parseFloat(w.style.getPropertyValue("--dur") || "0.3") / 2;
+        w.style.setProperty("--delay", `${at.toFixed(3)}s`);
+        w.style.setProperty("--dur", `${dur.toFixed(3)}s`);
+        at += dur;
+      });
+    };
     const lineDelays = (base) => {
       const tops = [...new Set(words.map((w) => w.offsetTop))].sort((x, y) => x - y);
       words.forEach((w) => { w.firstChild.style.transitionDelay = base == null ? "0s" : `${base + tops.indexOf(w.offsetTop) * 0.13}s`; });
@@ -581,6 +600,7 @@ if (statement) {
       if (nowOn !== on) {
         on = nowOn;
         if (on) timeStrike();
+        else retreatStrike();
         statement.classList.toggle("st-on", on);
       }
       if (nowTwo !== two) {
@@ -609,6 +629,7 @@ const setMenu = (open) => {
   nav.classList.toggle("is-open", open);
 };
 toggle.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
+header.addEventListener("focusin", () => header.classList.remove("is-hidden"));
 nav.addEventListener("click", (e) => e.target.closest("a") && setMenu(false));
 document.addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
 

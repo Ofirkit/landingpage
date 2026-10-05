@@ -163,8 +163,10 @@ figure, blockquote { margin: 0; }
   inset: 0 0 auto;
   z-index: 50;
   padding-block: 20px;
-  transition: background-color 0.3s, padding 0.3s, color 0.3s;
+  transition: background-color 0.3s, padding 0.3s, color 0.3s, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
+/* Hidden while scrolling down, back on scroll up (script.js) */
+.site-header.is-hidden { transform: translateY(-100%); }
 .site-header.is-scrolled {
   padding-block: 12px;
   background: rgba(6, 6, 6, 0.78);
@@ -918,6 +920,7 @@ section[hidden] { display: none !important; }
   .st-ready.st-on .st-s1 { opacity: 1; transform: none; }
   .st-ready.st-two .st-s1 { opacity: 0; transform: translateY(-0.1em) scale(0.92); transition: opacity 0.7s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
   .st-ready:not(.st-on) .st-sw::after { transform: scaleX(0); }
+  .st-ready:not(.st-on) .st-s1 { transition-delay: 0.3s; } /* scrolling back: the sentence fades after the strike starts to retreat */
   .st-ready:not(.st-two) .st-wi { transform: translateY(115%); }
 }
 
