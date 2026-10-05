@@ -874,12 +874,12 @@ section[hidden] { display: none !important; }
 /* how-test.html / en.html (2026-10-05): the Statement as a cinematic title card. User: "way bigger", then "100 view
    height, centered, with an animation", then "almost full width… bigger and cinematic". Each sentence is set in fixed
    lines (.ln) and script.js sizes it so its longest line spans ~98% of the container (capped by the screen height).
-   With motion (.st-pin) the section is a 240vh track with a sticky full-screen stage and the two sentences share one
+   With motion (.st-pin) the section is a 260vh track with a sticky full-screen stage and the two sentences share one
    frame: the first rises in and is struck out, then (40% through the pin) it falls back and fades while the second
    rises in line by line. Scrolling back reverses it. Without JS or with reduced motion: both sentences stacked */
 .statement-xl { padding-block: 0; text-align: center; }
 .st-stage { display: flex; align-items: center; justify-content: center; min-height: 100vh; min-height: 100svh; padding-block: 88px 48px; }
-.st-pin .st-track { height: 240vh; }
+.st-pin .st-track { height: 260vh; }
 .st-pin .st-stage { position: sticky; top: 0; height: 100vh; height: 100svh; }
 .statement-xl .container { width: 100%; }
 .statement-xl .statement-text { display: grid; justify-items: center; font-size: var(--fs-mega); line-height: 0.96; letter-spacing: -0.05em; }
@@ -902,12 +902,12 @@ section[hidden] { display: none !important; }
 .st-sw::after {
   content: "";
   position: absolute;
-  inset-inline: 0 -0.26em;
+  inset-inline: 0 calc(-1 * var(--gap, 0.26em));
   top: 54%;
   height: 0.085em;
   background: var(--text);
   transform-origin: left center;
-  transition: transform var(--dur, 0.3s) linear var(--delay, 0.75s);
+  transform: scaleX(var(--k, 1)); /* --k: how much of this word's bar is drawn, set from the scroll (script.js) */
 }
 :lang(he) .st-sw::after { top: 50%; }
 [dir="rtl"] .st-sw::after { transform-origin: right center; }
@@ -919,8 +919,6 @@ section[hidden] { display: none !important; }
   .st-ready .st-s1 { opacity: 0; transform: translateY(0.25em); transition: opacity 0.9s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
   .st-ready.st-on .st-s1 { opacity: 1; transform: none; }
   .st-ready.st-two .st-s1 { opacity: 0; transform: translateY(-0.1em) scale(0.92); transition: opacity 0.7s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
-  .st-ready:not(.st-on) .st-sw::after { transform: scaleX(0); }
-  .st-ready:not(.st-on) .st-s1 { transition-delay: 0.3s; } /* scrolling back: the sentence fades after the strike starts to retreat */
   .st-ready:not(.st-two) .st-wi { transform: translateY(115%); }
 }
 

@@ -520,8 +520,8 @@ document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
 
 // Statement: title card (how-test.html / en.html). Each sentence is sized so its longest line spans ~98% of the
 // container (capped by the screen height). With motion the section pins (sticky stage in a 240vh track):
-// .st-on once its top is halfway up the screen (the first sentence rises in and is struck out), .st-two 40% through
-// the pin (it falls back, and the second sentence rises in line by line from per-word masks). Both reverse.
+// .st-on once its top is halfway up the screen (the first sentence rises in), the strike drawn with the scroll over
+// 4–36% of the pin, .st-two at 48% (it falls back, and the second sentence rises in line by line from per-word masks). Both reverse.
 const statement = document.querySelector(".statement-xl");
 if (statement) {
   const s1 = statement.querySelector(".st-s1");
@@ -557,32 +557,34 @@ if (statement) {
     });
     const words = [...s2.querySelectorAll(".st-w")];
     fitStatement(); // the word masks add a little width
-    // the strike: one bar per word, timed by width so the stroke moves at one speed through the whole phrase
+    // the strike follows the scroll (user, 2026-10-05): over the first part of the pin it draws through the phrase
+    // in proportion to how far you've scrolled, and scrolling back pulls it back, word by word. One bar per word,
+    // each word's share of the stroke set by its width, so the line moves at one speed through the whole phrase
     statement.querySelectorAll(".st-strike").forEach((st) => {
       st.innerHTML = st.textContent.trim().split(/\s+/).map((w) => `<span class="st-sw">${w}</span>`).join(" ");
     });
     const strikeWords = [...statement.querySelectorAll(".st-sw")];
-    const timeStrike = () => {
+    let strikeWidths = [];
+    const measureStrike = () => {
       // a word at the end of a line doesn't carry its bar on into the empty space
-      strikeWords.forEach((w) => w.classList.toggle("st-eol", !w.nextElementSibling || w.nextElementSibling.offsetTop !== w.offsetTop));
-      const widths = strikeWords.map((w) => w.offsetWidth + (w.classList.contains("st-eol") ? 0 : 0.26 * parseFloat(getComputedStyle(w).fontSize)));
-      const total = widths.reduce((x, y) => x + y, 0);
-      let at = 0.75;
-      strikeWords.forEach((w, i) => {
-        const dur = (0.9 * widths[i]) / total;
-        w.style.setProperty("--delay", `${at.toFixed(3)}s`);
-        w.style.setProperty("--dur", `${dur.toFixed(3)}s`);
-        at += dur;
+      // otherwise its bar runs on to the next word, measured, so the stroke has no breaks
+      strikeWidths = strikeWords.map((w) => {
+        const n = w.nextElementSibling;
+        const eol = !n || n.offsetTop !== w.offsetTop;
+        w.classList.toggle("st-eol", eol);
+        const a = w.getBoundingClientRect(), b = n ? n.getBoundingClientRect() : a;
+        const gap = eol ? 0 : Math.max(0, b.left > a.right ? b.left - a.right : a.left - b.right);
+        w.style.setProperty("--gap", `${gap.toFixed(1)}px`);
+        return a.width + gap;
       });
     };
-    // scrolling back above the section: the bar retreats the way it came, last word first, at twice the speed
-    const retreatStrike = () => {
-      let at = 0;
-      [...strikeWords].reverse().forEach((w) => {
-        const dur = parseFloat(w.style.getPropertyValue("--dur") || "0.3") / 2;
-        w.style.setProperty("--delay", `${at.toFixed(3)}s`);
-        w.style.setProperty("--dur", `${dur.toFixed(3)}s`);
-        at += dur;
+    const drawStrike = (k) => {
+      const total = strikeWidths.reduce((x, y) => x + y, 0);
+      let left = k * total;
+      strikeWords.forEach((w, i) => {
+        const f = Math.min(1, Math.max(0, left / strikeWidths[i]));
+        w.style.setProperty("--k", f.toFixed(4));
+        left -= strikeWidths[i];
       });
     };
     const lineDelays = (base) => {
@@ -592,15 +594,16 @@ if (statement) {
     statement.classList.add("st-ready", "st-pin");
     const track = statement.querySelector(".st-track");
     let on = false, two = false;
+    measureStrike();
     const updateStatement = () => {
       const r = track.getBoundingClientRect();
       const vh = innerHeight;
+      const p = -r.top / Math.max(1, r.height - vh); // 0 → 1 through the pin
       const nowOn = r.top < vh * 0.5;
-      const nowTwo = -r.top / Math.max(1, r.height - vh) > 0.4;
+      const nowTwo = p > 0.48;
+      drawStrike(Math.min(1, Math.max(0, (p - 0.04) / 0.32))); // drawn from 4% to 36% of the pin
       if (nowOn !== on) {
         on = nowOn;
-        if (on) timeStrike();
-        else retreatStrike();
         statement.classList.toggle("st-on", on);
       }
       if (nowTwo !== two) {
@@ -610,7 +613,8 @@ if (statement) {
       }
     };
     window.addEventListener("scroll", updateStatement, { passive: true });
-    window.addEventListener("resize", updateStatement);
+    window.addEventListener("resize", () => { measureStrike(); updateStatement(); });
+    document.fonts?.addEventListener("loadingdone", () => { measureStrike(); updateStatement(); });
     if (window.lenis) window.lenis.on("scroll", updateStatement);
     updateStatement();
   }
