@@ -635,7 +635,41 @@ if (statement) {
 }
 
 // Language switcher: keep the page's ?query (tone and other variants) when switching language
-document.querySelectorAll(".lang-switch a[href]").forEach((a) => { a.href = a.getAttribute("href") + location.search; });
+const syncLangLinks = () => document.querySelectorAll(".lang-switch a[href]").forEach((a) => {
+  a.href = a.getAttribute("href").split("?")[0] + location.search;
+});
+syncLangLinks();
+
+// Theme toggle (how-test.html / en.html): switches the page between the light cool slate (.tone-cool) and the dark
+// monochrome (.tone-dark), remembers the choice (localStorage "uxk-theme", read by the inline head script before
+// first paint, so there's no flash), and drops any ?tone= from the address so the choice carries to the other language
+const themeBtn = document.querySelector(".theme-toggle");
+if (themeBtn) {
+  const root = document.documentElement;
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  const sync = () => {
+    const dark = root.classList.contains("tone-dark");
+    themeBtn.setAttribute("aria-pressed", String(dark));
+    if (metaTheme) metaTheme.content = dark ? "#090c11" : "#edf0f4";
+  };
+  sync();
+  themeBtn.addEventListener("click", () => {
+    const dark = !root.classList.contains("tone-dark");
+    root.classList.add("theme-switching", "toned");
+    root.classList.remove("tone-warm");
+    root.classList.toggle("tone-dark", dark);
+    root.classList.toggle("tone-cool", !dark);
+    try { localStorage.setItem("uxk-theme", dark ? "dark" : "light"); } catch (e) {}
+    const url = new URL(location.href);
+    if (url.searchParams.has("tone")) {
+      url.searchParams.delete("tone");
+      history.replaceState(null, "", url);
+      syncLangLinks();
+    }
+    sync();
+    setTimeout(() => root.classList.remove("theme-switching"), 500);
+  });
+}
 
 // Mobile menu
 const toggle = document.querySelector(".menu-toggle");
