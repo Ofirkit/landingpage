@@ -1541,3 +1541,51 @@ section[hidden] { display: none !important; }
   .cta-actions { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
+
+/* ==========================================================
+   Consistency pass (how-test.html and en.html, body.v2; 2026-10-05, user: "everything consistent and on the same
+   grid"). One section-head style, two corner radii, every block on the container's edges.
+   ========================================================== */
+.v2 {
+  --r-lg: 24px; /* cards, panels, the portrait frame */
+  --r-md: 12px; /* buttons, work tiles, trail images, menu links */
+}
+/* Section heads: the same thin rule, 66px heading, start-aligned, same space below, everywhere
+   (How I work had no rule and Packages had its own 50px head offset 285px in) */
+.v2 .p3-head { padding-inline-start: 0; margin-bottom: clamp(56px, 7vw, 104px); }
+.v2 .p3-head h2 { font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.02em; }
+.v2 .p3-head p { max-width: 560px; margin-top: 20px; font-size: var(--fs-body-lg); line-height: inherit; }
+/* Cards: one radius and one padding */
+.v2 .how3-card,
+.v2 .p3-card,
+.v2 .pc-card,
+.v2 .pc-flat .pc-card { border-radius: var(--r-lg); }
+.v2 .how3-soft .how3-card,
+.v2 .p3-card,
+.v2 .pc-flat .pc-card { padding: 38px 36px 36px; }
+.v2 .ar-photo { border-radius: var(--r-lg); }
+.v2 .ar-photo img { border-radius: calc(var(--r-lg) - 10px); }
+/* Buttons and small surfaces */
+.v2 .btn,
+.v2 .btn-sm,
+.v2 .p3-card .btn.p3-btn,
+.v2 .plans-other .btn { border-radius: var(--r-md); }
+.v2 .shot { border-radius: var(--r-md); }
+.v2 .cta-trail .ti img { border-radius: var(--r-md); }
+/* Grid: the pricing cards and the YouTube rows sit on the same edges as every other section */
+.v2 .p3-wrap { max-width: var(--container); }
+.v2 .p3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.v2 .ar-lower { align-self: stretch; }
+@media (max-width: 1180px) {
+  .v2 .p3-grid { grid-template-columns: minmax(0, 1fr); } /* stacked: full width, like the other stacked cards */
+}
+@media (max-width: 960px) {
+  .v2 .main-nav ul { border-radius: var(--r-lg); }
+  .v2 .main-nav a { border-radius: var(--r-md); }
+}
+@media (max-width: 600px) {
+  .v2 .how3-soft .how3-card,
+  .v2 .p3-card,
+  .v2 .pc-flat .pc-card { padding: 28px 24px 32px; }
+  .v2 .p3-featured { padding-top: 64px; }
+}
