@@ -228,7 +228,12 @@ if (ar && !reduceMotion) {
                          // until then it waits just below the screen, then rises to meet the text
   const clamp01 = (v) => Math.min(1, Math.max(0, v));
   const easeOut = (t) => Math.sin((Math.PI * t) / 2); // moves at once, slows as the photo meets the text
-  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null, hide = 0, restTop = 0;
+  let D = 0, vh = 0, pinAt = 0, lead = 0, lastY = null, hide = 0, restTop = 0, lvh = 0;
+  // a probe for the large viewport height (100lvh), the most a phone screen shows with its toolbars tucked away
+  const lvhProbe = document.createElement("div");
+  lvhProbe.style.cssText = "position:fixed;top:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none";
+  lvhProbe.setAttribute("aria-hidden", "true");
+  document.body.appendChild(lvhProbe);
   const state = words.map(() => null);
 
   const update = () => {
@@ -251,9 +256,14 @@ if (ar && !reduceMotion) {
     // how far it waits below its resting place: measured against the screen height right now, not layoutVh,
     // because on phones the address bar hides while scrolling and the screen gets taller than the layout height
     // (with layoutVh the photo peeked in at the bottom early). This only moves the photo, so the page never jumps.
-    const screenH = Math.max(vh, window.innerHeight, window.visualViewport ? window.visualViewport.height : 0);
-    hide = Math.max(0, Math.round(screenH + 2 - restTop));
+    // The largest the screen can be (lvh: the area behind phone toolbars too, since iOS Safari's toolbars are see-through
+    // and page content shows under them) plus a margin, so the waiting photo can never show at the bottom edge
+    const screenH = Math.max(vh, lvh, window.innerHeight, window.visualViewport ? window.visualViewport.height : 0) + 40;
+    hide = Math.max(0, Math.round(screenH - restTop));
     lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(hide * (1 - settle))}px, 0)` : "";
+    // and until its entrance starts (the last word revealed) the photo block isn't drawn at all: when the toolbar
+    // animated back in on scroll-up, the photo flashed through it for a moment (user-reported on mobile)
+    lower.style.visibility = settle > 0 ? "" : "hidden";
   };
   const measure = () => {
     vh = layoutVh;
@@ -267,6 +277,7 @@ if (ar && !reduceMotion) {
     pinAt = stageDocTop - stickyTop;
     // how far below its resting place the photo waits so that it is just out of sight while pinned
     restTop = stickyTop + lower.offsetTop; // the photo block's resting top on the screen while pinned
+    lvh = lvhProbe.offsetHeight;
     lead = START * vh - (stickyTop + textMid);
     lastY = null;
     update();
