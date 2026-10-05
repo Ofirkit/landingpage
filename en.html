@@ -25,7 +25,7 @@
   <link id="font-en" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap" rel="stylesheet" />
   <script>(function () { var f = (location.search.match(/[?&]font=([\w-]+)/) || [])[1], m = { "inter-tight": "Inter+Tight", instrument: "Instrument+Sans", manrope: "Manrope" }; if (m[f]) { document.getElementById("font-en").href = "https://fonts.googleapis.com/css2?family=" + m[f] + ":wght@400;700&display=swap"; document.documentElement.classList.add("font-" + f); } })();</script>
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261005g" />
+  <link rel="stylesheet" href="styles.css?v=20261005h" />
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <link rel="stylesheet" href="tone.css?v=20261004e" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1] || "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
@@ -188,9 +188,16 @@
     </section>
 
     <!-- ===== Statement ===== -->
-    <section class="section statement statement-gap statement-xl" aria-label="Why it matters">
-      <div class="container">
-        <p class="statement-text"><span>Your website isn’t <span class="st-strike">an expensive decoration</span>.</span> <span>It’s the sharpest edge of your digital presence.</span></p>
+    <section class="section statement statement-xl" aria-label="Why it matters">
+      <!-- Cinematic title card (2026-10-05): the section pins for a moment; each sentence fills the frame on its own,
+           sized by script.js so its longest line spans almost the full width. The first is struck out, then gives
+           way to the second (script.js "Statement: title card"). Without JS / reduced motion: both, stacked -->
+      <div class="st-track">
+        <div class="st-stage">
+          <div class="container">
+            <p class="statement-text"><span class="st-s1"><span class="ln">Your website isn’t</span> <span class="ln"><span class="st-strike">an expensive</span></span> <span class="ln"><span class="st-strike">decoration</span>.</span></span> <span class="st-s2"><span class="ln">It’s the sharpest</span> <span class="ln">edge of your</span> <span class="ln">digital presence.</span></span></p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -443,6 +450,6 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script src="script.js?v=20261005d" defer></script>
+  <script src="script.js?v=20261005f" defer></script>
 </body>
 </html>

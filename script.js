@@ -509,42 +509,91 @@ document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
   link.appendChild(roll);
 });
 
-// Statement: cross it out (how-test.html / en.html). Once half the full-screen section is in view: the first
-// sentence rises in, a bar draws through the phrase, then the second sentence rises in line by line. Each word of
-// the second sentence gets its own mask; words on the same line share a delay, so the lines arrive one after another
+// Statement: title card (how-test.html / en.html). Each sentence is sized so its longest line spans ~98% of the
+// container (capped by the screen height). With motion the section pins (sticky stage in a 240vh track):
+// .st-on once its top is halfway up the screen (the first sentence rises in and is struck out), .st-two 40% through
+// the pin (it falls back, and the second sentence rises in line by line from per-word masks). Both reverse.
 const statement = document.querySelector(".statement-xl");
-if (statement && !reduceMotion) {
-  const second = statement.querySelector(".statement-text > span:last-child");
-  second.innerHTML = second.textContent.trim().split(/\s+/)
-    .map((w) => `<span class="st-w"><span class="st-wi">${w}</span></span>`).join(" ");
-  const words = [...second.querySelectorAll(".st-w")];
-  // the strike: one bar per word, timed by width so the stroke moves at one speed through the whole phrase
-  const strike = statement.querySelector(".st-strike");
-  strike.innerHTML = strike.textContent.trim().split(/\s+/).map((w) => `<span class="st-sw">${w}</span>`).join(" ");
-  const strikeWords = [...strike.querySelectorAll(".st-sw")];
-  const timeStrike = () => {
-    // a word at the end of a line doesn't carry its bar on into the empty space
-    strikeWords.forEach((w) => w.classList.toggle("st-eol", !w.nextElementSibling || w.nextElementSibling.offsetTop !== w.offsetTop));
-    const widths = strikeWords.map((w) => w.offsetWidth + (w.classList.contains("st-eol") ? 0 : 0.26 * parseFloat(getComputedStyle(w).fontSize)));
-    const total = widths.reduce((a, b) => a + b, 0);
-    let at = 0.75;
-    strikeWords.forEach((w, i) => {
-      const dur = (0.9 * widths[i]) / total;
-      w.style.setProperty("--delay", `${at.toFixed(3)}s`);
-      w.style.setProperty("--dur", `${dur.toFixed(3)}s`);
-      at += dur;
+if (statement) {
+  const s1 = statement.querySelector(".st-s1");
+  const s2 = statement.querySelector(".st-s2");
+  const fitStatement = () => {
+    [s1, s2].forEach((s) => (s.style.fontSize = ""));
+    if (matchMedia("(max-width: 600px)").matches) return;
+    const box = statement.querySelector(".container");
+    const cs = getComputedStyle(box);
+    const avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const maxH = innerHeight * 0.7;
+    // offsetWidth/offsetHeight ignore the reveal's transforms; a second pass corrects any non-linear rounding
+    const size = (s) => [Math.max(...[...s.querySelectorAll(".ln")].map((l) => l.offsetWidth)), s.offsetHeight];
+    [s1, s2].forEach((s) => {
+      let fs = 100;
+      for (let i = 0; i < 2; i++) {
+        s.style.fontSize = `${fs}px`;
+        const [w, h] = size(s);
+        fs = Math.min((fs * avail * 0.98) / w, (fs * maxH) / h);
+      }
+      s.style.fontSize = `${fs.toFixed(1)}px`;
     });
   };
-  statement.classList.add("st-ready");
-  const stIo = new IntersectionObserver((entries) => {
-    if (!entries[0].isIntersecting) return;
-    const tops = [...new Set(words.map((w) => w.offsetTop))].sort((a, b) => a - b);
-    words.forEach((w) => { w.firstChild.style.transitionDelay = `${1.7 + tops.indexOf(w.offsetTop) * 0.14}s`; });
-    timeStrike();
-    statement.classList.add("st-on");
-    stIo.disconnect();
-  }, { threshold: 0.5 });
-  stIo.observe(statement);
+  fitStatement();
+  document.fonts?.ready.then(fitStatement);
+  document.fonts?.addEventListener("loadingdone", fitStatement); // the web font arrives after the first fit
+  window.addEventListener("resize", fitStatement);
+
+  if (!reduceMotion) {
+    // the second sentence: one mask per word, inside its line
+    s2.querySelectorAll(".ln").forEach((ln) => {
+      ln.innerHTML = ln.textContent.trim().split(/\s+/).map((w) => `<span class="st-w"><span class="st-wi">${w}</span></span>`).join(" ");
+    });
+    const words = [...s2.querySelectorAll(".st-w")];
+    fitStatement(); // the word masks add a little width
+    // the strike: one bar per word, timed by width so the stroke moves at one speed through the whole phrase
+    statement.querySelectorAll(".st-strike").forEach((st) => {
+      st.innerHTML = st.textContent.trim().split(/\s+/).map((w) => `<span class="st-sw">${w}</span>`).join(" ");
+    });
+    const strikeWords = [...statement.querySelectorAll(".st-sw")];
+    const timeStrike = () => {
+      // a word at the end of a line doesn't carry its bar on into the empty space
+      strikeWords.forEach((w) => w.classList.toggle("st-eol", !w.nextElementSibling || w.nextElementSibling.offsetTop !== w.offsetTop));
+      const widths = strikeWords.map((w) => w.offsetWidth + (w.classList.contains("st-eol") ? 0 : 0.26 * parseFloat(getComputedStyle(w).fontSize)));
+      const total = widths.reduce((x, y) => x + y, 0);
+      let at = 0.75;
+      strikeWords.forEach((w, i) => {
+        const dur = (0.9 * widths[i]) / total;
+        w.style.setProperty("--delay", `${at.toFixed(3)}s`);
+        w.style.setProperty("--dur", `${dur.toFixed(3)}s`);
+        at += dur;
+      });
+    };
+    const lineDelays = (base) => {
+      const tops = [...new Set(words.map((w) => w.offsetTop))].sort((x, y) => x - y);
+      words.forEach((w) => { w.firstChild.style.transitionDelay = base == null ? "0s" : `${base + tops.indexOf(w.offsetTop) * 0.13}s`; });
+    };
+    statement.classList.add("st-ready", "st-pin");
+    const track = statement.querySelector(".st-track");
+    let on = false, two = false;
+    const updateStatement = () => {
+      const r = track.getBoundingClientRect();
+      const vh = innerHeight;
+      const nowOn = r.top < vh * 0.5;
+      const nowTwo = -r.top / Math.max(1, r.height - vh) > 0.4;
+      if (nowOn !== on) {
+        on = nowOn;
+        if (on) timeStrike();
+        statement.classList.toggle("st-on", on);
+      }
+      if (nowTwo !== two) {
+        two = nowTwo;
+        lineDelays(two ? 0.25 : null);
+        statement.classList.toggle("st-two", two);
+      }
+    };
+    window.addEventListener("scroll", updateStatement, { passive: true });
+    window.addEventListener("resize", updateStatement);
+    if (window.lenis) window.lenis.on("scroll", updateStatement);
+    updateStatement();
+  }
 }
 
 // Language switcher: keep the page's ?query (tone and other variants) when switching language

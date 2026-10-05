@@ -869,25 +869,28 @@ section[hidden] { display: none !important; }
 /* how-test.html: the Statement sits between How I work (which brings its own bottom space) and the black quote band */
 .statement-gap { padding-block: 0 var(--section-y); }
 .statement-text > span:first-child { color: var(--text-dim); }
-/* how-test.html / en.html (2026-10-05, user: "a strong statement… should get way bigger", then "100 view height,
-   aligned to the center, with an animation"): display size, the biggest type on the page, centered in a full-screen
-   section. The animation (script.js "Statement: cross it out") plays once when half the section is in view: the first
-   sentence rises in, a bar like the logo's draws through "an expensive decoration", then the second sentence rises in
-   line by line. Without JS or with reduced motion the end state shows: the phrase struck, both sentences in place */
-.statement-xl {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding-block: calc(var(--section-y) * 0.5);
-  text-align: center;
-}
+/* how-test.html / en.html (2026-10-05): the Statement as a cinematic title card. User: "way bigger", then "100 view
+   height, centered, with an animation", then "almost full width… bigger and cinematic". Each sentence is set in fixed
+   lines (.ln) and script.js sizes it so its longest line spans ~98% of the container (capped by the screen height).
+   With motion (.st-pin) the section is a 240vh track with a sticky full-screen stage and the two sentences share one
+   frame: the first rises in and is struck out, then (40% through the pin) it falls back and fades while the second
+   rises in line by line. Scrolling back reverses it. Without JS or with reduced motion: both sentences stacked */
+.statement-xl { padding-block: 0; text-align: center; }
+.st-stage { display: flex; align-items: center; justify-content: center; min-height: 100vh; min-height: 100svh; padding-block: 88px 48px; }
+.st-pin .st-track { height: 240vh; }
+.st-pin .st-stage { position: sticky; top: 0; height: 100vh; height: 100svh; }
 .statement-xl .container { width: 100%; }
-.statement-xl .statement-text { max-width: 15ch; margin-inline: auto; font-size: var(--fs-mega); line-height: 1; letter-spacing: -0.045em; }
-:lang(he) .statement-xl .statement-text { max-width: 13ch; letter-spacing: -0.03em; }
-.statement-xl .statement-text > span { text-wrap: balance; } /* no lone last word */
-.statement-xl .statement-text > span + span { margin-top: 0.14em; }
+.statement-xl .statement-text { display: grid; justify-items: center; font-size: var(--fs-mega); line-height: 0.96; letter-spacing: -0.05em; }
+:lang(he) .statement-xl .statement-text { line-height: 1.02; letter-spacing: -0.035em; }
+.statement-xl .statement-text > span + span { margin-top: 0.3em; }
+.st-pin .statement-xl .statement-text > span, .statement-xl.st-pin .statement-text > span { grid-area: 1 / 1; align-self: center; margin: 0; }
+.statement-xl .ln { display: block; width: fit-content; margin-inline: auto; white-space: nowrap; }
+@media (max-width: 600px) {
+  /* phones: the lines wrap naturally at a fixed large size instead of being fitted */
+  .statement-xl .statement-text { font-size: 15vw; }
+  .statement-xl .ln { display: inline; white-space: normal; }
+  .statement-xl .statement-text > span { text-wrap: balance; }
+}
 /* The strike: drawn over the letters in the full text color. Without the animation it is a plain line-through;
    with it (.st-ready), script.js wraps each word of the phrase and a bar on top of each word (running on through
    the following space) grows in turn, so the words read as one continuous stroke, even across a line break */
@@ -911,10 +914,11 @@ section[hidden] { display: none !important; }
 .st-w { display: inline-block; overflow: hidden; vertical-align: top; padding-block: 0.06em 0.16em; margin-block: -0.06em -0.16em; }
 .st-wi { display: inline-block; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
 @media (prefers-reduced-motion: no-preference) {
-  .st-ready .statement-text > span:first-child { opacity: 0; transform: translateY(0.3em); transition: opacity 0.8s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
-  .st-ready.st-on .statement-text > span:first-child { opacity: 1; transform: none; }
+  .st-ready .st-s1 { opacity: 0; transform: translateY(0.25em); transition: opacity 0.9s ease, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+  .st-ready.st-on .st-s1 { opacity: 1; transform: none; }
+  .st-ready.st-two .st-s1 { opacity: 0; transform: translateY(-0.1em) scale(0.92); transition: opacity 0.7s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
   .st-ready:not(.st-on) .st-sw::after { transform: scaleX(0); }
-  .st-ready:not(.st-on) .st-wi { transform: translateY(115%); }
+  .st-ready:not(.st-two) .st-wi { transform: translateY(115%); }
 }
 
 /* ==========================================================
