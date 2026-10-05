@@ -14,6 +14,20 @@ document.querySelectorAll(".wall-track").forEach((track) => {
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// A screen height for layout that ignores the phone address bar sliding in and out while scrolling.
+// Pins and fitted type are sized from it; it only updates when the width changes (rotation, a real resize)
+// or, on mouse devices, when the window height changes. Sizing them from the live innerHeight made the
+// page ~150px taller or shorter every time the bar moved, so content jumped under the finger.
+const coarse = window.matchMedia("(pointer: coarse)").matches;
+let layoutVh = window.innerHeight;
+let layoutVw = window.innerWidth;
+window.addEventListener("resize", () => {
+  if (window.innerWidth !== layoutVw || !coarse) {
+    layoutVw = window.innerWidth;
+    layoutVh = window.innerHeight;
+  }
+});
+
 // Work wall: every column drifts at the same speed. The CSS loop moves each track by one copy of its
 // tiles, so a taller column needs a longer loop; the duration is set from each column's own height.
 // Speed is relative to the column width, so it feels the same on every screen size.
@@ -237,7 +251,7 @@ if (ar && !reduceMotion) {
     lower.style.transform = settle < 1 ? `translate3d(0, ${Math.round(hide * (1 - settle))}px, 0)` : "";
   };
   const measure = () => {
-    vh = window.innerHeight;
+    vh = layoutVh;
     D = Math.round(vh * 1.8);
     const textMid = text.offsetTop + text.offsetHeight / 2;  // inside the stage
     const stickyTop = Math.max(90, Math.round(vh * PIN - textMid)); // the text's middle pins at PIN, clear of the header
@@ -532,7 +546,7 @@ if (statement) {
     const box = statement.querySelector(".container");
     const cs = getComputedStyle(box);
     const avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    const maxH = innerHeight * 0.7;
+    const maxH = layoutVh * 0.7;
     // offsetWidth/offsetHeight ignore the reveal's transforms; a second pass corrects any non-linear rounding
     const size = (s) => [Math.max(...[...s.querySelectorAll(".ln")].map((l) => l.offsetWidth)), s.offsetHeight];
     [s1, s2].forEach((s) => {
