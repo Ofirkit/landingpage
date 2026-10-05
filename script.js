@@ -377,8 +377,10 @@ if (pcFolder && pcCards.length > 1 && !reduceMotion) {
   const gapPc = () => {
     const cs = getComputedStyle(pcFolder);
     const tab = parseFloat(cs.getPropertyValue("--tab")) || 0;
-    const stickAt = parseFloat(getComputedStyle(pcCards[0]).top);
     const h = pcCards[0].offsetHeight;
+    // the stack (tabs + card) pins centered on the screen, not at the top
+    const stickAt = Math.max(tab + 24, Math.round((layoutVh - h - tab) / 2) + tab);
+    pcFolder.style.setProperty("--stick", `${stickAt}px`);
     pcFolder.style.setProperty("--pc-gap", `${Math.max(tab + 48, Math.ceil(layoutVh - stickAt - h + tab + 24))}px`);
   };
   window.addEventListener("resize", gapPc);
