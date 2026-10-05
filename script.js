@@ -532,6 +532,17 @@ const footer = document.querySelector(".site-footer");
 // Hide on scroll down, show on scroll up (user, 2026-10-05). Always shown near the top, while the phone menu is
 // open and while focus is inside it (keyboard users). A few pixels of slack so tiny jitters don't toggle it
 let lastY = window.scrollY;
+const toTop = document.querySelector(".to-top");
+let toTopBusy = false; // while its own scroll runs, it stays hidden
+if (toTop) {
+  toTop.addEventListener("click", () => {
+    if (window.lenis && !reduceMotion) window.lenis.scrollTo(0, { duration: 1.4 });
+    else window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    toTopBusy = true;
+    toTop.classList.remove("is-shown");
+    document.querySelector(".logo")?.focus({ preventScroll: true }); // keyboard users land at the top too
+  });
+}
 const onScroll = () => {
   const y = window.scrollY;
   header.classList.toggle("is-scrolled", y > 24);
@@ -558,6 +569,15 @@ const onScroll = () => {
       p = Math.max(p, Math.min(1, Math.max(0, Math.min(pIn, pOut))));
     }
     blur.style.transform = p ? `translateY(${(p * 100).toFixed(1)}%)` : "";
+  }
+  // Back to top: shown only while scrolling up (the same moment the header comes back), past ~2 screens, and
+  // not while the menu is open; it rides up above the footer as the footer comes in
+  if (toTop) {
+    if (y < layoutVh) toTopBusy = false;
+    const show = !toTopBusy && y > layoutVh * 2 && !header.classList.contains("is-hidden") && !document.documentElement.classList.contains("menu-open");
+    toTop.classList.toggle("is-shown", show);
+    const lift = footer ? Math.max(0, window.innerHeight - footer.getBoundingClientRect().top) : 0;
+    toTop.style.setProperty("--lift", `${Math.round(lift)}px`);
   }
 };
 onScroll();
@@ -759,6 +779,7 @@ const setMenu = (open, after) => {
   clearTimeout(closeTimer);
   header.classList.remove("is-hidden");
   if (open) {
+    toTop?.classList.remove("is-shown");
     nav.classList.remove("is-closing");
     nav.classList.add("is-open");
     document.documentElement.classList.add("menu-open");

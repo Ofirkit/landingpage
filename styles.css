@@ -1858,3 +1858,66 @@ html.menu-open { overflow: hidden; }
 @media (min-width: 961px) {
   .js body.v2 > .main-nav .nav-cta { display: none; } /* the header keeps its own "Let's talk" button here */
 }
+
+/* ----- Back to top (how-test and en, 2026-10-05, user). A small round button in the bottom end corner (left in
+   Hebrew, right in English), shown only while scrolling up and only after ~2 screens, like the header coming
+   back; hidden while the menu is open. It rides up above the footer as the footer comes in (--lift, script.js).
+   44px tap target, the iPhone home-bar inset, a text label on hover (mouse only) ----- */
+.to-top {
+  --lift: 0px;
+  position: fixed;
+  inset-inline-end: clamp(16px, 2.2vw, 28px);
+  bottom: calc(clamp(16px, 2.2vw, 28px) + env(safe-area-inset-bottom, 0px));
+  z-index: 44; /* over the bottom blur, under the menu overlay and the header */
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  color: var(--text);
+  background: color-mix(in srgb, var(--card-bg) 86%, transparent);
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(12px - var(--lift))) scale(0.92);
+  transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.35s, background-color 0.2s, border-color 0.2s;
+}
+.to-top.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(calc(0px - var(--lift)));
+  transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s, border-color 0.2s;
+}
+.to-top svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.to-top:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover { color: var(--bg); background: var(--text); border-color: var(--text); }
+  .to-top:hover svg { transform: translateY(-2px); }
+  .to-top::after { /* the label beside it, toward the page */
+    content: attr(data-label);
+    position: absolute;
+    inset-inline-end: calc(100% + 10px);
+    top: 50%;
+    padding: 6px 12px;
+    font-size: var(--fs-sm);
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--bg);
+    background: var(--text);
+    border-radius: 999px;
+    opacity: 0;
+    transform: translate(0, -50%) translateX(var(--nudge, -6px));
+    transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  [dir="rtl"] .to-top::after { --nudge: 6px; }
+  .to-top:hover::after { opacity: 1; transform: translate(0, -50%); }
+}
+@media (max-width: 600px) {
+  .to-top { width: 44px; height: 44px; }
+}
