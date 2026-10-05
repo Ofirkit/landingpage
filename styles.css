@@ -230,6 +230,7 @@ figure, blockquote { margin: 0; }
 .lang-switch a { padding: 6px 5px; color: inherit; text-decoration: none; letter-spacing: 0.04em; opacity: 0.6; transition: opacity 0.2s; }
 .lang-switch a:hover { opacity: 1; }
 .lang-switch a[aria-current] { font-weight: 700; opacity: 1; }
+.lang-switch a:lang(he) { font-family: "IBM Plex Sans Hebrew", var(--font); letter-spacing: 0; } /* "עב" in the Hebrew font on the English page too */
 .lang-switch a + a { position: relative; }
 .lang-switch a + a::before { content: ""; position: absolute; inset-inline-start: -1px; top: 50%; width: 1px; height: 12px; background: currentColor; opacity: 0.35; transform: translateY(-50%); }
 
