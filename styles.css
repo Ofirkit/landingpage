@@ -1953,18 +1953,9 @@ html.menu-open { overflow: hidden; }
 }
 :lang(he) .v2 .ar-text, .v2:lang(he) .ar-text { letter-spacing: -0.015em; }
 
-/* ----- Footer social links (2026-10-06, user: no "all rights reserved" / © line; LinkedIn, Instagram and
-   YouTube instead). Monochrome marks in the muted text color, 40px round tap targets that fill on hover ----- */
-.footer-social { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
-.footer-social a {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  color: var(--text-muted);
-  border-radius: 50%;
-  transition: color 0.2s, background-color 0.2s;
-}
-.footer-social a:hover { color: var(--text); background: color-mix(in srgb, var(--text) 8%, transparent); }
-.footer-social a:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
-.footer-social svg { width: 19px; height: 19px; fill: currentColor; }
+/* ----- Footer social links (2026-10-06, user: no "all rights reserved" / © line and no website address;
+   Instagram, LinkedIn and YouTube as plain words). Muted text that turns to full ink on hover ----- */
+.footer-social { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 0; padding: 0; list-style: none; font-size: var(--fs-sm); }
+.footer-social a { color: var(--text-muted); transition: color 0.2s; }
+.footer-social a:hover { color: var(--text); }
+.footer-social a:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; border-radius: 2px; }
