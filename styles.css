@@ -1997,3 +1997,7 @@ html.menu-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .name-photo, .name-photo.is-on { transition: none; transform: translate3d(var(--nx, 0px), var(--ny, 0px), 0); }
 }
+/* ?photo=hover (2026-10-06, user): with the photo gone, the paragraph sits 24px under the statement, at ~22px
+   (a one-off size between --fs-lead and --fs-h4; 19px on phones), with a wider measure for the bigger type */
+.photo-hover .ar-lower { margin-top: 24px; }
+.photo-hover .ar-sub { margin-top: 0; max-width: 760px; font-size: clamp(19px, 1.55vw, 22px); }
