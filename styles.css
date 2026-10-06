@@ -1933,3 +1933,10 @@ html.menu-open { overflow: hidden; }
   .qt-stars { margin-bottom: calc(14px - clamp(32px, 4vw, 52px)); }
   .qt-stars svg { width: 16px; height: 16px; }
 }
+
+/* ----- Testimonials on the grid (2026-10-06, user: "align the testimonial component to the heading and the rest
+   of the grid"): the quote block starts at the container's start edge, like the heading above it, instead of
+   being centered; it keeps its 880px reading width. The opening quote mark no longer hangs outside the text,
+   so the stars, the quote and the person all line up with the heading ----- */
+.v2 .qt-inner { margin-inline: 0; }
+.v2 .qt-item blockquote p::before { position: static; margin: 0; }
