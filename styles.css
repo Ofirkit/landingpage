@@ -1592,6 +1592,22 @@ section[hidden] { display: none !important; }
    and up to 50% larger while the frame comes in, so it zooms out as it arrives */
 .ar-photo-clip { display: block; overflow: hidden; border-radius: calc(var(--r-lg) - 10px); }
 .ar-photo.is-parallax img { border-radius: 0; transform: translate3d(0, var(--py, 0px), 0) scale(var(--ps, 1.26)); will-change: transform; }
+/* Monochrome portrait, true colors on hover (2026-10-06, user). The photo is grayscale, and on the toned pages a
+   slate layer in "color" blend mode gives it the site's tint (the photo keeps its own light and shade, only the hue
+   changes). Hovering the frame fades both away and shows the real colors. */
+.v2 .ar-photo { position: relative; }
+.v2 .ar-photo img { filter: grayscale(1); transition: filter 0.7s ease; }
+.v2 .ar-photo::after {
+  content: ""; position: absolute; inset: 10px; z-index: 1; pointer-events: none;
+  border-radius: calc(var(--r-lg) - 10px);
+  background: var(--photo-tint, transparent); mix-blend-mode: color;
+  transition: opacity 0.7s ease;
+}
+.toned .ar-photo { --photo-tint: var(--t-muted); }
+@media (hover: hover) {
+  .v2 .ar-photo:hover img { filter: none; }
+  .v2 .ar-photo:hover::after { opacity: 0; }
+}
 /* Buttons and small surfaces */
 .v2 .btn,
 .v2 .btn-sm,
