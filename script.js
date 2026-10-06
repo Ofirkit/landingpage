@@ -202,6 +202,41 @@ if (rotator && !reduceMotion) {
 // the rest of the words sharpen, then the photo comes up to meet the text, then the page scrolls on.
 // JS only sets the blur/opacity of the words and the photo's offset, from the scroll position, so
 // scrolling back plays it in reverse. Updates run on Lenis's own frame (same frame as the scroll).
+// About: the tool names in the statement (Framer, Webflow, Claude Code) show the tool's mark on hover
+// (user, 2026-10-06). Monochrome, in the text color, like the rest of the site; mouse only (CSS). Runs after the
+// reveal has split the words (or, without the reveal, wraps the words itself in plain spans)
+const TOOL_MARKS = {
+  framer: '<svg viewBox="0 0 108 163" aria-hidden="true"><path d="M54 54H0v54l54 54v-54h54L54 54h54V0H0z"/></svg>',
+  webflow: '<svg viewBox="0 0 289 181" aria-hidden="true"><path fill-rule="evenodd" d="M288.6.7 196.5 180.7h-86.5l38.5-74.6h-1.7C115 147.4 67.6 174.5 0 180.7v-73.6s43.2-2.5 68.7-29.3H0V.7h77.2v63.5h1.7L110.4.7h58.4v63.1h1.7L203.2.7z"/></svg>',
+  claude: '<svg viewBox="0 437 1126 1126" aria-hidden="true"><path d="M489.8,1506.7l15.8-69.8,18-90.1,14.6-72.1,13.5-88.9,7.9-29.3-1.1-2.3-5.6,1.1-67.6,92.3-102.5,138.5-81.1,85.6-19.1,7.9-33.8-16.9,3.4-31.5,19.1-27,111.5-143,67.6-88.9,43.9-50.7-1.1-6.8h-2.3l-297.2,193.7-52.9,6.8-23.6-21.4,3.4-34.9,11.3-11.3,88.9-61.9,221.8-123.8,3.4-11.3-3.4-5.6h-11.3l-37.2-2.3-126.1-3.4-109.2-4.5-107-5.6-27-5.6L0,989.9l2.3-16.9,22.5-14.6,32.7,2.3,70.9,5.6,107,6.8,77.7,4.5,114.8,12.4h18l2.3-7.9-5.6-4.5-4.5-4.5-111.5-74.3-119.3-78.8-63.1-46.2-33.8-23.6-16.9-21.4-6.8-47.3,30.4-33.8,41.7,3.4,10.1,2.3,41.7,32.7,88.9,68.7,117.1,86.7,16.9,13.5,7.9-4.5v-3.4l-7.9-12.4-63.1-114.8-67.6-117.1-30.4-48.4-7.9-29.3c-3-10.1-4.5-21.4-4.5-33.8l34.9-47.3,19.1-6.8,47.3,6.8,19.1,16.9,29.3,66.4,46.2,104.7,73.2,141.9,21.4,42.8,11.3,38.3,4.5,12.4h7.9v-6.8l5.6-81.1,11.3-98,11.3-126.1,3.4-36,18-42.8,34.9-22.5,27,12.4,22.5,32.7-3.4,20.3-12.4,86.7-27,136.2-16.9,92.3h10.1l11.3-12.4,46.2-60.8,77.7-96.8,33.8-38.3,40.5-42.8,25.9-20.3h48.4l34.9,52.9-15.8,55.2-49.5,63.1-41.7,52.9-59.7,79.9-36,64.2,3.4,4.5h7.9l134-29.3,73.2-12.4,85.6-14.6,39.4,18,4.5,18-15.8,38.3-92.3,22.5-108.1,21.4-161,38.3-2.3,1.1,2.3,3.4,72.1,6.8,31.5,2.3h76.6l141.9,10.1,37.2,24.8,21.4,29.3-3.4,23.6-57.4,28.1-76.6-18-180.1-42.8-60.8-14.6h-9v4.5l51.8,50.7,93.4,84.4,118.2,109.2,5.6,27-14.6,22.5-15.8-2.3-103.6-78.8-40.5-34.9-90.1-75.4h-5.6v7.9l20.3,30.4,110.3,165.5,5.6,50.7-7.9,15.8-29.3,10.1-30.4-5.6-65.3-90.1-66.4-102.5-54-91.2-5.6,4.5-32.7,340-14.6,16.9-33.8,13.5-28.1-21.4-15.8-34.9Z"/></svg>',
+};
+// the chip's label is drawn by CSS (content: attr(data-t)) so it never adds to the page text that search
+// engines and screen readers read
+const TOOL_NAMES = { framer: "Framer", webflow: "Webflow", claude: "Claude Code" };
+const markTools = (textEl) => {
+  if (!textEl) return;
+  let words = [...textEl.querySelectorAll(".w")];
+  if (!words.length) {
+    const parts = textEl.textContent.trim().split(/([ \t\n\r]+)/);
+    textEl.textContent = "";
+    parts.forEach((part) => {
+      if (/^[ \t\n\r]+$/.test(part)) { textEl.append(part); return; }
+      const w = document.createElement("span");
+      w.className = "tw";
+      w.textContent = part;
+      textEl.append(w);
+    });
+    words = [...textEl.querySelectorAll(".tw")];
+  }
+  words.forEach((w) => {
+    const t = w.textContent;
+    const key = /Framer/.test(t) ? "framer" : /Webflow/.test(t) ? "webflow" : /Claude/.test(t) ? "claude" : null;
+    if (!key) return;
+    w.classList.add("w-tool");
+    w.insertAdjacentHTML("beforeend", `<span class="tool-pop tool-${key}" aria-hidden="true">${TOOL_MARKS[key]}<span class="tool-name" data-t="${TOOL_NAMES[key]}"></span></span>`);
+  });
+};
+
 const ar = document.querySelector(".ar");
 if (ar && !reduceMotion) {
   const track = ar.querySelector(".ar-inner");
@@ -221,6 +256,7 @@ if (ar && !reduceMotion) {
     text.append(w);
     words.push(w);
   });
+  markTools(text);
   ar.classList.add("ar-on");
 
   const START = 0.88;   // the first word starts when the text's middle is at 88% of the screen height
@@ -290,7 +326,7 @@ if (ar && !reduceMotion) {
   window.addEventListener("resize", measure);
   if (window.lenis) window.lenis.on("scroll", update);
   window.addEventListener("scroll", update, { passive: true });
-}
+} else if (ar) markTools(ar.querySelector(".ar-text"));
 
 // About: fill text on scroll. Words go from gray to white as the block moves up the screen.
 const fillBlocks = document.querySelectorAll(".fill-text");
