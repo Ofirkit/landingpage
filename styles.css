@@ -1914,3 +1914,22 @@ html.menu-open { overflow: hidden; }
 @media (max-width: 600px) {
   .to-top { width: 44px; height: 44px; }
 }
+
+/* ----- No section rules (2026-10-06, user): the thin line above every section head and above the footer is
+   gone on how-test and en; spacing alone separates the sections. List dividers (FAQ, YouTube rows, process
+   tags) stay: they belong to the content, not to the sections ----- */
+.v2 .section-head { padding-top: 0; border-top: 0; }
+.v2 .site-footer { border-top: 0; }
+
+/* ----- Testimonials: five stars above each quote (2026-10-06, user), in the text color like the rest of the
+   monochrome site; one accessible label for the row ----- */
+/* the stars sit 20px above the quote (the item's flex gap is pulled back) and the person's line keeps to the
+   bottom, so the stars don't float apart when a shorter quote shares the cell with a taller one */
+.qt-item:has(> .qt-stars) { justify-content: flex-start; }
+.qt-item:has(> .qt-stars) figcaption { margin-top: auto; }
+.qt-stars { display: flex; gap: 4px; margin-bottom: calc(20px - clamp(32px, 4vw, 52px)); color: var(--text); }
+.qt-stars svg { width: 18px; height: 18px; fill: currentColor; }
+@media (max-width: 600px) {
+  .qt-stars { margin-bottom: calc(14px - clamp(32px, 4vw, 52px)); }
+  .qt-stars svg { width: 16px; height: 16px; }
+}
