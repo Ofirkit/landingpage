@@ -302,10 +302,12 @@ if (ar && !reduceMotion) {
   window.addEventListener("scroll", update, { passive: true });
 }
 
-// About: parallax portrait (2026-10-06, user). The photo sits slightly enlarged inside a clipping window in its
-// frame and drifts against the scroll: from 7% of the window lower than center when the frame enters at the bottom
-// of the screen to 7% higher as it leaves at the top, so it moves more slowly than the frame around it. Measured
-// from the frame's live box, so it also follows the frame's own rise in the pinned reveal.
+// About: parallax portrait (2026-10-06, user; made stronger "like a reveal" the same day). The photo sits enlarged
+// inside a clipping window in its frame and drifts against the scroll: from 12% of the window lower than center
+// when the frame enters at the bottom of the screen to 12% higher as it leaves at the top, so it moves more slowly
+// than the frame around it. On the way in it also zooms out (1.5 → 1.26 by the time the frame's middle reaches the
+// middle of the screen), so the photo opens up as it arrives. Measured from the frame's live box, so it also
+// follows the frame's own rise in the pinned reveal.
 const arPhoto = document.querySelector(".v2 .ar-photo");
 if (arPhoto && !reduceMotion) {
   const img = arPhoto.querySelector("img");
@@ -314,7 +316,9 @@ if (arPhoto && !reduceMotion) {
   img.replaceWith(clip);
   clip.append(img);
   arPhoto.classList.add("is-parallax");
-  const RANGE = 0.07;
+  const RANGE = 0.12;
+  const BASE = 1.26;  // covers the ±12% drift
+  const ZOOM = 0.24;  // extra scale while the frame comes in
   let last = null;
   const update = () => {
     const r = clip.getBoundingClientRect();
@@ -322,9 +326,13 @@ if (arPhoto && !reduceMotion) {
     if (r.bottom < -50 || r.top > vh + 50) return; // off screen
     const t = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2)));
     const py = Math.round(t * RANGE * r.height * 10) / 10;
-    if (py === last) return;
-    last = py;
+    const k = Math.max(0, t);
+    const ps = Math.round((BASE + ZOOM * k * k) * 1000) / 1000; // eases into its resting size
+    const key = py + "|" + ps;
+    if (key === last) return;
+    last = key;
     img.style.setProperty("--py", `${py}px`);
+    img.style.setProperty("--ps", ps);
   };
   update();
   if (window.lenis) window.lenis.on("scroll", update);
