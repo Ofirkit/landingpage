@@ -2001,3 +2001,5 @@ html.menu-open { overflow: hidden; }
    (a one-off size between --fs-lead and --fs-h4; 19px on phones), with a wider measure for the bigger type */
 .photo-hover .ar-lower { margin-top: 24px; }
 .photo-hover .ar-sub { margin-top: 0; max-width: 760px; font-size: clamp(19px, 1.55vw, 22px); }
+/* How I work cards 10% taller (2026-10-06, user): 40px more air around the drawing (414 → 454px at 1440, ~440 on phones) */
+.v2 .how3-soft .how3-art { margin: 12px auto 28px; }
