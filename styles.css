@@ -1953,19 +1953,6 @@ html.menu-open { overflow: hidden; }
 }
 :lang(he) .v2 .ar-text, .v2:lang(he) .ar-text { letter-spacing: -0.015em; }
 
-
-/* ----- About: the tool names are their logos (2026-10-06, user: "instead of the word Framer, a big Framer
-   logo, matching the size of the text"). Each wordmark is drawn inline in the text color (monochrome, like
-   the site), sized in em so it scales with the statement and sits on the text's baseline; a visually hidden
-   name keeps the sentence readable for search engines and screen readers ----- */
-.tool-logo { display: inline-block; white-space: nowrap; }
-.tool-logo svg { display: inline-block; width: auto; fill: currentColor; overflow: visible; }
-.tool-logo svg * { fill: currentColor; }
-/* each wordmark's letters are sized to the statement's cap height (~0.7em) and sit on its baseline */
-.tool-framer svg { height: 1.12em; vertical-align: -0.25em; }
-.tool-webflow svg { height: 0.86em; vertical-align: -0.09em; }
-.tool-claude svg { height: 0.8em; vertical-align: -0.08em; }
-
 /* ----- Footer social links (2026-10-06, user: no "all rights reserved" / © line; LinkedIn, Instagram and
    YouTube instead). Monochrome marks in the muted text color, 40px round tap targets that fill on hover ----- */
 .footer-social { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
