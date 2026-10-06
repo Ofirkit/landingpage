@@ -1588,6 +1588,9 @@ section[hidden] { display: none !important; }
 .v2 .pc-flat .pc-card { padding: 38px 36px 36px; }
 .v2 .ar-photo { border-radius: var(--r-lg); }
 .v2 .ar-photo img { border-radius: calc(var(--r-lg) - 10px); }
+/* Parallax portrait (script.js): the image is 16% larger than its window (room for the ±7% drift) */
+.ar-photo-clip { display: block; overflow: hidden; border-radius: calc(var(--r-lg) - 10px); }
+.ar-photo.is-parallax img { border-radius: 0; transform: translate3d(0, var(--py, 0px), 0) scale(1.16); will-change: transform; }
 /* Buttons and small surfaces */
 .v2 .btn,
 .v2 .btn-sm,
