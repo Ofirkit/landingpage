@@ -1940,3 +1940,15 @@ html.menu-open { overflow: hidden; }
    so the stars, the quote and the person all line up with the heading ----- */
 .v2 .qt-inner { margin-inline: 0; }
 .v2 .qt-item blockquote p::before { position: static; margin: 0; }
+
+/* ----- About: a short statement, bigger (2026-10-06, user picked my recommendation): only the first two
+   sentences are revealed in the pin ("היי, אני אופיר. אני מעצב ובונה אתרים ב-Framer, ב-Webflow וב-Claude
+   Code."), at display size; the rest of the story moved to the paragraph under the photo (.ar-sub) ----- */
+.v2 .ar-text {
+  max-width: 24ch; /* three balanced lines on desktop in both languages */
+  font-size: clamp(34px, 6vw, 88px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+:lang(he) .v2 .ar-text, .v2:lang(he) .ar-text { letter-spacing: -0.015em; }
