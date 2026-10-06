@@ -368,6 +368,90 @@ if (ar && !reduceMotion) {
   window.addEventListener("scroll", update, { passive: true });
 }
 
+// How I work: journey (how-test.html?how=journey, 2026-10-06, user). One circle, the project, travels through the
+// three principles as the page scrolls; every value below is a function of the pin's progress p (0..1), so the
+// story plays at the reader's pace and runs backwards on the way up. Timeline:
+//   0.02–0.28  End to end: a pen sets off from the start ring and traces the dashed design all the way round
+//   0.30–0.42  the traced circle shrinks into the first of four steps; the row fades in
+//   0.42–0.66  Transparency: it moves along the row step by step, leaving each step filled (done) behind it
+//   0.66–0.80  the row fades; the circle leaves the last step and grows
+//   0.78–0.93  Partner: a second ring slides in from the other side and links with it, woven over and under
+// The pin is a 360vh track with a sticky one-screen stage (CSS), so the page never jumps.
+const hj = document.querySelector(".hj");
+if (hj && !hj.hidden && !reduceMotion) {
+  const track = hj.querySelector(".hj-track");
+  const $ = (s) => hj.querySelector(s);
+  const all = (s) => [...hj.querySelectorAll(s)];
+  const dash = $(".hj-dash"), trace = $(".hj-trace"), start = $(".hj-start"), pen = $(".hj-pen");
+  const proj = $(".hj-proj"), ring = $(".hj-ring"), partner = $(".hj-partner"), weave = $(".hj-weave");
+  const rows = all(".hj-row"), dones = all(".hj-done"), steps = all(".hj-step");
+  const count = $(".hj-count b"), bar = $(".hj-bar");
+  const C = 300, CY = 180, R = 90, SR = 34, STEPS = [459, 353, 247, 141];
+  const clamp01 = (v) => Math.min(1, Math.max(0, v));
+  const seg = (p, a, b) => clamp01((p - a) / (b - a));
+  const io = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2); // ease in-out
+  const out = (t) => 1 - Math.pow(1 - t, 3);
+  const mix = (a, b, t) => a + (b - a) * t;
+  const set = (el, attrs) => { for (const k in attrs) el.setAttribute(k, typeof attrs[k] === "number" ? +attrs[k].toFixed(2) : attrs[k]); };
+  const op = (el, v) => { el.style.opacity = +v.toFixed(3); };
+  let last = -1, cur = -1;
+  const update = () => {
+    const r = track.getBoundingClientRect();
+    const span = r.height - window.innerHeight;
+    const p = clamp01(-r.top / (span > 0 ? span : 1));
+    if (Math.abs(p - last) < 0.0005) return;
+    last = p;
+    bar.style.setProperty("--p", p.toFixed(4));
+    // 1. trace
+    const a = io(seg(p, 0.02, 0.28));
+    trace.style.strokeDashoffset = (1 - a).toFixed(4);
+    const ang = a * Math.PI * 2; // counterclockwise from the top, so it sets off leftwards (RTL)
+    set(pen, { cx: C - R * Math.sin(ang), cy: CY - R * Math.cos(ang) });
+    const leave1 = seg(p, 0.29, 0.34);
+    op(trace, a >= 1 ? 0 : 1);
+    op(dash, 1 - leave1);
+    op(start, 1 - leave1);
+    op(pen, 1 - leave1);
+    // the project circle takes over from the finished trace
+    let px = C, pr = R;
+    const shrink = io(seg(p, 0.30, 0.42));
+    px = mix(C, STEPS[0], shrink); pr = mix(R, SR, shrink);
+    // 2. along the row: q runs 0..3 (step 1 → 4); each move holds a little at both ends
+    const q = seg(p, 0.42, 0.66) * 3;
+    const k = Math.min(2, Math.floor(q));
+    const f = io(clamp01((q - k - 0.15) / 0.7));
+    if (p >= 0.42) px = mix(STEPS[k], STEPS[k + 1], q >= 3 ? 1 : f);
+    dones.forEach((d, i) => op(d, 0.5 * clamp01((q - i - 0.25) / 0.35) * (1 - seg(p, 0.66, 0.74))));
+    const rowIn = seg(p, 0.31, 0.40), rowOut = seg(p, 0.66, 0.74);
+    rows.forEach((el) => op(el, rowIn * (1 - rowOut)));
+    op(ring, seg(p, 0.40, 0.44) * (1 - seg(p, 0.64, 0.68)));
+    // 3. leave the row and grow; the partner ring slides in and links
+    const grow = io(seg(p, 0.68, 0.80));
+    if (p >= 0.68) { px = mix(STEPS[3], 260, grow); pr = mix(SR, 80, grow); }
+    set(proj, { cx: px, r: pr });
+    set(ring, { cx: px });
+    op(proj, a >= 1 ? 1 : 0);
+    const slide = out(seg(p, 0.78, 0.92));
+    set(partner, { cx: mix(560, 340, slide) });
+    op(partner, seg(p, 0.78, 0.84));
+    op(weave, seg(p, 0.91, 0.94));
+    // text
+    const n = p < 0.36 ? 0 : p < 0.73 ? 1 : 2;
+    if (n !== cur) {
+      cur = n;
+      steps.forEach((s, i) => s.classList.toggle("is-on", i === n));
+      count.textContent = `0${n + 1}`;
+    }
+  };
+  const art = $(".hj-art");
+  const fitTrace = () => { const w = art.getBoundingClientRect().width; if (w) trace.style.strokeWidth = (4 * 440 / w).toFixed(3); };
+  fitTrace();
+  update();
+  if (window.lenis) window.lenis.on("scroll", update);
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", () => { fitTrace(); last = -1; update(); });
+}
+
 // About: parallax portrait (2026-10-06, user; made stronger "like a reveal" the same day). The photo sits enlarged
 // inside a clipping window in its frame and drifts against the scroll: from 12% of the window lower than center
 // when the frame enters at the bottom of the screen to 12% higher as it leaves at the top, so it moves more slowly

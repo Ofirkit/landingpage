@@ -2030,3 +2030,43 @@ html.menu-open { overflow: hidden; }
 .art-loop .pen-dot { fill: var(--text); }
 .art-loop .pen { transform: rotate(-360deg); transition: transform 1.8s cubic-bezier(0.45, 0, 0.25, 1) 0.45s, opacity 0.3s var(--ease) 0.3s; }
 .js .how3-card:not(.art-on) .art-loop .pen { transform: rotate(0deg); opacity: 0; }
+/* ---- How I work as a journey (how-test.html?how=journey, 2026-10-06, user) ----
+   A pinned stage (sticky, one screen tall) inside a 360vh track. script.js turns the scroll position into the
+   drawing's state (positions, sizes, opacities, the trace), so it plays at the reader's pace and reverses on the
+   way back up. The text column swaps between the three principles with a short fade. */
+.hj { --art-line: color-mix(in srgb, var(--text) 32%, transparent); }
+.hj-track { position: relative; height: 360vh; }
+.hj-stage {
+  position: sticky; top: 0; height: 100svh;
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: clamp(24px, 4vw, 64px);
+}
+.hj-text { align-self: center; }
+.hj-count { font-size: var(--fs-sm); color: var(--text-dim); letter-spacing: 0.04em; }
+.hj-count b { color: var(--text); font-weight: 700; }
+.hj-bar { display: block; width: 120px; height: 2px; margin-top: 12px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.hj-bar i { display: block; height: 100%; background: var(--text); transform: scaleX(var(--p, 0)); transform-origin: right; }
+[dir="ltr"] .hj-bar i { transform-origin: left; }
+.hj-steps { display: grid; margin: clamp(28px, 4vh, 44px) 0 0; padding: 0; list-style: none; }
+.hj-step {
+  grid-area: 1 / 1; opacity: 0; transform: translateY(18px); filter: blur(6px);
+  transition: opacity 0.5s var(--ease), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s var(--ease);
+  pointer-events: none;
+}
+.hj-step.is-on { opacity: 1; transform: none; filter: none; pointer-events: auto; transition-delay: 0.12s; }
+.hj-step h3 { font-size: var(--fs-h2); line-height: 1.05; letter-spacing: -0.02em; }
+.hj-step p { max-width: 40ch; margin-top: 16px; font-size: var(--fs-body-lg); color: var(--text-muted); }
+.hj-art { display: block; width: 100%; height: auto; max-height: 70svh; overflow: visible; }
+.hj-art * { vector-effect: non-scaling-stroke; }
+.hj-ln { fill: none; stroke: var(--art-line); stroke-width: 2; }
+.hj-dash, .hj-ring { stroke-dasharray: 5 6; }
+.hj-hole, .hj-start { fill: var(--bg); }
+.hj-ink { fill: none; stroke: var(--text); stroke-width: 4; }
+.hj-art .hj-trace { stroke-dasharray: 1; stroke-dashoffset: 1; vector-effect: none; } /* non-scaling strokes break pathLength dashes; script.js sets its width to 4px on screen */
+.hj-gap { fill: none; stroke: var(--bg); stroke-width: 14; }
+.hj-pen { fill: var(--text); }
+.hj-done, .hj-ring, .hj-partner, .hj-proj, .hj-weave, .hj-row { opacity: 0; }
+@media (max-width: 960px) {
+  .hj-stage { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center; gap: 8px; padding-top: 56px; }
+  .hj-art { order: -1; max-height: 38svh; }
+  .hj-steps { margin-top: 20px; }
+}
