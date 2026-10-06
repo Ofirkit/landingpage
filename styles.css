@@ -1953,46 +1953,31 @@ html.menu-open { overflow: hidden; }
 }
 :lang(he) .v2 .ar-text, .v2:lang(he) .ar-text { letter-spacing: -0.015em; }
 
-/* ----- About: tool marks on hover (2026-10-06, user: "add the logos of each company on hover"). Hovering
-   "Framer", "Webflow" or "Claude Code" in the statement lifts a small card with that tool's mark above the
-   word. Monochrome in the text color, like the rest of the site; a dotted underline hints the word reacts.
-   Mouse only: touch screens keep the plain statement ----- */
-.tool-pop { display: none; }
-@media (hover: hover) and (pointer: fine) {
-  .ar-text .w-tool {
-    position: relative;
-    text-decoration: underline dotted color-mix(in srgb, currentColor 35%, transparent);
-    text-decoration-thickness: 0.06em;
-    text-underline-offset: 0.14em;
-    cursor: default;
-  }
-  .tool-pop { /* a small floating chip: the mark and the name, in the site's own type */
-    position: absolute;
-    left: 50%;
-    bottom: calc(100% + 12px);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px 10px 14px;
-    font-size: var(--fs-body);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0;
-    white-space: nowrap;
-    color: var(--text);
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
-    opacity: 0;
-    transform: translate(-50%, 8px) scale(0.92);
-    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    pointer-events: none;
-  }
-  [dir="rtl"] .tool-pop { direction: ltr; } /* the brand name reads left to right, mark first */
-  .tool-pop svg { flex: none; width: 22px; height: 22px; fill: currentColor; }
-  .tool-pop.tool-webflow svg { width: 28px; }
-  .tool-name::after { content: attr(data-t); }
-  .ar-text .w-tool:hover .tool-pop { opacity: 1; transform: translate(-50%, 0) scale(1); }
+
+/* ----- About: the tool names are their logos (2026-10-06, user: "instead of the word Framer, a big Framer
+   logo, matching the size of the text"). Each wordmark is drawn inline in the text color (monochrome, like
+   the site), sized in em so it scales with the statement and sits on the text's baseline; a visually hidden
+   name keeps the sentence readable for search engines and screen readers ----- */
+.tool-logo { display: inline-block; white-space: nowrap; }
+.tool-logo svg { display: inline-block; width: auto; fill: currentColor; overflow: visible; }
+.tool-logo svg * { fill: currentColor; }
+/* each wordmark's letters are sized to the statement's cap height (~0.7em) and sit on its baseline */
+.tool-framer svg { height: 1.12em; vertical-align: -0.25em; }
+.tool-webflow svg { height: 0.86em; vertical-align: -0.09em; }
+.tool-claude svg { height: 0.8em; vertical-align: -0.08em; }
+
+/* ----- Footer social links (2026-10-06, user: no "all rights reserved" / © line; LinkedIn, Instagram and
+   YouTube instead). Monochrome marks in the muted text color, 40px round tap targets that fill on hover ----- */
+.footer-social { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--text-muted);
+  border-radius: 50%;
+  transition: color 0.2s, background-color 0.2s;
 }
+.footer-social a:hover { color: var(--text); background: color-mix(in srgb, var(--text) 8%, transparent); }
+.footer-social a:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.footer-social svg { width: 19px; height: 19px; fill: currentColor; }

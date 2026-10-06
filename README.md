@@ -36,3 +36,5 @@ python3 -m http.server 8000
 - [ ] **Make sure the published page has no `<meta name="robots" content="noindex" />`** (user reminder). `index.html` has none; `light.html` and `how-test.html` carry it because they are experiments. If one of them becomes the live page, remove the tag, or fold it into `index.html` and delete the experiments.
 - [ ] Fill in the booking link, email and YouTube links above.
 - [ ] Test link previews (WhatsApp, LinkedIn post inspector) once the site is live.
+
+- `[קישור ללינקדאין]` / `[LinkedIn link]` and `[קישור לאינסטגרם]` / `[Instagram link]`: the footer social links on how-test.html and en.html (added 2026-10-06).
