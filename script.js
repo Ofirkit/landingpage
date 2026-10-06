@@ -209,10 +209,12 @@ if (ar && !reduceMotion) {
   const text = ar.querySelector(".ar-text");
   const lower = ar.querySelector(".ar-lower");
   const words = [];
-  const parts = text.textContent.trim().split(/(\s+)/);
+  // Split on ordinary spaces only: a no-break space keeps a Latin name like "Claude Code" in one word box,
+  // otherwise the two inline-blocks are ordered right to left in Hebrew ("Code Claude")
+  const parts = text.textContent.trim().split(/([ \t\n\r]+)/);
   text.textContent = "";
   parts.forEach((part) => {
-    if (/^\s+$/.test(part)) { text.append(part); return; }
+    if (/^[ \t\n\r]+$/.test(part)) { text.append(part); return; }
     const w = document.createElement("span");
     w.className = "w";
     w.textContent = part;
