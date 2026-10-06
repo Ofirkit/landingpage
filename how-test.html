@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261006v" />
+  <link rel="stylesheet" href="styles.css?v=20261006w" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
@@ -193,7 +193,21 @@
           <!-- Default: drawing, title, description in light outlined cards styled like the pricing cards.
                ?how=open drops the cards, ?how=cards shows the black cards, ?how=cards&white the earlier white ones -->
           <li class="how3-card reveal">
-            <svg class="how3-art art-path" viewBox="0 0 300 240" aria-hidden="true">
+            <svg class="how3-art art-site" viewBox="0 0 300 240" aria-hidden="true">
+              <path class="ln dash" d="M150 50 H228 A12 12 0 0 1 240 62 V178 A12 12 0 0 1 228 190 H150" />
+              <path class="ln dash" d="M150 76 H240 M150 104 H216 M150 122 H196 M150 140 H162 A9 9 0 0 1 162 158 H150" />
+              <path class="fill draw" pathLength="1" d="M150 50 H72 A12 12 0 0 0 60 62 V178 A12 12 0 0 0 72 190 H150" style="--d:0.3s" />
+              <path class="ink draw" pathLength="1" d="M150 76 H60" style="--d:0.95s" />
+              <circle class="ink grow" cx="75" cy="63" r="3.5" style="--d:1.05s" />
+              <circle class="ink grow" cx="87" cy="63" r="3.5" style="--d:1.1s" />
+              <circle class="ink grow" cx="99" cy="63" r="3.5" style="--d:1.15s" />
+              <path class="ink draw" pathLength="1" d="M150 104 H84" style="--d:1.05s" />
+              <path class="ink draw" pathLength="1" d="M150 122 H104" style="--d:1.15s" />
+              <path class="ink draw" pathLength="1" d="M150 140 H138 A9 9 0 0 0 138 158 H150" style="--d:1.25s" />
+              <circle class="ln joint grow" cx="150" cy="50" r="6" style="--d:1.4s" />
+              <circle class="ln joint grow" cx="150" cy="190" r="6" style="--d:1.5s" />
+            </svg>
+            <svg class="how3-art art-path" hidden viewBox="0 0 300 240" aria-hidden="true">
               <path class="ln dash" d="M150 58 A62 62 0 0 1 150 182" />
               <path class="fill draw" pathLength="1" d="M150 58 A62 62 0 0 0 150 182" style="--d:0.35s" />
               <circle class="ln joint grow" cx="150" cy="58" r="7" style="--d:1.15s" />
@@ -682,6 +696,7 @@
     if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");
     if (/[?&]pc=(flat|round)\b/.test(location.search)) { const pc = document.querySelector(".pc"); pc.classList.remove("pc-folder"); if (/[?&]pc=flat\b/.test(location.search)) pc.classList.add("pc-flat"); }
     if (/[?&]process=current\b/.test(location.search)) { const a = document.querySelector(".pc"), b = document.querySelector("#process-current"); a.remove(); b.hidden = false; b.id = "process"; }
+    if (/[?&]art1=circle\b/.test(location.search)) { document.querySelector(".art-site").hidden = true; document.querySelector(".art-path").hidden = false; }
     if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
   <script src="script.js?v=20261006g" defer></script>
 </body>
