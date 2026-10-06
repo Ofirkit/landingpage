@@ -2062,6 +2062,7 @@ html.menu-open { overflow: hidden; }
 .hj-hole, .hj-start { fill: var(--bg); }
 .hj-ink { fill: none; stroke: var(--text); stroke-width: 4; }
 .hj-art .hj-trace { stroke-dasharray: 1; stroke-dashoffset: 1; vector-effect: none; } /* non-scaling strokes break pathLength dashes; script.js sets its width to 4px on screen */
+.hj-art .hj-glow { fill: none; stroke: var(--text); stroke-dasharray: 0.12 2; stroke-dashoffset: 0.12; stroke-linecap: round; opacity: 0; vector-effect: none; filter: blur(5px); }
 .hj-gap { fill: none; stroke: var(--bg); stroke-width: 14; }
 .hj-pen { fill: var(--text); }
 .hj-done, .hj-ring, .hj-partner, .hj-proj, .hj-weave, .hj-row { opacity: 0; }
@@ -2070,3 +2071,53 @@ html.menu-open { overflow: hidden; }
   .hj-art { order: -1; max-height: 38svh; }
   .hj-steps { margin-top: 20px; }
 }
+/* Cinematic pass (2026-10-06, user: "more cinematic, more dramatic, more wow effect"): the section dims to a dark
+   band (full-bleed, its opacity --hj-o from script.js), the text and drawing switch to the on-dark tokens, a soft
+   spotlight sits behind the drawing, the pen glows, huge faint chapter numerals swap behind the titles, and the
+   titles leave upwards as the next one rises in. */
+.hj {
+  --hj-band: var(--t-d0, #0b0b0b);
+  --text: var(--t-on-dark, #f5f5f5);
+  --text-muted: var(--t-on-dark-muted, #b3b3b3);
+  --text-dim: var(--t-on-dark-dim, #8a8a8a);
+  --border: rgba(var(--t-on-dark-rgb, 245, 245, 245), 0.16);
+  --bg: var(--hj-band);
+  --art-line: rgba(var(--t-on-dark-rgb, 245, 245, 245), 0.3);
+  color: var(--text);
+}
+.tone-dark .hj { --hj-band: #05080c; }
+.hj-band { position: absolute; inset: 0 calc(50% - 50vw); background: var(--hj-band); opacity: var(--hj-o, 0); pointer-events: none; }
+.hj-stage { opacity: var(--hj-o, 0); }
+.hj-stage::before {
+  content: ""; position: absolute; inset: 0 calc(50% - 50vw); pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 46% at 30% 52%, rgba(var(--t-on-dark-rgb, 245, 245, 245), 0.075), transparent 72%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.35) 100%);
+}
+[dir="ltr"] .hj-stage::before { transform: scaleX(-1); }
+.hj-stage > * { position: relative; }
+.hj-pen { filter: drop-shadow(0 0 6px var(--text)) drop-shadow(0 0 16px rgba(var(--t-on-dark-rgb, 245, 245, 245), 0.5)); }
+.hj-pulse { opacity: 0; stroke: var(--text); stroke-width: 1.5; }
+.hj-num {
+  display: block; margin-bottom: -0.12em;
+  font-size: clamp(88px, 13vw, 210px); font-weight: 700; line-height: 0.8; letter-spacing: -0.05em;
+  color: rgba(var(--t-on-dark-rgb, 245, 245, 245), 0.09);
+}
+.hj-step { transform: translateY(48px); filter: blur(12px); transition: opacity 0.6s var(--ease), transform 1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s var(--ease); }
+.hj-step.is-past { transform: translateY(-40px); }
+.hj-step:not(.is-on) { transition-delay: 0s; transition-duration: 0.45s, 0.6s, 0.45s; }
+.hj-step.is-on { transition-delay: 0.15s; }
+@media (max-width: 960px) {
+  .hj-stage::before { background: radial-gradient(ellipse 70% 30% at 50% 34%, rgba(var(--t-on-dark-rgb, 245, 245, 245), 0.08), transparent 72%), radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.35) 100%); }
+  .hj-num { font-size: 72px; }
+}
+.how3[hidden] { display: none; } /* ?how=journey hides the cards; .how3's own display beat the hidden attribute */
+@media (max-width: 960px) {
+  /* phones: keep the camera's close-ups and pulses inside the drawing's own box, with soft top and bottom edges,
+     so nothing runs behind the text */
+  .hj-art { overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); }
+}
+/* Lights down: the dark band is a full-screen layer (fixed) that fades in as the section arrives, dimming the whole
+   screen (the section heading too), with the story's stage above it; it fades out again as the next section comes */
+.hj-band { position: fixed; inset: 0; z-index: 30; }
+.hj-stage { z-index: 31; }

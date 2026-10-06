@@ -368,22 +368,29 @@ if (ar && !reduceMotion) {
   window.addEventListener("scroll", update, { passive: true });
 }
 
-// How I work: journey (how-test.html?how=journey, 2026-10-06, user). One circle, the project, travels through the
-// three principles as the page scrolls; every value below is a function of the pin's progress p (0..1), so the
-// story plays at the reader's pace and runs backwards on the way up. Timeline:
-//   0.02–0.28  End to end: a pen sets off from the start ring and traces the dashed design all the way round
+// How I work: journey (how-test.html?how=journey, 2026-10-06, user; made "more cinematic, more dramatic" the same
+// day). One circle, the project, travels through the three principles as the page scrolls; every value below is a
+// function of the pin's progress p (0..1), so the story plays at the reader's pace and runs backwards on the way up.
+//   0.02–0.28  End to end: a pen with a glowing tail sets off from the start ring and traces the dashed design all
+//              the way round; a shockwave when the loop closes
 //   0.30–0.42  the traced circle shrinks into the first of four steps; the row fades in
-//   0.42–0.66  Transparency: it moves along the row step by step, leaving each step filled (done) behind it
+//   0.42–0.66  Transparency: it moves along the row step by step, each step pulsing as it's left done behind
 //   0.66–0.80  the row fades; the circle leaves the last step and grows
-//   0.78–0.93  Partner: a second ring slides in from the other side and links with it, woven over and under
-// The pin is a 360vh track with a sticky one-screen stage (CSS), so the page never jumps.
+//   0.78–0.92  Partner: a second ring slides in and links with it, woven over and under; a last pulse round both
+// Cinema on top: the page dims to a dark band as the section arrives (and lights up again as it leaves), a soft
+// spotlight sits behind the drawing, and a "camera" (the SVG viewBox) moves through the story: a close-up on the
+// start ring that pulls back, a slow push-in during the trace, a wide shot for the row (drifting with the circle),
+// a push-in on the rings. Lines keep their on-screen width through the zoom (non-scaling strokes; the traced line
+// and its glow get their width from the zoom each frame, since pathLength dashes can't be non-scaling).
 const hj = document.querySelector(".hj");
 if (hj && !hj.hidden && !reduceMotion) {
   const track = hj.querySelector(".hj-track");
   const $ = (s) => hj.querySelector(s);
   const all = (s) => [...hj.querySelectorAll(s)];
-  const dash = $(".hj-dash"), trace = $(".hj-trace"), start = $(".hj-start"), pen = $(".hj-pen");
+  const art = $(".hj-art");
+  const dash = $(".hj-dash"), trace = $(".hj-trace"), glow = $(".hj-glow"), start = $(".hj-start"), pen = $(".hj-pen");
   const proj = $(".hj-proj"), ring = $(".hj-ring"), partner = $(".hj-partner"), weave = $(".hj-weave");
+  const pulseA = $(".hj-pulse-a"), pulseS = $(".hj-pulse-s"), pulseL = $(".hj-pulse-l");
   const rows = all(".hj-row"), dones = all(".hj-done"), steps = all(".hj-step");
   const count = $(".hj-count b"), bar = $(".hj-bar");
   const C = 300, CY = 180, R = 90, SR = 34, STEPS = [459, 353, 247, 141];
@@ -393,37 +400,61 @@ if (hj && !hj.hidden && !reduceMotion) {
   const out = (t) => 1 - Math.pow(1 - t, 3);
   const mix = (a, b, t) => a + (b - a) * t;
   const set = (el, attrs) => { for (const k in attrs) el.setAttribute(k, typeof attrs[k] === "number" ? +attrs[k].toFixed(2) : attrs[k]); };
-  const op = (el, v) => { el.style.opacity = +v.toFixed(3); };
-  let last = -1, cur = -1;
+  const op = (el, v) => { el.style.opacity = +clamp01(v).toFixed(3); };
+  // camera keys: [p, center x, center y, view width]; the height keeps the 440:240 frame
+  const CAM = [[0, 300, 92, 150], [0.07, 300, 180, 330], [0.27, 300, 180, 296], [0.33, 300, 180, 330], [0.44, 300, 180, 440], [0.66, 300, 180, 440], [0.8, 300, 180, 410], [0.92, 300, 180, 380], [1, 300, 180, 350]];
+  const camAt = (p) => {
+    let i = 0;
+    while (i < CAM.length - 2 && p > CAM[i + 1][0]) i++;
+    const [p0, x0, y0, w0] = CAM[i], [p1, x1, y1, w1] = CAM[i + 1];
+    const t = io(seg(p, p0, p1));
+    return [mix(x0, x1, t), mix(y0, y1, t), mix(w0, w1, t)];
+  };
+  let last = -1, lastO = -1, cur = -1, artW = 0, weaveOn = 0;
   const update = () => {
     const r = track.getBoundingClientRect();
-    const span = r.height - window.innerHeight;
+    const vh = window.innerHeight;
+    // lights: dim as the track comes up the screen, light up again as it leaves
+    const o = Math.min(clamp01((vh - r.top) / (vh * 0.7)), clamp01((r.bottom - vh * 0.25) / (vh * 0.6)));
+    if (Math.abs(o - lastO) > 0.001) {
+      lastO = o;
+      hj.style.setProperty("--hj-o", o.toFixed(3));
+      op(weave, weaveOn * clamp01((o - 0.85) / 0.15)); // the weave's dark gaps would show as marks while the lights come up
+    }
+    const span = r.height - vh;
     const p = clamp01(-r.top / (span > 0 ? span : 1));
-    if (Math.abs(p - last) < 0.0005) return;
+    if (Math.abs(p - last) < 0.0003) return;
     last = p;
     bar.style.setProperty("--p", p.toFixed(4));
     // 1. trace
     const a = io(seg(p, 0.02, 0.28));
     trace.style.strokeDashoffset = (1 - a).toFixed(4);
+    glow.style.strokeDashoffset = (0.12 - a).toFixed(4); // a short glowing tail behind the pen
     const ang = a * Math.PI * 2; // counterclockwise from the top, so it sets off leftwards (RTL)
     set(pen, { cx: C - R * Math.sin(ang), cy: CY - R * Math.cos(ang) });
     const leave1 = seg(p, 0.29, 0.34);
     op(trace, a >= 1 ? 0 : 1);
+    op(glow, a > 0 && a < 1 ? 1 : 0);
     op(dash, 1 - leave1);
     op(start, 1 - leave1);
     op(pen, 1 - leave1);
-    // the project circle takes over from the finished trace
-    let px = C, pr = R;
+    const tA = seg(p, 0.275, 0.37);
+    set(pulseA, { r: R + 80 * out(tA) });
+    op(pulseA, tA > 0 && tA < 1 ? 0.7 * (1 - tA) : 0);
+    // the project circle takes over from the finished trace and shrinks into step 1
     const shrink = io(seg(p, 0.30, 0.42));
-    px = mix(C, STEPS[0], shrink); pr = mix(R, SR, shrink);
+    let px = mix(C, STEPS[0], shrink), pr = mix(R, SR, shrink);
     // 2. along the row: q runs 0..3 (step 1 → 4); each move holds a little at both ends
     const q = seg(p, 0.42, 0.66) * 3;
     const k = Math.min(2, Math.floor(q));
     const f = io(clamp01((q - k - 0.15) / 0.7));
     if (p >= 0.42) px = mix(STEPS[k], STEPS[k + 1], q >= 3 ? 1 : f);
-    dones.forEach((d, i) => op(d, 0.5 * clamp01((q - i - 0.25) / 0.35) * (1 - seg(p, 0.66, 0.74))));
-    const rowIn = seg(p, 0.31, 0.40), rowOut = seg(p, 0.66, 0.74);
-    rows.forEach((el) => op(el, rowIn * (1 - rowOut)));
+    const rowOut = seg(p, 0.66, 0.74);
+    dones.forEach((d, i) => op(d, 0.5 * clamp01((q - i - 0.25) / 0.35) * (1 - rowOut)));
+    let pulse = null;
+    for (let i = 0; i < 3; i++) { const t = (q - i - 0.25) / 0.6; if (t > 0 && t < 1) pulse = [i, t]; }
+    if (pulse) { set(pulseS, { cx: STEPS[pulse[0]], r: SR + 34 * out(pulse[1]) }); op(pulseS, 0.6 * (1 - pulse[1])); } else op(pulseS, 0);
+    rows.forEach((el) => op(el, seg(p, 0.31, 0.40) * (1 - rowOut)));
     op(ring, seg(p, 0.40, 0.44) * (1 - seg(p, 0.64, 0.68)));
     // 3. leave the row and grow; the partner ring slides in and links
     const grow = io(seg(p, 0.68, 0.80));
@@ -432,24 +463,32 @@ if (hj && !hj.hidden && !reduceMotion) {
     set(ring, { cx: px });
     op(proj, a >= 1 ? 1 : 0);
     const slide = out(seg(p, 0.78, 0.92));
-    set(partner, { cx: mix(560, 340, slide) });
-    op(partner, seg(p, 0.78, 0.84));
-    op(weave, seg(p, 0.91, 0.94));
+    set(partner, { cx: mix(600, 340, slide) });
+    op(partner, seg(p, 0.78, 0.86));
+    weaveOn = seg(p, 0.905, 0.93);
+    op(weave, weaveOn * clamp01((lastO - 0.85) / 0.15));
+    const tL = seg(p, 0.915, 1);
+    set(pulseL, { r: 124 + 110 * out(tL) });
+    op(pulseL, tL > 0 && tL < 1 ? 0.6 * (1 - tL) : 0);
+    // camera: follows the circle a little along the row
+    let [cx, cy, w] = camAt(p);
+    if (p > 0.40 && p < 0.72) cx += (px - C) * 0.3 * Math.min(seg(p, 0.40, 0.46), 1 - seg(p, 0.66, 0.72));
+    const h = (w * 240) / 440;
+    art.setAttribute("viewBox", `${(cx - w / 2).toFixed(2)} ${(cy - h / 2).toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)}`);
+    if (artW) { trace.style.strokeWidth = ((4 * w) / artW).toFixed(3); glow.style.strokeWidth = ((16 * w) / artW).toFixed(3); }
     // text
     const n = p < 0.36 ? 0 : p < 0.73 ? 1 : 2;
     if (n !== cur) {
       cur = n;
-      steps.forEach((s, i) => s.classList.toggle("is-on", i === n));
+      steps.forEach((s, i) => { s.classList.toggle("is-on", i === n); s.classList.toggle("is-past", i < n); });
       count.textContent = `0${n + 1}`;
     }
   };
-  const art = $(".hj-art");
-  const fitTrace = () => { const w = art.getBoundingClientRect().width; if (w) trace.style.strokeWidth = (4 * 440 / w).toFixed(3); };
-  fitTrace();
-  update();
+  const measure = () => { artW = art.getBoundingClientRect().width; last = -1; update(); };
+  measure();
   if (window.lenis) window.lenis.on("scroll", update);
   window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", () => { fitTrace(); last = -1; update(); });
+  window.addEventListener("resize", measure);
 }
 
 // About: parallax portrait (2026-10-06, user; made stronger "like a reveal" the same day). The photo sits enlarged
@@ -767,6 +806,12 @@ const onScroll = () => {
       const pIn = (pcPin.stick + 200 - first) / 200;
       const pOut = (lastBottom - (pcPin.stick + pcPin.h) + 200) / 200;
       p = Math.max(p, Math.min(1, Math.max(0, Math.min(pIn, pOut))));
+    }
+    // ...and so does the dark band of the How I work journey (?how=journey), from its arrival until it lights up again
+    const hjTrack = document.querySelector(".hj:not([hidden]) .hj-track");
+    if (hjTrack) {
+      const r = hjTrack.getBoundingClientRect();
+      p = Math.max(p, Math.min(1, Math.max(0, Math.min((window.innerHeight - r.top) / 200, (r.bottom - window.innerHeight * 0.4) / 200))));
     }
     blur.style.transform = p ? `translateY(${(p * 100).toFixed(1)}%)` : "";
   }
