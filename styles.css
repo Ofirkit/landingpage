@@ -873,19 +873,10 @@ section[hidden] { display: none !important; }
 }
 .contact-full .cta-panel h2 { margin-inline: auto; }
 .contact-full .cta-actions { justify-content: center; }
-/* Testimonials: the linked rings, large, cropped at the band's far side */
+/* Testimonials: a positioning context for the section (the decorative rings were removed on 2026-10-06) */
 .qt { position: relative; overflow: hidden; isolation: isolate; --deco-bg: var(--bg); }
 .qt-dark { --deco-bg: #0b0b0b; }
-/* On the page background (the default since 2026-10-06) the rings sit behind the heading and the quote, so
-   they are quieter than on the dark band */
-.qt:not(.qt-dark) .deco-link { opacity: 0.06; }
 .qt > .container { position: relative; z-index: 1; }
-.deco-link { inset-inline-end: -30%; top: 50%; height: 160%; width: auto; translate: 0 -50%; }
-.deco-link :is(circle, path) { fill: none; stroke: currentColor; stroke-width: 4; }
-.deco-link .deco-gap { stroke: var(--deco-bg); stroke-width: 14; }
-.deco-link g { transition: transform 1.6s var(--ease) 0.2s; }
-.js .deco-link:not(.deco-on) .deco-a { transform: translateX(-40px); }
-.js .deco-link:not(.deco-on) .deco-b { transform: translateX(40px); }
 
 /* ==========================================================
    Statement: one big line between Testimonials and Process
@@ -1556,7 +1547,6 @@ section[hidden] { display: none !important; }
   .cta-fan { width: 300px; height: 170px; inset-inline-end: -24px; bottom: -36px; }
   .cta-fan img { width: 140px; }
   .cta-fan img { bottom: calc(var(--k) * 18px); inset-inline-end: calc(var(--k) * 36px); }
-  .deco-link { inset-inline-end: -50%; top: auto; bottom: -30%; height: 60%; translate: none; } /* below the arrows */
   .qt-item blockquote p { font-size: calc(var(--fs-h3) * 0.85); } /* 15% smaller on phones (user request) */
   .logo svg { width: 26px; }
   .principles { grid-template-columns: 1fr; }
