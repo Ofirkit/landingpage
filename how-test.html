@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261005y" />
+  <link rel="stylesheet" href="styles.css?v=20261006a" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
@@ -252,8 +252,8 @@
     <!-- ===== Testimonials ===== -->
     <!-- After the user's reference: one large centered quote at a time, the person below it and small
          arrows at the end of that line. The quotes share one grid cell, so switching never moves the page.
-         Black band by default; how-test.html?quote=white shows it on the page's own background. -->
-    <section class="section testimonials qt qt-dark" id="testimonials" aria-labelledby="qt-title">
+         On the page's own background with a visible heading (2026-10-06); how-test.html?quote=dark brings back the black band. -->
+    <section class="section testimonials qt" id="testimonials" aria-labelledby="qt-title">
       <!-- Decoration: the linked rings from "שותף, לא רק מבצע", large, faint and cropped at the band's side.
            They slide in and lock when the band comes into view. -->
       <svg class="deco deco-link" viewBox="0 0 300 240" aria-hidden="true" focusable="false">
@@ -263,7 +263,9 @@
         <g class="deco-a"><path class="deco-gap" d="M157.14 158.3 A50 50 0 0 1 142.1 166.98" /><path d="M159.73 155.96 A50 50 0 0 1 138.78 168.06" /></g>
       </svg>
       <div class="container">
-        <h2 class="sr-only" id="qt-title">המלצות</h2>
+        <header class="section-head reveal">
+          <div><h2 id="qt-title">מה לקוחות אומרים עליי</h2></div>
+        </header>
         <div class="qt-inner reveal">
           <div class="qt-stack" aria-live="polite">
             <figure class="qt-item is-active">
@@ -675,7 +677,7 @@
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
   <script>if (/[?&]how=open\b/.test(location.search)) document.querySelector(".how3").classList.remove("how3-soft");
     if (/[?&]how=cards\b/.test(location.search)) { document.querySelector(".how3").classList.remove("how3-soft"); var h3l = document.querySelector(".how3"); h3l.classList.remove("how3-open"); if (!/[?&]white\b/.test(location.search)) h3l.classList.add("how3-black"); document.querySelector("#how .section-head").classList.remove("section-head-bare"); }
-    if (/[?&]quote=white\b/.test(location.search)) document.querySelector(".qt").classList.remove("qt-dark");
+    if (/[?&]quote=dark\b/.test(location.search)) document.querySelector(".qt").classList.add("qt-dark");
     if (/[?&]cta=panel\b/.test(location.search)) document.querySelector("#contact").classList.remove("contact-full");
     if (/[?&]pricing=current\b/.test(location.search)) { const a = document.querySelector(".p3"), b = document.querySelector("#packages-current"); a.hidden = true; a.id = "packages-variant"; b.hidden = false; b.id = "packages"; }
     if (/[?&]plancta=bottom\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-cta-bottom");

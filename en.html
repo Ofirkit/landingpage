@@ -27,7 +27,7 @@
   <link id="font-en" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap" rel="stylesheet" />
   <script>(function () { var f = (location.search.match(/[?&]font=([\w-]+)/) || [])[1], m = { "inter-tight": "Inter+Tight", instrument: "Instrument+Sans", manrope: "Manrope" }; if (m[f]) { document.getElementById("font-en").href = "https://fonts.googleapis.com/css2?family=" + m[f] + ":wght@400;700&display=swap"; document.documentElement.classList.add("font-" + f); } })();</script>
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261005y" />
+  <link rel="stylesheet" href="styles.css?v=20261006a" />
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <link rel="stylesheet" href="tone.css?v=20261005d" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1], s; try { s = localStorage.getItem("uxk-theme"); } catch (e) {} if (!t) t = s === "dark" ? "dark" : "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
@@ -207,7 +207,7 @@
     </section>
 
     <!-- ===== Testimonials ===== -->
-    <section class="section testimonials qt qt-dark" id="testimonials" aria-labelledby="qt-title">
+    <section class="section testimonials qt" id="testimonials" aria-labelledby="qt-title">
       <svg class="deco deco-link" viewBox="0 0 300 240" aria-hidden="true" focusable="false">
         <g class="deco-a"><circle cx="125" cy="120" r="50" /></g>
         <g class="deco-b"><circle cx="175" cy="120" r="50" />
@@ -215,7 +215,9 @@
         <g class="deco-a"><path class="deco-gap" d="M157.14 158.3 A50 50 0 0 1 142.1 166.98" /><path d="M159.73 155.96 A50 50 0 0 1 138.78 168.06" /></g>
       </svg>
       <div class="container">
-        <h2 class="sr-only" id="qt-title">Testimonials</h2>
+        <header class="section-head reveal">
+          <div><h2 id="qt-title">What clients say about me</h2></div>
+        </header>
         <div class="qt-inner reveal">
           <div class="qt-stack" aria-live="polite">
             <figure class="qt-item is-active">
