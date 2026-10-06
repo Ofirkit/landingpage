@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261006r" />
+  <link rel="stylesheet" href="styles.css?v=20261006s" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
@@ -127,7 +127,7 @@
     <section class="section ar" id="about">
       <div class="ar-inner">
         <div class="container ar-content">
-          <p class="ar-text">היי, אני אופיר. אני מעצב ובונה אתרים ב-Framer, ב-Webflow וב-Claude Code.</p>
+          <p class="ar-text">היי, אני <span class="ar-name">אופיר</span>. אני מעצב ובונה אתרים ב-Framer, ב-Webflow וב-Claude Code.</p>
           <div class="ar-lower">
             <figure class="ar-photo"><img src="assets/ofir-portrait.webp" width="1000" height="1333" loading="lazy" decoding="async"
                  alt="אופיר, המעצב מאחורי UXUIKIT, מחייך בכיסא המשרדי שלו" /></figure>
@@ -683,6 +683,6 @@
     if (/[?&]pc=(flat|round)\b/.test(location.search)) { const pc = document.querySelector(".pc"); pc.classList.remove("pc-folder"); if (/[?&]pc=flat\b/.test(location.search)) pc.classList.add("pc-flat"); }
     if (/[?&]process=current\b/.test(location.search)) { const a = document.querySelector(".pc"), b = document.querySelector("#process-current"); a.remove(); b.hidden = false; b.id = "process"; }
     if (/[?&]about=current\b/.test(location.search)) { const a = document.querySelector(".ar"), b = document.querySelector("#about-current"); a.remove(); b.hidden = false; b.id = "about"; }</script>
-  <script src="script.js?v=20261006f" defer></script>
+  <script src="script.js?v=20261006g" defer></script>
 </body>
 </html>

@@ -196,6 +196,72 @@ if (rotator && !reduceMotion) {
   }
 }
 
+// About: photo on the name, in review at ?photo=hover (2026-10-06, user). The portrait leaves the section and
+// shows, at about its in-section size, while the pointer is on the name in the statement: it fades and scales in
+// and trails the cursor (eased each frame), kept inside the screen. On touch screens a tap on the name shows it
+// centered on the screen; any other tap or a scroll hides it. Runs before the pinned reveal measures the section.
+const arNamePhoto = new URLSearchParams(location.search).get("photo") === "hover" && document.querySelector(".v2 .ar-photo");
+const arName = document.querySelector(".ar-name");
+if (arNamePhoto && arName) {
+  document.documentElement.classList.add("photo-hover");
+  const card = document.createElement("figure");
+  card.className = "name-photo";
+  card.setAttribute("aria-hidden", "true");
+  const img = arNamePhoto.querySelector("img");
+  img.loading = "eager";
+  card.append(img);
+  arNamePhoto.remove();
+  document.body.append(card);
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const M = 16; // keep it this far inside the screen
+  const place = (cx, cy) => {
+    const w = card.offsetWidth, h = card.offsetHeight;
+    const x = Math.min(Math.max(M, cx - w / 2), window.innerWidth - w - M);
+    const y = Math.min(Math.max(M, cy - h / 2), window.innerHeight - h - M);
+    return [x, y];
+  };
+  const set = ([x, y]) => {
+    card.style.setProperty("--nx", `${x.toFixed(1)}px`);
+    card.style.setProperty("--ny", `${y.toFixed(1)}px`);
+  };
+  if (canHover) {
+    let target = null, pos = null, raf = 0, on = false;
+    const tick = () => {
+      raf = 0;
+      if (!target) return;
+      if (!pos || reduceMotion) pos = target.slice();
+      else { pos[0] += (target[0] - pos[0]) * 0.14; pos[1] += (target[1] - pos[1]) * 0.14; }
+      set(pos);
+      if (on && (Math.abs(target[0] - pos[0]) > 0.3 || Math.abs(target[1] - pos[1]) > 0.3)) raf = requestAnimationFrame(tick);
+    };
+    const move = (e) => {
+      target = place(e.clientX, e.clientY);
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    arName.addEventListener("pointerenter", (e) => {
+      on = true;
+      pos = null; target = place(e.clientX, e.clientY); set(target); // start where the cursor is, then trail it
+      card.classList.add("is-on");
+      requestAnimationFrame(() => card.classList.add("is-following"));
+    });
+    arName.addEventListener("pointermove", move);
+    arName.addEventListener("pointerleave", () => {
+      on = false;
+      card.classList.remove("is-on", "is-following");
+    });
+  } else {
+    const hide = () => card.classList.remove("is-on");
+    arName.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (card.classList.contains("is-on")) { hide(); return; }
+      set(place(window.innerWidth / 2, window.innerHeight / 2));
+      card.classList.add("is-on");
+    });
+    document.addEventListener("click", hide);
+    window.addEventListener("scroll", hide, { passive: true });
+  }
+}
+
 // About: pinned blur reveal (how-test.html), after the user's reference. The statement sits ~100px under
 // the hero and starts sharpening as soon as it scrolls into view. When it reaches the top third of the screen
 // the stage pins (position: sticky, so the browser keeps it perfectly in step with the scroll) for D px:
