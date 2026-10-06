@@ -403,10 +403,15 @@ if (hj && !hj.hidden && !reduceMotion) {
   const op = (el, v) => { el.style.opacity = +clamp01(v).toFixed(3); };
   // camera keys: [p, center x, center y, view width]; the height keeps the 440:240 frame
   const CAM = [[0, 300, 92, 150], [0.07, 300, 180, 330], [0.27, 300, 180, 296], [0.33, 300, 180, 330], [0.44, 300, 180, 440], [0.66, 300, 180, 440], [0.8, 300, 180, 410], [0.92, 300, 180, 380], [1, 300, 180, 350]];
+  // phones (a tall drawing box, so the frame is width-bound): a wider shot from the moment the row appears, so the
+  // row's ends are never cut at the screen's sides, and no sideways drift
+  const CAM_NARROW = [[0, 300, 92, 150], [0.07, 300, 180, 330], [0.28, 300, 180, 296], [0.36, 300, 180, 470], [0.66, 300, 180, 470], [0.8, 300, 180, 440], [0.92, 300, 180, 400], [1, 300, 180, 380]];
+  let narrow = false;
   const camAt = (p) => {
+    const K = narrow ? CAM_NARROW : CAM;
     let i = 0;
-    while (i < CAM.length - 2 && p > CAM[i + 1][0]) i++;
-    const [p0, x0, y0, w0] = CAM[i], [p1, x1, y1, w1] = CAM[i + 1];
+    while (i < K.length - 2 && p > K[i + 1][0]) i++;
+    const [p0, x0, y0, w0] = K[i], [p1, x1, y1, w1] = K[i + 1];
     const t = io(seg(p, p0, p1));
     return [mix(x0, x1, t), mix(y0, y1, t), mix(w0, w1, t)];
   };
@@ -472,7 +477,7 @@ if (hj && !hj.hidden && !reduceMotion) {
     op(pulseL, tL > 0 && tL < 1 ? 0.6 * (1 - tL) : 0);
     // camera: follows the circle a little along the row
     let [cx, cy, w] = camAt(p);
-    if (p > 0.40 && p < 0.72) cx += (px - C) * 0.3 * Math.min(seg(p, 0.40, 0.46), 1 - seg(p, 0.66, 0.72));
+    if (!narrow && p > 0.40 && p < 0.72) cx += (px - C) * 0.3 * Math.min(seg(p, 0.40, 0.46), 1 - seg(p, 0.66, 0.72));
     const h = (w * 240) / 440;
     art.setAttribute("viewBox", `${(cx - w / 2).toFixed(2)} ${(cy - h / 2).toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)}`);
     if (artW) { trace.style.strokeWidth = ((4 * w) / artW).toFixed(3); glow.style.strokeWidth = ((16 * w) / artW).toFixed(3); }
@@ -484,7 +489,7 @@ if (hj && !hj.hidden && !reduceMotion) {
       count.textContent = `0${n + 1}`;
     }
   };
-  const measure = () => { artW = art.getBoundingClientRect().width; last = -1; update(); };
+  const measure = () => { const b = art.getBoundingClientRect(); artW = b.width; narrow = b.height / b.width > 0.6; last = -1; update(); };
   measure();
   if (window.lenis) window.lenis.on("scroll", update);
   window.addEventListener("scroll", update, { passive: true });

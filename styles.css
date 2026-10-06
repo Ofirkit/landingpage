@@ -2121,3 +2121,17 @@ html.menu-open { overflow: hidden; }
    screen (the section heading too), with the story's stage above it; it fades out again as the next section comes */
 .hj-band { position: fixed; inset: 0; z-index: 30; }
 .hj-stage { z-index: 31; }
+/* Phones (2026-10-06, user: the journey "cuts on mobile at the top and bottom"): the drawing's box was only as tall
+   as its 11:6 frame (~195px), so the close-up, the big rings and the pulses were cut at its edges. It now gets a
+   taller box (the frame letterboxes inside it, and SVG draws into that extra space), with only a short soft fade at
+   the very top and bottom */
+@media (max-width: 960px) {
+  .hj-art { height: min(46svh, 420px); max-height: none; -webkit-mask-image: linear-gradient(transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(transparent, #000 7%, #000 93%, transparent); }
+  .hj-stage { padding-top: 48px; gap: 0; }
+}
+@media (max-width: 960px) and (max-height: 720px) {
+  .hj-art { height: 40svh; }
+  .hj-num { font-size: 56px; }
+  .hj-step p { margin-top: 10px; font-size: var(--fs-body); }
+  .hj-steps { margin-top: 12px; }
+}
