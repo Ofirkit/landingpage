@@ -2017,3 +2017,16 @@ html.menu-open { overflow: hidden; }
 .art-site .ink { fill: none; stroke: var(--text); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .art-site circle.ink { fill: var(--text); stroke: none; }
 .art-site .joint { fill: var(--card-bg); }
+/* Card 1 "End to end", now a closed loop (2026-10-06; the browser window looked "off and unrelated" to the site's
+   circles-and-lines language: kept at how-test.html?art1=site, the split circle at ?art1=circle): a dashed circle
+   (the approved design) and a start ring at the top; a pen dot sets off from the ring and draws a full line exactly
+   over the dashed one, all the way around, and comes back to where it started: from one end to the other, and the
+   build follows the design's line. The pen is a group rotated about the circle's center (its invisible r62 circle
+   sets the box), in step with the line's draw (same duration and ease). Counterclockwise, so it sets off leftwards
+   in Hebrew; LTR mirrors it like the other drawings */
+.art-loop .dash { stroke-dasharray: 5 6; }
+.art-loop .joint { fill: var(--card-bg); }
+.art-loop .fill.draw { transition: stroke-dashoffset 1.8s cubic-bezier(0.45, 0, 0.25, 1) var(--d); }
+.art-loop .pen-dot { fill: var(--text); }
+.art-loop .pen { transform: rotate(-360deg); transition: transform 1.8s cubic-bezier(0.45, 0, 0.25, 1) 0.45s, opacity 0.3s var(--ease) 0.3s; }
+.js .how3-card:not(.art-on) .art-loop .pen { transform: rotate(0deg); opacity: 0; }

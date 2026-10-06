@@ -27,7 +27,7 @@
   <link id="font-en" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap" rel="stylesheet" />
   <script>(function () { var f = (location.search.match(/[?&]font=([\w-]+)/) || [])[1], m = { "inter-tight": "Inter+Tight", instrument: "Instrument+Sans", manrope: "Manrope" }; if (m[f]) { document.getElementById("font-en").href = "https://fonts.googleapis.com/css2?family=" + m[f] + ":wght@400;700&display=swap"; document.documentElement.classList.add("font-" + f); } })();</script>
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261006w" />
+  <link rel="stylesheet" href="styles.css?v=20261006y" />
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <link rel="stylesheet" href="tone.css?v=20261005d" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1], s; try { s = localStorage.getItem("uxk-theme"); } catch (e) {} if (!t) t = s === "dark" ? "dark" : "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
@@ -152,19 +152,11 @@
 
         <ul class="how3 how3-open how3-soft">
           <li class="how3-card reveal">
-            <svg class="how3-art art-site" viewBox="0 0 300 240" aria-hidden="true">
-              <path class="ln dash" d="M150 50 H228 A12 12 0 0 1 240 62 V178 A12 12 0 0 1 228 190 H150" />
-              <path class="ln dash" d="M150 76 H240 M150 104 H216 M150 122 H196 M150 140 H162 A9 9 0 0 1 162 158 H150" />
-              <path class="fill draw" pathLength="1" d="M150 50 H72 A12 12 0 0 0 60 62 V178 A12 12 0 0 0 72 190 H150" style="--d:0.3s" />
-              <path class="ink draw" pathLength="1" d="M150 76 H60" style="--d:0.95s" />
-              <circle class="ink grow" cx="75" cy="63" r="3.5" style="--d:1.05s" />
-              <circle class="ink grow" cx="87" cy="63" r="3.5" style="--d:1.1s" />
-              <circle class="ink grow" cx="99" cy="63" r="3.5" style="--d:1.15s" />
-              <path class="ink draw" pathLength="1" d="M150 104 H84" style="--d:1.05s" />
-              <path class="ink draw" pathLength="1" d="M150 122 H104" style="--d:1.15s" />
-              <path class="ink draw" pathLength="1" d="M150 140 H138 A9 9 0 0 0 138 158 H150" style="--d:1.25s" />
-              <circle class="ln joint grow" cx="150" cy="50" r="6" style="--d:1.4s" />
-              <circle class="ln joint grow" cx="150" cy="190" r="6" style="--d:1.5s" />
+            <svg class="how3-art art-loop" viewBox="0 0 300 240" aria-hidden="true">
+              <circle class="ln dash" cx="150" cy="120" r="62" />
+              <path class="fill draw" pathLength="1" d="M150 58 A62 62 0 1 0 150 182 A62 62 0 1 0 150 58" style="--d:0.45s" />
+              <circle class="ln joint grow" cx="150" cy="58" r="10" style="--d:0.1s" />
+              <g class="pen"><circle cx="150" cy="120" r="62" fill="none" stroke="none" /><circle class="pen-dot" cx="150" cy="58" r="5" /></g>
             </svg>
             <h3>End to end</h3>
             <p>The same person designs and builds, so what you approve is what goes live. And after launch, your team updates the site on its own.</p>
