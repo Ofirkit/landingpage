@@ -1853,9 +1853,6 @@ html.menu-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .js body.v2 > .main-nav li { transform: none; filter: none; }
 }
-@media (min-width: 961px) {
-  .js body.v2 > .main-nav .nav-cta { display: none; } /* the header keeps its own "Let's talk" button here */
-}
 
 /* ----- Back to top (how-test and en, 2026-10-05, user). A small round button in the bottom end corner (left in
    Hebrew, right in English), shown only while scrolling up and only after ~2 screens, like the header coming
@@ -2134,4 +2131,9 @@ html.menu-open { overflow: hidden; }
   .hj-num { font-size: 56px; }
   .hj-step p { margin-top: 10px; font-size: var(--fs-body); }
   .hj-steps { margin-top: 12px; }
+}
+/* No "Let's talk" button in the header bar any more (2026-10-07, user): the full-screen menu's own button is the
+   menu's way to book at every width now, sized like the phone one (it was the header's small 14px pill on desktop) */
+@media (min-width: 961px) {
+  .js body.v2 > .main-nav .nav-cta .btn { min-height: 52px; padding: 14px 28px; font-size: var(--fs-body-lg); }
 }
