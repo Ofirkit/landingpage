@@ -14,7 +14,7 @@ A static landing page based on the design of [uxuikit.com](https://uxuikit.com/)
 
 All placeholders are in square brackets in `index.html`. Search for `[` to find them:
 
-- [ ] `[קישור ליומן]` (4×): booking link, used by every booking button (header, hero, packages, final CTA)
+- [x] Booking link: https://calendly.com/uxuikit/intro-call (filled in 2026-10-11, every booking button on all pages)
 - [ ] `[מייל]`: email address in the final CTA (`mailto:`)
 - [x] `[קישור]` (2×): YouTube channels UXUIKIT (`@uxuikit`) and Ophir Creates (`@ophircreates`), filled in on all pages
 - [ ] `[דומיין]` (2× per page): the site's address, in `og:url` and the share image `og:image` (`https://[דומיין]/assets/og-image.jpg`). Link previews need the full URL.
@@ -34,7 +34,9 @@ python3 -m http.server 8000
 
 - [x] Domain: **uxuikit.com** (2026-10-10), filled in `og:url`, `og:image` and the `hreflang` links on every page; `CNAME` holds it for GitHub Pages.
 - [x] **No `noindex` on the published pages** (user reminder). Done 2026-10-10: the new design is `index.html` (was `how-test.html`, now a redirect) and `en.html`, both indexable; the older design is kept as `v1.html` and `light.html`, both `noindex`.
-- [ ] Fill in the booking link, email and YouTube links above.
+- [x] Booking link, YouTube and footer social links filled in (2026-10-11). Email is only used on the old `v1.html` / `light.html` pages.
 - [ ] Test link previews (WhatsApp, LinkedIn post inspector) once the site is live.
 
 - `[קישור ללינקדאין]` / `[LinkedIn link]` and `[קישור לאינסטגרם]` / `[Instagram link]`: the footer social links on how-test.html and en.html (added 2026-10-06).
+
+- [x] Footer social links (2026-10-11): Instagram https://www.instagram.com/ophirkit, LinkedIn https://il.linkedin.com/in/ofirkitlaru
