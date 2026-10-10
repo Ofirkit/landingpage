@@ -33,7 +33,7 @@ python3 -m http.server 8000
 ## Before publishing
 
 - [ ] Replace `[דומיין]` with the real address (share image and `og:url`).
-- [ ] **Make sure the published page has no `<meta name="robots" content="noindex" />`** (user reminder). `index.html` has none; `light.html` and `how-test.html` carry it because they are experiments. If one of them becomes the live page, remove the tag, or fold it into `index.html` and delete the experiments.
+- [x] **No `noindex` on the published pages** (user reminder). Done 2026-10-10: the new design is `index.html` (was `how-test.html`, now a redirect) and `en.html`, both indexable; the older design is kept as `v1.html` and `light.html`, both `noindex`.
 - [ ] Fill in the booking link, email and YouTube links above.
 - [ ] Test link previews (WhatsApp, LinkedIn post inspector) once the site is live.
 
