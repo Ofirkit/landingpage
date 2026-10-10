@@ -32,7 +32,7 @@ python3 -m http.server 8000
 
 ## Before publishing
 
-- [ ] Replace `[דומיין]` with the real address (share image and `og:url`).
+- [x] Domain: **uxuikit.com** (2026-10-10), filled in `og:url`, `og:image` and the `hreflang` links on every page; `CNAME` holds it for GitHub Pages.
 - [x] **No `noindex` on the published pages** (user reminder). Done 2026-10-10: the new design is `index.html` (was `how-test.html`, now a redirect) and `en.html`, both indexable; the older design is kept as `v1.html` and `light.html`, both `noindex`.
 - [ ] Fill in the booking link, email and YouTube links above.
 - [ ] Test link previews (WhatsApp, LinkedIn post inspector) once the site is live.
