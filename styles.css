@@ -1603,6 +1603,15 @@ section[hidden] { display: none !important; }
 /* Grid: the pricing cards and the YouTube rows sit on the same edges as every other section */
 .v2 .p3-wrap { max-width: var(--container); }
 .v2 .p3-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* Side by side, the three cards share the grid's rows (subgrid), so a description that wraps one line longer
+   pushes every card's button down with it: buttons, facts and lists stay level at every width.
+   7 rows: name, price, description, button, facts, "כולל:", list (the badge is absolute) */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 1181px) {
+    .v2 .p3-grid { grid-template-rows: repeat(6, auto) 1fr; }
+    .v2 .p3-card { display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0; align-content: start; }
+  }
+}
 .v2 .ar-lower { align-self: stretch; }
 @media (max-width: 1180px) {
   .v2 .p3-grid { grid-template-columns: minmax(0, 1fr); } /* stacked: full width, like the other stacked cards */
