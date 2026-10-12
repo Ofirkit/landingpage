@@ -2440,3 +2440,14 @@ body.v2 .site-header .menu-toggle:focus-visible span:last-child { transform: tra
 .js body.v2 > .main-nav .menu-tools .lang-switch a:lang(he) { position: relative; top: -1px; }
 .js body.v2 > .main-nav .menu-tools .theme-toggle { width: 32px; height: 32px; }
 .js body.v2 > .main-nav .menu-tools .theme-toggle svg { width: 18px; height: 18px; }
+
+/* ----- No flash on load (2026-10-12, user: "when I refresh I see some content for a second and then it
+   disappears"). script.js runs at the end of the page, so for a moment the browser painted the menu's links,
+   language switch and theme button stacked in the header (the nav sits there in the markup until the script moves
+   it into the panel), and, when a refresh restored the scroll mid-page, the About statement and photo fully shown
+   before the reveal hid them. Each now starts in the state the script will put it in ----- */
+.js body.v2 .site-header .main-nav { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .js body.v2 .ar:not(.ar-on) .ar-content { visibility: hidden; }
+  .js body.v2 .statement-xl:not(.st-ready) .statement-text { visibility: hidden; }
+}

@@ -65,6 +65,8 @@ JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill
 
 **The panel's close button is a permanent minus (2026-10-12, user):** its two lines sit merged from the start and never animate (no more morph in on open or back to two lines on close, which "doesn't make sense"); clicking it just slides the panel out. Verified by tracking the two lines every 80–150ms through opening and closing: always 0px apart.
 
+**No flash on load (2026-10-12, user: content showed for a second on refresh, then disappeared):** `script.js` runs at the end of the page, so the browser first painted the menu's links, language switch and theme button stacked in the header (the nav sits there in the markup until the script moves it into the panel), and, when a refresh restored the scroll mid-page, the About statement/photo and the Statement fully shown before their animations hid them. Now CSS sets the first frame: `.js body.v2 .site-header .main-nav { display: none }`, and with motion allowed `.ar:not(.ar-on) .ar-content` and `.statement-xl:not(.st-ready) .statement-text` are `visibility: hidden` until the script marks them ready. Checked with the script held back: the header shows only the logo and menu icon; after it runs everything shows; under reduced motion nothing stays hidden. **Keep this in mind:** anything the script hides or moves on start needs its starting state in CSS too.
+
 ## 6a. Waiting on the user
 
 - **How I work card texts are uneven (2026-10-12):** card 1's description runs 4 lines at 1440, cards 2 and 3 run 2, so the row looks lopsided. The user is rewriting the copy; **remind them about it** and offer wording if asked (shorten card 1 or lengthen 2 and 3 to ~3 lines each, in both languages).
