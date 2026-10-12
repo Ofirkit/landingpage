@@ -2451,3 +2451,8 @@ body.v2 .site-header .menu-toggle:focus-visible span:last-child { transform: tra
   .js body.v2 .ar:not(.ar-on) .ar-content { visibility: hidden; }
   .js body.v2 .statement-xl:not(.st-ready) .statement-text { visibility: hidden; }
 }
+
+/* No tap highlight (2026-10-12, user: on Android a light-blue square flashed over the menu icon and the minus when
+   tapped). That's the mobile browser's default tap highlight; every control has its own feedback, and keyboard
+   focus keeps its :focus-visible outline */
+html { -webkit-tap-highlight-color: transparent; }
