@@ -549,7 +549,7 @@ figure, blockquote { margin: 0; }
 .ar-text .w.is-on { opacity: 1; filter: blur(0); }
 .ar-lower { display: flex; flex-direction: column; align-items: center; margin-top: 32px; } /* 32px between the statement and the photo once they meet (user) */
 /* The smaller paragraph (18px, user) in gray with the key phrases in full ink, then the CTA, then the YouTube links */
-.ar-sub { max-width: 640px; margin-top: clamp(56px, 6vw, 80px); font-size: 18px; line-height: 1.6; color: var(--text-muted); }
+.ar-sub { max-width: 640px; margin-top: clamp(56px, 6vw, 80px); font-size: var(--fs-body-lg); line-height: 1.6; color: var(--text-muted); }
 .ar-sub strong { font-weight: 400; color: var(--text); }
 .ar-cta { margin-top: 32px; }
 .ar .yt { margin-top: 48px; }
@@ -1657,7 +1657,7 @@ section[hidden] { display: none !important; }
   grid-template-areas: "title num" "text num" "list num" ". num" "out num";
   column-gap: 48px;
   min-height: clamp(440px, 60vh, 560px);
-  padding: 44px 48px 44px;
+  padding: 38px 36px 36px; /* the shared card padding (How I work, pricing) */
   color: var(--f-text);
   background: var(--f-bg);
   border-radius: var(--r-lg, 24px);
@@ -1768,7 +1768,7 @@ section[hidden] { display: none !important; }
   .pc-folder .pc-num { font-size: 96px; }
 }
 @media (max-width: 600px) {
-  .pc-folder .pc-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "text" "list" "." "out"; min-height: 380px; padding: 28px 24px 30px; }
+  .pc-folder .pc-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "title" "text" "list" "." "out"; min-height: 380px; padding: 28px 24px 32px; }
   .pc-folder .pc-tab { justify-content: center; padding-inline: 8px; }
   .pc-folder .pc-tab-l, .pc-folder .pc-num { display: none; }
   .pc-folder .pc-text { margin-top: 16px; font-size: var(--fs-body); }
@@ -1961,7 +1961,7 @@ html.menu-open { overflow: hidden; }
    Code."), at display size; the rest of the story moved to the paragraph under the photo (.ar-sub) ----- */
 .v2 .ar-text {
   max-width: 24ch; /* three balanced lines on desktop in both languages */
-  font-size: clamp(34px, 6vw, 88px);
+  font-size: clamp(28px, 5vw, 72px); /* below the hero headline (90px) on desktop and the section headings (34px) on phones */
   line-height: 1.08;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -2194,3 +2194,21 @@ html.menu-open { overflow: hidden; }
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat;
 }
+
+/* ----- Consistency pass 3 (2026-10-12, user: "fix everything") ----- */
+/* Header: the theme button gets the menu button's box (38px, hairline frame, faint fill) so the two read as a set;
+   both use the small-surface radius */
+.v2 .theme-toggle {
+  width: 38px;
+  height: 38px;
+  margin-inline-end: 8px;
+  opacity: 1;
+  background: rgba(var(--t-ink-rgb, 14, 18, 25), 0.04);
+  border-color: rgba(var(--t-ink-rgb, 14, 18, 25), 0.12);
+  border-radius: var(--r-md);
+}
+.v2 .theme-toggle:hover { border-color: rgba(var(--t-ink-rgb, 14, 18, 25), 0.28); }
+.v2 .menu-toggle { border-radius: var(--r-md); }
+/* Section intros wrap evenly, so no line ends with a word or two on its own */
+.v2 .section-sub,
+.v2 .p3-head p { text-wrap: balance; }
