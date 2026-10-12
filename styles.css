@@ -2148,5 +2148,49 @@ html.menu-open { overflow: hidden; }
 /* No "Let's talk" button in the header bar any more (2026-10-07, user): the full-screen menu's own button is the
    menu's way to book at every width now, sized like the phone one (it was the header's small 14px pill on desktop) */
 @media (min-width: 961px) {
-  .js body.v2 > .main-nav .nav-cta .btn { min-height: 52px; padding: 14px 28px; font-size: var(--fs-body-lg); }
+}
+
+/* ==========================================================
+   Consistency pass 2 (2026-10-12, user picked my suggestions): two button sizes and one icon style
+   ========================================================== */
+/* Buttons: large (54px, 17px text) for the main moments: hero, pricing cards, final CTA.
+   Regular (48px, 16px text) inside the flow: About, "צריכים משהו אחר?", the menu.
+   (Before: 54/17, 54/16, 52/17, 49/16 and 45/16.) */
+.v2 .btn-primary { min-height: 48px; padding-block: 0; padding-inline: 28px; font-size: var(--fs-body); }
+.v2 .btn-primary.btn-lg,
+.v2 .p3-card .btn.p3-btn { min-height: 54px; height: auto; padding-inline: 32px; font-size: var(--fs-body-lg); }
+.v2 .plans-other .btn { padding-block: 0; }
+/* Phones: every button that stands on its own is full width, like the hero's */
+@media (max-width: 600px) {
+  .v2 .ar-cta,
+  .v2 .contact .btn-lg,
+  .v2 .plans-other .btn { width: 100%; }
+  .v2 .contact .cta-actions { justify-self: stretch; } /* the panel is a centered grid, so the row shrank to the button */
+}
+
+/* Icons: one drawn line style, the pricing "+" (2px round strokes on a 24px grid), drawn as masks in the
+   current color. Fit's ✓ / ✕ and the FAQ's + were typed characters in different weights */
+.v2 .fit-list li::before {
+  content: "";
+  top: calc(16px + (1.65em - 17px) / 2); /* centred on the first line */
+  width: 17px;
+  height: 17px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.v2 .fit-yes li::before { color: var(--text); }
+.v2 .fit-no li::before {
+  color: var(--text-muted);
+  font-size: inherit;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6.5 6.5l11 11M17.5 6.5l-11 11'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6.5 6.5l11 11M17.5 6.5l-11 11'/%3E%3C/svg%3E");
+}
+.v2 .faq-item summary::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: var(--text);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat;
 }
