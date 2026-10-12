@@ -27,7 +27,7 @@
   <link id="font-en" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap" rel="stylesheet" />
   <script>(function () { var f = (location.search.match(/[?&]font=([\w-]+)/) || [])[1], m = { "inter-tight": "Inter+Tight", instrument: "Instrument+Sans", manrope: "Manrope" }; if (m[f]) { document.getElementById("font-en").href = "https://fonts.googleapis.com/css2?family=" + m[f] + ":wght@400;700&display=swap"; document.documentElement.classList.add("font-" + f); } })();</script>
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261012d" />
+  <link rel="stylesheet" href="styles.css?v=20261012g" />
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <link rel="stylesheet" href="tone.css?v=20261005d" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1], s; try { s = localStorage.getItem("uxk-theme"); } catch (e) {} if (!t) t = s === "dark" ? "dark" : "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
@@ -48,12 +48,22 @@
       </a>
 
       <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <button class="menu-close" type="button" aria-label="Close menu"><span></span><span></span></button>
         <ul>
           <li><a href="#how">How I work</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#packages">Pricing</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
+        <!-- Side-panel menu (2026-10-12, user's reference): a personal "let's talk" pill with the photo, then the social links -->
+        <div class="menu-foot">
+          <a class="menu-talk" href="https://calendly.com/uxuikit/intro-call" target="_blank" rel="noopener">
+            <img src="assets/ofir-portrait.webp" alt="" width="56" height="56" loading="lazy" decoding="async" />
+            <span class="menu-talk-text"><strong>Let’s talk</strong><span class="menu-talk-status"><span class="dot dot-green" aria-hidden="true"></span>Taking on new projects</span></span>
+          </a>
+          <ul class="menu-social"><li><a href="https://www.instagram.com/ophirkit" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle class="fill" cx="17.2" cy="6.8" r="1.1"/></svg></a></li><li><a href="https://il.linkedin.com/in/ofirkitlaru" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path d="M8.2 10.6v5.6M8.2 7.8v.01M11.8 16.2v-5.6M11.8 13.2c0-1.6 1-2.7 2.4-2.7s2.2.9 2.2 2.6v3.1"/></svg></a></li><li><a href="https://www.youtube.com/@uxuikit" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5.5" width="18.4" height="13" rx="4"/><path class="fill" d="M10.3 9.4v5.2l4.4-2.6z"/></svg></a></li></ul>
+        </div>
+      
       </nav>
 
       <div class="header-actions">
@@ -489,6 +499,6 @@
   <div class="bottom-blur" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
   <script src="assets/vendor/lenis.min.js?v=1.3.26" defer></script>
-  <script src="script.js?v=20261012a" defer></script>
+  <script src="script.js?v=20261012f" defer></script>
 </body>
 </html>

@@ -835,7 +835,7 @@ window.addEventListener("scroll", onScroll, { passive: true });
 window.addEventListener("resize", onScroll);
 
 // Nav links and CTA buttons: split into letters for the hover roll (each letter stacked with a copy)
-document.querySelectorAll(".main-nav a, .btn-primary").forEach((link) => {
+document.querySelectorAll(".main-nav > ul a, .btn-primary").forEach((link) => { // not the menu's photo pill or logos
   const text = link.textContent.trim();
   link.setAttribute("aria-label", text);
   const roll = document.createElement("span");
@@ -1005,16 +1005,27 @@ const nav = document.getElementById("main-nav");
 // one-by-one fade, and while it's open the page can't scroll (Lenis stopped, html overflow hidden) and the
 // page behind it is inert
 const fullMenu = document.body.classList.contains("v2");
+// Side panel (2026-10-12, user's reference): the panel slides in from the menu button's side and everything else,
+// header included, sits under a blur (.menu-scrim; a click on it closes the menu). The panel has its own close
+// button, placed where the header's menu button is so the icon seems to stay put. The cascade numbers the links,
+// the "let's talk" pill and the social row (.m-item, --i)
+const scrim = fullMenu ? document.createElement("div") : null;
+const closeBtn = nav.querySelector(".menu-close");
+let menuItems = [];
 if (fullMenu) {
   header.after(nav);
-  nav.querySelectorAll("li").forEach((li, i) => li.style.setProperty("--i", i));
+  scrim.className = "menu-scrim";
+  scrim.setAttribute("aria-hidden", "true");
+  nav.before(scrim);
+  menuItems = [...nav.querySelectorAll(":scope > ul > li, .menu-talk, .menu-social")];
+  menuItems.forEach((el, i) => { el.classList.add("m-item"); el.style.setProperty("--i", i); });
 }
 // Closing plays the cascade in reverse (user, 2026-10-05): the links leave from the last to the first
 // (.is-closing, each with --r = its place from the end), and only then does the overlay fade out and the page
 // unlock. A menu link waits for that too: its click is held, and once the menu is closed it's clicked again so
 // Lenis scrolls to the section as usual.
-const CLOSE_STEP = 90;   // ms between links leaving (matches the CSS)
-const CLOSE_LEAVE = 500; // ms each link takes to leave (matches the CSS)
+const CLOSE_STEP = 50;   // ms between items leaving (matches the CSS)
+const CLOSE_LEAVE = 300; // ms each item takes to leave (matches the CSS)
 let closeTimer = 0;
 let passThrough = false;
 const finishClose = () => {
@@ -1022,6 +1033,16 @@ const finishClose = () => {
   document.documentElement.classList.remove("menu-open");
   if (window.lenis) window.lenis.start();
   document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = false; });
+};
+// The panel's close button sits exactly over the header's menu button (same top, same distance from the edge)
+const placeClose = () => {
+  if (!closeBtn) return;
+  const r = toggle.getBoundingClientRect();
+  const box = scrim.getBoundingClientRect(); // the same box the panel is anchored to (no scrollbar gutter)
+  const fromEnd = document.documentElement.dir === "rtl" ? r.left - box.left : box.right - r.right;
+  const fits = fromEnd + r.width <= nav.offsetWidth - 8;
+  closeBtn.style.top = `${Math.max(0, r.top)}px`;
+  closeBtn.style.insetInlineEnd = fits ? `${fromEnd}px` : "";
 };
 const setMenu = (open, after) => {
   const isOpen = nav.classList.contains("is-open") && !nav.classList.contains("is-closing");
@@ -1034,22 +1055,26 @@ const setMenu = (open, after) => {
   header.classList.remove("is-hidden");
   if (open) {
     toTop?.classList.remove("is-shown");
+    placeClose();
     nav.classList.remove("is-closing");
     nav.classList.add("is-open");
     document.documentElement.classList.add("menu-open");
     if (window.lenis) window.lenis.stop();
-    document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = true; });
-    nav.querySelector("a")?.focus({ preventScroll: true });
+    document.querySelectorAll("main, .site-footer, .site-header").forEach((el) => { el.inert = true; });
+    nav.querySelector("ul a")?.focus({ preventScroll: true });
     return;
   }
+  header.inert = false;
   if (nav.contains(document.activeElement)) toggle.focus({ preventScroll: true });
-  const items = [...nav.querySelectorAll("li")].filter((li) => li.offsetParent !== null);
+  const items = menuItems.filter((el) => el.offsetParent !== null);
   items.forEach((li, i) => li.style.setProperty("--r", items.length - 1 - i));
   nav.classList.add("is-closing");
   const wait = reduceMotion ? 0 : CLOSE_STEP * (items.length - 1) + CLOSE_LEAVE;
   closeTimer = setTimeout(() => { finishClose(); if (after) after(); }, wait);
 };
 toggle.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
+closeBtn?.addEventListener("click", () => setMenu(false));
+scrim?.addEventListener("click", () => setMenu(false));
 header.addEventListener("focusin", () => header.classList.remove("is-hidden"));
 nav.addEventListener("click", (e) => {
   const a = e.target.closest("a");
