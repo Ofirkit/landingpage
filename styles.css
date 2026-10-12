@@ -1601,7 +1601,7 @@ section[hidden] { display: none !important; }
 .v2 .btn,
 .v2 .btn-sm,
 .v2 .p3-card .btn.p3-btn,
-.v2 .plans-other .btn { border-radius: var(--r-md); }
+.v2 .plans-other .btn { border-radius: 999px; } /* fully rounded (2026-10-12, user; was --r-md 12px) */
 .v2 .shot { border-radius: var(--r-md); }
 .v2 .cta-trail .ti img { border-radius: var(--r-md); }
 /* Grid: the pricing cards and the YouTube rows sit on the same edges as every other section */
@@ -2323,7 +2323,41 @@ body.v2 .site-header .theme-toggle:hover { background: rgba(var(--t-ink-rgb, 14,
   border-color: transparent;
   border-radius: var(--r-md);
 }
-.v2 .menu-toggle { border-radius: var(--r-md); }
+.v2 .menu-toggle { border-radius: 50%; }
 /* Section intros wrap evenly, so no line ends with a word or two on its own */
 .v2 .section-sub,
 .v2 .p3-head p { text-wrap: balance; }
+
+/* ----- Menu refinements (2026-10-12, user, after the reference) ----- */
+/* A more prominent menu icon: two 32px lines, 2.5px thick, in a 44px round tap area */
+.toned body.v2 .site-header .menu-toggle,
+body.v2 .site-header .menu-toggle { width: 44px; height: 44px; gap: 7px; padding: 0 6px; border-radius: 50%; }
+body.v2 .site-header .menu-toggle span { height: 2.5px; }
+body.v2 .site-header .theme-toggle { border-radius: 50%; }
+/* The panel's close button is the same two lines, which slide together into one: a minus, like the reference */
+.js body.v2 > .main-nav .menu-close { width: 44px; height: 44px; gap: 7px; padding: 0 6px; border-radius: 50%; }
+.js body.v2 > .main-nav .menu-close span { height: 2.5px; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.15s; }
+.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:first-child { transform: translateY(4.75px); }
+.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:last-child { transform: translateY(-4.75px); }
+/* Social logos: bolder strokes and a slightly larger glyph, 6px apart */
+.js body.v2 > .main-nav .menu-social { gap: 6px; }
+.menu-social svg { width: 22px; height: 22px; stroke-width: 2.2; }
+/* The pill's background moves: a blurred monochrome blend (lighter and darker slate) turning slowly behind the
+   photo and text, like the reference's colour blend */
+.menu-talk { position: relative; isolation: isolate; overflow: hidden; }
+.menu-talk::before {
+  content: "";
+  position: absolute;
+  inset: -120% -40%;
+  z-index: -1;
+  background: conic-gradient(from 0deg,
+    rgba(var(--m-rgb), 0.30), rgba(var(--m-rgb), 0.04) 22%, rgba(var(--m-rgb), 0.22) 45%,
+    rgba(var(--m-rgb), 0.02) 68%, rgba(var(--m-rgb), 0.26) 85%, rgba(var(--m-rgb), 0.30));
+  filter: blur(16px);
+  animation: talk-blend 9s linear infinite;
+  pointer-events: none;
+}
+@keyframes talk-blend { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) {
+  .menu-talk::before { animation: none; }
+}
