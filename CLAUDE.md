@@ -63,6 +63,8 @@ JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill
 
 **Menu, round 4 (2026-10-12, user):** (1) the hover lines stop **2px apart** (each moves 3.5px; at 5px they overlapped into a thick minus); (2) **the minus sits near the panel's edge** like the reference (24px; 12px on phones), level with the header icon but no longer over it; the top row mirrors it at 28px (16px on phones); (3) the top row is optically aligned: globe and moon are the same 18px full-strength line icon, the language links share a 32px box, and the Hebrew "עב" is lifted 1px (no tall letters, so it sat low next to "EN"); (4) **the pill's blend keeps its drama on the dark side** (near-black sweeps at 0.65–0.7) with the light tones capped (0.24, the drifting pool 0.12, the base sheen 0.1) and the status line at 0.86 of the ink: measured over 12 frames with the text hidden, the worst case is 6.2:1 for the title and 5.1:1 for the status line (dark mode; light mode 7.3 / 5.9), so both pass WCAG AA at every moment.
 
+**The panel's close button is a permanent minus (2026-10-12, user):** its two lines sit merged from the start and never animate (no more morph in on open or back to two lines on close, which "doesn't make sense"); clicking it just slides the panel out. Verified by tracking the two lines every 80–150ms through opening and closing: always 0px apart.
+
 ## 6a. Waiting on the user
 
 - **How I work card texts are uneven (2026-10-12):** card 1's description runs 4 lines at 1440, cards 2 and 3 run 2, so the row looks lopsided. The user is rewriting the copy; **remind them about it** and offer wording if asked (shorten card 1 or lengthen 2 and 3 to ~3 lines each, in both languages).

@@ -1859,8 +1859,6 @@ html.menu-open .menu-scrim { opacity: 1; visibility: visible; transition: opacit
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
 }
 /* the two lines turn into a × once the panel is in */
-.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:first-child { transform: translateY(4px) rotate(45deg); }
-.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:last-child { transform: translateY(-4px) rotate(-45deg); }
 .js body.v2 > .main-nav .menu-close:hover { background: rgba(var(--m-rgb), 0.08); }
 .js body.v2 > .main-nav > ul {
   display: flex;
@@ -2337,8 +2335,6 @@ body.v2 .site-header .theme-toggle { border-radius: 50%; }
 /* The panel's close button is the same two lines, which slide together into one: a minus, like the reference */
 .js body.v2 > .main-nav .menu-close { width: 44px; height: 44px; gap: 7px; padding: 0 6px; border-radius: 50%; }
 .js body.v2 > .main-nav .menu-close span { height: 2.5px; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.15s; }
-.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:first-child { transform: translateY(4.75px); }
-.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:last-child { transform: translateY(-4.75px); }
 /* Social logos: bolder strokes and a slightly larger glyph, 6px apart */
 .js body.v2 > .main-nav .menu-social { gap: 6px; }
 .menu-social svg { width: 22px; height: 22px; stroke-width: 2.2; }
@@ -2372,6 +2368,11 @@ body.v2 .site-header .menu-toggle,
 .js body.v2 > .main-nav .menu-close { width: 48px; height: 45px; gap: 9px; padding: 0 4px; border-radius: 0; }
 body.v2 .site-header .menu-toggle span,
 .js body.v2 > .main-nav .menu-close span { height: 3px; border-radius: 3px; }
+/* The close button is always a minus (2026-10-12, user): the two lines sit merged from the start and never
+   animate, so closing doesn't flash back to two lines; the panel just slides out with it */
+.js body.v2 > .main-nav .menu-close span { transition: none; }
+.js body.v2 > .main-nav .menu-close span:first-child { transform: translateY(6px); }
+.js body.v2 > .main-nav .menu-close span:last-child { transform: translateY(-6px); }
 body.v2 .site-header .menu-toggle span { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
 body.v2 .site-header .menu-toggle:hover,
 .js body.v2 > .main-nav .menu-close:hover { background: none; }
@@ -2379,8 +2380,6 @@ body.v2 .site-header .menu-toggle:hover span:first-child,
 body.v2 .site-header .menu-toggle:focus-visible span:first-child { transform: translateY(3.5px); }
 body.v2 .site-header .menu-toggle:hover span:last-child,
 body.v2 .site-header .menu-toggle:focus-visible span:last-child { transform: translateY(-3.5px); }
-.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:first-child { transform: translateY(6px); }
-.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:last-child { transform: translateY(-6px); }
 /* The panel's top row: language and theme on the start side, level with the minus on the end side */
 .js body.v2 > .main-nav .menu-tools {
   position: absolute;
