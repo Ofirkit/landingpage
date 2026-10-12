@@ -1061,22 +1061,33 @@ nav.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
 
 // Reveal on scroll
+// Elements that come into view together (a row of cards, the FAQ rows, the hero lines) appear one after
+// another in reading order, 80ms apart (capped, so a long batch doesn't drag). Once an element's fade is done,
+// its delay and the reveal classes come off: no blur layer stays behind, and its own hover transitions
+// (card borders, buttons) don't inherit the reveal's timing.
 const revealEls = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
+const REVEAL_STEP = 80, REVEAL_MAX = 6, REVEAL_TIME = 900;
+if ("IntersectionObserver" in window && !reduceMotion) {
   const io = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        io.unobserve(entry.target);
-      });
+      entries
+        .filter((e) => e.isIntersecting)
+        .map((e) => e.target)
+        .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+        .forEach((el, i) => {
+          const delay = Math.min(i, REVEAL_MAX) * REVEAL_STEP;
+          el.style.transitionDelay = `${delay}ms`;
+          el.classList.add("is-visible");
+          io.unobserve(el);
+          setTimeout(() => {
+            el.classList.remove("reveal", "is-visible");
+            el.style.transitionDelay = "";
+          }, delay + REVEAL_TIME + 100);
+        });
     },
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
   );
-  revealEls.forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 3) * 60}ms`;
-    io.observe(el);
-  });
+  revealEls.forEach((el) => io.observe(el));
 } else {
   revealEls.forEach((el) => el.classList.add("is-visible"));
 }

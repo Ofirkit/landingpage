@@ -1479,17 +1479,21 @@ section[hidden] { display: none !important; }
 /* ==========================================================
    Reveal on scroll (subtle)
    ========================================================== */
+/* A soft fade, a 16px rise and a 4px blur that clears as it arrives (the About reveal's language, much quieter).
+   script.js staggers elements that come into view together (80ms apart, in reading order) and drops the class
+   once the fade is done, so the blur layer goes and each element's own hover transitions are back */
 .js .reveal {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transform: translateY(16px);
+  filter: blur(4px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
 }
-.js .reveal.is-visible { opacity: 1; transform: none; }
+.js .reveal.is-visible { opacity: 1; transform: none; filter: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .js .reveal { opacity: 1; transform: none; }
+  .js .reveal { opacity: 1; transform: none; filter: none; }
   .pc-card { position: relative; top: auto; transform: none; }
   .pc-list { --stick: 0px; }
   .pc-card::after { display: none; }
