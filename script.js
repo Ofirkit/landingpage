@@ -1034,16 +1034,12 @@ const finishClose = () => {
   if (window.lenis) window.lenis.start();
   document.querySelectorAll("main, .site-footer").forEach((el) => { el.inert = false; });
 };
-// The panel's close button sits exactly over the header's menu button (same top, same distance from the edge)
+// The panel's minus sits level with the header's menu button, near the panel's edge like the reference (CSS)
 const placeClose = () => {
   if (!closeBtn) return;
   const r = toggle.getBoundingClientRect();
-  const box = scrim.getBoundingClientRect(); // the same box the panel is anchored to (no scrollbar gutter)
-  const fromEnd = document.documentElement.dir === "rtl" ? r.left - box.left : box.right - r.right;
-  const fits = fromEnd + r.width <= nav.offsetWidth - 8;
   closeBtn.style.top = `${Math.max(0, r.top)}px`;
   nav.style.setProperty("--bar-mid", `${Math.round(Math.max(0, r.top) + r.height / 2)}px`); // the panel's top row (language, theme) lines up with it
-  closeBtn.style.insetInlineEnd = fits ? `${fromEnd}px` : "";
 };
 const setMenu = (open, after) => {
   const isOpen = nav.classList.contains("is-open") && !nav.classList.contains("is-closing");
