@@ -1017,7 +1017,7 @@ if (fullMenu) {
   scrim.className = "menu-scrim";
   scrim.setAttribute("aria-hidden", "true");
   nav.before(scrim);
-  menuItems = [...nav.querySelectorAll(":scope > ul > li, .menu-talk, .menu-social")];
+  menuItems = [...nav.querySelectorAll(".menu-tools, :scope > ul > li, .menu-talk, .menu-social")];
   menuItems.forEach((el, i) => { el.classList.add("m-item"); el.style.setProperty("--i", i); });
 }
 // Closing plays the cascade in reverse (user, 2026-10-05): the links leave from the last to the first
@@ -1042,6 +1042,7 @@ const placeClose = () => {
   const fromEnd = document.documentElement.dir === "rtl" ? r.left - box.left : box.right - r.right;
   const fits = fromEnd + r.width <= nav.offsetWidth - 8;
   closeBtn.style.top = `${Math.max(0, r.top)}px`;
+  nav.style.setProperty("--bar-mid", `${Math.round(Math.max(0, r.top) + r.height / 2)}px`); // the panel's top row (language, theme) lines up with it
   closeBtn.style.insetInlineEnd = fits ? `${fromEnd}px` : "";
 };
 const setMenu = (open, after) => {
@@ -1079,7 +1080,7 @@ header.addEventListener("focusin", () => header.classList.remove("is-hidden"));
 nav.addEventListener("click", (e) => {
   const a = e.target.closest("a");
   if (!a || passThrough) return;
-  if (!fullMenu || a.target === "_blank") { setMenu(false); return; }
+  if (!fullMenu || a.target === "_blank" || !a.getAttribute("href").startsWith("#")) { setMenu(false); return; } // other pages (the language switch) and new tabs: just go
   e.preventDefault(); // close first, then follow the link
   setMenu(false, () => { passThrough = true; a.click(); passThrough = false; });
 });

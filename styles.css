@@ -2361,3 +2361,65 @@ body.v2 .site-header .theme-toggle { border-radius: 50%; }
 @media (prefers-reduced-motion: reduce) {
   .menu-talk::before { animation: none; }
 }
+
+/* ----- Header and menu, round 3 (2026-10-12, user) ----- */
+/* The header is just the logo and the menu icon; the language switch and the theme button moved into the panel.
+   The menu icon is bigger (a 48 × 45 area, two 40px lines, 3px thick, 9px apart) with no hover fill: on hover the
+   two lines slide towards each other until they almost meet (1px apart). The panel's minus is the same pair of lines
+   at the same size, merged into one */
+.toned body.v2 .site-header .menu-toggle,
+body.v2 .site-header .menu-toggle,
+.js body.v2 > .main-nav .menu-close { width: 48px; height: 45px; gap: 9px; padding: 0 4px; border-radius: 0; }
+body.v2 .site-header .menu-toggle span,
+.js body.v2 > .main-nav .menu-close span { height: 3px; border-radius: 3px; }
+body.v2 .site-header .menu-toggle span { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+body.v2 .site-header .menu-toggle:hover,
+.js body.v2 > .main-nav .menu-close:hover { background: none; }
+body.v2 .site-header .menu-toggle:hover span:first-child,
+body.v2 .site-header .menu-toggle:focus-visible span:first-child { transform: translateY(5px); }
+body.v2 .site-header .menu-toggle:hover span:last-child,
+body.v2 .site-header .menu-toggle:focus-visible span:last-child { transform: translateY(-5px); }
+.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:first-child { transform: translateY(6px); }
+.js body.v2 > .main-nav.is-open:not(.is-closing) .menu-close span:last-child { transform: translateY(-6px); }
+/* The panel's top row: language and theme on the start side, level with the minus on the end side */
+.js body.v2 > .main-nav .menu-tools {
+  position: absolute;
+  top: calc(var(--bar-mid, 42px) - 22px);
+  inset-inline-start: 32px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  color: var(--m-ink);
+}
+.js body.v2 > .main-nav .menu-tools .lang-switch { margin: 0; color: inherit; }
+.js body.v2 > .main-nav .menu-tools .lang-switch a { padding: 6px 5px; font-size: var(--fs-sm); color: inherit; }
+.js body.v2 > .main-nav .menu-tools .theme-toggle { margin: 0; color: inherit; background: none; border-color: transparent; border-radius: 50%; }
+.js body.v2 > .main-nav .menu-tools .theme-toggle:hover { background: rgba(var(--m-rgb), 0.1); }
+@media (max-width: 600px) {
+  .js body.v2 > .main-nav .menu-tools { inset-inline-start: var(--gutter); }
+}
+/* A more dramatic moving blend in the "let's talk" pill: a conic sweep from near-black to bright slate turns
+   every 6s, and a soft light pool drifts back and forth across it; the text gets a faint shadow to stay readable */
+.menu-talk::before {
+  background: conic-gradient(from 0deg,
+    rgba(var(--m-rgb), 0.55), rgba(0, 0, 0, 0.55) 16%, rgba(var(--m-rgb), 0.32) 32%, rgba(var(--m-rgb), 0.06) 48%,
+    rgba(var(--m-rgb), 0.6) 64%, rgba(0, 0, 0, 0.5) 82%, rgba(var(--m-rgb), 0.55));
+  filter: blur(12px);
+  animation-duration: 6s;
+}
+.menu-talk::after {
+  content: "";
+  position: absolute;
+  inset: -50% -20%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgba(var(--m-rgb), 0.42), transparent);
+  width: 60%;
+  animation: talk-pool 4.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes talk-pool { from { transform: translateX(-30%); } to { transform: translateX(150%); } }
+.menu-talk-text { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45); }
+@media (prefers-reduced-motion: reduce) {
+  .menu-talk::after { animation: none; }
+}
