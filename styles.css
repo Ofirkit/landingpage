@@ -574,7 +574,7 @@ figure, blockquote { margin: 0; }
   border-bottom: 1px solid var(--border);
 }
 .ytl-text { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; min-width: 0; }
-.ytl-name { font-size: var(--fs-h2); font-weight: 700; line-height: 1; letter-spacing: -0.04em; }
+.ytl-name { font-size: var(--fs-xl); font-weight: 700; line-height: 1; letter-spacing: -0.02em; } /* a step below the section headings (user, 2026-10-12) */
 .ytl-meta { font-size: var(--fs-body-lg); color: var(--text-muted); white-space: nowrap; }
 .ytl-go {
   flex: none;
@@ -1711,7 +1711,7 @@ section[hidden] { display: none !important; }
 .pc-folder .pc-tab-l { color: var(--f-muted); }
 [lang="en"] .pc-folder .pc-tab-l { text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-xs); }
 .pc-folder .pc-tab-n { font-weight: 700; font-variant-numeric: tabular-nums; }
-.pc-folder .pc-title { grid-area: title; font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.03em; }
+.pc-folder .pc-title { grid-area: title; font-size: var(--fs-xl); line-height: 1.08; letter-spacing: -0.02em; } /* a step below the section headings (user, 2026-10-12) */
 .pc-folder .pc-title-2,
 .pc-folder .pc-star { display: none; }
 /* what the step covers: the tags become a two-column list with small plus marks */
