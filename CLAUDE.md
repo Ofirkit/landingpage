@@ -69,9 +69,11 @@ JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill
 
 **No tap highlight (2026-10-12, user, Android screenshot: a light-blue square flashed over the menu icon and the minus when tapped):** `html { -webkit-tap-highlight-color: transparent; }`, site-wide (shared stylesheet). Keyboard focus keeps its `:focus-visible` outline.
 
+**Copy update, round 5 (2026-10-13, the user's copy, verbatim, both pages):** How I work card 1 is now "אני חוקר את העסק, הקהל והתחום שלכם, כדי שהאתר לא רק ייראה טוב, אלא גם יעבוד." / "I research your business, audience and field, so the site doesn’t just look good, it works." (also in the `?how=journey` step on index); Process step 01 ends with "בשיחה נעבור גם על מה שאני צריך מכם כדי להתחיל, ומתי." / "On the call, we’ll also go over what I need from you to get started, and when." (also the hidden `?process=current` accordion); a new FAQ "מה צריך להכין לפני שמתחילים?" / "What needs to be ready before we start?" after "כמה זמן לוקח פרויקט?" (11 questions now: logo, copy and images by the start date; 2 business days to comment on the structure and each design round). The testimonials heading, step 05 title and Statement line from that prompt were already in (round 4). Card text lines at 1440: Hebrew 2/2/2, English 2/3/3 (was 4/2/2 and 5/3/3); the Process cards keep their height.
+
 ## 6a. Waiting on the user
 
-- **How I work card texts are uneven (2026-10-12):** card 1's description runs 4 lines at 1440, cards 2 and 3 run 2, so the row looks lopsided. The user is rewriting the copy; **remind them about it** and offer wording if asked (shorten card 1 or lengthen 2 and 3 to ~3 lines each, in both languages).
+- (none right now; the How I work card texts were settled on 2026-10-13)
 
 ## 3. Design decisions
 
