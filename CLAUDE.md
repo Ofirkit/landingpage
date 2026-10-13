@@ -71,6 +71,8 @@ JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill
 
 **Copy update, round 5 (2026-10-13, the user's copy, verbatim, both pages):** How I work card 1 is now "אני חוקר את העסק, הקהל והתחום שלכם, כדי שהאתר לא רק ייראה טוב, אלא גם יעבוד." / "I research your business, audience and field, so the site doesn’t just look good, it works." (also in the `?how=journey` step on index); Process step 01 ends with "בשיחה נעבור גם על מה שאני צריך מכם כדי להתחיל, ומתי." / "On the call, we’ll also go over what I need from you to get started, and when." (also the hidden `?process=current` accordion); a new FAQ "מה צריך להכין לפני שמתחילים?" / "What needs to be ready before we start?" after "כמה זמן לוקח פרויקט?" (11 questions now: logo, copy and images by the start date; 2 business days to comment on the structure and each design round). The testimonials heading, step 05 title and Statement line from that prompt were already in (round 4). Card text lines at 1440: Hebrew 2/2/2, English 2/3/3 (was 4/2/2 and 5/3/3); the Process cards keep their height.
 
+**Landing package list, copy (2026-10-13, user, both pages):** the first item is "מחקר ואפיון לפני העיצוב" / "Design discovery: research and page structure" (was competitor research + wireframe), and "טופס לידים, אנליטיקס ו-SEO בסיסי" became "אנליטיקס ו-SEO בסיסי" / "Analytics and basic SEO" (no lead form). Text only.
+
 ## 6a. Waiting on the user
 
 - (none right now; the How I work card texts were settled on 2026-10-13)
