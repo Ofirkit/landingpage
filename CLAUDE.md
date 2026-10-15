@@ -73,7 +73,7 @@ JS (`script.js`): wall tile repeat → Lenis → headline rotator → About fill
 
 **Landing package list, copy (2026-10-13, user, both pages):** the first item is "מחקר ואפיון לפני העיצוב" / "Design discovery: research and page structure" (was competitor research + wireframe), and "טופס לידים, אנליטיקס ו-SEO בסיסי" became "אנליטיקס ו-SEO בסיסי" / "Analytics and basic SEO" (no lead form). Text only.
 
-**Hero subheading (2026-10-15, the user's copy, verbatim, both pages):** "היום אפשר לבנות אתר תוך דקות, ולכן אתרים רבים נבנים בלי מחשבה ומתחילים להיראות אותו דבר. אני חוקר, מעצב ובונה אתרים לסטארטאפים ולעסקים שרוצים לבלוט." / "You can build a website in minutes now, so many are built without much thought and start to blur together. I research, design and build sites for startups and businesses that want to stand out." (replaces the round-3 "AI-built websites…" line).
+**Hero subheading (2026-10-15, the user's copy, verbatim, both pages):** "היום אפשר לבנות אתר תוך דקות, ולכן אתרים רבים נבנים בלי מחשבה ומתחילים להיראות אותו דבר. אני חוקר, מעצב ובונה אתרים לסטארטאפים ולעסקים שרוצים לבלוט." / "Websites take minutes to build now, and it shows: many blur together. I research, design and build sites for startups and businesses that want to stand out." (replaces the round-3 "AI-built websites…" line).
 
 ## 6a. Waiting on the user
 
