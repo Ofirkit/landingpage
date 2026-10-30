@@ -1,0 +1,7 @@
+# uxuikit.com: every crawler, including AI search crawlers, may read the site.
+User-agent: *
+Allow: /
+Disallow: /v1.html
+Disallow: /light.html
+
+Sitemap: https://uxuikit.com/sitemap.xml
