@@ -2456,3 +2456,11 @@ body.v2 .site-header .menu-toggle:focus-visible span:last-child { transform: tra
    tapped). That's the mobile browser's default tap highlight; every control has its own feedback, and keyboard
    focus keeps its :focus-visible outline */
 html { -webkit-tap-highlight-color: transparent; }
+
+/* Problems I solve (2026-10-31, user): three situations clients arrive in, right after About.
+   Hairline-topped columns, not cards, so it doesn't read as a second card row before How I work. */
+.pains-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 48px); }
+.pains-item { padding-top: 24px; border-top: 1px solid var(--border-strong, var(--border)); }
+.pains-item h3 { font-size: 24px; line-height: 30px; letter-spacing: -0.01em; text-wrap: balance; }
+.pains-item p { margin-top: 12px; font-size: var(--fs-body); line-height: 24px; color: var(--text-muted); }
+@media (max-width: 960px) { .pains-list { grid-template-columns: 1fr; gap: 32px; } }
