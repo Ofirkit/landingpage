@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261031a" />
+  <link rel="stylesheet" href="styles.css?v=20261107a" />
   <!-- Light theme test page: same markup as index.html + light.css. Keep the two in sync while comparing. -->
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <!-- Tinted black-and-white scale. Cool (slate) is the user's pick and the default; ?tone=dark for the dark monochrome version, ?tone=warm and ?tone=neutral for comparison -->
@@ -84,29 +84,30 @@
       "makesOffer": [
         {
           "@type": "Offer",
-          "name": "דף נחיתה",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "minPrice": 7000,
-            "priceCurrency": "ILS"
+          "itemOffered": {
+            "@type": "Service",
+            "name": "דפי נחיתה"
           }
         },
         {
           "@type": "Offer",
-          "name": "אתר שיווקי מלא",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "minPrice": 17000,
-            "priceCurrency": "ILS"
+          "itemOffered": {
+            "@type": "Service",
+            "name": "אתרי תדמית ושיווק"
           }
         },
         {
           "@type": "Offer",
-          "name": "מ-Figma לאתר חי",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "minPrice": 3500,
-            "priceCurrency": "ILS"
+          "itemOffered": {
+            "@type": "Service",
+            "name": "מ-Figma לאתר חי"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "שדרוג ותחזוקה"
           }
         }
       ]
@@ -269,7 +270,7 @@
         <ul>
           <li><a href="#how">איך אני עובד</a></li>
           <li><a href="#testimonials">המלצות</a></li>
-          <li><a href="#packages">חבילות</a></li>
+          <li><a href="#services">שירותים</a></li>
           <li><a href="#faq">שאלות</a></li>
         </ul>
         <!-- Side-panel menu (2026-10-12, user's reference): a personal "let's talk" pill with the photo, then the social links -->
@@ -705,166 +706,53 @@
       </div>
     </section>
 
-    <!-- ===== Packages ===== -->
-    <!-- Pricing variant after the user's three-tier reference (default here); ?pricing=current shows the two-card version,
-         ?plancta=bottom moves the buttons to the bottom of the cards,
-         ?icons=arrow shows the reference's arrows instead of the plus icons in the lists -->
-    <section class="section packages p3" id="packages">
-      <div class="container p3-wrap">
-        <header class="section-head p3-head reveal">
-          <h2>חבילות</h2>
-          <p>שלוש נקודות פתיחה ברורות. את ההיקף המדויק נגדיר יחד בשיחה.</p>
-        </header>
-
-        <div class="p3-grid">
-          <article class="p3-card reveal">
-            <h3>דף נחיתה</h3>
-            <p class="p3-price"><span>החל מ-</span><strong>7,000 ₪</strong></p>
-            <p class="p3-desc">עמוד אחד ממוקד להשקה, לגיוס או לקמפיין, שמוביל את המבקרים לפעולה אחת ברורה.</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary p3-btn" target="_blank" rel="noopener">בואו נדבר</a>
-            <ul class="p3-facts">
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>עמוד אחד</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>באוויר תוך 3–4 שבועות</li>
-            </ul>
-            <p class="p3-label">כולל:</p>
-            <ul class="p3-list">
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>מחקר ואפיון לפני העיצוב</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>עיצוב מותאם ב-Figma, לא תבנית</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>בנייה ב-Framer או ב-Webflow</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>התאמה מלאה למובייל ולטאבלט</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>אנליטיקס ו-SEO בסיסי</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>סרטון הדרכה לעדכון טקסטים ותמונות</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 סבבי תיקונים לעיצוב ו-14 יום תמיכה</li>
-            </ul>
-          </article>
-          <article class="p3-card p3-featured reveal">
-            <span class="p3-badge">הכי משתלם</span>
-            <h3>אתר שיווקי מלא</h3>
-            <p class="p3-price"><span>החל מ-</span><strong>17,000 ₪</strong></p>
-            <p class="p3-desc">לעסק שצריך בית אמיתי ברשת: עמוד בית, עמודים פנימיים, ומבנה וניווט שמחזיקים לאורך זמן.</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary p3-btn" target="_blank" rel="noopener">בואו נדבר</a>
-            <ul class="p3-facts">
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>עד 5 עמודים</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>באוויר תוך 6–8 שבועות</li>
-            </ul>
-            <p class="p3-label">כולל:</p>
-            <ul class="p3-list">
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>כל מה שבדף הנחיתה</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>אפיון מבנה האתר והניווט</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>סרטון הדרכה מורחב: פוסטים ועמודים חדשים</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 סבבי תיקונים לעיצוב עמוד הבית, אחד לשאר, ו-14 יום תמיכה</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>עמוד נוסף: החל מ-2,800 ₪</li>
-            </ul>
-          </article>
-          <article class="p3-card reveal">
-            <h3>מ-Figma לאתר חי</h3>
-            <p class="p3-price"><span>החל מ-</span><strong>3,500 ₪</strong></p>
-            <p class="p3-desc">כבר יש לכם עיצוב ב-Figma? אבנה אותו לאתר חי ב-Framer או ב-Webflow, אחד לאחד.</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary p3-btn" target="_blank" rel="noopener">בואו נדבר</a>
-            <ul class="p3-facts">
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>עמוד אחד</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>באוויר תוך כשבוע</li>
-            </ul>
-            <p class="p3-label">כולל:</p>
-            <ul class="p3-list">
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>בנייה ב-Framer או ב-Webflow</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>מצבי מובייל וטאבלט</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>אנימציות, CMS ו-SEO בסיסי לפי הצורך</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>הערות UX לשיפור בדרך</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>סרטון הדרכה לעדכון טקסטים ותמונות</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>סבב תיקונים אחד להתאמות מובייל ואנימציות, ו-14 יום תמיכה</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>עמוד נוסף: החל מ-1,750 ₪</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="plans-other reveal">
-          <p><strong>צריכים משהו אחר?</strong> תחזוקה שוטפת, עמוד בודד או שדרוג לאתר קיים</p>
-          <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary" target="_blank" rel="noopener">בואו נדבר</a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Current pricing, kept for comparison: index.html?pricing=current shows it instead of the variant above -->
-    <section class="section packages" id="packages-current" hidden>
+    <!-- ===== Services (replaced the pricing on 2026-11-07, user) ===== -->
+    <section class="section svc" id="services">
       <div class="container">
-        <header class="packages-head reveal">
-          <h2>חבילות</h2>
+        <header class="section-head reveal">
+          <h2>שירותים</h2>
+          <p class="section-sub">את ההיקף המדויק נגדיר יחד בשיחת ההיכרות, ואחריה תקבלו הצעה מסודרת עם מחיר מראש.</p>
         </header>
 
-        <div class="plans">
-          <article class="plan reveal">
-            <h3>דף נחיתה</h3>
-            <p class="plan-for">להשקה, לגיוס או לקמפיין</p>
-            <ul class="plan-list">
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>שיחת התנעה: מטרות, קהל ומסר מרכזי</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>מבנה עמוד והיררכיית תוכן</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>עיצוב מותאם אישית ב-Figma (לא תבנית)</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>בנייה ב-Framer או ב-Webflow</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>התאמה מלאה למובייל, לטאבלט ולדסקטופ</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>אנימציות ומיקרו-אינטראקציות עדינות</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>טופס לידים וחיבור לאנליטיקס</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>SEO בסיסי: מטא, כותרות, תצוגת שיתוף ומפת אתר</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>חיבור דומיין והשקה</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>2 סבבי תיקונים</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>14 יום תמיכה אחרי ההשקה</li>
-            </ul>
-            <p class="plan-time">זמן משוער: 3–4 שבועות מקבלת החומרים</p>
-            <div class="plan-price">
-              <p><span class="plan-from">החל מ-</span> <strong>7,000 ₪</strong></p>
+        <ol class="svc-list">
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">01</span>
+            <h3 class="svc-name">דפי נחיתה</h3>
+            <div class="svc-body">
+              <p>עמוד אחד ממוקד להשקה, לגיוס או לקמפיין, שמוביל את המבקרים לפעולה אחת ברורה.</p>
+              <ul class="svc-tags" aria-label="מה כולל"><li>מחקר ואפיון</li><li>עיצוב מותאם ב-Figma</li><li>בנייה ב-Framer או ב-Webflow</li><li>מובייל וטאבלט</li><li>אנליטיקס ו-SEO בסיסי</li></ul>
             </div>
-            <p class="plan-extra" aria-hidden="true">&nbsp;</p><!-- empty line: keeps the price level with the other card -->
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary plan-btn" target="_blank" rel="noopener">בואו נדבר</a>
-            <p class="plan-note">שיחת היכרות של 20 דקות</p>
-          </article>
-          <article class="plan plan-featured reveal">
-            <h3>אתר שיווקי מלא</h3>
-            <p class="plan-for">לעסק שצריך בית אמיתי ברשת</p>
-            <p class="plan-lead">כל מה שבדף הנחיתה, ובנוסף:</p>
-            <ul class="plan-list">
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>אפיון מבנה האתר והניווט</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>עד 5 עמודים</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>סרטון הדרכה מורחב: פוסטים ועמודים חדשים</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>2 סבבי תיקונים לעמוד הבית וסבב אחד לשאר העמודים</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>14 יום תמיכה אחרי ההשקה</li>
-            </ul>
-            <p class="plan-time">זמן משוער: 6–8 שבועות מקבלת החומרים</p>
-            <div class="plan-price">
-              <p><span class="plan-from">החל מ-</span> <strong>17,000 ₪</strong></p>
+          </li>
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">02</span>
+            <h3 class="svc-name">אתרי תדמית ושיווק</h3>
+            <div class="svc-body">
+              <p>לעסק שצריך בית אמיתי ברשת: עמוד בית, עמודים פנימיים, ומבנה וניווט שמחזיקים לאורך זמן.</p>
+              <ul class="svc-tags" aria-label="מה כולל"><li>אפיון מבנה האתר והניווט</li><li>עיצוב מותאם, לא תבנית</li><li>CMS לפוסטים ועמודים</li><li>סרטון הדרכה מורחב</li></ul>
             </div>
-            <p class="plan-extra">עמוד נוסף: החל מ-2,800 ₪</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary plan-btn" target="_blank" rel="noopener">בואו נדבר</a>
-            <p class="plan-note">שיחת היכרות של 20 דקות</p>
-          </article>
-        </div>
+          </li>
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">03</span>
+            <h3 class="svc-name">מ-Figma לאתר חי</h3>
+            <div class="svc-body">
+              <p>כבר יש לכם עיצוב ב-Figma? אבנה אותו לאתר חי ב-Framer או ב-Webflow, אחד לאחד.</p>
+              <ul class="svc-tags" aria-label="מה כולל"><li>מצבי מובייל וטאבלט</li><li>אנימציות</li><li>CMS ו-SEO בסיסי</li><li>הערות UX לשיפור בדרך</li></ul>
+            </div>
+          </li>
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">04</span>
+            <h3 class="svc-name">שדרוג ותחזוקה</h3>
+            <div class="svc-body">
+              <p>כבר יש לכם אתר? אוסיף עמוד, אשדרג את מה שקיים או אלווה אתכם בתחזוקה שוטפת.</p>
+              <ul class="svc-tags" aria-label="מה כולל"><li>עמוד בודד</li><li>שדרוג לאתר קיים</li><li>תחזוקה שוטפת</li></ul>
+            </div>
+          </li>
+        </ol>
 
-        <!-- Secondary offer: a slimmer, lighter full-width block under the two main cards -->
-        <article class="plan plan-figma reveal">
-          <div class="plan-figma-body">
-            <h3>כבר יש לכם עיצוב ב-Figma?</h3>
-            <p class="plan-for">אבנה אותו לאתר חי ב-Framer או ב-Webflow, בדיוק לפי העיצוב.</p>
-            <ul class="plan-inline">
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>עמוד אחד (בדרך כלל עמוד הבית), כולל מצבי מובייל וטאבלט</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>אנימציות ו-CMS לפי הצורך, SEO בסיסי</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>הערות UX לשיפור בדרך</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>סבב תיקונים אחד להתאמות מובייל ואנימציות, ו-14 יום תמיכה</li>
-              <li><svg class="check" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg>זמן משוער: כשבוע מקבלת הקבצים</li>
-            </ul>
-          </div>
-          <div class="plan-figma-side">
-            <p class="plan-figma-price"><span class="plan-from">החל מ-</span> <strong>3,500 ₪</strong></p>
-            <p class="plan-extra">עמוד נוסף: החל מ-1,750 ₪</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary plan-btn" target="_blank" rel="noopener">בואו נדבר</a>
-          </div>
-        </article>
-
-        <!-- Not a card: one line and the same button as everywhere else -->
-        <div class="plans-other reveal">
-          <p><strong>צריכים משהו אחר?</strong> תחזוקה שוטפת, עמוד בודד או שדרוג לאתר קיים</p>
+        <div class="svc-other reveal">
+          <p><strong>לא בטוחים מה מתאים לכם?</strong> נבין את זה יחד בשיחה.</p>
           <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary" target="_blank" rel="noopener">בואו נדבר</a>
         </div>
-
       </div>
     </section>
 
@@ -1001,9 +889,6 @@
     if (/[?&]how=cards\b/.test(location.search)) { document.querySelector(".how3").classList.remove("how3-soft"); var h3l = document.querySelector(".how3"); h3l.classList.remove("how3-open"); if (!/[?&]white\b/.test(location.search)) h3l.classList.add("how3-black"); document.querySelector("#how .section-head").classList.remove("section-head-bare"); }
     if (/[?&]quote=dark\b/.test(location.search)) document.querySelector(".qt").classList.add("qt-dark");
     if (/[?&]cta=panel\b/.test(location.search)) document.querySelector("#contact").classList.remove("contact-full");
-    if (/[?&]pricing=current\b/.test(location.search)) { const a = document.querySelector(".p3"), b = document.querySelector("#packages-current"); a.hidden = true; a.id = "packages-variant"; b.hidden = false; b.id = "packages"; }
-    if (/[?&]plancta=bottom\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-cta-bottom");
-    if (/[?&]icons=arrow\b/.test(location.search)) document.querySelector(".p3").classList.add("p3-arrows");
     if (/[?&]pc=(flat|round)\b/.test(location.search)) { const pc = document.querySelector(".pc"); pc.classList.remove("pc-folder"); if (/[?&]pc=flat\b/.test(location.search)) pc.classList.add("pc-flat"); }
     if (/[?&]process=current\b/.test(location.search)) { const a = document.querySelector(".pc"), b = document.querySelector("#process-current"); a.remove(); b.hidden = false; b.id = "process"; }
     { const a1 = (location.search.match(/[?&]art1=(circle|site)\b/) || [])[1]; if (a1) { document.querySelector(".art-loop").hidden = true; document.querySelector(a1 === "circle" ? ".art-path" : ".art-site").hidden = false; } }

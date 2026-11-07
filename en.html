@@ -35,7 +35,7 @@
   <link id="font-en" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&display=swap" rel="stylesheet" />
   <script>(function () { var f = (location.search.match(/[?&]font=([\w-]+)/) || [])[1], m = { "inter-tight": "Inter+Tight", instrument: "Instrument+Sans", manrope: "Manrope" }; if (m[f]) { document.getElementById("font-en").href = "https://fonts.googleapis.com/css2?family=" + m[f] + ":wght@400;700&display=swap"; document.documentElement.classList.add("font-" + f); } })();</script>
   <link rel="stylesheet" href="assets/vendor/lenis.css?v=1.3.26" />
-  <link rel="stylesheet" href="styles.css?v=20261031a" />
+  <link rel="stylesheet" href="styles.css?v=20261107a" />
   <link rel="stylesheet" href="light.css?v=20261003y" />
   <link rel="stylesheet" href="tone.css?v=20261005d" />
   <script>(function () { var t = (location.search.match(/[?&]tone=(\w+)/) || [])[1], s; try { s = localStorage.getItem("uxk-theme"); } catch (e) {} if (!t) t = s === "dark" ? "dark" : "cool"; if (t !== "neutral") document.documentElement.classList.add("toned", "tone-" + (t === "warm" || t === "dark" ? t : "cool")); })();</script>
@@ -86,29 +86,30 @@
       "makesOffer": [
         {
           "@type": "Offer",
-          "name": "Landing page",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "minPrice": 2200,
-            "priceCurrency": "USD"
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Landing pages"
           }
         },
         {
           "@type": "Offer",
-          "name": "Full marketing site",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "minPrice": 5400,
-            "priceCurrency": "USD"
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Marketing websites"
           }
         },
         {
           "@type": "Offer",
-          "name": "Figma to live site",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "minPrice": 1100,
-            "priceCurrency": "USD"
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Figma to live site"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Upgrades and maintenance"
           }
         }
       ]
@@ -271,7 +272,7 @@
         <ul>
           <li><a href="#how">How I work</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#packages">Pricing</a></li>
+          <li><a href="#services">Services</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
         <!-- Side-panel menu (2026-10-12, user's reference): a personal "let's talk" pill with the photo, then the social links -->
@@ -535,81 +536,53 @@
       </div>
     </section>
 
-    <!-- ===== Pricing ===== -->
-    <section class="section packages p3" id="packages">
-      <div class="container p3-wrap">
-        <header class="section-head p3-head reveal">
-          <h2>Pricing</h2>
-          <p>Three clear starting points. We’ll define the exact scope together on a call.</p>
+    <!-- ===== Services (replaced the pricing on 2026-11-07, user) ===== -->
+    <section class="section svc" id="services">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2>Services</h2>
+          <p class="section-sub">We’ll define the exact scope together on the intro call, and you’ll then get a clear proposal with the price up front.</p>
         </header>
 
-        <div class="p3-grid">
-          <article class="p3-card reveal">
-            <h3>Landing page</h3>
-            <p class="p3-price"><span>From</span><strong>$2,200</strong></p>
-            <p class="p3-desc">One focused page for a launch, a fundraise or a campaign, leading visitors to one clear action.</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary p3-btn" target="_blank" rel="noopener">Let’s talk</a>
-            <ul class="p3-facts">
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>One page</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Live within 3–4 weeks</li>
-            </ul>
-            <p class="p3-label">Includes:</p>
-            <ul class="p3-list">
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Design discovery: research and page structure</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Custom design in Figma, not a template</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Built in Framer or Webflow</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Fully responsive for mobile and tablet</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Analytics and basic SEO</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>A recorded walkthrough for updating text and images</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 design revision rounds and 14 days of support</li>
-            </ul>
-          </article>
-          <article class="p3-card p3-featured reveal">
-            <span class="p3-badge">Best value</span>
-            <h3>Full marketing site</h3>
-            <p class="p3-price"><span>From</span><strong>$5,400</strong></p>
-            <p class="p3-desc">For a business that needs a real home online: inner pages and a structure that lasts.</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary p3-btn" target="_blank" rel="noopener">Let’s talk</a>
-            <ul class="p3-facts">
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>Up to 5 pages</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Live within 6–8 weeks</li>
-            </ul>
-            <p class="p3-label">Includes:</p>
-            <ul class="p3-list">
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Everything in the landing page</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Site structure and navigation planning</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>An extended recorded walkthrough: posts and new pages</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>2 design revision rounds for the home page, 1 for the rest, and 14 days of support</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Extra page: from $900</li>
-            </ul>
-          </article>
-          <article class="p3-card reveal">
-            <h3>Figma to live site</h3>
-            <p class="p3-price"><span>From</span><strong>$1,100</strong></p>
-            <p class="p3-desc">Have a Figma design? I’ll build it as a live site in Framer or Webflow, one to one.</p>
-            <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary p3-btn" target="_blank" rel="noopener">Let’s talk</a>
-            <ul class="p3-facts">
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>One page</li>
-              <li><svg class="p3-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Live in about a week</li>
-            </ul>
-            <p class="p3-label">Includes:</p>
-            <ul class="p3-list">
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Built in Framer or Webflow</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Mobile and tablet layouts</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Animations, CMS and basic SEO as needed</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>UX notes for improvements along the way</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>A recorded walkthrough for updating text and images</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>1 revision round for mobile layouts and animations, and 14 days of support</li>
-              <li><svg class="p3-arrow" viewBox="0 0 24 24" aria-hidden="true"><path class="i-arrow" d="M7 7h10v10M7 17 17 7"/><path class="i-plus" d="M12 5v14M5 12h14"/></svg>Extra page: from $550</li>
-            </ul>
-          </article>
-        </div>
+        <ol class="svc-list">
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">01</span>
+            <h3 class="svc-name">Landing pages</h3>
+            <div class="svc-body">
+              <p>One focused page for a launch, a fundraise or a campaign, leading visitors to one clear action.</p>
+              <ul class="svc-tags" aria-label="Includes"><li>Research and page structure</li><li>Custom design in Figma</li><li>Built in Framer or Webflow</li><li>Mobile and tablet</li><li>Analytics and basic SEO</li></ul>
+            </div>
+          </li>
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">02</span>
+            <h3 class="svc-name">Marketing websites</h3>
+            <div class="svc-body">
+              <p>For a business that needs a real home online: a home page, inner pages, and a structure and navigation that hold up over time.</p>
+              <ul class="svc-tags" aria-label="Includes"><li>Site structure and navigation</li><li>Custom design, not a template</li><li>CMS for posts and pages</li><li>An extended recorded walkthrough</li></ul>
+            </div>
+          </li>
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">03</span>
+            <h3 class="svc-name">Figma to live site</h3>
+            <div class="svc-body">
+              <p>Already have a design in Figma? I’ll build it into a live site in Framer or Webflow, one to one.</p>
+              <ul class="svc-tags" aria-label="Includes"><li>Mobile and tablet layouts</li><li>Animations</li><li>CMS and basic SEO</li><li>UX notes along the way</li></ul>
+            </div>
+          </li>
+          <li class="svc-item reveal">
+            <span class="svc-num" aria-hidden="true">04</span>
+            <h3 class="svc-name">Upgrades and maintenance</h3>
+            <div class="svc-body">
+              <p>Already have a site? I’ll add a page, upgrade what’s there or support you with ongoing maintenance.</p>
+              <ul class="svc-tags" aria-label="Includes"><li>A single page</li><li>Upgrading an existing site</li><li>Ongoing maintenance</li></ul>
+            </div>
+          </li>
+        </ol>
 
-        <div class="plans-other reveal">
-          <p><strong>Need something else?</strong> Ongoing maintenance, a single page or an upgrade to an existing site</p>
+        <div class="svc-other reveal">
+          <p><strong>Not sure what fits?</strong> We’ll figure it out together on a call.</p>
           <a href="https://calendly.com/uxuikit/intro-call" class="btn btn-primary" target="_blank" rel="noopener">Let’s talk</a>
         </div>
-
       </div>
     </section>
 

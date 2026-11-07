@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Regenerate the JSON-LD block in index.html and en.html.
 
-Run after changing the FAQ, prices or social links:
+Run after changing the FAQ, services or social links:
     python3 tools/build-schema.py
 
 The FAQ answers are read from each page's own <details class="faq-item">
-markup, so the structured data always matches the visible text. Prices and
-links live in PAGES below; keep them in step with the pricing cards.
+markup, so the structured data always matches the visible text. Services and
+links live in PAGES below; keep them in step with the services list.
 """
 import html
 import json
@@ -28,16 +28,14 @@ PAGES = {
         "lang": "he",
         "person": "אופיר",
         "job": "מעצב ומפתח אתרים",
-        "currency": "ILS",
-        "offers": [("דף נחיתה", 7000), ("אתר שיווקי מלא", 17000), ("מ-Figma לאתר חי", 3500)],
+        "services": ["דפי נחיתה", "אתרי תדמית ושיווק", "מ-Figma לאתר חי", "שדרוג ותחזוקה"],
     },
     "en.html": {
         "url": SITE + "en.html",
         "lang": "en",
         "person": "Ophir",
         "job": "Website designer and developer",
-        "currency": "USD",
-        "offers": [("Landing page", 2200), ("Full marketing site", 5400), ("Figma to live site", 1100)],
+        "services": ["Landing pages", "Marketing websites", "Figma to live site", "Upgrades and maintenance"],
     },
 }
 
@@ -79,16 +77,8 @@ def build(page: str, cfg: dict) -> str:
             "sameAs": SAME_AS,
             "knowsAbout": ["Website design", "Web development", "Figma", "Framer", "Webflow"],
             "makesOffer": [
-                {
-                    "@type": "Offer",
-                    "name": name,
-                    "priceSpecification": {
-                        "@type": "PriceSpecification",
-                        "minPrice": price,
-                        "priceCurrency": cfg["currency"],
-                    },
-                }
-                for name, price in cfg["offers"]
+                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": name}}
+                for name in cfg["services"]
             ],
         },
         {
